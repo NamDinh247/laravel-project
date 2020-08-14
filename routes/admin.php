@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/admin/home', 'Admin\AdminController@home');
+Route::match('GET', '/login', 'Admin\AdminController@login');
 
 
 

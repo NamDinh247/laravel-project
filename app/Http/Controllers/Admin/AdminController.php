@@ -12,5 +12,7 @@ class AdminController extends Controller
     public function home(){
         return view('admin.layout_admin_master');
     }
-
+    public function login(){
+        return view('admin.login_admin');
+    }
 }
