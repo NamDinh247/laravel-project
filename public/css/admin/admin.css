@@ -1,0 +1,11 @@
+#aside-nav-left .info a{
+    font-size: 20px;
+    font-weight: bold;
+}
+.title_user:hover{
+    color: #fff;
+    text-decoration: none;
+}
+.nav-link {
+    margin: .8rem 1rem !important;
+}
