@@ -12,8 +12,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/login', 'Admin\AdminController@login');
+
 Route::get('/admin/home', 'Admin\AdminController@home');
-Route::match('GET', '/login', 'Admin\AdminController@login');
+
+Route::get('/admin/account', 'Admin\AdminController@accountManagement');
+
 
 
 
