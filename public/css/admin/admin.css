@@ -9,3 +9,11 @@
 .nav-link {
     margin: .8rem 1rem !important;
 }
+.donut-inner {
+    margin-top: -135px;
+    margin-bottom: 100px;
+    margin-left: 220px;
+}
+.donut-inner span {
+    font-size: 36px;
+}

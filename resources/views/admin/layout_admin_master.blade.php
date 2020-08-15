@@ -40,13 +40,12 @@
         </div>
         @include('admin.include.footer')
     </div>
-    
+
     <script src="/Admin/plugins/jquery/jquery.min.js"></script>
     <script src="/Admin/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/Admin/plugins/chart.js/Chart.min.js"></script>
     <script src="/Admin/plugins/sparklines/sparkline.js"></script>
-    <script src="/Admin/plugins/jquery-knob/jquery.knob.min.js"></script>
     <script src="/Admin/plugins/moment/moment.min.js"></script>
     <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="/Admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
