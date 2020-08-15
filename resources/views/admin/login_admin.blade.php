@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/img/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/Admin/plugins/fontawesome-free/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/Admin/plugins/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="/css/frontend/util_login.css">
     <link rel="stylesheet" type="text/css" href="css/frontend/main_login.css">
 </head>
@@ -31,8 +31,8 @@
                     <input class="input100" type="password" name="pass" placeholder="Password">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
                 </div>
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn">Login</button>
