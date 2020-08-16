@@ -18,6 +18,8 @@ Route::get('/admin/home', 'Admin\AdminController@home');
 
 Route::get('/admin/account', 'Admin\AdminController@accountManagement');
 
+Route::get('/admin/account/new', 'Admin\AdminController@newAccount');
+
 
 
 

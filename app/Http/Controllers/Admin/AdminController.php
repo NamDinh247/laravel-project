@@ -18,4 +18,7 @@ class AdminController extends Controller
     public function accountManagement(){
         return view('admin.account');
     }
+    public function newAccount(){
+        return view('admin.newAccount');
+    }
 }
