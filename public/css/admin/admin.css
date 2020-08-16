@@ -145,3 +145,9 @@
     height: 32px !important;
     background-color: #fff !important;
 }
+.gobacklist {
+    font-size: 16px !important;
+}
+.gobacklist:hover{
+    text-decoration: none;
+}

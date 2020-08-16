@@ -20,6 +20,4 @@ Route::get('/admin/account', 'Admin\AdminController@accountManagement');
 
 Route::get('/admin/account/new', 'Admin\AdminController@newAccount');
 
-
-
-
+Route::get('/admin/account/detail', 'Admin\AdminController@detailAccount');

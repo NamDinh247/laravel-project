@@ -52,8 +52,15 @@
                                 <label>Kiểm chứng</label>
                                 <input type="password" class="form-control" id="password2" placeholder="Nhập lại mật khẩu">
                             </div>
+                            <div class="form-group col-md-6">
+                                <label>Trạng thái</label>
+                                <select id="status" class="form-control">
+                                    <option value="active">Hoạt động</option>
+                                    <option value="inactive">Không hoạt động</option>
+                                </select>
+                            </div>
                             {{-- show --}}
-                            <div class="form-group col-md-6 d-none">
+                            <div class="form-group content-bottom-detail col-md-6 d-none">
                                 <label>Loại sản phẩm</label>
                                 <select id="type-product" class="form-control">
                                     <option value="">Chọn loại sản phẩm</option>
@@ -65,24 +72,24 @@
                                     <option value="other">Khác</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-6 d-none">
+                            <div class="form-group content-bottom-detail col-md-6 d-none">
                                 <label>Địa chỉ</label>
                                 <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ">
                             </div>
-                            <div class="form-group col-md-6 d-none">
+                            <div class="form-group content-bottom-detail col-md-6 d-none">
                                 <label>Số tài khoản ngân hàng</label>
                                 <input type="text" class="form-control" id="number_bank" placeholder="Nhập số tài khoản">
                             </div>
-                            <div class="form-group col-md-6 d-none">
+                            <div class="form-group content-bottom-detail col-md-6 d-none">
                                 <label>Ngân hàng</label>
                                 <input type="text" class="form-control" id="bank" placeholder="Nhập tên ngân hàng">
                             </div>
-                            <div class="form-group col-md-12 d-none">
+                            <div class="form-group col-md-12">
                                 <label>Ghi chú</label>
                                 <textarea type="text" class="form-control" id="address" placeholder="Nhập ghi chú" style="resize: vertical;"></textarea>
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
+                            <div class="form-group col-md-12">
+                                <div class="col-md-6 p-0">
                                     <button class="btn btn-lg btn-success" type="submit"><i class="fa fa-save"></i>&nbsp; Lưu</button>
                                 </div>
                             </div>
@@ -93,8 +100,7 @@
         </div>
     </div>
 @endsection
-
 @section('main-script')
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/js/newAccount.js"></script>
+    <script src="/js/detailAccount.js"></script>
 @endsection

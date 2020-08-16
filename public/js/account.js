@@ -46,3 +46,6 @@ $(document).ready(function() {
     $('#menu_filter .nav-link').removeClass('active');
     $('.user_filter').addClass('active');
 });
+function showModalDeleteAccount(e) {
+    $('#modal-delete-account').modal('show');
+}

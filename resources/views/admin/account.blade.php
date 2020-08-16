@@ -41,7 +41,7 @@
                                     <input type="checkbox" class="form-check-input" id="check-th">
                                     <label class="form-check-label" for="check-th"></label>
                                 </th>
-                                <th class="ver-middle">Ảnh đai diện</th>
+                                <th class="text-xl-center ver-middle">Ảnh đai diện</th>
                                 <th class="ver-middle">Tên tài khoản</th>
                                 <th class="ver-middle">Loại tài khoản</th>
                                 <th class="ver-middle">Trạng thái</th>
@@ -51,8 +51,8 @@
                         <tbody>
                             <tr>
                                 <td class="text-xl-center ver-middle">
-                                    <input type="checkbox" class="form-check-input" id="check-2">
-                                    <label class="form-check-label" for="check-2"></label>
+                                    <input type="checkbox" class="form-check-input" id="check-1">
+                                    <label class="form-check-label" for="check-1"></label>
                                 </td>
                                 <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="admin" title="admin" style="width: 4rem;height: 4rem;"></td>
                                 <td class="ver-middle">Admin</td>
@@ -63,16 +63,30 @@
                             </tr>
                             <tr>
                                 <td class="text-xl-center ver-middle">
-                                    <input type="checkbox" class="form-check-input" id="check-3">
-                                    <label class="form-check-label" for="check-3"></label>
+                                    <input type="checkbox" class="form-check-input" id="check-2">
+                                    <label class="form-check-label" for="check-2"></label>
                                 </td>
                                 <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 4rem;height: 4rem;"></td>
                                 <td class="ver-middle">Tái chế xanh</td>
                                 <td class="ver-middle">CỬa hàng</td>
                                 <td class="ver-middle">Hoạt động</td>
                                 <td class="text-xl-right ver-middle">
-                                    <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</button>
-                                    <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
+                                    <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
+                                    <button type="button" class="btn btn-sm btn-danger" value="2" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-xl-center ver-middle">
+                                    <input type="checkbox" class="form-check-input" id="check-3">
+                                    <label class="form-check-label" for="check-3"></label>
+                                </td>
+                                <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 4rem;height: 4rem;"></td>
+                                <td class="ver-middle">Siêu tái chế</td>
+                                <td class="ver-middle">Người dùng</td>
+                                <td class="ver-middle">Hoạt động</td>
+                                <td class="text-xl-right ver-middle">
+                                    <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
+                                    <button type="button" class="btn btn-sm btn-danger" value="3" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
                                 </td>
                             </tr>
                             <tr>
@@ -81,26 +95,12 @@
                                     <label class="form-check-label" for="check-4"></label>
                                 </td>
                                 <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 4rem;height: 4rem;"></td>
-                                <td class="ver-middle">Siêu tái chế</td>
-                                <td class="ver-middle">Người dùng</td>
-                                <td class="ver-middle">Hoạt động</td>
-                                <td class="text-xl-right ver-middle">
-                                    <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</button>
-                                    <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-xl-center ver-middle">
-                                    <input type="checkbox" class="form-check-input" id="check-5">
-                                    <label class="form-check-label" for="check-5"></label>
-                                </td>
-                                <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 4rem;height: 4rem;"></td>
                                 <td class="ver-middle">cr7</td>
                                 <td class="ver-middle">Người dùng</td>
                                 <td class="ver-middle">Hoạt động</td>
                                 <td class="text-xl-right ver-middle">
-                                    <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</button>
-                                    <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
+                                    <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
+                                    <button type="button" class="btn btn-sm btn-danger" value="4" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
                                 </td>
                             </tr>
                             <tr>
@@ -113,8 +113,8 @@
                                 <td class="ver-middle">Người dùng</td>
                                 <td class="ver-middle">Không hoạt động</td>
                                 <td class="text-xl-right ver-middle">
-                                    <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</button>
-                                    <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
+                                    <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
+                                    <button type="button" class="btn btn-sm btn-danger" value="5" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -146,7 +146,28 @@
         </div>
     </div>
 @endsection
-
+@section('modal')
+    <!-- Modal -->
+    <div class="modal fade" id="modal-delete-account">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #20c997;color: #fff;">
+                    <h5 class="modal-title" id="exampleModalLabel">Xoá tài khoản</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">Bạn có muốn xoá tài khoản này?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Huỷ</button>
+                    <button id="delete_account" type="button" class="btn btn-sm btn-success"><i class="fa fa-check"></i>&nbsp; Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@stop
 @section('main-script')
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
