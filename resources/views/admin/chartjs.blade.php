@@ -28,17 +28,17 @@
         </div>
     </div>
     <hr>
-    <div style="width: 100%">
+    <div class="col-md-6" style="width: 100%">
         <h2 style="padding-bottom: 50px">Doanh thu thuần</h2>
         <canvas id="myChart4"></canvas>
     </div>
     <hr>
-    <div style="width: 100%">
+    <div class="col-md-6" style="width: 100%">
         <h2 style="padding-bottom: 50px">Doanh thu theo dòng hàng</h2>
         <canvas id="myChart5"></canvas>
     </div>
     <hr>
-    <div style="width: 100%">
+    <div class="col-md-6" style="width: 100%">
         <h2 style="padding-bottom: 50px">Top 10 đơn hàng có tổng giá trị cao nhất</h2>
         <canvas id="myChart6"></canvas>
     </div>
