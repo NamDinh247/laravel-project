@@ -14,7 +14,6 @@ $(document).ready(function() {
         "firstDay": 1
     };
     $(document).on('click', '#check-th', function (event) {
-        console.log($(this).prop('checked'))
         $('.form-check-input').prop('checked', $(this).prop('checked'));
     });
 

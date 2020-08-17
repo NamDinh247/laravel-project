@@ -10,9 +10,9 @@
         <div class="col-12">
             <div class="content-table bg-white">
                 <div class="card-header bg-white position-relative border-0">
-                    <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách tài khoản</h4>
-                    <div class="breadcrumb">
-                        <div class="input-group input-group-sm" style="width: 200px;">
+                    <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách danh mục</h4>
+                    <div class="breadcrumb mr-1">
+                        <div class="input-group input-group-sm mr-1" style="width: 200px;">
                             <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm" style="border-radius: 0 !important;">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default" style="border: 1px solid #ced4da; border-radius: 0 !important;"><i class="fas fa-search"></i></button>
@@ -31,7 +31,12 @@
                             </th>
                             <th class="ver-middle">Tên danh mục</th>
                             <th class="ver-middle">Ghi chú</th>
-                            <th class="ver-middle"></th>
+                            <th class="text-xl-right ver-middle clearfix">
+                                <select id="select_bulkaction" class="form-control float-right">
+                                    <option value="">Thao tác nhiều</option>
+                                    <option value="delete">Xoá</option>
+                                </select>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -126,7 +131,7 @@
 @endsection
 @section('modal')
     <!-- Modal -->
-    <div class="modal fade" id="modal-delete-account">
+    <div class="modal fade" id="modal-delete-category">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #20c997;color: #fff;">
