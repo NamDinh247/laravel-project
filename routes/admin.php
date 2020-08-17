@@ -46,6 +46,8 @@ Route::get('/admin/orders/detail', 'Admin\AdminController@detailOrders');
 // posts
 Route::get('/admin/posts', 'Admin\AdminController@listPosts');
 
+Route::get('/admin/index','Admin\AdminController@index');
+
 Route::get('/admin/posts/new', 'Admin\AdminController@newPosts');
 
 Route::get('/admin/posts/detail', 'Admin\AdminController@detailPosts');

@@ -41,7 +41,9 @@
             </section>
         </div>
     </div>
+
     @yield('modal')
+
     <script src="/Admin/plugins/jquery/jquery.min.js"></script>
     <script src="/Admin/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

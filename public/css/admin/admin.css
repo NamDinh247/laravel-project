@@ -151,3 +151,11 @@
 .gobacklist:hover{
     text-decoration: none;
 }
+.donut-inner {
+    margin-top: -105px;
+    margin-bottom: 100px;
+    margin-left: 150px;
+}
+.donut-inner span {
+    font-size: 36px;
+}
