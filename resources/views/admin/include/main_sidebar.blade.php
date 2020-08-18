@@ -1,4 +1,8 @@
-<aside class="main-sidebar sidebar-light-primary elevation-4" id="aside-nav-left">
+<aside class="main-sidebar sidebar-dark-teal elevation-4" id="aside-nav-left">
+    <a href="index3.html" class="brand-link navbar-teal">
+        <img src="/img/favicon-32x32.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8;background-color: #fff;">
+        <span class="brand-text font-weight-dark">Recycling</span>
+    </a>
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
@@ -11,48 +15,41 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-legacy" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-header">Danh mục</li>
+            <ul id="menu_filter" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active" onclick="activeFilter(this)">
+                    <a href="/admin/dashboard" class="nav-link dashboard_filter active" onclick="activeFilter(this)">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Bảng điều khiển</p>
+                        <p>Doanh thu</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="activeFilter(this)">
+                    <a href="/admin/account" class="nav-link user_filter" onclick="activeFilter(this)">
                         <i class="nav-icon fa fa-users"></i>
-                        <p>Quản lý người dùng</p>
+                        <p>Tài khoản</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="activeFilter(this)">
-                        <i class="nav-icon fa fa-rss"></i>
-                        <p>Quản lý tin tức</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-{{--                    <a href="{!! route('cate.list') !!}" class="nav-link" onclick="activeFilter(this)">--}}
-                        <i class="nav-icon fa fa-tags"></i>
-                        <p>Quản lý danh mục</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-{{--                    <a href="{!! route('product.list') !!}" class="nav-link" onclick="activeFilter(this)">--}}
+                    <a href="/admin/category" class="nav-link category_filter" onclick="activeFilter(this)">
                         <i class="nav-icon fa fa-list"></i>
-                        <p>Quản lý sản phẩm</p>
+                        <p>Danh mục</p>
                     </a>
                 </li>
                 <li class="nav-item">
-{{--                    <a href="{!! route('order.list') !!}" class="nav-link" onclick="activeFilter(this)">--}}
+                    <a href="/admin/product" class="nav-link product_filter" onclick="activeFilter(this)">
+                        <i class="nav-icon fa fa-tags"></i>
+                        <p>Sản phẩm</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/orders" class="nav-link orders_filter" onclick="activeFilter(this)">
                         <i class="nav-icon fa fa-file"></i>
                         <p>Đơn hàng</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" onclick="activeFilter(this)">
+                    <a href="/admin/posts" class="nav-link posts_filter" onclick="activeFilter(this)">
                         <i class="nav-icon fa fa-comments"></i>
-                        <p>Phản hồi khách hàng</p>
+                        <p>Bài viết</p>
                     </a>
                 </li>
             </ul>
