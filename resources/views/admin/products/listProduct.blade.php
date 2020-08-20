@@ -113,96 +113,26 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-1">
-                                <label class="form-check-label" for="check-1"></label>
-                            </td>
-                            <td class="ver-middle">GGS0001</td>
-                            <td class="ver-middle">Ghế gỗ trắng sau sửa lại</td>
-                            <td class="ver-middle">Hiện recycling</td>
-                            <td class="ver-middle">Gỗ</td>
-                            <td class="ver-middle">300.000 VND</td>
-                            <td class="ver-middle">2</td>
-                            <td class="ver-middle">Còn hàng</td>
-                            <td class="ver-middle">18/8/2020</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/product/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="1" onclick="showModalDeleteProduct(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-2">
-                                <label class="form-check-label" for="check-2"></label>
-                            </td>
-                            <td class="ver-middle">GGS0001</td>
-                            <td class="ver-middle">Ghế gỗ trắng sau sửa lại</td>
-                            <td class="ver-middle">Hiện recycling</td>
-                            <td class="ver-middle">Gỗ</td>
-                            <td class="ver-middle">300.000 VND</td>
-                            <td class="ver-middle">2</td>
-                            <td class="ver-middle">Còn hàng</td>
-                            <td class="ver-middle">18/8/2020</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/product/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="2" onclick="showModalDeleteProduct(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-1">
-                                <label class="form-check-label" for="check-1"></label>
-                            </td>
-                            <td class="ver-middle">GGS0001</td>
-                            <td class="ver-middle">Ghế gỗ trắng sau sửa lại</td>
-                            <td class="ver-middle">Hiện recycling</td>
-                            <td class="ver-middle">Gỗ</td>
-                            <td class="ver-middle">300.000 VND</td>
-                            <td class="ver-middle">2</td>
-                            <td class="ver-middle">Còn hàng</td>
-                            <td class="ver-middle">18/8/2020</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/product/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="3" onclick="showModalDeleteProduct(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-1">
-                                <label class="form-check-label" for="check-1"></label>
-                            </td>
-                            <td class="ver-middle">GGS0001</td>
-                            <td class="ver-middle">Ghế gỗ trắng sau sửa lại</td>
-                            <td class="ver-middle">Hiện recycling</td>
-                            <td class="ver-middle">Gỗ</td>
-                            <td class="ver-middle">300.000 VND</td>
-                            <td class="ver-middle">2</td>
-                            <td class="ver-middle">Còn hàng</td>
-                            <td class="ver-middle">18/8/2020</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/product/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="4" onclick="showModalDeleteProduct(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-1">
-                                <label class="form-check-label" for="check-1"></label>
-                            </td>
-                            <td class="ver-middle">GGS0001</td>
-                            <td class="ver-middle">Ghế gỗ trắng sau sửa lại</td>
-                            <td class="ver-middle">Hiện recycling</td>
-                            <td class="ver-middle">Gỗ</td>
-                            <td class="ver-middle">300.000 VND</td>
-                            <td class="ver-middle">2</td>
-                            <td class="ver-middle">Còn hàng</td>
-                            <td class="ver-middle">18/8/2020</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/product/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="5" onclick="showModalDeleteProduct(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
-                            </td>
-                        </tr>
+                            @foreach($products as $pro)
+                                <tr>
+                                    <td class="text-xl-center ver-middle">
+                                        <input type="checkbox" class="form-check-input" id="check-{{$pro->id}}">
+                                        <label class="form-check-label" for="check-{{$pro->id}}"></label>
+                                    </td>
+                                    <td class="ver-middle">{{$pro->ma}}</td>
+                                    <td class="ver-middle">{{$pro->name}}</td>
+                                    <td class="ver-middle">{{$pro->shop_id}}</td>
+                                    <td class="ver-middle">{{$pro->category_id}}</td>
+                                    <td class="ver-middle">{{$pro->price}} VND</td>
+                                    <td class="ver-middle">{{$pro->quantily}}</td>
+                                    <td class="ver-middle">{{$pro->status}}</td>
+                                    <td class="ver-middle">18/8/2020</td>
+                                    <td class="text-xl-right ver-middle">
+                                        <a href="/admin/product/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
+                                        <button type="button" class="btn btn-sm btn-danger" value="1" onclick="showModalDeleteProduct(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

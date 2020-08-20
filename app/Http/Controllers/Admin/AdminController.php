@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 
+use App\Product;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -39,10 +40,12 @@ class AdminController extends Controller
     }
 
     // product
-    public function listProduct(){
-        return view('admin.products.listProduct');
+    public function listProduct(Request $request){
+        $products = Product::where('status', '=', 1)->orderby('id', 'desc')->paginate(10);
+        return view('admin.products.listProduct')->with('products', $products);
     }
     public function newProduct(){
+
         return view('admin.products.newProduct');
     }
     public function detailProduct(){
