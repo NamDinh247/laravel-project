@@ -159,3 +159,23 @@
 .donut-inner span {
     font-size: 36px;
 }
+#select_bulkaction {
+    width: 160px;
+    float: right;
+    border-radius: 0;
+    line-height: 14px;
+    height: auto;
+    padding: 2px;
+}
+.fa-arrow-left {
+    font-size: 14px;
+    color: #000;
+}
+.border-r-0 {
+    border-radius: 0 !important;
+}
+.style_dropdown {
+    border: 1px solid #ced4da !important;
+    padding: .27rem .75rem !important;
+    border-radius: 0 !important;
+}

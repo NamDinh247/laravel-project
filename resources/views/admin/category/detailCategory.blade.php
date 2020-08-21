@@ -7,18 +7,26 @@
 @section('main-content')
     <div class="row">
         <div class="col-md-12 mb-4">
-            <a href="/admin/category" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh sách danh mục</a>
+            <a href="/admin/category" class="gobacklist ml-3"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh sách danh mục</a>
         </div>
         <div class="col-12">
             <div class="container bootstrap snippet">
                 <div class="row">
                     <div class="col-sm-9">
-                        <h5>Thêm mới danh mục</h5>
+                        <h5>Chi tiết danh mục</h5>
                         <hr/>
                         <form class="form row" action="#" method="post" id="accountForm">
+                            @csrf
                             <div class="form-group col-md-6">
                                 <label>Tên danh mục</label>
                                 <input type="text" class="form-control" id="nameCategory" placeholder="Tên danh mục">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Trạng thái</label>
+                                <select id="" class="form-control">
+                                    <option value="1">Hoạt động</option>
+                                    <option value="-1">Không hoạt động</option>
+                                </select>
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Ghi chú</label>
@@ -39,5 +47,7 @@
 
 @section('main-script')
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/js/detailCategory.js"></script>
+    <script>
+
+    </script>
 @endsection

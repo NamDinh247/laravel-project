@@ -1,5 +1,11 @@
 $(document).ready(function() {
-    check_filter = 'user_filter';
+    $(document).on('click', '#check-th', function (event) {
+        $('.form-check-input').prop('checked', $(this).prop('checked'));
+    });
+    $('#menu_filter .nav-link').removeClass('active');
+    $('.product_filter').addClass('active');
+
+    //filter date
     var localevn = {
         "format": "DD/MM/YYYY",
         "separator": " - ",
@@ -13,10 +19,6 @@ $(document).ready(function() {
         "monthNames": ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
         "firstDay": 1
     };
-    $(document).on('click', '#check-th', function (event) {
-        $('.form-check-input').prop('checked', $(this).prop('checked'));
-    });
-
     var rsFromDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1).setHours(0, 0, 0, 0);
     var rsToDate = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).setHours(0, 0, 0, 0) + 86400000 - 1;
     $('#dateTime').daterangepicker({
@@ -42,9 +44,20 @@ $(document).ready(function() {
     }).on('cancel.daterangepicker', function (ev, picker) {
         $('#dateTime').val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
     });
-    $('#menu_filter .nav-link').removeClass('active');
-    $('.user_filter').addClass('active');
+
+    /* ION SLIDER */
+    $('#range_1').ionRangeSlider({
+        min     : 0,
+        max     : 100,
+        from    : 0,
+        to      : 10,
+        type    : 'double',
+        step    : 1,
+        postfix  : '%',
+        prettify: false,
+        hasGrid : true
+    })
 });
-function showModalDeleteAccount(e) {
-    $('#modal-delete-account').modal('show');
+function showModalDeleteProduct(e) {
+    $('#modal-delete-product').modal('show');
 }

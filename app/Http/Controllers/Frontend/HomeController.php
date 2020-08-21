@@ -16,7 +16,8 @@ class HomeController extends Controller
         $articles = Article::where('status', '=', 1)
             ->orderby('created_at', 'desc')
             ->paginate(10);
-        return view('frontend.article.list', compact('articles'));
+        // return view('frontend.article.list', compact('articles'));
+        return view('frontend.contentHome', compact('articles'));
     }
 
     public function getRegister()
@@ -148,4 +149,5 @@ class HomeController extends Controller
                 compact('msg', 'Cập nhật trạng thái đơn hàng không thành công!'));
         }
     }
-}
+
+
