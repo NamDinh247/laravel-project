@@ -29,9 +29,15 @@ Route::get('/admin/category/new', 'Admin\AdminController@getNewCategory');
 
 Route::post('/admin/category/new', 'Admin\AdminController@postNewCategory');
 
-Route::get('/admin/category/detail', 'Admin\AdminController@detailCategory');
+Route::get('/admin/category/detail/{id}', 'Admin\AdminController@getDetailCategory');
 
-Route::post('/admin/category/detail', 'Admin\AdminController@postDetailCategory');
+Route::post('/admin/category/', 'Admin\AdminController@postDetailCategory');
+
+Route::post('/admin/category/delete', 'Admin\AdminController@deleteCategory')->name('category.delete');
+
+Route::post('/admin/category/delete-all', 'Admin\AdminController@deleteAllCategory')->name('category.deleteAll');
+
+Route::get('/admin/category', 'Admin\AdminController@getListCategory');
 
 // product
 Route::get('/admin/product', 'Admin\AdminController@listProduct');
@@ -50,7 +56,7 @@ Route::get('/admin/orders/detail', 'Admin\AdminController@detailOrders');
 // posts
 Route::get('/admin/posts', 'Admin\AdminController@listPosts');
 
-Route::get('/admin/index','Admin\AdminController@index');
+Route::get('/admin/index', 'Admin\AdminController@index');
 
 Route::get('/admin/posts/new', 'Admin\AdminController@newPosts');
 

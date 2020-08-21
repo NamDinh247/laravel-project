@@ -22,6 +22,7 @@ class CreateShopsTable extends Migration
             $table->string('address');
             $table->string('email');
             $table->string('phone');
+            $table->integer('status');
             $table->timestamps();
         });
     }
