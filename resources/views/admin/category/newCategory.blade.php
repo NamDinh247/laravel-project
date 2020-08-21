@@ -15,14 +15,15 @@
                     <div class="col-sm-9">
                         <h5>Thêm mới danh mục</h5>
                         <hr/>
-                        <form class="form row" action="#" method="post" id="accountForm">
+                        <form class="form row" action="/admin/category/new" method="post" id="accountForm">
+                            @csrf
                             <div class="form-group col-md-6">
                                 <label>Tên danh mục</label>
-                                <input type="text" class="form-control" id="nameCategory" placeholder="Tên danh mục">
+                                <input type="text" name="name" class="form-control" id="nameCategory" placeholder="Tên danh mục">
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Ghi chú</label>
-                                <textarea type="text" class="form-control" id="noteCategory" placeholder="Nhập ghi chú" style="resize: vertical;"></textarea>
+                                <textarea type="text" name="note" class="form-control" id="noteCategory" placeholder="Nhập ghi chú" style="resize: vertical;"></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
