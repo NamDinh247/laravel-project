@@ -1,4 +1,4 @@
-<header id="header">
+<header id="header" class="fixed-top bg-white" >
     <div class="container-fluid">
         <div class="row" style="border-bottom: 1px solid #e4e6eb;">
             <div class="col-md-3">
