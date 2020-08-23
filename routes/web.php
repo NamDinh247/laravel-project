@@ -13,4 +13,50 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'Frontend\HomeController@home');
+// guest + customer
+Route::get('/', 'Frontend\HomeController@getHomePage')
+    ->name('homePage');
+
+Route::get('/register', 'Frontend\HomeController@getRegister')
+    ->name('home.getRegister');
+
+Route::post('/register', 'Frontend\HomeController@postRegister')
+    ->name('home.postRegister');
+
+Route::get('/login', 'Frontend\HomeController@getLogin')
+    ->name('home.getLogin');
+
+Route::post('/login', 'Frontend\HomeController@postLogin')
+    ->name('home.postLogin');
+
+Route::get('/shop/list', 'Frontend\HomeController@getListShop')
+    ->name('home.shop.list');
+
+Route::get('/product/list', 'Frontend\HomeController@getListProduct')
+    ->name('home.product.list');
+
+Route::get('/product/{id}', 'Frontend\HomeController@getDetailProduct');
+
+Route::get('/shopping_cart', 'Frontend\HomeController@getShoppingCart')
+    ->name('home.getShoppingCart');
+
+Route::post('/order/create', 'Frontend\HomeController@postCreateOrder')
+    ->name('customer.create.order');
+
+Route::get('/shop/register', 'Frontend\HomeController@getShopRegister')
+    ->name('customer.shop.getRegister');
+
+Route::post('/shop/register', 'Frontend\HomeController@postShopRegister')
+    ->name('customer.shop.postRegister');
+
+// Shop
+Route::get('/shop/order/list', 'Frontend\HomeController@getListOrder')
+    ->name('customer.shop.getListOrder');
+
+Route::get('/shop/order/{id}', 'Frontend\HomeController@getDetailOrder')
+    ->name('customer.shop.getDetailOrder');
+
+Route::post('/shop/order/change-status', 'Frontend\HomeController@postChangeStatus')
+    ->name('customer.shop.postChangeStatus');
+
+// list product, add product shop
