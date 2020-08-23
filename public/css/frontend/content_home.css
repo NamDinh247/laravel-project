@@ -49,7 +49,7 @@
     padding: 5px 17px 0 5px;
 }
 .item_menu_title {
-    padding: 5px 10px;font-weight: 600;
+    font-weight: 600;
 }
 .item_menu_left span{
     font-weight: 600;
@@ -100,4 +100,6 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
-
+.item_menu_left a{
+    color: #444;
+}

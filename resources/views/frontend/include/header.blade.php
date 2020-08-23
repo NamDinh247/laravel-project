@@ -1,10 +1,12 @@
 <header id="header" class="fixed-top bg-white" >
     <div class="container-fluid">
-        <div class="row" style="border-bottom: 1px solid #e4e6eb;">
+        <div class="row" style="box-shadow: 0 1px 5px -2px #888;">
             <div class="col-md-3">
                 <div class="logo-search clearfix">
                     <div class="logo float-left pt-1">
-                        <img src="/img/logoRecycling.png" alt="logo recycling">
+                        <a href="/">
+                            <img src="/img/logoRecycling.png" alt="logo recycling">
+                        </a>
                     </div>
                     <div class="search float-right py-2">
                         <div class="input-group" >
@@ -18,9 +20,9 @@
             </div>
             <div class="col-md-6">
                 <ul class="menu-header ml-5 clearfix">
-                    <li class="item-menu float-left mr-4 active"><a href="#" title="Trang chủ"><i class="fa fa-home"></i></a></li>
-                    <li class="item-menu float-left mr-4"><a href="#" title="Cửa hàng"><i class="fa fa-archive"></i></a></li>
-                    <li class="item-menu float-left mr-4"><a href="#" title="Sản phẩm"><i class="fa fa-tag"></i></a></li>
+                    <li class="item-menu float-left mr-4 active"><a href="/" title="Trang chủ"><i class="fa fa-home"></i></a></li>
+                    <li class="item-menu float-left mr-4"><a href="/shop/list" title="Cửa hàng"><i class="fa fa-archive"></i></a></li>
+                    <li class="item-menu float-left mr-4"><a href="/product/list" title="Sản phẩm"><i class="fa fa-tag"></i></a></li>
                 </ul>
             </div>
             <div class="col-md-3 clearfix">
@@ -31,7 +33,9 @@
                         </div>
                         <div class="float-left name_user_header mr-3">Hiện TNT</div>
                         <div class="float-left shopping_cart" style="background: #efefef; border-radius: 50%;margin: 11px;">
-                            <i class="fa fa-shopping-cart" style="padding: 8px;font-size: 13px;"></i>
+                            <a href="/shopping_cart">
+                                <i class="fa fa-shopping-cart" style="padding: 8px;font-size: 13px;"></i>
+                            </a>
                         </div>
                         <div class="dropdown float-right" style="margin-top: 12px;">
                             <button class="btn dropdown-toggle rounded-circle" style="padding: 1px 8px !important;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
