@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Product;
+
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class AdminController extends Controller
 {
@@ -20,16 +23,12 @@ class AdminController extends Controller
     }
 
     // category
-    public function listCategory()
-    {
-        return view('admin.category.listCategory');
-    }
-
     public function getListCategory(Request $request)
     {
         $categories = Category::where('status', '=', 1)
-            ->orderby('id', 'desc')
+            ->orderby('created_at', 'desc')
             ->paginate(5);
+//        dd($categories);
         return view('admin.category.listCategory')->with('categories', $categories);
 
 //        $date ['keyword'] = '';
@@ -38,18 +37,28 @@ class AdminController extends Controller
 //            $data['keyword'] = $request->get('keyword');
 //            $category_list = $category_list->where('name', 'like', '%' . $request->get('keyword') . '%');
 //        }
-//        $data['list'] = $category_list->get();
+//        $data['listCate'] = $category_list->get();
 //        return view('admin.category.listCategory')->with($data);
+
+//        return view('admin.account.account');
     }
 
+    public function newAccount()
+    {
+        return view('admin.account.newAccount');
+
+    }
 
 
     public function getDetailCategory($id)
     {
+
         $category = Category::where('id', '=', $id)
             ->where('status', '=', 1)
             ->first();
         return view('admin.category.detailCategory')->with('category', $category);
+
+        return view('admin.account.detailAccount');
     }
 
     public function postDetailCategory(Request $request)
@@ -63,7 +72,9 @@ class AdminController extends Controller
         $category->save();
 
         return redirect('/admin/category');
+        return view('admin.category.listCategory');
     }
+
 
     public function getNewCategory()
     {
@@ -81,39 +92,37 @@ class AdminController extends Controller
         return redirect('/admin/category');
     }
 
-    public function deleteCategory($id)
+    public function deleteCategory(Request $request)
     {
-        $category = Category::where('id', '=', $id)
-            ->where('status', '=', 1)
-            ->first();
-        $category->status = -1;
-        $category->save();
-        return redirect('/admin/category/listCategory');
-
+        try {
+            $category = Category::where('id', '=', $request->get('id'))
+                ->where('status', '=', 1)
+                ->first();
+            $category->status = -1;
+            $category->save();
+            return true;
+        } catch (Exception $ex) {
+            return false;
+        }
     }
 
     public function deleteAllCategory(Request $request)
     {
+
         $ids = $request->get('ids');
-        Category::whereIn('id', $ids)->delete();
+        $category = Category::whereIn('id', $ids);
+        $category->status = -1;
+        $category->save();
         return $request->get('ids');
-    }
 
-    public function newCategory()
-    {
-        return view('admin.category.newCategory');
+        return view('admin.category.detailCategory');
     }
-
 
     public function accountManagement()
     {
         return view('admin.account.account');
     }
 
-    public function newAccount()
-    {
-        return view('admin.account.newAccount');
-    }
 
     public function detailAccount()
     {
@@ -122,20 +131,77 @@ class AdminController extends Controller
 
 
     // product
-
-    public function listProduct()
+    public function listProduct(Request $request)
     {
-        return view('admin.products.listProduct');
+        $products = Product::where('status', '=', 1)->orderby('id', 'desc')->paginate(10);
+        return view('admin.products.listProduct')->with('products', $products);
     }
 
     public function newProduct()
     {
-        return view('admin.products.newProduct');
+        $listCate = Category::where('status', '=', 1)->get();
+        return view('admin.products.newProduct')->with('listCate', $listCate);
+    }
+
+    public function postNewProduct(Request $request)
+    {
+        $product = new Product();
+        $id = $request->get('id');
+        $name = $request->get('name');
+        $price = $request->get('price');
+        $category_id = $request->get('category_id');
+        $shop_id = $request->get('shop_id');
+        $sale_off = $request->get('sale_off');
+        $thumbnails = $request->get('thumbnails');
+        $description = $request->get('description');
+
+        $product->id = $id;
+        $product->name = $name;
+        $product->price = $price;
+        $product->category_id = $category_id;
+        $product->shop_id = $shop_id;
+        $product->sale_off = $sale_off;
+        $product->description = $description;
+        foreach ($thumbnails as $thumbnail) {
+            $product->thumbnail .= $thumbnail . ',';
+        }
+        $product->save();
+
+
+        return redirect('/admin/category/listProduct');
     }
 
     public function detailProduct()
     {
         return view('admin.products.detailProduct');
+    }
+
+    public function getListProduct(Request $request)
+    {
+        $data = array();
+        $data['category_id'] = 0;
+        $data['keyword'] = '';
+        $categories = Category::all();
+        $product_list = Product::query();
+        if ($request->has('category_id') && $request->get('category_id') != 0) {
+            $data['category_id'] = $request->get('category_id');
+            $product_list = $product_list->where('category_id', '=', $request->get('category_id'));
+        }
+        if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+            $data['keyword'] = $request->get('keyword');
+            $product_list = $product_list->where('name', 'like', '%' . $request->get('keyword') . '%');
+        }
+        if ($request->has('start') && strlen($request->get('start')) > 0 && $request->has('end') && strlen($request->get('end')) > 0) {
+            $data['start'] = $request->get('start');
+            $data['end'] = $request->get('end');
+            $from = date($request->get('start') . ' 00:00:00');
+            $to = date($request->get('end') . ' 23:59:00');
+            $product_list = $product_list->whereBetween('created_at', [$from, $to]);
+        }
+        $data['list'] = $product_list->get();
+        $data['categories'] = $categories;
+        return view('admin.products.listProduct')
+            ->with($data);
     }
 
     // orders

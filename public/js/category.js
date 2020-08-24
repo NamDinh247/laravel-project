@@ -1,3 +1,4 @@
+var deleteIDone = 0;
 $(document).ready(function () {
     $(document).on('click', '#check-th', function (event) {
         $('.form-check-input').prop('checked', $(this).prop('checked'));
@@ -56,21 +57,41 @@ $(document).ready(function () {
             }
         })
     })
-
-    $("a#btn-delete").click(function (evt) {
-        evt.preventDefault();
-        const confirm = window.confirm("Are you sure to delete product?");
-        if(confirm === true) {
-            let linkLocation = $(this).attr("href");
-            $.ajax({
-                url: linkLocation,
-                success: window.location.reload(),
+    $("#delete_category").click(function (event) {
+        event.preventDefault();
+        var id = [parseInt(deleteIDone)];
+        var token = $(this).data("token");
+        console.log(token);
+        console.log(id);
+        $.ajax(
+            {
+                url: "/admin/category/delete",
+                type: 'POST',
+                dataType: "JSON",
+                data: {
+                    "id": id,
+                    "_token": token,
+                },
+                'success': function () {
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Xóa danh mục thành công'
+                    })
+                    location.reload();
+                },
+                'error': function () {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Xin vui lòng chọn danh mục sản phẩm cần xóa'
+                    })
+                }
             });
-        }
     });
 });
 
-function showModalDeleteCategory(e) {
+function showModalDeleteCategory(event) {
+    console.log(event.value)
+    deleteIDone = event.value;
     $('#modal-delete-category').modal('show');
 }
 

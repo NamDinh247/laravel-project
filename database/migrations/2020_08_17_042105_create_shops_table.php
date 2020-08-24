@@ -18,11 +18,11 @@ class CreateShopsTable extends Migration
             $table->unsignedBigInteger('account_id');
             $table->foreign('account_id')->references('id')->on('accounts');
             $table->string('name');
-            $table->text('logo');
-            $table->string('address');
-            $table->string('email');
-            $table->string('phone');
-            $table->integer('status');
+            $table->text('logo')->nullable();
+            $table->string('address')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

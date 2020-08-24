@@ -23,8 +23,6 @@ Route::get('/admin/account/new', 'Admin\AdminController@newAccount');
 Route::get('/admin/account/detail', 'Admin\AdminController@detailAccount');
 
 // category
-Route::get('/admin/category', 'Admin\AdminController@listCategory');
-
 Route::get('/admin/category/new', 'Admin\AdminController@getNewCategory');
 
 Route::post('/admin/category/new', 'Admin\AdminController@postNewCategory');
@@ -43,6 +41,8 @@ Route::get('/admin/category', 'Admin\AdminController@getListCategory');
 Route::get('/admin/product', 'Admin\AdminController@listProduct');
 
 Route::get('/admin/product/new', 'Admin\AdminController@newProduct');
+
+Route::post('/admin/product/new', 'Admin\AdminController@postNewProduct');
 
 Route::get('/admin/product/detail', 'Admin\AdminController@detailProduct');
 

@@ -16,7 +16,7 @@
                     <div class="col-sm-9">
                         <h5>Sửa thông tin danh mục</h5>
                         <hr/>
-                        <form class="form row" action="/admin/category" method="post" id="accountForm">
+                        <form class="form row" action="/admin/category/detail" method="post" id="accountForm">
                             @csrf
                             <h5>Chi tiết danh mục</h5>
                             <hr/>
@@ -25,13 +25,6 @@
                                 <input type="text" name="id" value="{!! $category->id !!}" hidden/>
                                 <input type="text" name="name" class="form-control" id="nameCategory" value="{!! $category->name !!}"
                                        placeholder="Tên danh mục">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Trạng thái</label>
-                                <select id="select_status" class="form-control">
-                                    <option value="1">Hoạt động</option>
-                                    <option value="-1">Không hoạt động</option>
-                                </select>
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Ghi chú</label>

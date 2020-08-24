@@ -68,7 +68,7 @@
                             <th class="ver-middle">Ngày mua</th>
                             <th class="ver-middle">Sản phẩm</th>
                             <th class="ver-middle">Tổng tiền</th>
-                            <th class="ver-middle">Trạng thái</th>
+                            <th class="ver-middle">Trạng thái đơn hàng </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -81,7 +81,6 @@
                             <td class="ver-middle">Admin</td>
                             <td class="ver-middle">admin</td>
                             <td class="ver-middle">Địa chỉ</td>
-                            <td class="ver-middle">Hoạt động</td>
                             <td class="ver-middle">Hoạt động</td>
                             <td class="text-xl-right ver-middle">
                                 <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i
@@ -99,7 +98,6 @@
                             <td class="ver-middle"></td>
                             <td class="ver-middle">Tái chế xanh</td>
                             <td class="ver-middle">CỬa hàng</td>
-                            <td class="ver-middle">Hoạt động</td>
                             <td class="ver-middle">Hoạt động</td>
                             <td class="ver-middle">Hoạt động</td>
                             <td class="text-xl-right ver-middle">
@@ -120,7 +118,6 @@
                             <td class="ver-middle">Người dùng</td>
                             <td class="ver-middle">Hoạt động</td>
                             <td class="ver-middle">Hoạt động</td>
-                            <td class="ver-middle">Hoạt động</td>
                             <td class="text-xl-right ver-middle">
                                 <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i
                                         class="fa fa-edit"></i>&nbsp; Sửa</a>
@@ -139,7 +136,6 @@
                             <td class="ver-middle">Người dùng</td>
                             <td class="ver-middle">Hoạt động</td>
                             <td class="ver-middle">Hoạt động</td>
-                            <td class="ver-middle">Hoạt động</td>
                             <td class="text-xl-right ver-middle">
                                 <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i
                                         class="fa fa-edit"></i>&nbsp; Sửa</a>
@@ -156,7 +152,6 @@
                             <td class="ver-middle"></td>
                             <td class="ver-middle">Nguyễn văn hiện</td>
                             <td class="ver-middle">Người dùng</td>
-                            <td class="ver-middle">Không hoạt động</td>
                             <td class="ver-middle">Không hoạt động</td>
                             <td class="ver-middle">Không hoạt động</td>
                             <td class="text-xl-right ver-middle">
