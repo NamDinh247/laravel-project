@@ -149,5 +149,4 @@ class HomeController extends Controller
                 compact('msg', 'Cập nhật trạng thái đơn hàng không thành công!'));
         }
     }
-
-
+}
