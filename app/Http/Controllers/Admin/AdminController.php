@@ -101,9 +101,17 @@ class AdminController extends Controller
     public function deleteAllCategory(Request $request)
     {
         #Hàm sai, ko delete trực tiếp, delete bằng cách update stats = -1;
-        // $ids = $request->get('ids');
-        // Category::whereIn('id', $ids)->delete();
-        // return $request->get('ids');
+        try {
+            $ids = $request->get('ids');
+            foreach ($ids as $id) {
+                $category = Category::where('id', '=', $id)->where('status', '=', 1)->first();
+                $category->status = -1;
+                $category->save();
+            }
+            return true;
+        } catch (Exception $ex) {
+            return false;
+        }
     }
 
     public function accountManagement()

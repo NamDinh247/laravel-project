@@ -12,24 +12,19 @@
             <div class="card border-0 border-r-0">
                 <form action="/admin/products/listProduct" method="get" id="product-form">
                     <div class="card-body border-0 clearfix">
-                        {{-- search --}}
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Tìm kiếm với từ khóa</label>
-                                    <input value="" type="text" name="keyword" class="form-control border-r-1"
+                                    <input value="" type="text" name="keyword" class="form-control border-r-0"
                                            placeholder="Từ khóa">
                                     <input type="submit" style="visibility: hidden;"/>
                                 </div>
                             </div>
-                        </div>
-
-                        {{-- status --}}
-                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group mb-4">
                                     <label for="exampleFormControlSelect1">Dòng sản phẩm</label>
-                                    <select name="category_id" class="form-control border-r-1" id="categorySelect">
+                                    <select name="category_id" class="form-control border-r-0" id="categorySelect">
                                         <option value="0">Tất cả</option>
                                         {{--                                        @foreach($categories as $cate)--}}
                                         {{--                                            <option value="{{$cate->id}}" {{$cate->id == $category_id ? 'selected':''}}>{{$cate->name}}</option>--}}
@@ -41,21 +36,12 @@
                             <div class="col-md-4">
                                 <div class="form-group mb-4">
                                     <label for="exampleFormControlSelect1">Loại sản phẩm</label>
-                                    <select name="category_id" class="form-control border-r-1" id="categorySelect">
+                                    <select name="category_id" class="form-control border-r-0" id="categorySelect">
                                         <option value="0">Tất cả</option>
                                         {{--                                        @foreach($categories as $cate)--}}
                                         {{--                                            <option value="{{$cate->id}}" {{$cate->id == $category_id ? 'selected':''}}>{{$cate->name}}</option>--}}
                                         {{--                                        @endforeach--}}
                                     </select>
-                                </div>
-                            </div>
-                            {{-- quantily --}}
-                            <div class="col-md-1">
-                                <div class="form-group mb-4">
-                                    <label for="exampleFormControlSelect1">Số lượng</label>
-                                    <div class="pl-2 pr-2">
-                                        <input type="number" class="form-control border-r-1" min="0" placeholder="0"/>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +55,7 @@
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                                 <div class="dropdown-menu" style="width: 50%" aria-labelledby="filter_type">
                                     <div class="p-3">
-                                        <input id="range_1" class="p-3 form-control border-r-1" type="text"
+                                        <input id="range_1" class="p-3 form-control border-r-0" type="text"
                                                name="range_1" value="">
                                     </div>
                                 </div>
@@ -80,7 +66,7 @@
                                 <a class="btn dropdown-toggle bg-white style_dropdown" role="button"
                                    id="filter_type"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                                <div class="dropdown-menu border-r-1" style="width: 50%;"
+                                <div class="dropdown-menu border-r-0" style="width: 50%;"
                                      aria-labelledby="filter_type">
                                     <div class="p-3">
                                         <label>Từ:
@@ -94,7 +80,7 @@
                             </div>
                             {{-- date --}}
                             <div class=" col-md-3 input-group mr-1 float-left mb-4" style="width: 20%;">
-                                <input type="text" class="form-control border-r-1" readonly="" id="dateTime"
+                                <input type="text" class="form-control border-r-0" readonly="" id="dateTime"
                                        style="padding: 16px 16px;"/>
                                 <div class="input-group-addon border-0"><i class="fa fa-calendar"></i></div>
                             </div>

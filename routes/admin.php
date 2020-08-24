@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Web Rutes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -56,7 +56,7 @@ Route::get('/admin/orders/detail', 'Admin\AdminController@detailOrders');
 // posts
 Route::get('/admin/posts', 'Admin\AdminController@listPosts');
 
-Route::get('/admin/index', 'Admin\AdminController@index');
+Route::get('/admin/dashboard', 'Admin\AdminController@index');
 
 Route::get('/admin/posts/new', 'Admin\AdminController@newPosts');
 

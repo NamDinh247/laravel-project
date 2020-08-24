@@ -8,7 +8,7 @@ $(document).ready(function () {
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 3000
+        timer: 5000
     });
 
     $('#menu_filter .nav-link').removeClass('active');
@@ -18,7 +18,7 @@ $(document).ready(function () {
         var deleteIds = [];
         $('.category-checkbox').each(function () {
             if ($(this).prop('checked') == true) {
-                deleteIds.push($(this).val());
+                deleteIds.push(Number($(this).val()));
             }
         })
         console.log(deleteIds)
@@ -46,8 +46,10 @@ $(document).ready(function () {
                 Toast.fire({
                     type: 'success',
                     title: 'Xóa danh mục thành công'
-                })
-                location.reload();
+                });
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1500);
             },
             'error': function () {
                 Toast.fire({
@@ -76,8 +78,10 @@ $(document).ready(function () {
                     Toast.fire({
                         type: 'success',
                         title: 'Xóa danh mục thành công'
-                    })
-                    location.reload();
+                    });
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 1500);
                 },
                 'error': function () {
                     Toast.fire({

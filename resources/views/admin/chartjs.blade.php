@@ -2,10 +2,14 @@
 
 @section('main-content')
 
-    <div style="width: 100%">
-        <h2 style="padding-bottom: 50px">Tổng doanh thu</h2>
-        <canvas id="myChart"></canvas>
+    <div class="col-md-10" style="width: 100%">
+        <h2 style="padding-bottom: 50px">Doanh thu thuần</h2>
+        <canvas id="myChart4"></canvas>
     </div>
+    {{--    <div style="width: 100%">--}}
+    {{--        <h2 style="padding-bottom: 50px">Tổng doanh thu</h2>--}}
+    {{--        <canvas id="myChart"></canvas>--}}
+    {{--    </div>--}}
     <hr>
     <div class=row>
         <div class="col-md-4">
@@ -28,10 +32,7 @@
         </div>
     </div>
     <hr>
-    <div class="col-md-6" style="width: 100%">
-        <h2 style="padding-bottom: 50px">Doanh thu thuần</h2>
-        <canvas id="myChart4"></canvas>
-    </div>
+
     <hr>
     <div class="col-md-6" style="width: 100%">
         <h2 style="padding-bottom: 50px">Doanh thu theo dòng hàng</h2>

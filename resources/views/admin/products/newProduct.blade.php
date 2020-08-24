@@ -68,7 +68,7 @@
                                 </div>
                                 {{-- show --}}
                                 <div class="form-group col-md-6">
-                                    <label>Giá trị giảm giá</label>
+                                    <label>Giá trị giảm giá (%)</label>
                                     <input type="number" class="form-control" id="percent" min="0" max="100"
                                            placeholder="0">
                                 </div>

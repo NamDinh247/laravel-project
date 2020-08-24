@@ -221,5 +221,16 @@ class HomeController extends Controller
 //                compact('msg', 'Cập nhật trạng thái đơn hàng không thành công!'));
 //        }
 //    }
+
+#Region Shop Order
+    public function getShopOrdersList(){
+        return view('frontend.shop.list');
+    }
+
+    public function getShopDetailOrders(){
+        return view('frontend.shop.detail');
+    }
+
+#End Region Shop Order
 }
 

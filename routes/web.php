@@ -43,6 +43,10 @@ Route::get('/product/detail', 'Frontend\HomeController@getDetailProduct');
 Route::get('/shopping_cart', 'Frontend\HomeController@getShoppingCart')
     ->name('home.getShoppingCart');
 
+Route::get('/shop/orders/list','Frontend\HomeController@getShopOrdersList');
+
+Route::get('/shop/orders/detail/{id}','Frontend\HomeController@getShopDetailOrders');
+
 //Route::post('/order/create', 'Frontend\HomeController@postCreateOrder')
 //    ->name('customer.create.order');
 //
