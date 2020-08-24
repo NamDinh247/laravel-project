@@ -23,6 +23,11 @@ class AdminController extends Controller
     }
 
     // category
+    public function listCategory()
+    {
+        return view('admin.category.listCategory');
+    }
+
     public function getListCategory(Request $request)
     {
         $categories = Category::where('status', '=', 1)
@@ -39,26 +44,14 @@ class AdminController extends Controller
 //        }
 //        $data['listCate'] = $category_list->get();
 //        return view('admin.category.listCategory')->with($data);
-
-//        return view('admin.account.account');
     }
-
-    public function newAccount()
-    {
-        return view('admin.account.newAccount');
-
-    }
-
 
     public function getDetailCategory($id)
     {
-
         $category = Category::where('id', '=', $id)
             ->where('status', '=', 1)
             ->first();
         return view('admin.category.detailCategory')->with('category', $category);
-
-        return view('admin.account.detailAccount');
     }
 
     public function postDetailCategory(Request $request)
@@ -72,7 +65,6 @@ class AdminController extends Controller
         $category->save();
 
         return redirect('/admin/category');
-        return view('admin.category.listCategory');
     }
 
 
@@ -108,14 +100,10 @@ class AdminController extends Controller
 
     public function deleteAllCategory(Request $request)
     {
-
-        $ids = $request->get('ids');
-        $category = Category::whereIn('id', $ids);
-        $category->status = -1;
-        $category->save();
-        return $request->get('ids');
-
-        return view('admin.category.detailCategory');
+        #Hàm sai, ko delete trực tiếp, delete bằng cách update stats = -1;
+        // $ids = $request->get('ids');
+        // Category::whereIn('id', $ids)->delete();
+        // return $request->get('ids');
     }
 
     public function accountManagement()
@@ -234,7 +222,6 @@ class AdminController extends Controller
     public function detailPosts()
     {
         return view('admin.posts.detailPosts');
-
     }
 
     public function index()
