@@ -44,8 +44,10 @@ Route::get('/shopping_cart', 'Frontend\HomeController@getShoppingCart')
     ->name('home.getShoppingCart');
 
 Route::get('/shop/orders/list','Frontend\HomeController@getShopOrdersList');
-
+// detail product
 Route::get('/shop/orders/detail/{id}','Frontend\HomeController@getShopDetailOrders');
+// sign in
+Route::get('/sign-in','Frontend\HomeController@getSignIn');
 
 //Route::post('/order/create', 'Frontend\HomeController@postCreateOrder')
 //    ->name('customer.create.order');

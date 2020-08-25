@@ -232,5 +232,8 @@ class HomeController extends Controller
     }
 
 #End Region Shop Order
+// sign in
+    public function getSignIn(){
+        return view('frontend.sign.signIn');
+    }
 }
-
