@@ -4,7 +4,7 @@
 
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/swiper/swiper.min.css">
-    <link rel="stylesheet" href="/css/frontend/listProduct.css">
+    <link rel="stylesheet" href="/css/frontend/product/listProduct.css">
     <link rel="stylesheet" href="/css/frontend/content_home.css">
 @endsection
 
@@ -88,7 +88,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9 mt-4" id="content_list_product">
+        <div class="col-md-9 pt-4" id="content_list_product" style="background-color: #f0f2f5;">
             <div class="col-md-12 px-0">
                 <div class="container-fluid">
                     {{-- sản phẩm mới --}}

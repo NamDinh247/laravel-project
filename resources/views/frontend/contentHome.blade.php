@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <div class="row pt-4">
+    <div class="row pt-4" style="background-color: #f0f2f5;">
         <div class="col-md-3 sidebar">
             @include('frontend.asideLeftHome')
         </div>

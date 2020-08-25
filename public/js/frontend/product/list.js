@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('.menu-header a[title="Sản phẩm"]').parent().addClass('active');
     var height = $(window).height() - 70;
     $('.filter_left').css({'height': (height - 126)  + 'px', 'overflow-x': 'hidden'});
-    $('#content_list_product').css({'height': (height - 13)  + 'px', 'overflow-x': 'hidden'});
+    $('#content_list_product').css({'height': (height + 10)  + 'px', 'overflow-x': 'hidden'});
 
     var swiper_product = new Swiper('#new_product_today', {
         slidesPerView: 5,

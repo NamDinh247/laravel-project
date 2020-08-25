@@ -132,7 +132,7 @@ class HomeController extends Controller
         return view('frontend.product.list')->with('listProvince', $listProvince);
     }
 
-    public function getDetailProduct($id)
+    public function getDetailProduct()
     {
 //        try {
 //            $product = Product::where('id', '=', $id)

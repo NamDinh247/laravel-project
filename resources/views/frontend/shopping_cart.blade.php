@@ -5,7 +5,7 @@
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/swiper/swiper.min.css">
     <link rel="stylesheet" href="/Admin/plugins/fancybox/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="/css/frontend/listProduct.css">
+    <link rel="stylesheet" href="/css/frontend/product/listProduct.css">
     <link rel="stylesheet" href="/css/frontend/shoppingCart.css">
 @endsection
 
@@ -21,7 +21,7 @@
                 <section id="main" class="col-md-12">
                     <div class="cart-grid row mb-2">
                         <div class="cart-grid-body col-md-9">
-                            <div class="card cart-container border-0 mb-3">
+                            <div class="card cart-container mb-3">
                                 <div class="card-block">
                                     {{-- for từ đây --}}
                                     <div class="cart-header">
@@ -85,7 +85,7 @@
                             <a class="label" style="color: #444;" href="#"> <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 13px;"></i> Continue shopping </a>
                         </div>
                         <div class="cart-grid-right col-md-3">
-                            <div class="card cart-summary border-0">
+                            <div class="card cart-summary ">
                                 <div class="cart-detailed-totals p-2">
                                     <div class="card-block">
                                         <div class="cart-summary-line row mx-0">
@@ -133,7 +133,7 @@
                     <div id="spe_res">
                         <div class="products">
                             <ul class="featured_grid product_list grid row gridcount">
-                                <li class="item col-md-2">
+                                <li class="item col-md-2 mb-3">
                                     <article class="product-miniature js-product-miniature" data-id-product="1" data-id-product-attribute="1" itemscope="" itemtype="http://schema.org/Product">
                                         <div class="thumbnail-container">
                                             <a href="#" class="thumbnail product-thumbnail">
@@ -178,7 +178,7 @@
                                         </div>
                                     </article>
                                 </li>
-                                <li class="item col-md-2">
+                                <li class="item col-md-2 mb-3">
                                     <article class="product-miniature js-product-miniature" data-id-product="1" data-id-product-attribute="1" itemscope="" itemtype="http://schema.org/Product">
                                         <div class="thumbnail-container">
                                             <a href="#" class="thumbnail product-thumbnail">
@@ -223,7 +223,7 @@
                                         </div>
                                     </article>
                                 </li>
-                                <li class="item col-md-2">
+                                <li class="item col-md-2 mb-3">
                                     <article class="product-miniature js-product-miniature" data-id-product="1" data-id-product-attribute="1" itemscope="" itemtype="http://schema.org/Product">
                                         <div class="thumbnail-container">
                                             <a href="#" class="thumbnail product-thumbnail">
@@ -268,7 +268,7 @@
                                         </div>
                                     </article>
                                 </li>
-                                <li class="item col-md-2">
+                                <li class="item col-md-2 mb-3">
                                     <article class="product-miniature js-product-miniature" data-id-product="1" data-id-product-attribute="1" itemscope="" itemtype="http://schema.org/Product">
                                         <div class="thumbnail-container">
                                             <a href="#" class="thumbnail product-thumbnail">
@@ -313,7 +313,7 @@
                                         </div>
                                     </article>
                                 </li>
-                                <li class="item col-md-2">
+                                <li class="item col-md-2 mb-3">
                                     <article class="product-miniature js-product-miniature" data-id-product="1" data-id-product-attribute="1" itemscope="" itemtype="http://schema.org/Product">
                                         <div class="thumbnail-container">
                                             <a href="#" class="thumbnail product-thumbnail">
@@ -358,7 +358,7 @@
                                         </div>
                                     </article>
                                 </li>
-                                <li class="item col-md-2">
+                                <li class="item col-md-2 mb-3">
                                     <article class="product-miniature js-product-miniature" data-id-product="1" data-id-product-attribute="1" itemscope="" itemtype="http://schema.org/Product">
                                         <div class="thumbnail-container">
                                             <a href="#" class="thumbnail product-thumbnail">
@@ -403,7 +403,7 @@
                                         </div>
                                     </article>
                                 </li>
-                                <li class="item col-md-2">
+                                <li class="item col-md-2 mb-3">
                                     <article class="product-miniature js-product-miniature" data-id-product="1" data-id-product-attribute="1" itemscope="" itemtype="http://schema.org/Product">
                                         <div class="thumbnail-container">
                                             <a href="#" class="thumbnail product-thumbnail">
@@ -448,7 +448,7 @@
                                         </div>
                                     </article>
                                 </li>
-                                <li class="item col-md-2">
+                                <li class="item col-md-2 mb-3">
                                     <article class="product-miniature js-product-miniature" data-id-product="1" data-id-product-attribute="1" itemscope="" itemtype="http://schema.org/Product">
                                         <div class="thumbnail-container">
                                             <a href="#" class="thumbnail product-thumbnail">
