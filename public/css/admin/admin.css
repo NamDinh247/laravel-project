@@ -182,4 +182,7 @@
 .righttext{
     text-align: right;
 }
+#example tbody i{
+    font-size: 18px;
+}
 

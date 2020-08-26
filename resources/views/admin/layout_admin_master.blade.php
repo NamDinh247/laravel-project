@@ -64,6 +64,14 @@
                 $(this).addClass('active');
             }
         });
+        function activeFilterLeft(ele, el) {
+            $(ele + ' .nav-link').removeClass('active');
+            $(el).addClass('active');
+        }
+        function activeFilterAccount(ele, el) {
+            $(ele).parent().addClass('menu-open');
+            $(el).addClass('active');
+        }
     </script>
     @yield('main-script')
 </body>

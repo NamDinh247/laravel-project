@@ -113,18 +113,47 @@ class AdminController extends Controller
             return false;
         }
     }
-
+    // account
+    // list account admin
     public function accountManagement()
     {
         return view('admin.account.account');
     }
-
-
+    // detail account admin
     public function detailAccount()
     {
         return view('admin.account.detailAccount');
     }
-
+    // list account user
+    public function listAccountUser()
+    {
+        return view('admin.account.listUser');
+    }
+    // new account user
+    public function newAccountUser()
+    {
+        return view('admin.account.newUser');
+    }
+    // detail account user
+    public function detailAccountUser()
+    {
+        return view('admin.account.detailUser');
+    }
+    // list account shop
+    public function listAccountShop()
+    {
+        return view('admin.account.listShop');
+    }
+    // new account shop
+    public function newAccountShop()
+    {
+        return view('admin.account.newShop');
+    }
+    // detail account shop
+    public function detailAccountShop()
+    {
+        return view('admin.account.detailShop');
+    }
 
     // product
     public function listProduct(Request $request)
@@ -236,5 +265,6 @@ class AdminController extends Controller
     {
         return view('admin.chartjs');
     }
+    //
 
 }
