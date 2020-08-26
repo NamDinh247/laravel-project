@@ -22,6 +22,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->text('detail');
             $table->integer('type');
+            $table->integer('status');
             $table->timestamps();
         });
     }
