@@ -24,6 +24,7 @@ class CreateAccountsTable extends Migration
             $table->string('email')->nullable();
             $table->string('address')->nullable();
             $table->string('verify_code')->nullable();
+            $table->string('remember_token')->nullable();
             $table->integer('role');
             $table->integer('status');
             $table->timestamps();
