@@ -65,3 +65,5 @@ Route::get('/shopping_cart', 'Frontend\HomeController@getShoppingCart')
 // test send mail
 // Route::get('/send', 'Frontend\HomeController@sendMail');
 // list product, add product shop
+
+#Shop
