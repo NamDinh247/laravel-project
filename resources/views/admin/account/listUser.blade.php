@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="/admin/account/new" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i>&nbsp; Thêm mới</a>
+                        <a href="/admin/account/user/new" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i>&nbsp; Thêm mới</a>
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
@@ -103,7 +103,7 @@
                             <td class="ver-middle">Hoạt động</td>
                             <td class="text-xl-right ver-middle">
                                 <a class="mr-2"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
-                                <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
+                                <a href="/admin/account/user/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
                                 <a value="2" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -120,7 +120,7 @@
                             <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
                             <td class="ver-middle">Hoạt động</td>
                             <td class="text-xl-right ver-middle">
-                                <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
+                                <a href="/admin/account/user/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
                                 <a value="3" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -137,7 +137,7 @@
                             <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
                             <td class="ver-middle">Hoạt động</td>
                             <td class="text-xl-right ver-middle">
-                                <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
+                                <a href="/admin/account/user/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
                                 <a value="4" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -155,7 +155,7 @@
                             <td class="ver-middle">Không hoạt động</td>
                             <td class="text-xl-right ver-middle">
                                 <a class="mr-2"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
-                                <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
+                                <a href="/admin/account/user/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
                                 <a value="5" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>

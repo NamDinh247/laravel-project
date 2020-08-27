@@ -58,12 +58,6 @@
     <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/20.0.0/classic/ckeditor.js"></script>
     <script>
-        $( document ).ready(function() {
-            function activeFilter (e) {
-                $('.nav-link').removeClass('active');
-                $(this).addClass('active');
-            }
-        });
         function activeFilterLeft(ele, el) {
             $(ele + ' .nav-link').removeClass('active');
             $(el).addClass('active');

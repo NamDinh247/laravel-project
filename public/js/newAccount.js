@@ -15,8 +15,8 @@ $(document).ready(function() {
     $(".file-upload").on('change', function(){
         readURL(this);
     });
-    $('#menu_filter .nav-item .nav-link').removeClass('active');
-    $('.user_filter').addClass('active');
+    activeFilterLeft('#menu_filter', '.user_filter');
+    activeFilterAccount('.user_filter', '.user_admin_filter');
     $(document).on('change', '#type-account', function (event) {
         if ($(this).val() == 'shop') {
             $('#accountForm .form-group').removeClass('d-none');
