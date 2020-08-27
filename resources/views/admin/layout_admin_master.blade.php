@@ -42,7 +42,6 @@
             </section>
         </div>
     </div>
-
     @yield('modal')
 
     <script src="/Admin/plugins/jquery/jquery.min.js"></script>

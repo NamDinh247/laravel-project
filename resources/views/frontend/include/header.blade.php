@@ -28,10 +28,15 @@
             <div class="col-md-3 clearfix">
                 <div class="float-right">
                     <div class="avatar_header clearfix">
-                        <div class="float-left mr-2" style="width: 28px; height: 28px;">
-                            <img class="rounded-circle" style="width: 100%; padding: 13px 0;" src="/img/avatar_2x.png" alt="avatar">
+                        <div class="d-none">
+                            <div class="float-left mr-2" style="width: 28px; height: 28px;">
+                                <img class="rounded-circle" style="width: 100%; padding: 13px 0;" src="/img/avatar_2x.png" alt="avatar">
+                            </div>
+                            <div class="float-left name_user_header mr-3">Hiện TNT</div>
                         </div>
-                        <div class="float-left name_user_header mr-3">Hiện TNT</div>
+                        <div class="btn-sign float-left my-3">
+                            <button class="btn btn-sm btn-outline-success" id="signIn">Đăng nhập</button>
+                        </div>
                         <div class="float-left shopping_cart" style="background: #efefef; border-radius: 50%;margin: 11px;">
                             <a href="/shopping_cart">
                                 <i class="fa fa-shopping-cart" style="padding: 8px;font-size: 13px;"></i>
