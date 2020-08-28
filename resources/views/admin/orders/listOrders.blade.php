@@ -222,6 +222,6 @@
     <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="/Admin/plugins/moment/moment.min.js"></script>
     <script src="/Admin/plugins/moment/locale/vi.js"></script>
-    <script src="/js/account.js"></script>
+    <script src="/js/orders/orders.js"></script>
 
 @endsection

@@ -16,7 +16,7 @@ $(document).ready(function() {
         readURL(this);
     });
     activeFilterLeft('#menu_filter', '.user_filter');
-    activeFilterAccount('.user_filter', '.user_admin_filter');
+    activeFilterAccount('.user_filter', '.user_shop_filter');
     $(document).on('change', '#type-account', function (event) {
         if ($(this).val() == 'shop') {
             $('#accountForm .form-group').removeClass('d-none');

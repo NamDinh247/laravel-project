@@ -16,11 +16,26 @@ Route::get('/login', 'Admin\AdminController@login');
 
 Route::get('/admin/home', 'Admin\AdminController@home');
 
+// account admin
 Route::get('/admin/account', 'Admin\AdminController@accountManagement');
 
 Route::get('/admin/account/new', 'Admin\AdminController@newAccount');
 
 Route::get('/admin/account/detail', 'Admin\AdminController@detailAccount');
+
+// account user
+Route::get('/admin/account/user', 'Admin\AdminController@listAccountUser');
+
+Route::get('/admin/account/user/new', 'Admin\AdminController@newAccountUser');
+
+Route::get('/admin/account/user/detail', 'Admin\AdminController@detailAccountUser');
+
+// account shop
+Route::get('/admin/account/shop', 'Admin\AdminController@listAccountShop');
+
+Route::get('/admin/account/shop/new', 'Admin\AdminController@newAccountShop');
+
+Route::get('/admin/account/shop/detail', 'Admin\AdminController@detailAccountShop');
 
 // category
 Route::get('/admin/category/new', 'Admin\AdminController@getNewCategory');

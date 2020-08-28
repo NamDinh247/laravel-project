@@ -16,10 +16,18 @@ $(document).ready(function() {
         readURL(this);
     });
     activeFilterLeft('#menu_filter', '.user_filter');
-    activeFilterAccount('.user_filter', '.user_admin_filter');
+    activeFilterAccount('.user_filter', '.user_sb_filter');
     $(document).on('change', '#type-account', function (event) {
         if ($(this).val() == 'shop') {
             $('#accountForm .form-group').removeClass('d-none');
         }
     });
+    var heightContent = $(window).height() - 165;
+    $('.content_form').height(heightContent);
+    $('#edit').click(function (event) {
+        $(this).addClass('d-none');
+        $('#accountForm').removeClass('d-none');
+        $('.file-upload').removeClass('d-none');
+        $('.content_information').addClass('d-none');
+    })
 });
