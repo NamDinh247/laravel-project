@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('account_id');
-            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('account_id')->references('id')->on('users');
             $table->unsignedBigInteger('shop_id');
             $table->foreign('shop_id')->references('id')->on('shops');
             $table->string('od_code');
@@ -27,7 +27,8 @@ class CreateOrdersTable extends Migration
             $table->string('ship_phone');
             $table->double('ship_fee');
             $table->text('od_note');
-            $table->integer('od_status');
+            $table->unsignedBigInteger('od_status');
+            $table->foreign('od_status')->references('id')->on('order_statuses');
             $table->timestamps();
         });
     }

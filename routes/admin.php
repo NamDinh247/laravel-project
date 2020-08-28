@@ -62,11 +62,14 @@ Route::post('/admin/product/new', 'Admin\AdminController@postNewProduct');
 Route::get('/admin/product/detail', 'Admin\AdminController@detailProduct');
 
 // orders
-Route::get('/admin/orders', 'Admin\AdminController@listOrders');
+//Route::get('/admin/orders', 'Admin\AdminController@listOrders');
+Route::get('/admin/orders/list', 'Admin\AdminController@getListOrder');
 
 Route::get('/admin/orders/new', 'Admin\AdminController@newOrders');
 
-Route::get('/admin/orders/detail', 'Admin\AdminController@detailOrders');
+Route::get('/admin/orders/detail/{id}', 'Admin\AdminController@getDetailOrder');
+
+Route::post('/admin/orders/change-order/{id}', 'Admin\AdminController@postChangeOrder');
 
 // posts
 Route::get('/admin/posts', 'Admin\AdminController@listPosts');

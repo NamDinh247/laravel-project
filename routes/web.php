@@ -33,17 +33,27 @@ Route::get('/', 'Frontend\HomeController@getHomePage')
 Route::get('/shop/list', 'Frontend\HomeController@getListShop')
     ->name('home.shop.list');
 
+# User product
 Route::get('/product/list', 'Frontend\HomeController@getListProduct')
     ->name('home.product.list');
 
-//Route::get('/product/{id}', 'Frontend\HomeController@getDetailProduct');
-//
-Route::get('/product/detail', 'Frontend\HomeController@getDetailProduct');
+Route::get('/product/detail/{id}', 'Frontend\HomeController@getDetailProduct')
+    ->name('home.product.detail');
+# End user product
 
-Route::get('/shopping_cart', 'Frontend\HomeController@getShoppingCart')
-    ->name('home.getShoppingCart');
+# User shopping cart
+Route::get('/shopping_cart/show', 'Frontend\HomeController@getShoppingCart')
+    ->name('user.shoppingCart');
 
-Route::get('/shop/orders/list','Frontend\HomeController@getShopOrdersList');
+Route::get('/shopping-cart/add', 'Frontend\HomeController@getAddShoppingCart')
+    ->name('user.addShoppingCart');
+
+Route::get('/shopping-cart/remove', 'Frontend\HomeController@getRemoveShoppingCart')
+    ->name('user.removeShoppingCart');
+
+Route::post('/shopping-cart/submit', 'Frontend\HomeController@submit');
+# End user shopping cart
+
 // detail product
 Route::get('/shop/orders/detail/{id}','Frontend\HomeController@getShopDetailOrders');
 // sign in
@@ -58,15 +68,15 @@ Route::get('/sign-in','Frontend\HomeController@getSignIn');
 //Route::post('/shop/register', 'Frontend\HomeController@postShopRegister')
 //    ->name('customer.shop.postRegister');
 //
-//// Shop
-//Route::get('/shop/order/list', 'Frontend\HomeController@getListOrder')
-//    ->name('customer.shop.getListOrder');
-//
-//Route::get('/shop/order/{id}', 'Frontend\HomeController@getDetailOrder')
-//    ->name('customer.shop.getDetailOrder');
-//
-//Route::post('/shop/order/change-status', 'Frontend\HomeController@postChangeStatus')
-//    ->name('customer.shop.postChangeStatus');
+// Shop
+Route::get('/shop/order/list', 'Frontend\HomeController@getListOrder')
+    ->name('customer.shop.getListOrder');
+
+Route::get('/shop/order/{id}', 'Frontend\HomeController@getDetailOrder')
+    ->name('customer.shop.getDetailOrder');
+
+Route::post('/shop/order/change-status', 'Frontend\HomeController@postChangeStatus')
+    ->name('customer.shop.postChangeStatus');
 
 // test send mail
 // Route::get('/send', 'Frontend\HomeController@sendMail');

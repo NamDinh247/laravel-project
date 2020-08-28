@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/orders" class="nav-link orders_filter">
+                    <a href="/admin/orders/list" class="nav-link orders_filter">
                         <i class="nav-icon fa fa-file"></i>
                         <p>Đơn hàng</p>
                     </a>
