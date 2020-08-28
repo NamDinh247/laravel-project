@@ -34,6 +34,26 @@
         <div class="content-wrapper px-2">
             <section class="content-header clearfix">
                 @yield('main-header')
+                @if( \Illuminate\Support\Facades\Session::has('success_message'))
+                    <div class="box-body">
+                        <div class="box box-success box-solid">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Thành công</h3>
+
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove">
+                                        <i class="fa fa-times"></i></button>
+                                </div>
+                                <!-- /.box-tools -->
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                {{ \Illuminate\Support\Facades\Session::get('success_message') }}
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+                @endif
             </section>
 
             <!-- Main content -->

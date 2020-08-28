@@ -38,7 +38,7 @@
                             <button class="btn btn-sm btn-outline-success" id="signIn">Đăng nhập</button>
                         </div>
                         <div class="float-left shopping_cart" style="background: #efefef; border-radius: 50%;margin: 11px;">
-                            <a href="/shopping_cart">
+                            <a href="/shopping_cart/show">
                                 <i class="fa fa-shopping-cart" style="padding: 8px;font-size: 13px;"></i>
                             </a>
                         </div>

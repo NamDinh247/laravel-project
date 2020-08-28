@@ -24,20 +24,27 @@
                             <div class="card cart-container mb-3">
                                 <div class="card-block">
                                     {{-- for từ đây --}}
-                                    <div class="cart-header">
+                                    @foreach($shoppingCart as $key => $cartItem)
+                                        <div class="cart-header">
                                         <div class="close1"></div>
                                         <div class="cart-sec simpleCart_shelfItem">
                                             <div class="cart-item cyc py-0" style="border-bottom: none;">
-                                                <img src="https://prestashop.templatemela.com/PRSADD11/PRS273/img/p/3/2/32-home_default.jpg" class="img-responsive" alt="" />
+                                                <img src="{!! $cartItem['prd_detail']->large_photo !!}" class="img-responsive" alt="" />
                                             </div>
                                             <div class="cart-item-info">
-                                                <h3><a href="#">Mountain Hopper(XS R034)</a><span>Mã sản phẩm: 3578</span></h3>
+                                                <h3><a href="#">{{ $cartItem['productName'] }}</a>
+                                                    <span>Mã sản phẩm: {!! $cartItem['prd_detail']->prd_code !!}</span>
+                                                </h3>
                                                 <ul class="qty">
                                                     <li class="row py-1">
                                                         <div class="product-variants-item col-md-6">
                                                             <div class="row p-0 m-0">
-                                                                <span class="control-label col-md-6 px-0 mr-0 my-2">cửa hàng: </span>
-                                                                <span class="col-md-6 p-0 my-2"><a href="#">Kim Loại Bất Lực</a></span>
+                                                                <span class="control-label col-md-6 px-0 mr-0 my-2">Cửa hàng: </span>
+                                                                <span class="col-md-6 p-0 my-2">
+                                                                    <a href="#">
+                                                                        {!! $cartItem['prd_detail']->shop->name !!}
+                                                                    </a>
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -45,7 +52,9 @@
                                                         <div class="product-variants-item col-md-6">
                                                             <div class="row p-0 m-0">
                                                                 <span class="control-label col-md-6 px-0 mr-0 my-2">Loại sản phẩm: </span>
-                                                                <span class="col-md-6 p-0 my-2">Kim loại</span>
+                                                                <span class="col-md-6 p-0 my-2">
+                                                                    {!! $cartItem['prd_detail']->category->name !!}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -54,7 +63,7 @@
                                                             <div class="row p-0 m-0">
                                                                 <span class="control-label col-md-6 mt-3 px-0 mr-0 mb-2">Số lượng: </span>
                                                                 <div class="col-md-6 p-0 my-2">
-                                                                    <input type="number" min="0" class="form-control" placeholder="1">
+                                                                    <input type="number" min="0" class="form-control" value="{!! $cartItem['quantity'] !!}">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -63,20 +72,22 @@
                                                         <div class="product-variants-item col-md-6">
                                                             <div class="row p-0 m-0">
                                                                 <span class="control-label col-md-6 px-0 mr-0 my-2">Tổng tiền: </span>
-                                                                <span class="col-md-6 p-0 my-2">100.00 VND</span>
+                                                                <span class="col-md-6 p-0 my-2">{!! $cartItem['quantity'] * $cartItem['productPrice'] !!} VND</span>
                                                             </div>
                                                         </div>
                                                     </li>
                                                 </ul>
 
                                                 <div class="delivery">
-                                                    <p> </p>
+                                                    <a href="/shopping-cart/add?productId={{$cartItem['productId']}}&quantity=1">Add</a>&nbsp;
+                                                    <a href="/shopping-cart/add?productId={{$cartItem['productId']}}&quantity=-1">Sub</a>&nbsp;
+                                                    <a href="/shopping-cart/remove?productId={{$cartItem['productId']}}">Remove</a>&nbsp;
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
-
+                                    @endforeach
                                 </div>
                                 <div class="cart-overview js-cart d-none">
                                     <span class="no-items">There are no more items in your cart</span>
@@ -86,40 +97,63 @@
                         </div>
                         <div class="cart-grid-right col-md-3">
                             <div class="card cart-summary ">
-                                <div class="cart-detailed-totals p-2">
-                                    <div class="card-block">
-                                        <div class="cart-summary-line row mx-0">
-                                            <span class="label col-md-6 text-left pl-2 py-1">Giao hàng</span>
-                                            <span class="value col-md-6 text-right pr-2 py-1">Miễn phí</span>
-                                        </div>
-                                        <div class="cart-summary-line row mx-0">
-                                            <span class="label col-md-6 text-left pl-2 py-1">Nhận hàng sau</span>
-                                            <span class="value col-md-6 text-right pr-2 py-1">1 Ngày</span>
-                                        </div>
-                                    </div>
-                                    <div class="card-block pt-4">
-                                        <div class="cart-summary-line row mx-0">
-                                            <span class="label col-md-6 text-left pl-2 py-1">Số lượng</span>
-                                            <span class="value col-md-6 text-right pr-2 py-1">10</span>
-                                        </div>
-                                        <div class="cart-summary-line row mx-0">
-                                            <span class="label col-md-6 text-left pl-2 py-1">Tổng tiền</span>
-                                            <span class="value col-md-6 text-right pr-2 py-1">1.000.000 VND</span>
-                                        </div>
-                                        <div class="cart-summary-line row mx-0">
-                                            <span class="label col-md-6 text-left pl-2 py-1">VAT</span>
-                                            <span class="value col-md-6 text-right pr-2 py-1">10.000 VND</span>
-                                        </div>
-                                        <div class="cart-summary-line row mx-0">
-                                            <span class="label col-md-6 text-left pl-2 py-1">Chiết khấu</span>
-                                            <span class="value col-md-6 text-right pr-2 py-1">10.000 VND</span>
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <div class="cart-detailed-totals p-2">--}}
+{{--                                    <div class="card-block">--}}
+{{--                                        <div class="cart-summary-line row mx-0">--}}
+{{--                                            <span class="label col-md-6 text-left pl-2 py-1">Giao hàng</span>--}}
+{{--                                            <span class="value col-md-6 text-right pr-2 py-1">Miễn phí</span>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="cart-summary-line row mx-0">--}}
+{{--                                            <span class="label col-md-6 text-left pl-2 py-1">Nhận hàng sau</span>--}}
+{{--                                            <span class="value col-md-6 text-right pr-2 py-1">1 Ngày</span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="card-block pt-4">--}}
+{{--                                        <div class="cart-summary-line row mx-0">--}}
+{{--                                            <span class="label col-md-6 text-left pl-2 py-1">Số lượng</span>--}}
+{{--                                            <span class="value col-md-6 text-right pr-2 py-1">10</span>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="cart-summary-line row mx-0">--}}
+{{--                                            <span class="label col-md-6 text-left pl-2 py-1">Tổng tiền</span>--}}
+{{--                                            <span class="value col-md-6 text-right pr-2 py-1">1.000.000 VND</span>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="cart-summary-line row mx-0">--}}
+{{--                                            <span class="label col-md-6 text-left pl-2 py-1">VAT</span>--}}
+{{--                                            <span class="value col-md-6 text-right pr-2 py-1">10.000 VND</span>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="cart-summary-line row mx-0">--}}
+{{--                                            <span class="label col-md-6 text-left pl-2 py-1">Chiết khấu</span>--}}
+{{--                                            <span class="value col-md-6 text-right pr-2 py-1">10.000 VND</span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <div class="checkout text-xs-center card-block text-center p-2">
-                                    <button type="button" class="btn add-to-cart">Đặt hàng</button>
-                                </div>
+                                <form action="/shopping-cart/submit" method="POST">
+                                    @csrf
+                                    <div class="form-group">
+                                        Người nhận <br/>
+                                        <input type="text" name="shipName">
+                                    </div>
+                                    <div class="form-group">
+                                        Địa chỉ <br/>
+                                        <input type="text" name="shipAddress">
+                                    </div>
+                                    <div class="form-group">
+                                        Số điện thoại <br/>
+                                        <input type="text" name="shipPhone">
+                                    </div>
+                                    <div class="form-group">
+                                        Email <br/>
+                                        <input type="text" name="shipEmail">
+                                    </div>
+                                    <div class="form-group">
+                                        Lưu ý <br/>
+                                        <input type="text" name="note">
+                                    </div>
+                                    <div class="checkout text-xs-center card-block text-center p-2">
+                                        <button type="button" class="btn add-to-cart">Đặt hàng</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

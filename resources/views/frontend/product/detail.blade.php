@@ -10,7 +10,6 @@
 
 @section('content')
     <div class="container px-1">
-        <!-- 1 -->
         <div class="row pt-4">
             <div class="col-md-4 product_main_img">
                 <section class="page-content" id="content">
@@ -23,49 +22,20 @@
                         <div class="images-container">
                             <div class="product-cover">
                                 <a href="#" data-fancybox="images">
-                                    <img class="js-qv-product-cover" src="/img/post1.jpg" style="width: 100%;" width="100"/>
+                                    <img class="js-qv-product-cover" src="{{ $product->large_photo }}" style="width: 100%;" width="100"/>
                                 </a>
                             </div>
                             <div id="images-container" class="products swiper-container">
                                 <ul id="additional-carousel" class="carousel slide tm-carousel product_list swiper-wrapper">
-                                    <div class="owl-item swiper-slide">
-                                        <li class="thumb-container item pb-0">
-                                            <a href="#" data-fancybox="images">
-                                                <img class="thumb js-thumb m-0" src="/img/posts2.jpg"  width="100"/>
-                                            </a>
-                                        </li>
-                                    </div>
-
-{{--                                    @foreach($prd->large_photos as $p)--}}
+                                   @foreach($product->large_photos as $p)
                                         <div class="owl-item swiper-slide">
                                             <li class="thumb-container item pb-0">
                                                 <a href="#" data-fancybox="images">
-                                                    <img class="thumb js-thumb m-0" src="/img/posts2.jpg"  width="100"/>
+                                                    <img class="thumb js-thumb m-0" src="{{ $p }}"  width="100"/>
                                                 </a>
                                             </li>
                                         </div>
-                                        <div class="owl-item swiper-slide">
-                                            <li class="thumb-container item pb-0">
-                                                <a href="#" data-fancybox="images">
-                                                    <img class="thumb js-thumb m-0" src="/img/posts2.jpg"  width="100"/>
-                                                </a>
-                                            </li>
-                                        </div>
-                                        <div class="owl-item swiper-slide">
-                                            <li class="thumb-container item pb-0">
-                                                <a href="#" data-fancybox="images">
-                                                    <img class="thumb js-thumb m-0" src="/img/posts2.jpg"  width="100"/>
-                                                </a>
-                                            </li>
-                                        </div>
-                                        <div class="owl-item swiper-slide">
-                                            <li class="thumb-container item pb-0">
-                                                <a href="#" data-fancybox="images">
-                                                    <img class="thumb js-thumb m-0" src="/img/posts2.jpg"  width="100"/>
-                                                </a>
-                                            </li>
-                                        </div>
-{{--                                    @endforeach--}}
+                                    @endforeach
                                 </ul>
                                 <div class="customNavigation">
                                     <a class="btn prev brand_prev carousel-control-prev" >&nbsp;<i class="fa fa-chevron-left" aria-hidden="true"></i></a>
@@ -77,8 +47,8 @@
                 </section>
             </div>
             <div class="col-md-8 product_middle">
-                <h5 class="productpage_title" itemprop="name">Bàn đá kết hợp với thuỷ tinh tái chế</h5>
-                <a href="#" itemprop="name"><i class="fa fa-archive" style="color: #444;"></i>&nbsp; Hiện TNT</a>
+                <h5 class="productpage_title" itemprop="name">{!! $product->name !!}</h5>
+                <a href="#" itemprop="name"><i class="fa fa-archive" style="color: #444;"></i>&nbsp; Shop name</a>
                 <div class="hook-reviews pt-2">
                     <div class="comments_note">
                         <div class="star_content clearfix">
@@ -94,23 +64,29 @@
                     <div class="product-prices">
                         <div class="product-price h5 has-discount">
                             <div class="current-price">
-                                <span>1.231.231 VND</span>
-                                <span class="discount discount-percentage">Sale off 20%</span>
+                                <span>{!! $product->price - $product->price * ($product->sale_off/100) !!} VND</span>
+                                <span class="discount discount-percentage">
+                                    {!! $product->sale_off !!}%
+                                </span>
                             </div>
                         </div>
                         <div class="product-discount">
-                            <span class="regular-price">1.000.000 vnđ</span>
+                            <span class="regular-price">
+                                {!! $product->price !!} vnđ
+                            </span>
                         </div>
                     </div>
                     <div id="product-description-short-2" itemprop="description">
-                        <p>Đơn giản và hiện đại, bàn ăn PRINCETON là lựa chọn hợp lý cho phòng ăn của gia đình bạn. Bàn được làm từ gỗ cao su, bề mặt phủ veneer màu gỗ sáng đẹp mắt. Chân bàn thu hút với thiết kế lạ mắt, là điểm nhấn ấn tượng cho không gian bàn ăn thêm sang trọng. Hãy kết hợp bàn với các sản phẩm khác trong cùng bộ sưu tập PRINCETON của BAYA.</p>
+                        <p>{!! $product->description !!}</p>
                     </div>
                     <div class="product-actions">
                         <form action="" method="post" id="add-to-cart-or-refresh">
                             <div class="product-variants">
                                 <div class="clearfix product-variants-item">
                                     <span class="control-label">Chất liệu chính:</span>
-                                    <div class="float-left py-2" id="group_1">Kim loại</div>
+                                    <div class="float-left py-2" id="group_1">
+                                        {!! $product->category->name !!}
+                                    </div>
                                 </div>
                                 <div class="clearfix product-variants-item">
                                     <span class="control-label">Đơn vị:</span>
@@ -130,9 +106,10 @@
                                     </div>
 
                                     <div class="add">
-                                        <button class="btn btn-sm add-to-cart" type="submit">
+                                        <a href="javascript:void(0)" class="btn btn-sm add-to-cart"
+                                           data-id="{{$product->id}}">
                                             <i class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng
-                                        </button>
+                                        </a>
 
                                         <span id="product-availability"> </span>
                                     </div>
@@ -149,7 +126,7 @@
             </div>
         </div>
         <!-- 2 -->
-        <section class="product-tabcontent">
+        <section class="product-tabcontent mt-3">
             <div class="tabs">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
@@ -166,7 +143,7 @@
                     <!-- mô tả -->
                     <div class="tab-pane active" id="description">
                         <div class="product-description">
-                            <p>Đơn giản và hiện đại, bàn ăn PRINCETON là lựa chọn hợp lý cho phòng ăn của gia đình bạn. Bàn được làm từ gỗ cao su, bề mặt phủ veneer màu gỗ sáng đẹp mắt. Chân bàn thu hút với thiết kế lạ mắt, là điểm nhấn ấn tượng cho không gian bàn ăn thêm sang trọng. Hãy kết hợp bàn với các sản phẩm khác trong cùng bộ sưu tập PRINCETON của BAYA.</p>
+                            <p>{!! $product->description !!}</p>
                         </div>
                     </div>
 
@@ -174,25 +151,25 @@
                     <div class="tab-pane fade clearfix" id="product-details" role="tabpanel">
                         <div class="product-manufacturer" style="float: left;padding-right: 30px;">
                             <a href="#">
-                                <img src="https://prestashop.templatemela.com/PRSADD11/PRS273/img/m/1.jpg" class="img img-thumbnail manufacturer-logo"/>
+                                <img src="{{ $product->small_photo }}" class="img img-thumbnail manufacturer-logo"/>
                             </a>
                         </div>
                         <div class="detail_content" style="float: left;">
                             <div class="product-reference">
                                 <label class="label">Sản phẩm: </label>
-                                <span itemprop="sku">Bàn đá kết hợp với thuỷ tinh tái chế</span>
+                                <span itemprop="sku">{!! $product->name !!}</span>
                             </div>
                             <div class="product-reference">
                                 <label class="label">Loại sản phẩm: </label>
-                                <span itemprop="sku">Kim loại</span>
+                                <span itemprop="sku">{!! $product->category->name !!}</span>
                             </div>
                             <div class="product-reference">
                                 <label class="label">Xuất xứ: </label>
                                 <span itemprop="sku">Việt Nam</span>
                             </div>
                             <div class="product-reference">
-                                <label class="label">Đơn vị	: </label>
-                                <span itemprop="sku">PCS</span>
+                                <label class="label">Đơn vị: </label>
+                                <span itemprop="sku">{!! $product->shop->name !!}</span>
                             </div>
                         </div>
                     </div>
@@ -306,8 +283,8 @@
             </div>
         </section>
         <!-- có thể bạn cũng thích -->
-        <h5 class="products-section-title text-uppercase pb-2" style="border-bottom: 1px solid #f0f0f0;">Có thể bạn cũng thích</h5>
-        <div id="youLike" class="products position-relative pt-2">
+        <h5 hidden class="products-section-title text-uppercase pb-2" style="border-bottom: 1px solid #f0f0f0;">Có thể bạn cũng thích</h5>
+        <div id="youLike" hidden class="products position-relative pt-2">
             <ul id="favorite_product" class="carousel slide tm-carousel product_list swiper-container">
 {{--                        @foreach($list_product as $prd)--}}
                 <div class="clearfix swiper-wrapper">
@@ -761,8 +738,8 @@
             </div>
         </div>
         <!-- Sản phẩm đi kèm -->
-        <h5 class="products-section-title text-uppercase pb-2" style="border-bottom: 1px solid #f0f0f0;">Sản phẩm đi kèm</h5>
-        <div id="productIncluded" class="products position-relative pt-2">
+        <h5 hidden class="products-section-title text-uppercase pb-2" style="border-bottom: 1px solid #f0f0f0;">Sản phẩm đi kèm</h5>
+        <div id="productIncluded" hidden class="products position-relative pt-2">
             <ul id="products_included" class="carousel slide tm-carousel product_list swiper-container">
                 <div class="swiper-wrapper clearfix">
                     <div class="owl-item swiper-slide">
@@ -1053,8 +1030,8 @@
         </div>
         <!-- Sản phẩm tương tự -->
 
-        <h5 class="products-section-title text-uppercase pb-2" style="border-bottom: 1px solid #f0f0f0;">Sản phẩm tương tự</h5>
-        <div id="similar" class="products position-relative pt-2">
+        <h5 hidden class="products-section-title text-uppercase pb-2" style="border-bottom: 1px solid #f0f0f0;">Sản phẩm tương tự</h5>
+        <div id="similar" hidden class="products position-relative pt-2">
             <ul id="similar_product" class="carousel slide tm-carousel product_list swiper-container">
                 <div class="clearfix swiper-wrapper">
                     <div class="owl-item swiper-slide">
@@ -1396,4 +1373,27 @@
 @section('main-script')
     <script src="/Admin/plugins/swiper/swiper.min.js"></script>
     <script src="/js/frontend/product/detail.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.add-to-cart').click(function () {
+                var productId = $(this).attr('data-id');
+                $.ajax({
+                    'url': '/shopping-cart/add',
+                    'method': 'GET',
+                    'data': {
+                        "_token": $('meta[name="csrf-token"]').attr('content'),
+                        'productId': productId,
+                        'quantity': 1
+                    },
+                    'success': function () {
+                        // Thông báo thành công, reload lại trang.
+                        alert('Action success');
+                    },
+                    'error': function () {
+                        alert('Action fails');
+                    }
+                })
+            });
+        });
+    </script>
 @stop

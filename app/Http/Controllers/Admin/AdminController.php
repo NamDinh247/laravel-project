@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Order;
+use App\Order_status;
 use App\Product;
 
 use Illuminate\Http\Request;
@@ -230,9 +232,12 @@ class AdminController extends Controller
     }
 
     // orders
-    public function listOrders()
+    public function getListOrder()
     {
-        return view('admin.orders.listOrders');
+        $lstOrder = Order::whereNotIn('od_status', [-1])
+            ->orderby('created_at', 'desc')
+            ->paginate(15);
+        return view('admin.orders.listOrders', compact('lstOrder'));
     }
 
     public function newOrders()
@@ -240,9 +245,34 @@ class AdminController extends Controller
         return view('admin.orders.newOrders');
     }
 
-    public function detailOrders()
+    public function getDetailOrder($id)
     {
-        return view('admin.orders.detailOrders');
+        try {
+            $order = Order::where('id', '=', $id)
+                ->whereNotIn('od_status', [-1])
+                ->first();
+            $order_status = Order_status::all();
+            if ($order == null) {
+                return false;
+            }
+            return view('admin.orders.detailOrders')->with('order', $order)->with('order_status', $order_status);
+        } catch (\Exception $ex) {
+            return false;
+        }
+    }
+
+    public function postChangeOrder(Request $request)
+    {
+        $od_id = $request->get('od_id');
+        $order = Order::where('id', '=', $od_id)
+            ->whereNotIn('od_status', [-1])
+            ->first();
+        if ($order == null) {
+            return false;
+        }
+        $order->od_status = $request->get('order_status');
+        $order->save();
+        return redirect()->back()->with(['success_message' => 'Cập nhật đơn hàng thành công']);
     }
 
     // posts

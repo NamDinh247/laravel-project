@@ -28,7 +28,7 @@ class CreateOrdersTable extends Migration
             $table->double('ship_fee');
             $table->text('od_note');
             $table->unsignedBigInteger('od_status');
-            $table->foreign('od_status')->references('id')->on('order_status');
+            $table->foreign('od_status')->references('id')->on('order_statuses');
             $table->timestamps();
         });
     }

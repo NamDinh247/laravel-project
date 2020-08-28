@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    //
+    public function orderStatus(){
+        return $this->belongsTo('App\Order_status', 'od_status', 'id');
+    }
+
+    public function order_detail(){
+        return $this->hasOne('App\Order_detail', 'od_id', 'id');
+    }
 }

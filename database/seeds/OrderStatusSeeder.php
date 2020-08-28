@@ -15,8 +15,8 @@ class OrderStatusSeeder extends Seeder
             \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         }
 
-        \Illuminate\Support\Facades\DB::table('orders')->truncate();
-        \Illuminate\Support\Facades\DB::table('orders')->insert([
+        \Illuminate\Support\Facades\DB::table('order_statuses')->truncate();
+        \Illuminate\Support\Facades\DB::table('order_statuses')->insert([
             [
                 'id' => 1,
                 'stt_name' => 'Đặt hàng thành công',

@@ -29,12 +29,7 @@
                         <li class="item_menu_left pl-2 py-2">
                             <div class="title_filter py-1" style="font-weight: 500;">Tỉnh thành</div>
                             <select class="form-control" style="background-color: #f0f2f5 !important;">
-                                @foreach($listProvince as $list)
-                                    <option value="{{$list}}">{{$list}}</option>
-                                    @if($list == 'Hà Nội')
-                                        <option value="{{$list}}" selected>{{$list}}</option>
-                                    @endif
-                                @endforeach
+                                <option value="1" selected readonly>Hà Nội</option>
                             </select>
                         </li>
                         <li class="item_menu_left pl-2 py-2">
@@ -96,335 +91,56 @@
                     <div id="new_products" class="new_products">
                         <ul id="new_product_today" class="swiper-container">
                             <div class="swiper-wrapper clearfix">
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item ">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
+                                @foreach($prd_today as $prd)
+                                    <div class="swiper-slide text-center float-left">
+                                        <li class="item">
+                                            <article class="product-miniature">
+                                                <div class="thumbnail-container">
+                                                    <a href="{!! route('home.product.detail', $prd->id) !!}" class="thumbnail product-thumbnail">
+                                                        <img src="{{ $prd->large_photo }}" alt="product"/>
+                                                        <img class="replace-2x img_1 img-responsive"
+                                                             src="{{ $prd->large_photo2 }}"/>
+                                                    </a>
+                                                    <ul class="product-flags">
+                                                        <li class="on-sale">On sale!</li>
+                                                        <li class="new">New</li>
+                                                        <li class="discount_type_flag">
+                                                            <span class="discount-percentage">-20%</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="product-description">
+                                                    <div class="comments_note">
+                                                        <div class="star_content clearfix">
+                                                            <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                            <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                            <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                            <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                            <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                        </div>
+                                                    </div>
+                                                    <span class="h3 product-title" itemprop="name">
+                                                    <a href="{!! route('home.product.detail', $prd->id) !!}" >{!! $prd->name !!} </a>
+                                                </span>
+                                                    <div class="product-price-and-shipping">
+                                                        <span class="sr-only">Price</span>
+                                                        <span itemprop="price" class="price">{!! $prd->price - ($prd->price * ($prd->sale_off/100)) !!}</span>
+                                                        <span class="sr-only">Regular price</span>
+                                                        <span class="regular-price">{!! $prd->price !!}</span>
+                                                    </div>
+                                                    <div class="product-actions-main">
+                                                        <form action="" method="post" class="add-to-cart-or-refresh">
+                                                            <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
+                                                            <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
+                                                            <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
+                                                            <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+                                                        </form>
                                                     </div>
                                                 </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item ">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
+                                            </article>
+                                        </li>
+                                    </div>
+                                @endforeach
                             </div>
                         </ul>
                         <div class="customNavigation">
@@ -434,346 +150,71 @@
                     </div>
                     <hr class="pt-2 mb-0"/>
                     {{-- for từ đây lấy sản phẩm theo categories --}}
-                    <h5 class="py-2 pl-2">Kim loại</h5>
-                    <div id="new_categories1" class="new_products">
-                        <ul id="new_product_categories1" class="swiper-container">
-                            <div class="swiper-wrapper clearfix">
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item ">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
+                    @foreach($categories as $cate)
+                        <h5 class="py-2 pl-2">{!! $cate->name !!}</h5>
+                        <div id="new_categories1" class="new_products">
+                            <ul id="new_product_categories1" class="swiper-container">
+                                <div class="swiper-wrapper clearfix">
+                                    @foreach($products as $prd)
+                                        @if ($prd->category_id == $cate->id)
+                                            <div class="swiper-slide text-center float-left">
+                                                <li class="item">
+                                                    <article class="product-miniature">
+                                                        <div class="thumbnail-container">
+                                                            <a href="{!! route('home.product.detail', $prd->id) !!}" class="thumbnail product-thumbnail">
+                                                                <img src="{{ $prd->large_photo }}" alt="product"/>
+                                                                <img class="replace-2x img_1 img-responsive"
+                                                                     src="{{ $prd->large_photo2 }}"/>
+                                                            </a>
+                                                            <ul class="product-flags">
+                                                                <li class="on-sale">On sale!</li>
+                                                                <li class="new">New</li>
+                                                                <li class="discount_type_flag">
+                                                                    <span class="discount-percentage">-20%</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="product-description">
+                                                            <div class="comments_note">
+                                                                <div class="star_content clearfix">
+                                                                    <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                                    <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                                    <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                                    <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                                    <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                                </div>
+                                                            </div>
+                                                            <span class="h3 product-title" itemprop="name">
+                                                    <a href="{!! route('home.product.detail', $prd->id) !!}" >{!! $prd->name !!} </a>
                                                 </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
+                                                            <div class="product-price-and-shipping">
+                                                                <span class="sr-only">Price</span>
+                                                                <span itemprop="price" class="price">{!! $prd->price - ($prd->price * ($prd->sale_off/100)) !!}</span>
+                                                                <span class="sr-only">Regular price</span>
+                                                                <span class="regular-price">{!! $prd->price !!}</span>
+                                                            </div>
+                                                            <div class="product-actions-main">
+                                                                <form action="" method="post" class="add-to-cart-or-refresh">
+                                                                    <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
+                                                                    <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
+                                                                    <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
+                                                                    <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </li>
                                             </div>
-                                        </article>
-                                    </li>
+                                        @endif
+                                    @endforeach
                                 </div>
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item ">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
-                                <div class="swiper-slide text-center float-left">
-                                    <li class="item">
-                                        <article class="product-miniature">
-                                            <div class="thumbnail-container">
-                                                <a href="#" class="thumbnail product-thumbnail">
-                                                    <img src="/img/post1.jpg" alt=""/>
-                                                    <img class="replace-2x img_1 img-responsive" src="/img/posts2.jpg"/>
-                                                </a>
-                                                <ul class="product-flags">
-                                                    <li class="on-sale">On sale!</li>
-                                                    <li class="new">New</li>
-                                                    <li class="discount_type_flag">
-                                                        <span class="discount-percentage">-20%</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-description">
-                                                <div class="comments_note">
-                                                    <div class="star_content clearfix">
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                        <div class="star star_on"><i class="fa fa-star"></i></div>
-                                                    </div>
-                                                </div>
-                                                <span class="h3 product-title" itemprop="name">
-                                                    <a href="#" > Curabitur Dolor NuncPellentesque augue </a>
-                                                </span>
-                                                <div class="product-price-and-shipping">
-                                                    <span class="sr-only">Price</span>
-                                                    <span itemprop="price" class="price">$19.12</span>
-                                                    <span class="sr-only">Regular price</span>
-                                                    <span class="regular-price">$23.90</span>
-                                                </div>
-                                                <div class="product-actions-main">
-                                                    <form action="" method="post" class="add-to-cart-or-refresh">
-                                                        <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                        <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                        <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                        <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </div>
+                            </ul>
+                            <div class="customNavigation">
+                                <a class="btn prev brand_prev carousel-control-prev">&nbsp;<i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                                <a class="btn next brand_next carousel-control-next">&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
                             </div>
-                        </ul>
-                        <div class="customNavigation">
-                            <a class="btn prev brand_prev carousel-control-prev">&nbsp;<i class="fa fa-chevron-left" aria-hidden="true"></i></a>
-                            <a class="btn next brand_next carousel-control-next">&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
