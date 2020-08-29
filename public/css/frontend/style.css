@@ -5,9 +5,9 @@
 .logo-search .logo img{
     width: 100%;
 }
-.logo-search .search .input-group{
-    width: 220px;
-}
+/*.logo-search .search .input-group{*/
+/*    width: 220px;*/
+/*}*/
 .menu-header {
     list-style: none;
     margin: 0;
@@ -37,5 +37,15 @@
     padding: 15px 0;
     font-size: 13px;
     font-weight: 500;
+}
+@media only screen and (max-width: 1200px) {
+    .xl-1-header {
+        display: block !important;
+    }
+}
+@media only screen and (max-width: 1368px) {
+    .logo img{
+        margin-top: 10px;
+    }
 }
 

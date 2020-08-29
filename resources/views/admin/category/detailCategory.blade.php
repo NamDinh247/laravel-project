@@ -16,11 +16,8 @@
                     <div class="col-sm-9">
                         <h5>Sửa thông tin danh mục</h5>
                         <hr/>
-<<<<<<< HEAD
                         <form class="form row" action="/admin/category/detail" method="post" id="accountForm">
-=======
                         <form class="form row" action="/admin/category" method="post" id="accountForm">
->>>>>>> 850b0ab3bd1b5e406a48dd24e487c15e2ab962f5
                             @csrf
                             <h5>Chi tiết danh mục</h5>
                             <hr/>

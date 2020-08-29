@@ -59,6 +59,15 @@ Route::get('/shop/orders/detail/{id}','Frontend\HomeController@getShopDetailOrde
 // sign in
 Route::get('/sign-in','Frontend\HomeController@getSignIn');
 
+//detail user
+Route::get('/detail/user', 'Frontend\HomeController@getUser');
+
+Route::get('/detail/password', 'Frontend\HomeController@getPassword');
+
+Route::get('/detail/orders','Frontend\HomeController@getListOrder');
+
+Route::get('/detail/notifi','Frontend\HomeController@getListNotification');
+
 //Route::post('/order/create', 'Frontend\HomeController@postCreateOrder')
 //    ->name('customer.create.order');
 //

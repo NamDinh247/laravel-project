@@ -303,5 +303,3 @@ class HomeController extends Controller
 //    }
     #End shop
 }
-
-

@@ -1,48 +1,39 @@
 @extends('admin.layout_admin_master')
 
 @section('main-content')
+    <div class="main-dashboard pb-4">
+        <div class="row bg-white" style="margin-bottom: 20px">
+            <div class="col-md-10" style="width: 100%">
+                <h2 style="padding-bottom: 10px">Doanh thu thuần</h2>
+                <canvas id="myChart4"></canvas>
+            </div>
+        </div>
 
-    <div class="col-md-10" style="width: 100%">
-        <h2 style="padding-bottom: 50px">Doanh thu thuần</h2>
-        <canvas id="myChart4"></canvas>
-    </div>
-    {{--    <div style="width: 100%">--}}
-    {{--        <h2 style="padding-bottom: 50px">Tổng doanh thu</h2>--}}
-    {{--        <canvas id="myChart"></canvas>--}}
-    {{--    </div>--}}
-    <hr>
-    <div class=row>
-        <div class="col-md-4">
-            <canvas id="myChart1"></canvas>
-            <div class="donut-inner">
-                <span>100%</span>
+        {{--        <div style="width: 100%">--}}
+        {{--            <h2 style="padding-bottom: 50px">Tổng doanh thu</h2>--}}
+        {{--            <canvas id="myChart"></canvas>--}}
+        {{--        </div>--}}
+        <div class="row ">
+            <div class="col-md-4  my-3">
+                <div>
+                    <canvas id="myChart1" class="bg-white"></canvas>
+                </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <canvas id="myChart2"></canvas>
-            <div class="donut-inner">
-                <span>100%</span>
+            <div class="col-md-4  my-3">
+                <div>
+                    <canvas id="myChart2" class="bg-white"></canvas>
+                </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <canvas id="myChart3"></canvas>
-            <div class="donut-inner">
-                <span class="">100%</span>
+            <div class="col-md-4  my-3">
+                <div>
+                    <canvas id="myChart3" class="bg-white"></canvas>
+                </div>
             </div>
         </div>
     </div>
-    <hr>
+    </div>
 
-    <hr>
-    <div class="col-md-6" style="width: 100%">
-        <h2 style="padding-bottom: 50px">Doanh thu theo dòng hàng</h2>
-        <canvas id="myChart5"></canvas>
-    </div>
-    <hr>
-    <div class="col-md-6" style="width: 100%">
-        <h2 style="padding-bottom: 50px">Top 10 đơn hàng có tổng giá trị cao nhất</h2>
-        <canvas id="myChart6"></canvas>
-    </div>
+
 @endsection
 
 @section('main-script')
@@ -229,80 +220,6 @@
                             scaleLabel: {
                                 display: true,
                                 labelString: 'Money'
-                            }
-                        }]
-                    }
-                }
-            });
-        });
-    </script>
-    <script>
-        $(function () { //tab table 5
-            var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            var ctx1 = document.getElementById('myChart5').getContext('2d');
-            var myChart5 = new Chart(ctx1, {
-                type: 'doughnut',
-                data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-                    datasets: [{
-                        fill: false,
-                        backgroundColor: ['#0000ff', '#00ff00'],
-                        data: [30, 70]
-                    }]
-                },
-                options: {
-                    legend: {
-                        display: false,
-                    },
-                    hover: {
-                        mode: 'nearest',
-                        intersect: true
-                    },
-                }
-            });
-        });
-    </script>
-    <script>
-        $(function () { //tab table 6
-            var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            var ctx1 = document.getElementById('myChart6').getContext('2d');
-            var myChart6 = new Chart(ctx1, {
-                type: 'horizontalBar',
-                data: {
-                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-                    datasets: [{
-                        label: 'My Second dataset',
-                        fill: false,
-                        backgroundColor: 'rgb(54, 162, 235)',
-                        borderColor: 'rgb(54, 162, 235)',
-                        data: [60, 55, 50, 51, 44, 42, 37, 30, 27, 20],
-                    }]
-                },
-                options: {
-                    legend: {
-                        display: false,
-                    },
-                    responsive: true,
-                    hover: {
-                        mode: 'nearest',
-                        intersect: true
-                    },
-                    scales: {
-                        xAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                            },
-                            ticks: {
-                                suggestedMin: 0,
-                                suggestedMax: 100,
-                                stepSize: 25
-                            },
-                        }],
-                        yAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
                             }
                         }]
                     }

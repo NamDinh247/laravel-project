@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="/css/frontend/sign/main.css">
     <link rel="stylesheet" href="/css/frontend/sign/util.css">
     <script src="/Admin/plugins/jquery/jquery.min.js"></script>
+    <script src="/Admin/plugins/bootstrap/js/popper.min.js"></script>
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+
     <title>
         @yield('title')
     </title>
@@ -171,25 +173,27 @@
                 $('#modal-signIn .form_sign_in').removeClass('d-none');
                 $('#modal-signIn .form_sign_up').addClass('d-none');
                 $('#modal-signIn .modal-dialog').removeClass('d-none');
-                // $('#modal-signIn .col-left').addClass('col-md-5').removeClass('col-md-7');
-                // $('#modal-signIn .col-right').addClass('col-md-7').removeClass('col-md-5');
             });
             $('.formsignup').click(function (event) {
                 $('#modal-signIn .form_sign_in').addClass('d-none');
                 $('#modal-signIn .form_sign_up').removeClass('d-none');
                 $('#modal-signIn .modal-dialog').removeClass('modal-lg');
                 $('#modal-signIn .modal-dialog').addClass('modal-xl');
-                // $('#modal-signIn .col-left').addClass('col-md-7').removeClass('col-md-5');
-                // $('#modal-signIn .col-right').addClass('col-md-5').removeClass('col-md-7');
             });
             $('.formsignin').click(function (event) {
                 $('#modal-signIn .form_sign_in').removeClass('d-none');
                 $('#modal-signIn .form_sign_up').addClass('d-none');
                 $('#modal-signIn .modal-dialog').removeClass('modal-xl');
                 $('#modal-signIn .modal-dialog').addClass('modal-lg');
-                // $('#modal-signIn .col-left').addClass('col-md-5').removeClass('col-md-7');
-                // $('#modal-signIn .col-right').addClass('col-md-7').removeClass('col-md-5');
             });
+            var widthWindow = $(window).width();
+            if (widthWindow > 1368) {
+                $('#header .row-header .col-md-1').removeClass('d-none');
+                $('#header .row-header .col-logo').removeClass('col-md-4').addClass('col-md-3');
+            } else {
+                $('#header .row-header .col-md-1').addClass('d-none');
+                $('#header .row-header .col-logo').removeClass('col-md-3').addClass('col-md-4');
+            }
         })
     </script>
 
