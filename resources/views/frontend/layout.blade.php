@@ -24,10 +24,12 @@
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0&appId=680469619206748&autoLogAppEvents=1" nonce="tTMwqKi2"></script>
 <body>
-    @include('frontend.include.header')
-    <main class="container-fluid" style="margin-top: 57px;">
-        @yield('content')
-    </main>
+    <div class="wrapper">
+        @include('frontend.include.header')
+        <main class="container-fluid">
+            @yield('content')
+        </main>
+    </div>
 
     @yield('modal')
 

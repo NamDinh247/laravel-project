@@ -47,7 +47,7 @@
                     </ul>
                     <hr class="my-3"/>
 
-                    <h5 style="color: #65676b;font-size: 16px !important;">Hạng mục</h5>
+                    <h5 class="pb-2" style="color: #65676b;font-size: 16px !important;">Hạng mục</h5>
                     <ul class="menu_left menu_categories">
                         <li class="item_menu_left pl-2 py-2 clearfix">
                             <a href="/product/list" style="color: #444;">
@@ -124,16 +124,16 @@
                                                 </span>
                                                     <div class="product-price-and-shipping">
                                                         <span class="sr-only">Price</span>
-                                                        <span itemprop="price" class="price">{!! $prd->price - ($prd->price * ($prd->sale_off/100)) !!}</span>
+                                                        <span itemprop="price" class="price">{!! $prd->price - ($prd->price * ($prd->sale_off/100)) !!} VND</span>
                                                         <span class="sr-only">Regular price</span>
-                                                        <span class="regular-price">{!! $prd->price !!}</span>
+                                                        <span class="regular-price">{!! $prd->price !!} VND</span>
                                                     </div>
                                                     <div class="product-actions-main">
                                                         <form action="" method="post" class="add-to-cart-or-refresh">
                                                             <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
                                                             <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
                                                             <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                            <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+                                                            <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -198,7 +198,7 @@
                                                                     <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
                                                                     <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
                                                                     <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                                    <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+                                                                    <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</button>
                                                                 </form>
                                                             </div>
                                                         </div>

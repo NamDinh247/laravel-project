@@ -1072,7 +1072,7 @@
                                     <div class="product-actions-main">
                                         <form action="" method="post" class="add-to-cart-or-refresh">
 
-                                            <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Thêm Vào Giỏ Hàng</button>
+                                            <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</button>
                                         </form>
                                     </div>
                                 </div>

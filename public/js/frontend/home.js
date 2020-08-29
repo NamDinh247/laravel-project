@@ -11,6 +11,7 @@ $(document).ready(function() {
         $('.add_action').hide();
         $('#post').hide();
     });
+
 });
 // document.addEventListener("click", function (evt) {
 //     if ($(evt.target).attr('id') == 'box_new_posts') {

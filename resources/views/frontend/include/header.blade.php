@@ -1,4 +1,4 @@
-<header id="header" class="fixed-top bg-white" >
+<header id="header" class="bg-white" >
     <div class="container-fluid">
         <div class="row row-header" style="box-shadow: 0 1px 5px -2px #888;">
             <div class="col-md-4 col-logo">
