@@ -139,7 +139,7 @@ class HomeController extends Controller
 //                ->where('status', '=', 1)
 //                ->first();
 //            return view('frontend.product.detail', compact('product'));
-            return view('frontend.product.detail');
+        return view('frontend.product.detail');
 //        } catch (\Exception $ex) {
 //            return false;
 //        }
@@ -223,17 +223,104 @@ class HomeController extends Controller
 //    }
 
 #Region Shop Order
-    public function getShopOrdersList(){
+    public function getShopOrdersList()
+    {
         return view('frontend.shop.list');
     }
 
-    public function getShopDetailOrders(){
+    public function getShopDetailOrders()
+    {
         return view('frontend.shop.detail');
     }
 
 #End Region Shop Order
 // sign in
-    public function getSignIn(){
+    public function getSignIn()
+    {
         return view('frontend.sign.signIn');
+    }
+
+#Detail User
+    public function getUser()
+    {
+        $listProvince = [
+            "An Giang",
+            "Bà Rịa – Vũng Tàu",
+            "Bắc Giang",
+            "Bắc Kạn",
+            "Bạc Liêu",
+            "Bắc Ninh",
+            "Bến Tre",
+            "Bình Định",
+            "Bình Dương",
+            "Bình Phước",
+            "Bình Thuận",
+            "Cà Mau",
+            "Cần Thơ",
+            "Cao Bằng",
+            "Đà Nẵng",
+            "Đắk Lắk",
+            "Đắk Nông",
+            "Điện Biên",
+            "Đồng Nai",
+            "Đồng Tháp",
+            "Gia Lai",
+            "Hà Giang",
+            "Hà Nam",
+            "Hà Nội",
+            "Hà Tĩnh",
+            "Hải Dương",
+            "Hải Phòng",
+            "Hậu Giang",
+            "Hòa Bình",
+            "Hưng Yên",
+            "Khánh Hòa",
+            "Kiên Giang",
+            "Kon Tum",
+            "Lai Châu",
+            "Lâm Đồng",
+            "Lạng Sơn",
+            "Lào Cai",
+            "Long An",
+            "Nam Định",
+            "Nghệ An",
+            "Ninh Bình",
+            "Ninh Thuận",
+            "Phú Thọ",
+            "Phú Yên",
+            "Quảng Bình",
+            "Quảng Nam",
+            "Quảng Ngãi",
+            "Quảng Ninh",
+            "Quảng Trị",
+            "Sóc Trăng",
+            "Sơn La",
+            "Tây Ninh",
+            "Thái Bình",
+            "Thái Nguyên",
+            "Thanh Hóa",
+            "Thừa Thiên Huế",
+            "Tiền Giang",
+            "Thành phố Hồ Chí Minh",
+            "Trà Vinh",
+            "Tuyên Quang",
+            "Vĩnh Long",
+            "Vĩnh Phúc",
+            "Yên Bái",
+        ];
+        return view('frontend.shop.user')->with('listProvince', $listProvince);
+
+    }
+
+    public function getPassword(){
+        return view('frontend.shop.password');
+    }
+
+    public function getListOrder(){
+        return view('frontend.shop.order');
+    }
+
+    public function getListNotification(){
+        return view('frontend.shop.notifi');
     }
 }
