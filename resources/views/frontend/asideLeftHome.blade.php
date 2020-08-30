@@ -1,8 +1,8 @@
-<div class="aside_left pl-3 sidebar-sticky">
+<div class="aside_left pl-3">
     <ul class="menu_left">
         <li class="item_menu_left pl-2 py-2 clearfix">
-            <img class="rounded-circle float-left" src="/img/avatar_2x.png" alt="avatar left">
-            <span class="float-left item_menu_title">Hiện TNT</span>
+            <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
+            <span class="float-left item_menu_title pt-1">Hiện TNT</span>
         </li>
         <li class="item_menu_left pl-2 py-2 clearfix">
             <a href="/shop/list">
@@ -32,8 +32,8 @@
 
     <hr class="my-3"/>
 
-    <h5 style="color: #65676b;font-size: 16px !important;">Hạng mục</h5>
-    <ul class="menu_left">
+    <h5 class="pb-2" style="color: #65676b;font-size: 16px !important;">Hạng mục</h5>
+    <ul class="menu_left menu_categories_home">
         <li class="item_menu_left pl-2 py-2 clearfix">
             <a href="/product/list" style="color: #444;">
                 <i class="fa fa-cubes float-left"></i>
