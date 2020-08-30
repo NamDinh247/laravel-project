@@ -40,17 +40,17 @@ class HomeController extends Controller
 //        return 'Post register user';
 //    }
 //
-//    public function getLogin()
-//    {
-//        return view('frontend.login');
-//    }
-//
-//    public function postLogin(Request $request)
-//    {
-//        // login user
-//        // none validate data
-//        return 'Login user';
-//    }
+    public function getLogin()
+    {
+        return view('frontend.sign.signIn');
+    }
+
+    public function postLogin(Request $request)
+    {
+        // login user
+        // none validate data
+        return 'Login user';
+    }
 
     public function getListShop()
     {
@@ -96,7 +96,11 @@ class HomeController extends Controller
     # Shopping cart
     public function getShoppingCart()
     {
-        return view('frontend.shopping_cart')->with('shoppingCart', Session::get('shoppingCart'));
+        $shoppingCart = Session::get('shoppingCart');
+        if (isset($shoppingCart)) {
+            return view('frontend.shopping_cart')->with('shoppingCart', $shoppingCart);
+        }
+        return view('frontend.shopping_cart');
     }
 
     public function getAddShoppingCart(Request $request)
