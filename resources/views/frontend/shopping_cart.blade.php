@@ -24,70 +24,72 @@
                             <div class="card cart-container mb-3">
                                 <div class="card-block">
                                     {{-- for từ đây --}}
-                                    @foreach($shoppingCart as $key => $cartItem)
-                                        <div class="cart-header">
-                                        <div class="close1"></div>
-                                        <div class="cart-sec simpleCart_shelfItem">
-                                            <div class="cart-item cyc py-0" style="border-bottom: none;">
-                                                <img src="{!! $cartItem['prd_detail']->large_photo !!}" class="img-responsive" alt="" />
-                                            </div>
-                                            <div class="cart-item-info">
-                                                <h3><a href="#">{{ $cartItem['productName'] }}</a>
-                                                    <span>Mã sản phẩm: {!! $cartItem['prd_detail']->prd_code !!}</span>
-                                                </h3>
-                                                <ul class="qty">
-                                                    <li class="row py-1">
-                                                        <div class="product-variants-item col-md-6">
-                                                            <div class="row p-0 m-0">
-                                                                <span class="control-label col-md-6 px-0 mr-0 my-2">Cửa hàng: </span>
-                                                                <span class="col-md-6 p-0 my-2">
-                                                                    <a href="#">
-                                                                        {!! $cartItem['prd_detail']->shop->name !!}
-                                                                    </a>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="row py-1">
-                                                        <div class="product-variants-item col-md-6">
-                                                            <div class="row p-0 m-0">
-                                                                <span class="control-label col-md-6 px-0 mr-0 my-2">Loại sản phẩm: </span>
-                                                                <span class="col-md-6 p-0 my-2">
-                                                                    {!! $cartItem['prd_detail']->category->name !!}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="row py-1">
-                                                        <div class="product-add-to-cart clearfix col-md-6">
-                                                            <div class="row p-0 m-0">
-                                                                <span class="control-label col-md-6 mt-3 px-0 mr-0 mb-2">Số lượng: </span>
-                                                                <div class="col-md-6 p-0 my-2">
-                                                                    <input type="number" min="0" class="form-control" value="{!! $cartItem['quantity'] !!}">
+                                    @if(isset($shoppingCart))
+                                        @foreach($shoppingCart as $key => $cartItem)
+                                            <div class="cart-header">
+                                            <div class="close1"></div>
+                                            <div class="cart-sec simpleCart_shelfItem">
+                                                <div class="cart-item cyc py-0" style="border-bottom: none;">
+                                                    <img src="{!! $cartItem['prd_detail']->large_photo !!}" class="img-responsive" alt="" />
+                                                </div>
+                                                <div class="cart-item-info">
+                                                    <h3><a href="#">{{ $cartItem['productName'] }}</a>
+                                                        <span>Mã sản phẩm: {!! $cartItem['prd_detail']->prd_code !!}</span>
+                                                    </h3>
+                                                    <ul class="qty">
+                                                        <li class="row py-1">
+                                                            <div class="product-variants-item col-md-6">
+                                                                <div class="row p-0 m-0">
+                                                                    <span class="control-label col-md-6 px-0 mr-0 my-2">Cửa hàng: </span>
+                                                                    <span class="col-md-6 p-0 my-2">
+                                                                        <a href="#">
+                                                                            {!! $cartItem['prd_detail']->shop->name !!}
+                                                                        </a>
+                                                                    </span>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="row py-1">
-                                                        <div class="product-variants-item col-md-6">
-                                                            <div class="row p-0 m-0">
-                                                                <span class="control-label col-md-6 px-0 mr-0 my-2">Tổng tiền: </span>
-                                                                <span class="col-md-6 p-0 my-2">{!! $cartItem['quantity'] * $cartItem['productPrice'] !!} VND</span>
+                                                        </li>
+                                                        <li class="row py-1">
+                                                            <div class="product-variants-item col-md-6">
+                                                                <div class="row p-0 m-0">
+                                                                    <span class="control-label col-md-6 px-0 mr-0 my-2">Loại sản phẩm: </span>
+                                                                    <span class="col-md-6 p-0 my-2">
+                                                                        {!! $cartItem['prd_detail']->category->name !!}
+                                                                    </span>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
+                                                        </li>
+                                                        <li class="row py-1">
+                                                            <div class="product-add-to-cart clearfix col-md-6">
+                                                                <div class="row p-0 m-0">
+                                                                    <span class="control-label col-md-6 mt-3 px-0 mr-0 mb-2">Số lượng: </span>
+                                                                    <div class="col-md-6 p-0 my-2">
+                                                                        <input type="number" min="0" class="form-control" value="{!! $cartItem['quantity'] !!}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="row py-1">
+                                                            <div class="product-variants-item col-md-6">
+                                                                <div class="row p-0 m-0">
+                                                                    <span class="control-label col-md-6 px-0 mr-0 my-2">Tổng tiền: </span>
+                                                                    <span class="col-md-6 p-0 my-2">{!! $cartItem['quantity'] * $cartItem['productPrice'] !!} VND</span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
 
-                                                <div class="delivery">
-                                                    <a href="/shopping-cart/add?productId={{$cartItem['productId']}}&quantity=1">Add</a>&nbsp;
-                                                    <a href="/shopping-cart/add?productId={{$cartItem['productId']}}&quantity=-1">Sub</a>&nbsp;
-                                                    <a href="/shopping-cart/remove?productId={{$cartItem['productId']}}">Remove</a>&nbsp;
+                                                    <div class="delivery">
+                                                        <a href="/shopping-cart/add?productId={{$cartItem['productId']}}&quantity=1">Add</a>&nbsp;
+                                                        <a href="/shopping-cart/add?productId={{$cartItem['productId']}}&quantity=-1">Sub</a>&nbsp;
+                                                        <a href="/shopping-cart/remove?productId={{$cartItem['productId']}}">Remove</a>&nbsp;
+                                                    </div>
                                                 </div>
+                                                <div class="clearfix"></div>
                                             </div>
-                                            <div class="clearfix"></div>
                                         </div>
-                                    </div>
-                                    @endforeach
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="cart-overview js-cart d-none">
                                     <span class="no-items">There are no more items in your cart</span>

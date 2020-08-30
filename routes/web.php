@@ -24,11 +24,11 @@ Route::get('/', 'Frontend\HomeController@getHomePage')
 //Route::post('/register', 'Frontend\HomeController@postRegister')
 //    ->name('home.postRegister');
 //
-//Route::get('/login', 'Frontend\HomeController@getLogin')
-//    ->name('home.getLogin');
-//
-//Route::post('/login', 'Frontend\HomeController@postLogin')
-//    ->name('home.postLogin');
+Route::get('/login', 'Frontend\HomeController@getLogin')
+    ->name('home.getLogin');
+
+Route::post('/login', 'Frontend\HomeController@postLogin')
+    ->name('home.postLogin');
 
 Route::get('/shop/list', 'Frontend\HomeController@getListShop')
     ->name('home.shop.list');

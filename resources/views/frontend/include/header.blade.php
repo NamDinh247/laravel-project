@@ -8,7 +8,7 @@
                             <img src="/img/logoRecycling.png" class="" alt="logo recycling">
                         </a>
                     </div>
-                    <div class="search col-md-9 my-2">
+                    <div class="search col-md-9 my-2" hidden>
                         <div class="input-group" >
                             <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">
