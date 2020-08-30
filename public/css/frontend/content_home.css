@@ -146,4 +146,15 @@
         height: 180px;
     }
 }
+.comments_note {
+    text-align: left;
+    color: #878787;
+}
+.star_content .star {
+    float: left;
+    font-size: 12px;
+}
+.star_content .star_on i {
+    color: #febd69;
+}
 

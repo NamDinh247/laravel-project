@@ -13,13 +13,3 @@ $(document).ready(function() {
     });
 
 });
-// document.addEventListener("click", function (evt) {
-//     if ($(evt.target).attr('id') == 'box_new_posts') {
-//
-//     } else {
-//         $('#box_new_posts').height(25);
-//         $('#box_new_posts').css('border-radius', '30px');
-//         $('.add_action').hide();
-//         $('.add_action').hide();
-//     }
-// });
