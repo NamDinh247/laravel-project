@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-12">
             <div class="card border-r-0 border-0">
-                <div class="card-body container bootstrap snippet">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
                             <h5>Thêm mới sản phẩm</h5>

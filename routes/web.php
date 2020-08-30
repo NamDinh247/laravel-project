@@ -78,6 +78,9 @@ Route::get('/detail/notifi','Frontend\HomeController@getListNotification');
 //    ->name('customer.shop.postRegister');
 //
 // Shop
+// detail shop
+Route::get('/shop/detail', 'Frontend\HomeController@getDetailShop');
+
 Route::get('/shop/order/list', 'Frontend\HomeController@getListOrder')
     ->name('customer.shop.getListOrder');
 
