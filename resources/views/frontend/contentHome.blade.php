@@ -16,7 +16,7 @@
                 <div class="col-md-8 px-5">
                     <div class="content_center">
                         {{-- new posts --}}
-                        <div class="box-content mb-3" >
+                        <div class="box-content mb-3 d-none" >
                             <div class="p-3 clearfix">
                                 <div class="box_content_left float-left">
                                     <div class="avatar_box">
