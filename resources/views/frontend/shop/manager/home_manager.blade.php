@@ -137,7 +137,7 @@
                                     đang giao
                                 </td>
                                 <td class="text-xl-right ver-middle">
-                                    <a href="/admin/orders/detail/" type="button" class="btn btn-sm btn-warning"><i
+                                    <a onclick="changeTab(this, 'manage_orders_detail_content')" type="button" class="btn btn-sm btn-warning"><i
                                             class="fa fa-edit"></i>&nbsp; Chi tiết</a>
                                     <button type="button" class="btn btn-sm btn-danger" value="3"
                                             onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Hủy
@@ -444,7 +444,7 @@
                                             <td class="ver-middle">7</td>
                                             <td class="ver-middle">8</td>
                                             <td class="text-xl-right ver-middle">
-                                                <a href="/admin/product/detail" type="button" class="btn btn-sm btn-warning"><i
+                                                <a onclick="changeTab(this, 'manage_product_detail_content')" type="button" class="btn btn-sm btn-warning"><i
                                                         class="fa fa-edit"></i>&nbsp; Sửa</a>
                                                 <button type="button" class="btn btn-sm btn-danger" value="1"
                                                         onclick="showModalDeleteProduct(this)"><i class="fa fa-trash"></i>&nbsp; Xoá
