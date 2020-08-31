@@ -96,9 +96,11 @@
                                     @endswitch
                                 </td>
                                 <td class="text-xl-right ver-middle">
-                                    <a href="/admin/account/shop/{!!$shop->id!!}/1" class="mr-2" id="active-shop" title="Kích hoạt">
-                                        <i class="fa fa-envelope-open text-danger" aria-hidden="true"></i>
-                                    </a>
+                                    @if($shop->status != 1)
+                                        <a href="/admin/account/shop/{!!$shop->id!!}/1" class="mr-2" id="active-shop" title="Kích hoạt">
+                                            <i class="fa fa-envelope-open text-danger" aria-hidden="true"></i>
+                                        </a>
+                                    @endif
                                     <a href="#" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
                                     <a><i class="fa fa-trash"></i></a>
                                 </td>

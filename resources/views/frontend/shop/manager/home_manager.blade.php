@@ -26,10 +26,10 @@
                                     <a onclick="changeTab(this, 'manage_orders_content')">Tất cả </a>
                                 </li>
                                 <li>
-                                    <a onclick="changeTab(this, 'manage_orders_content')">Đã huỷ</a>
+                                    <a onclick="changeTab(this, 'manage_orders_content')">Hoàn thành</a>
                                 </li>
                                 <li>
-                                    <a onclick="changeTab(this, 'manage_orders_content')">Trả hàng/Hoàn tiền</a>
+                                    <a onclick="changeTab(this, 'manage_orders_content')">Đã hủy</a>
                                 </li>
                             </ul>
                         </li>
@@ -76,7 +76,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-9 pt-2 content_detail_shop px-5" style="background-color: rgb(240, 242, 245);">
+        <div class="col-sm-9 pt-2 content_detail_shop px-4" style="background-color: rgb(240, 242, 245);">
             {{-- list orders --}}
             <div class="d-block manage_content manage_orders_content">
                 <div class="card-header bg-white position-relative border-0 p-0 mb-4">

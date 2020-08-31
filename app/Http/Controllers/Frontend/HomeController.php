@@ -7,6 +7,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Order;
 use App\Order_detail;
+use App\Order_status;
 use App\Product;
 use App\Shop;
 use App\User;
@@ -401,7 +402,7 @@ class HomeController extends Controller
                 return 203;
             } else {
                 // fail
-                return 501;
+                return 500;
             }
         } catch (\Exception $ex) {
             return 500;
@@ -411,45 +412,59 @@ class HomeController extends Controller
     public function getListOrder()
     {
         try {
-//            $lstOrder = Order::whereNotIn('status', [-1])
-//                ->orderby('created_at', 'desc')
-//                ->paginate(10);
-//            return view('frontend.listShop', compact('lstOrder'));
+            $user = Auth::user();
+            $shop = Shop::where('account_id', $user->id)->first();
+            if ($shop == null) {
+                return view('errors.404');
+            }
 
-            return view('frontend.listShop');
+            $lstOrder = Order::where('shop_id', $shop->id)
+                ->whereNotIn('od_status', [-1, 1])
+                ->orderby('created_at', 'desc')
+                ->paginate(10);
+            return view('frontend.shop.manager.list_order', compact('lstOrder'));
         } catch (\Exception $ex) {
-            return false;
+            return view('errors.404');
         }
     }
 
     public function getDetailOrder($id)
     {
         try {
-            $odDetail = Order::where('id', '=', $id)
-                ->where('status', '=', 1)
+            $order = Order::where('id', '=', $id)
+                ->whereNotIn('od_status', [-1])
                 ->first();
-            return view('frontend.shop.order_detail', compact('odDetail'));
+            $order_status = Order_status::all();
+            if ($order == null) {
+                return view('errors.404');
+            }
+            $order_detail = Order_detail::where('od_id', $order->id)->get();
+
+            return view('frontend.shop.manager.order_detail',
+                compact('order', 'order_detail', 'order_status'));
         } catch (\Exception $ex) {
-            return false;
+            return view('errors.404');
         }
     }
 
-    public function postChangeStatus(Request $request)
+    public function postChangeOrder(Request $request)
     {
         try {
-            $odId = $request->get('od_id');
-            $order = Order::where('id', '=', $odId)
-                ->whereNotIn('status', '=', -1)
+            $od_id = $request->get('od_id');
+            $order = Order::where('id', '=', $od_id)
+                ->whereNotIn('od_status', [-1])
                 ->first();
-            $order->status = $request->get('status');
+            if ($order == null) {
+                return view('errors.404');
+            }
+            $order->od_status = $request->get('order_status');
             $order->save();
-            return view('frontend.shop.order_detail',
-                compact('msg', 'Cập nhật trạng thái đơn hàng thành công!'));
+            return redirect()->back()->with(['msg' => 'Cập nhật đơn hàng thành công']);
         } catch (\Exception $ex) {
-            return view('frontend.shop.order_detail',
-                compact('msg', 'Cập nhật trạng thái đơn hàng không thành công!'));
+            return redirect()->back()->with(['msg' => 'Cập nhật đơn hàng không thành công']);
         }
     }
+    # End shop
 
 //#Region Shop Order
 //    public function getShopOrdersList(){

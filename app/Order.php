@@ -14,6 +14,10 @@ class Order extends Model
         return $this->belongsTo('App\User', 'account_id', 'id');
     }
 
+    public function shop(){
+        return $this->belongsTo('App\Shop', 'shop_id', 'id');
+    }
+
     public function order_detail(){
         return $this->hasOne('App\Order_detail', 'od_id', 'id');
     }

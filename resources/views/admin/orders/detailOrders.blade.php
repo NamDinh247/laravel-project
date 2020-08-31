@@ -19,7 +19,7 @@
                         </span>
                         <span style="color: green">{!! $order->orderStatus->stt_name !!}</span>
                         <hr/>
-                        <form class="form row" action="#" method="post" id="accountForm">
+                        <div class="form row">
                             <div class="form-group col-md-4">
                                 <label>Địa chỉ người nhận</label>
                                 <div>
@@ -51,7 +51,26 @@
                                     <p>Thanh toán tiền mặt khi nhận hàng</p>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                        <hr />
+                        <div class="form row">
+                            <div class="form-group col-md-4">
+                                <label>Thông tin shop</label>
+                                <div>
+                                    <div>
+                                        <div>
+                                            <p>{!! $order->shop->name !!}</p>
+                                        </div>
+                                        <div>
+                                            <p>Địa chỉ: {!! $order->shop->address !!}</p>
+                                        </div>
+                                        <div>
+                                            <p>Điện thoại: {!! $order->shop->phone !!}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <hr>

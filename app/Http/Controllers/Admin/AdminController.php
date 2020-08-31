@@ -10,6 +10,7 @@ use App\Order_status;
 use App\Product;
 
 use App\Shop;
+use App\User;
 use Illuminate\Http\Request;
 use Mockery\Exception;
 
@@ -151,17 +152,23 @@ class AdminController extends Controller
     // list account shop
     public function listAccountShop()
     {
-        $lstShop = Shop::all();
+        $lstShop = Shop::whereNotIn('status', [-1])->get();
         return view('admin.account.listShop', compact('lstShop'));
     }
 
     public function getChangeStatusShop(Request $request)
     {
-        $shop = Shop::find($request->id);
+        $shop = Shop::where('id', $request->id)->where('status', '!=', -1)->first();
         if ($shop) {
-            $shop->status = $request->status;
-            $shop->save();
-            return redirect('/admin/account/shop');
+            $user = User::where('id', $shop->account_id)->where('status', '!=', -1)->first();
+            if ($user) {
+                $shop->status = $request->status;
+                $user->role = 4;
+                $user->save();
+                $shop->save();
+                return redirect('/admin/account/shop');
+            }
+            return view('errors.404');
         } else {
             return view('errors.404');
         }

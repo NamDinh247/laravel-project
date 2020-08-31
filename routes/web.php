@@ -76,12 +76,9 @@ Route::get('/shop/orders/detail/{id}','Frontend\HomeController@getShopDetailOrde
 // sign in
 Route::get('/sign-in','Frontend\HomeController@getSignIn');
 
-// Shop
+# Shop
 Route::get('/channel/shop', 'Frontend\HomeController@checkActiveShop')
     ->name('shop.channel');
-
-// detail shop
-Route::get('/shop/detail', 'Frontend\HomeController@getDetailShop');
 
 Route::get('/shop/order/list', 'Frontend\HomeController@getListOrder')
     ->name('customer.shop.getListOrder');
@@ -89,9 +86,9 @@ Route::get('/shop/order/list', 'Frontend\HomeController@getListOrder')
 Route::get('/shop/order/{id}', 'Frontend\HomeController@getDetailOrder')
     ->name('customer.shop.getDetailOrder');
 
-Route::post('/shop/order/change-status', 'Frontend\HomeController@postChangeStatus')
+Route::post('/shop/order/change-status', 'Frontend\HomeController@postChangeOrder')
     ->name('customer.shop.postChangeStatus');
+# End shop
 
-// test send mail
+# Test send mail
 // Route::get('/send', 'Frontend\HomeController@sendMail');
-// list product, add product shop

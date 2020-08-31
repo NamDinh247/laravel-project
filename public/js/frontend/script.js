@@ -23,6 +23,7 @@ $(document).ready(function() {
                         break;
                     case 200:
                         alert('Đăng ký tài khoản thành công!');
+                        window.location = '/';
                         break;
                     default:
                         alert('Có lỗi xảy ra, vui lòng thử lại');
