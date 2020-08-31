@@ -80,6 +80,9 @@ Route::get('/sign-in','Frontend\HomeController@getSignIn');
 Route::get('/channel/shop', 'Frontend\HomeController@checkActiveShop')
     ->name('shop.channel');
 
+// detail shop
+Route::get('/shop/detail', 'Frontend\HomeController@getDetailShop');
+
 Route::get('/shop/order/list', 'Frontend\HomeController@getListOrder')
     ->name('customer.shop.getListOrder');
 

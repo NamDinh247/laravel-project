@@ -466,4 +466,8 @@ class HomeController extends Controller
 //        return view('frontend.sign.signIn');
 //    }
     #End shop
+    // detail shop
+    public function getDetailShop(){
+        return view('frontend.shop.manager.home_manager');
+    }
 }
