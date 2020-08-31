@@ -22,17 +22,12 @@ class HomeController extends Controller
 {
     public function getHomePage()
     {
-        return view('frontend.contentHome');
+        $lst_article = Article::where('status', '!=', -1)
+            ->orderby('created_at', 'desc')
+            ->get();
+        return view('frontend.contentHome', compact('lst_article'));
     }
-//    public function getHomePage()
-//    {
-//        $articles = Article::where('status', '=', 1)
-//            ->orderby('created_at', 'desc')
-//            ->paginate(10);
-//        // return view('frontend.article.list', compact('articles'));
-//        return view('frontend.contentHome', compact('articles'));
-//    }
-//
+
     # Region login, register
     public function postRegister(Request $request)
     {
@@ -484,23 +479,22 @@ class HomeController extends Controller
             return redirect()->back()->with(['msg' => 'Cập nhật đơn hàng không thành công']);
         }
     }
+
+    public function getListArticle()
+    {
+        $user = Auth::user();
+        $shop = Shop::where('account_id', $user->id)
+            ->where('status', '!=', -1)
+            ->first();
+        if ($shop == null) {
+            return view('errors.404');
+        }
+        $lst_article = Article::where('shop_id', $shop->id)
+            ->where('status', '!=', -1)->get();
+        return view('frontend.shop.manager.list_article', compact('lst_article'));
+    }
     # End shop
 
-//#Region Shop Order
-//    public function getShopOrdersList(){
-//        return view('frontend.shop.list');
-//    }
-//
-//    public function getShopDetailOrders(){
-//        return view('frontend.shop.detail');
-//    }
-//
-//#End Region Shop Order
-//// sign in
-//    public function getSignIn(){
-//        return view('frontend.sign.signIn');
-//    }
-    #End shop
     // detail shop
     public function getDetailShop(){
         return view('frontend.shop.manager.home_manager');

@@ -91,6 +91,9 @@ Route::get('/shop/order/{id}', 'Frontend\HomeController@getDetailOrder')
 
 Route::post('/shop/order/change-status', 'Frontend\HomeController@postChangeOrder')
     ->name('customer.shop.postChangeStatus');
+
+Route::get('/shop/article/list', 'Frontend\HomeController@getListArticle')
+    ->name('customer.shop.getListArticle');
 # End shop
 
 # Test send mail

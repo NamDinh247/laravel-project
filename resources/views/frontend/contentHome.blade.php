@@ -40,60 +40,61 @@
                             </div>
                         </div>
                         {{-- for từ đây --}}
-                        <div class="box-content mb-3" >
-                            <div class="box_header pt-3">
-                                <div class="avatar_box pb-2 px-3">
-                                    <div class="box_img mr-2">
-                                        <img class="rounded-circle float-left" src="/img/avatar_2x.png" alt="avatar" style="width: 100%;">
-                                    </div>
-                                    <div class="name_time">
-                                        <div class="nameTime">
-                                            <div class="name">Hiện TNT</div>
-                                            <div class="time">
-                                                20 phút trước
+                        @foreach($lst_article as $article)
+                            <div class="box-content mb-3" >
+                                <div class="box_header pt-3">
+                                    <div class="avatar_box pb-2 px-3">
+                                        <div class="box_img mr-2">
+                                            <img class="rounded-circle float-left" src="/img/avatar_2x.png" alt="avatar" style="width: 100%;">
+                                        </div>
+                                        <div class="name_time">
+                                            <div class="nameTime">
+                                                <div class="name">{!! \Illuminate\Support\Facades\Auth::user()->shop->name !!}</div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="content_header px-2 py-1">
-                                    <div class="content_header_child">
+                                    <div class="content_header px-2 py-1">
+                                        <div class="content_header_child">
                                         <span>
-                                            Vẻ quyến rũ đầy màu sắc của mặt bàn bằng kính tái chế có thể là thứ bạn đang tìm kiếm để thêm một chút gia vị vào thiết kế nhà bếp của mình với phong cách thân thiện với môi trường.
+                                            {!! $article->title !!}
                                         </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="box_body">
-                                <div class="content_box_body">
-                                    <div class="row p-0 m-0" style="margin-bottom: 1px !important;">
-                                        <div class="image1 col-md-12 p-0 m-0">
-                                            <img src="/img/post1.jpg" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="row p-0 m-0">
-                                        <div class="image1 col-md-4 p-0 m-0">
-                                            <img src="/img/posts3.jpg" alt="" style="padding-right: 1px !important;">
-                                        </div>
-                                        <div class="image1 col-md-4 p-0 m-0">
-                                            <img src="/img/posts4.jpg" alt="">
-                                        </div>
-                                        <div class="image1 col-md-4 p-0 m-0">
-                                            <img src="/img/posts5.jpg" alt="" style="margin-left: 1px !important;margin-right: 1px !important;">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="box_comment">
-                                <div class="clearfix">
-                                    <div class="like float-left">
-                                        <i class="fa fa-thumbs-o-up" aria-hidden="true"><span class="ml-3">Thích</span></i>
+                                <div class="box_body">
+                                    <div class="content_box_body">
+                                        <div class="row p-0 m-0" style="margin-bottom: 1px !important;">
+                                            <div class="image1 col-md-12 p-0 m-0">
+                                                <img src="{!! $article->product->large_photo !!}" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="row p-0 m-0">
+                                            <?php $count = 0; ?>
+                                            @foreach($article->product->large_photos as $p)
+                                                @if($count < 3)
+                                                    <div class="image1 col-md-4">
+                                                        <img src="{!! $p !!}" alt="" class="img-fluid">
+                                                    </div>
+                                                @endif
+                                                <?php $count++; ?>
+                                            @endforeach
+                                        </div>
                                     </div>
-                                    <div class="detail_posts float-right">
-                                        <a href="/shop/detail">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="box_comment pb-3">
+                                    <div class="clearfix">
+                                        <div class="like float-left">
+                                            <i class="fa fa-thumbs-o-up" aria-hidden="true"><span class="ml-3">Thích</span></i>
+                                        </div>
+                                        <div class="detail_posts float-right">
+                                            <a href="{!! route('home.product.detail', $article->product->id) !!}">
+                                                Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-md-4 px-4">

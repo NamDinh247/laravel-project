@@ -72,6 +72,13 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="/shop/article/list">
+                                <i class="fa fa-file-text-o pr-1"></i>
+                                    Quản lý bài viết
+                                <i class="fa fa-angle-up float-right pt-2" aria-hidden="true"></i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
