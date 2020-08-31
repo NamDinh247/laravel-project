@@ -177,6 +177,26 @@ class HomeController extends Controller
             ->with('prd_today', $prd_today);
     }
 
+    public function getListProductResearch(Request $request)
+    {
+        try {
+            $data = array();
+            $data['keyword'] = '';
+            $lst_product = Product::query();
+            if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+                $data['keyword'] = $request->keyword;
+                $lst_product = $lst_product->where('name', 'like', '%' . $request->keyword . '%');
+            }
+
+            $data['lst_product'] = $lst_product->whereNotIn('status', [-1])
+                ->orderby('created_at', 'desc')
+                ->paginate(15);
+            return view('frontend.product.list_by_cate', compact('data'));
+        } catch (\Exception $ex) {
+            return view('errors.404');
+        }
+    }
+
     public function getDetailProduct($id)
     {
         try {
@@ -184,7 +204,7 @@ class HomeController extends Controller
                 ->where('status', '=', 1)
                 ->first();
             if ($product == null) {
-                return false;
+                return view('errors.404');
             }
             return view('frontend.product.detail', compact('product'));
         } catch (\Exception $ex) {

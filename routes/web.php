@@ -42,6 +42,9 @@ Route::get('/shop/list', 'Frontend\HomeController@getListShop')
 Route::get('/product/list', 'Frontend\HomeController@getListProduct')
     ->name('home.product.list');
 
+Route::get('/product/list/research', 'Frontend\HomeController@getListProductResearch')
+    ->name('home.product.list.research');
+
 Route::get('/product/detail/{id}', 'Frontend\HomeController@getDetailProduct')
     ->name('home.product.detail');
 # End user product
