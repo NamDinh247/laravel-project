@@ -13,22 +13,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// guest + customer
+#Home
 Route::get('/', 'Frontend\HomeController@getHomePage')
     ->name('homePage');
+#End home
 
+# Region login, register
+Route::post('/register', 'Frontend\HomeController@postRegister')
+    ->name('home.postRegister');
 
-//Route::get('/register', 'Frontend\HomeController@getRegister')
-//    ->name('home.getRegister');
-//
-//Route::post('/register', 'Frontend\HomeController@postRegister')
-//    ->name('home.postRegister');
-//
 Route::get('/login', 'Frontend\HomeController@getLogin')
     ->name('home.getLogin');
 
 Route::post('/login', 'Frontend\HomeController@postLogin')
     ->name('home.postLogin');
+
+Route::get('/logout', 'Frontend\HomeController@getLogout')
+    ->name('home.logout');
+
+Route::post('/shop/register', 'Frontend\HomeController@postShopRegister')
+    ->name('customer.shop.postRegister');
+#End region login,register
 
 Route::get('/shop/list', 'Frontend\HomeController@getListShop')
     ->name('home.shop.list');
@@ -54,30 +59,27 @@ Route::get('/shopping-cart/remove', 'Frontend\HomeController@getRemoveShoppingCa
 Route::post('/shopping-cart/submit', 'Frontend\HomeController@submit');
 # End user shopping cart
 
+#Region profile
+Route::get('/profile/info', 'Frontend\HomeController@getProfileInfo');
+
+Route::get('/profile/order/list', 'Frontend\HomeController@getListOrderUser');
+
+Route::get('/profile/order/detail/{id}', 'Frontend\HomeController@getDetailOrderUser');
+
+Route::get('/profile/change-password', 'Frontend\HomeController@getUserChangePass');
+
+Route::post('/profile/change-password', 'Frontend\HomeController@postUserChangePass');
+#End region profile
+
 // detail product
 Route::get('/shop/orders/detail/{id}','Frontend\HomeController@getShopDetailOrders');
 // sign in
 Route::get('/sign-in','Frontend\HomeController@getSignIn');
 
-//detail user
-Route::get('/detail/user', 'Frontend\HomeController@getUser');
-
-Route::get('/detail/password', 'Frontend\HomeController@getPassword');
-
-Route::get('/detail/orders','Frontend\HomeController@getListOrder');
-
-Route::get('/detail/notifi','Frontend\HomeController@getListNotification');
-
-//Route::post('/order/create', 'Frontend\HomeController@postCreateOrder')
-//    ->name('customer.create.order');
-//
-//Route::get('/shop/register', 'Frontend\HomeController@getShopRegister')
-//    ->name('customer.shop.getRegister');
-//
-//Route::post('/shop/register', 'Frontend\HomeController@postShopRegister')
-//    ->name('customer.shop.postRegister');
-//
 // Shop
+Route::get('/channel/shop', 'Frontend\HomeController@checkActiveShop')
+    ->name('shop.channel');
+
 Route::get('/shop/order/list', 'Frontend\HomeController@getListOrder')
     ->name('customer.shop.getListOrder');
 

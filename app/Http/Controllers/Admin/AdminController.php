@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Order;
+use App\Order_detail;
 use App\Order_status;
 use App\Product;
 
+use App\Shop;
 use Illuminate\Http\Request;
 use Mockery\Exception;
 
@@ -149,7 +151,20 @@ class AdminController extends Controller
     // list account shop
     public function listAccountShop()
     {
-        return view('admin.account.listShop');
+        $lstShop = Shop::all();
+        return view('admin.account.listShop', compact('lstShop'));
+    }
+
+    public function getChangeStatusShop(Request $request)
+    {
+        $shop = Shop::find($request->id);
+        if ($shop) {
+            $shop->status = $request->status;
+            $shop->save();
+            return redirect('/admin/account/shop');
+        } else {
+            return view('errors.404');
+        }
     }
 
     // new account shop
@@ -259,9 +274,10 @@ class AdminController extends Controller
                 ->first();
             $order_status = Order_status::all();
             if ($order == null) {
-                return false;
+                return view('errors.404');
             }
-            return view('admin.orders.detailOrders')->with('order', $order)->with('order_status', $order_status);
+            $order_detail = Order_detail::where('od_id', $order->id)->get();
+            return view('admin.orders.detailOrders', compact('order', 'order_status', 'order_detail'));
         } catch (\Exception $ex) {
             return false;
         }

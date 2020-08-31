@@ -17,10 +17,14 @@
                         <input type="text" class="form-control" style="border: none;padding-left: 30px;border-radius: 30px;height: 35px; line-height: 35px;" placeholder="Tìm kiếm cửa hàng">
                         <i class="fa fa-search position-absolute" style="top: 14px;left: 13px;"></i>
                     </li>
-                    <li class="item_menu_left pl-2 py-2 clearfix">
-                        <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
-                        <span class="float-left item_menu_title pt-1">Hiện TNT</span>
-                    </li>
+                    @if(\Illuminate\Support\Facades\Auth::check())
+                        <li class="item_menu_left pl-2 py-2 clearfix">
+                            <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
+                            <span class="float-left item_menu_title pt-1">
+                                {!! \Illuminate\Support\Facades\Auth::user()->full_name !!}
+                            </span>
+                        </li>
+                    @endif
                 </ul>
                 <hr class="my-3"/>
                 <div class="filter_left">

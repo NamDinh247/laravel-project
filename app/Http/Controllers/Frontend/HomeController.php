@@ -9,9 +9,13 @@ use App\Order;
 use App\Order_detail;
 use App\Product;
 use App\Shop;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use phpDocumentor\Reflection\Types\Array_;
 
 class HomeController extends Controller
 {
@@ -28,18 +32,39 @@ class HomeController extends Controller
 //        return view('frontend.contentHome', compact('articles'));
 //    }
 //
-//    public function getRegister()
-//    {
-//        return view('frontend.register');
-//    }
-//
-//    public function postRegister(Request $request)
-//    {
-//        // register user
-//        // none validate data
-//        return 'Post register user';
-//    }
-//
+    # Region login, register
+    public function postRegister(Request $request)
+    {
+        try {
+            $email = strtolower($request->email);
+            if (User::where('email', $email)->where('status', '!=', -1)->first() &&
+                User::where('phone', $request->phone)->where('status', '!=', -1)->first()
+            ) {
+                // email + phone exist
+                return 306;
+            } elseif (User::where('email', $email)->where('status', '!=', -1)->first()) {
+                // email exist
+                return 301;
+            } elseif (User::where('phone', $request->phone)->where('status', '!=', -1)->first()) {
+                // phone exist
+                return 302;
+            } else {
+                $user = new User();
+                $user->email = $email;
+                $user->password = bcrypt($request->password);
+                $user->full_name = $request->full_name;
+                $user->phone = $request->phone;
+                $user->role = 3;
+                $user->status = 1;
+                $user->save();
+                // register success
+                return 200;
+            }
+        } catch (\Exception $ex) {
+            return 500;
+        }
+    }
+
     public function getLogin()
     {
         return view('frontend.sign.signIn');
@@ -47,10 +72,84 @@ class HomeController extends Controller
 
     public function postLogin(Request $request)
     {
-        // login user
-        // none validate data
-        return 'Login user';
+        $login1 = [
+            'email' => $request->username,
+            'password' => $request->password
+        ];
+        $login2 = [
+            'phone' => $request->username,
+            'password' => $request->password
+        ];
+        if (Auth::attempt($login1, true) || Auth::attempt($login2, true)) {
+            $user = Auth::user();
+
+            if ($user->status == 1) {
+                // login success
+                return 200;
+            } elseif ($user->status == 2) {
+                // user pending
+                Auth::logout();
+                return 201;
+            } elseif ($user->status == 3) {
+                // user lock
+                Auth::logout();
+                return 202;
+            } else {
+                // login fail
+                Auth::logout();
+                return 203;
+            }
+        } else {
+            $userByKey = User::where('email', $request->username)
+                ->orWhere('phone', $request->username)
+                ->where('status', [1,2])
+                ->first();
+            if ($userByKey && $userByKey->id) {
+                // wrong pass
+                return 207;
+            }
+            return 204;
+        }
     }
+
+    public function getLogout()
+    {
+        Auth::logout();
+        return redirect()->route('homePage');
+    }
+
+    public function postShopRegister(Request $request)
+    {
+        try {
+            $email = strtolower($request->email);
+            if (Shop::where('email', $email)->where('status', '!=', -1)->first() &&
+                Shop::where('phone', $request->phone)->where('status', '!=', -1)->first()
+            ) {
+                // email + phone exist
+                return 306;
+            } elseif (Shop::where('email', $email)->where('status', '!=', -1)->first()) {
+                // email exist
+                return 301;
+            } elseif (Shop::where('phone', $request->phone)->where('status', '!=', -1)->first()) {
+                // phone exist
+                return 302;
+            } else {
+                $shop = new Shop();
+                $shop->account_id = Auth::user()->id;
+                $shop->name = $request->name;
+                $shop->email = $email;
+                $shop->address = $request->address;
+                $shop->phone = $request->phone;
+                $shop->status = 2; // pending
+                $shop->save();
+                // register shop success
+                return 200;
+            }
+        } catch (\Exception $ex) {
+            return 500;
+        }
+    }
+    # End region login, register
 
     public function getListShop()
     {
@@ -97,55 +196,71 @@ class HomeController extends Controller
     public function getShoppingCart()
     {
         $shoppingCart = Session::get('shoppingCart');
-        if (isset($shoppingCart)) {
-            return view('frontend.shopping_cart')->with('shoppingCart', $shoppingCart);
+        $total_quantity = 0;
+        $total_price = 0;
+        $total_payment = 0;
+        $shop_id = null;
+        if (isset($shoppingCart) && count($shoppingCart) > 0) {
+            foreach ($shoppingCart as $item) {
+                $total_quantity += $item['quantity'];
+                $total_price += $item['quantity'] * $item['productPrice'];
+                $total_payment += $item['quantity'] * $item['productPrice'] - $item['productPrice'] * ($item['productSaleOff']/100);
+                $shop_id = $item['shop_id'];
+            }
         }
-        return view('frontend.shopping_cart');
+        return view('frontend.shopping_cart',
+            compact('shoppingCart', 'total_quantity', 'total_price', 'total_payment', 'shop_id'));
     }
 
     public function getAddShoppingCart(Request $request)
     {
-        $productId = $request->get('productId');
-        $quantity = $request->get('quantity');
-        // kiểm tra sản phẩm theo id truyền lên.
-        $product = Product::find($productId);
-        if ($product == null) {
-            // nếu không tồn tại sản phẩm đưa về trang lỗi ko tìm thấy.
+        try {
+            $productId = $request->get('productId');
+            $quantity = $request->get('quantity');
+            // kiểm tra sản phẩm theo id truyền lên.
+            $product = Product::find($productId);
+            if ($product == null) {
+                // nếu không tồn tại sản phẩm đưa về trang lỗi ko tìm thấy.
+                return false;
+            }
+
+            // lấy thông tin giỏ hàng từ trong session.
+            $shoppingCart = Session::get('shoppingCart');
+            // nếu session ko có thông tin giỏ hàng
+            if ($shoppingCart == null) {
+                // thì tạo mới giỏ hàng là một mảng các key và value
+                $shoppingCart = array(); // key và value
+            }
+            // kiểm xem sản phẩm có trong giỏ hàng hay không.
+            $cartItem = null;
+            if (array_key_exists($product->id, $shoppingCart)) {
+                $cartItem = $shoppingCart[$product->id];
+            }
+            if ($cartItem == null) {
+                // nếu không, tạo mới một cart item.
+                $cartItem = array(
+                    'productId' => $product->id,
+                    'productName' => $product->name,
+                    'productPrice' => $product->price,
+                    'quantity' => $quantity,
+                    'productSaleOff' => $product->sale_off,
+                    'prd_detail' => $product,
+                    'shop_id' => $product->shop_id,
+                );
+            } else {
+                // nếu có, cộng số lượng sản phẩm thêm 1.
+                $cartItem['quantity'] += $quantity;
+            }
+            // đưa sản phẩm vào giỏ hàng với key chính là id của sản phẩm.
+            $shoppingCart[$product->id] = $cartItem;
+            if($cartItem['quantity'] <= 0){
+                unset($shoppingCart[$product->id]);
+            }
+            Session::put('shoppingCart', $shoppingCart);
+            return redirect('/shopping_cart/show');
+        } catch (\Exception $ex) {
             return false;
         }
-
-        // lấy thông tin giỏ hàng từ trong session.
-        $shoppingCart = Session::get('shoppingCart');
-        // nếu session ko có thông tin giỏ hàng
-        if ($shoppingCart == null) {
-            // thì tạo mới giỏ hàng là một mảng các key và value
-            $shoppingCart = array(); // key và value
-        }
-        // kiểm xem sản phẩm có trong giỏ hàng hay không.
-        $cartItem = null;
-        if (array_key_exists($product->id, $shoppingCart)) {
-            $cartItem = $shoppingCart[$product->id];
-        }
-        if ($cartItem == null) {
-            // nếu không, tạo mới một cart item.
-            $cartItem = array(
-                'productId' => $product->id,
-                'productName' => $product->name,
-                'productPrice' => $product->price,
-                'quantity' => $quantity,
-                'prd_detail' => $product,
-            );
-        } else {
-            // nếu có, cộng số lượng sản phẩm thêm 1.
-            $cartItem['quantity'] += $quantity;
-        }
-        // đưa sản phẩm vào giỏ hàng với key chính là id của sản phẩm.
-        $shoppingCart[$product->id] = $cartItem;
-        if($cartItem['quantity'] <= 0){
-            unset($shoppingCart[$product->id]);
-        }
-        Session::put('shoppingCart', $shoppingCart);
-        return redirect('/shopping-cart/show');
     }
 
     public function getRemoveShoppingCart(Request $request)
@@ -160,92 +275,136 @@ class HomeController extends Controller
             }
         }
         Session::put('shoppingCart', $shoppingCart);
-        return redirect('/shopping-cart/show');
+        return redirect('/shopping_cart/show');
+    }
+
+    public static function generateOrderCode($n) {
+        $generator = "1357902468";
+        $result = "";
+        for ($i = 1; $i <= $n; $i++) {
+            $result .= substr($generator, (rand()%(strlen($generator))), 1);
+        }
+        return $result;
     }
 
     public function submit(Request $request)
     {
-        $shipName = $request->get('shipName');
-        $shipAddress = $request->get('shipAddress');
-        $shipPhone = $request->get('shipPhone');
-        $shipEmail = $request->get('shipEmail');
-        $note = $request->get('note');
-        $total_order = 0;
-        // lấy thông tin giỏ hàng từ trong session.
-        $shoppingCart = Session::get('shoppingCart');
-        // nếu session ko có thông tin giỏ hàng
-        if ($shoppingCart == null) {
-            // thì tạo mới giỏ hàng là một mảng các key và value
-            $shoppingCart = array(); // key và value
-        }
-        $order = new Order();
-        $order->account_id = 1;
-        $order->shop_id = 1;
-        $order->od_code = 'OD001';
-        $order->od_total_price = $total_order;
-        $order->ship_name = $shipName;
-        $order->ship_address = $shipAddress;
-        $order->ship_phone = $shipPhone;
-        $order->ship_email = $shipEmail;
-        $order->ship_fee = 0;
-        $order->note = $note;
-
-        $orderDetails = array();
-        foreach ($shoppingCart as $key => $cartItem){
-            $productId = $cartItem['productId'];
-            $product = Product::find($productId);
-            if($product == null){
-                continue;
+        try {
+            $user = Auth::user();
+            // lấy thông tin giỏ hàng từ trong session.
+            $shoppingCart = Session::get('shoppingCart');
+            // nếu session ko có thông tin giỏ hàng
+            if ($shoppingCart == null) {
+                // thì tạo mới giỏ hàng là một mảng các key và value
+                $shoppingCart = array(); // key và value
             }
-            $quantity = $cartItem['quantity'];
-            $orderDetail = new Order_detail();
-            $orderDetail->product_id = $productId;
-            // $orderDetail->order_id = ? chờ lưu đơn hàng mới có.
-            $orderDetail->quantity = $quantity;
-            $orderDetail->unit_price = $product->price;
-            $order->total_money += $orderDetail->unit_price * $orderDetail->quantity;
-            array_push($orderDetails, $orderDetail);
-        }
-        DB::transaction(function() use ($order, $orderDetails) {
-            $order->save(); // có id của order.
-            foreach ($orderDetails as $orderDetail){
-                $orderDetail->order_id = $order->id;
-                $orderDetail->save();
-            }
-        });
-        Session::remove('shoppingCart');
-        return 'Order success!';
-    }
+            $order = new Order();
+            $order->account_id = $user->id;
+            $order->shop_id = $request->shop_id;
+            $order->od_code = self::generateOrderCode(8);
+            $order->od_total_price = $request->od_total_price;
+            $order->ship_name = $request->shipName;
+            $order->ship_address = $request->shipAddress;
+            $order->ship_phone = $request->shipPhone;
+            $order->ship_email = $request->shipEmail;
+            $order->ship_fee = $request->ship_fee;
+            $order->od_note = $request->note;
+            $order->od_status = 1;
 
-    public function postCreateOrder(Request $request)
-    {
-        // create order
-        return 'Create order';
+            $orderDetails = array();
+            foreach ($shoppingCart as $key => $cartItem){
+                $productId = $cartItem['productId'];
+                // check status
+                $product = Product::find($productId);
+                if($product == null){
+                    continue;
+                }
+                $quantity = $cartItem['quantity'];
+                $orderDetail = new Order_detail();
+                $orderDetail->product_id = $productId;
+                $orderDetail->od_quantity = $quantity;
+                $orderDetail->od_unit_price = $product->price;
+//            $orderDetail->prd_sale_off = $product->sale_off;
+                array_push($orderDetails, $orderDetail);
+            }
+            DB::transaction(function() use ($order, $orderDetails) {
+                $order->save(); // có id của order.
+                foreach ($orderDetails as $orderDetail){
+                    $orderDetail->od_id = $order->id;
+                    $orderDetail->save();
+                }
+            });
+            Session::remove('shoppingCart');
+            return true;
+        } catch (\Exception $ex) {
+            return false;
+        }
     }
     # End shopping cart
 
-    # Shop
-    public function getShopRegister()
+    # Region profile
+    public function getListOrderUser()
     {
-        return view('frontend.shop.register');
+        $user = Auth::user();
+        $lstOrder = Order::where('account_id', $user->id)->paginate(10);
+        return view('frontend.shop.order', compact('lstOrder'));
     }
 
-    public function postShopRegister(Request $request)
+    public function getDetailOrderUser(Request $request)
     {
-        // none validate data
+        $user = Auth::user();
+        $order = Order::where('id', $request->id)
+            ->where('account_id', $user->id)
+            ->whereNotIn('od_status', [-1])
+            ->first();
+        if ($order == null) {
+            return view('errors.404');
+        }
+        $order_detail = Order_detail::where('od_id', $order->id)->get();
+        return view('frontend.shop.order_detail', compact('order', 'order_detail'));
+    }
+
+    public function getProfileInfo()
+    {
+        $user = Auth::user();
+        return view('frontend.shop.user', compact('user'));
+    }
+
+    public function getUserChangePass()
+    {
+        return view('frontend.shop.password');
+    }
+
+    public function postUserChangePass(Request $request)
+    {
+        return 'Change password';
+    }
+    # End region profile
+
+    # Shop
+    public function checkActiveShop()
+    {
         try {
-            $shop = new Shop();
-            $shop->account_id = $request->get('account_id');
-            $shop->name = $request->get('name');
-            $shop->logo = $request->get('logo');
-            $shop->address = $request->get('address');
-            $shop->email = $request->get('email');
-            $shop->phone = $request->get('phone');
-            $shop->save();
-            // notice success by PHP or notice by ajax or redirect page register success
-            return 'Shop register success';
+            $user = Auth::user();
+            $shop = Shop::where('account_id', $user->id)->first();
+            if ($shop->status == 1) {
+                // shop active
+                return 200;
+            } elseif ($shop->status == 2) {
+                // shop pending
+                return 201;
+            } elseif ($shop->status == 3) {
+                // shop lock
+                return 202;
+            } elseif ($shop->status == -1) {
+                // shop delete
+                return 203;
+            } else {
+                // fail
+                return 501;
+            }
         } catch (\Exception $ex) {
-            return false;
+            return 500;
         }
     }
 
@@ -255,8 +414,9 @@ class HomeController extends Controller
 //            $lstOrder = Order::whereNotIn('status', [-1])
 //                ->orderby('created_at', 'desc')
 //                ->paginate(10);
-//            return view('frontend.shop.list', compact('lstOrder'));
-            return view('frontend.shop.list');
+//            return view('frontend.listShop', compact('lstOrder'));
+
+            return view('frontend.listShop');
         } catch (\Exception $ex) {
             return false;
         }

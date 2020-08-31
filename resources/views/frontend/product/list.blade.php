@@ -124,17 +124,17 @@
                                                 </span>
                                                     <div class="product-price-and-shipping">
                                                         <span class="sr-only">Price</span>
-                                                        <span itemprop="price" class="price">{!! $prd->price - ($prd->price * ($prd->sale_off/100)) !!} VND</span>
+                                                        <span itemprop="price" class="price">
+                                                            {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} VND
+                                                        </span>
                                                         <span class="sr-only">Regular price</span>
-                                                        <span class="regular-price">{!! $prd->price !!} VND</span>
+                                                        <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} VND</span>
                                                     </div>
                                                     <div class="product-actions-main">
-                                                        <form action="" method="post" class="add-to-cart-or-refresh">
-                                                            <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                            <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                            <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                            <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</button>
-                                                        </form>
+                                                        <a href="javascript:void(0)" class="btn btn-sm add-to-cart"
+                                                           data-id="{{$prd->id}}">
+                                                            <i class="fa fa-shopping-cart"></i>Thêm vào giỏ
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </article>
@@ -189,17 +189,17 @@
                                                 </span>
                                                             <div class="product-price-and-shipping">
                                                                 <span class="sr-only">Price</span>
-                                                                <span itemprop="price" class="price">{!! $prd->price - ($prd->price * ($prd->sale_off/100)) !!}</span>
+                                                                <span itemprop="price" class="price">
+                                                                    {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!}
+                                                                </span>
                                                                 <span class="sr-only">Regular price</span>
-                                                                <span class="regular-price">{!! $prd->price !!}</span>
+                                                                <span class="regular-price">{!! number_format($prd->price,0,',','.') !!}</span>
                                                             </div>
                                                             <div class="product-actions-main">
-                                                                <form action="" method="post" class="add-to-cart-or-refresh">
-                                                                    <input type="hidden" name="token" value="75d588bed716bb5ab0bb3241a08ab68c" />
-                                                                    <input type="hidden" name="id_product" value="1" class="product_page_product_id" />
-                                                                    <input type="hidden" name="id_customization" value="0" class="product_customization_id" />
-                                                                    <button class="btn btn-sm add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</button>
-                                                                </form>
+                                                                <a href="javascript:void(0)" class="btn btn-sm add-to-cart"
+                                                                   data-id="{{$prd->id}}">
+                                                                    <i class="fa fa-shopping-cart"></i>Thêm vào giỏ
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </article>
@@ -223,4 +223,27 @@
 @section('main-script')
     <script src="/Admin/plugins/swiper/swiper.min.js"></script>
     <script src="/js/frontend/product/list.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.add-to-cart').click(function () {
+                var productId = $(this).attr('data-id');
+                $.ajax({
+                    'url': '/shopping-cart/add',
+                    'method': 'GET',
+                    'data': {
+                        "_token": $('meta[name="csrf-token"]').attr('content'),
+                        'productId': productId,
+                        'quantity': 1
+                    },
+                    'success': function () {
+                        // Thông báo thành công, reload lại trang.
+                        alert('Action success');
+                    },
+                    'error': function () {
+                        alert('Action fails');
+                    }
+                })
+            });
+        });
+    </script>
 @stop

@@ -62,7 +62,6 @@
                                 <label class="form-check-label" for="check-th"></label>
                             </th>
                             <th class="text-xl-center ver-middle">Ảnh đai diện</th>
-                            <th class="ver-middle">Tên tài khoản</th>
                             <th class="ver-middle">Tên cửa hàng</th>
                             <th class="ver-middle">Số điện thoại</th>
                             <th class="ver-middle">Email</th>
@@ -72,94 +71,39 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="text-xl-center ver-middle" style="width: 40px;">
-                                <input type="checkbox" class="form-check-input" id="check-1">
-                                <label class="form-check-label" for="check-1"></label>
-                            </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="admin" title="admin" style="width: 3rem;height: 3rem;"></td>
-                            <td class="ver-middle">Admin1</td>
-                            <td class="ver-middle">Hiện nv</td>
-                            <td class="ver-middle">0399992644</td>
-                            <td class="ver-middle">hiennv@gmail.com</td>
-                            <td class="ver-middle">số 1, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
-                            <td class="ver-middle">Hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                                <a class="mr-2"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
-                                <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
-                                <a value="2" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle" style="width: 40px;">
-                                <input type="checkbox" class="form-check-input" id="check-2">
-                                <label class="form-check-label" for="check-2"></label>
-                            </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 3rem;height: 3rem;"></td>
-                            <td class="ver-middle">Admin2</td>
-                            <td class="ver-middle">Anh vt</td>
-                            <td class="ver-middle">0855562644</td>
-                            <td class="ver-middle">anhvt@gmail.com</td>
-                            <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
-                            <td class="ver-middle">Hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                                <a class="mr-2"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
-                                <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
-                                <a value="2" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle" style="width: 40px;">
-                                <input type="checkbox" class="form-check-input" id="check-3">
-                                <label class="form-check-label" for="check-3"></label>
-                            </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 3rem;height: 3rem;"></td>
-                            <td class="ver-middle">Admin2</td>
-                            <td class="ver-middle">Anh vt</td>
-                            <td class="ver-middle">0855562644</td>
-                            <td class="ver-middle">anhvt@gmail.com</td>
-                            <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
-                            <td class="ver-middle">Hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
-                                <a value="3" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle" style="width: 40px;">
-                                <input type="checkbox" class="form-check-input" id="check-4">
-                                <label class="form-check-label" for="check-4"></label>
-                            </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 3rem;height: 3rem;"></td>
-                            <td class="ver-middle">Admin2</td>
-                            <td class="ver-middle">Anh vt</td>
-                            <td class="ver-middle">0855562644</td>
-                            <td class="ver-middle">anhvt@gmail.com</td>
-                            <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
-                            <td class="ver-middle">Hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
-                                <a value="4" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle" style="width: 40px;">
-                                <input type="checkbox" class="form-check-input" id="check-5">
-                                <label class="form-check-label" for="check-5"></label>
-                            </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 3rem;height: 3rem;"></td>
-                            <td class="ver-middle">Admin2</td>
-                            <td class="ver-middle">Anh vt</td>
-                            <td class="ver-middle">0855562644</td>
-                            <td class="ver-middle">anhvt@gmail.com</td>
-                            <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
-                            <td class="ver-middle">Không hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                                <a class="mr-2"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
-                                <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
-                                <a value="5" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
+                            @foreach($lstShop as $shop)
+                            <tr>
+                                <td class="text-xl-center ver-middle" style="width: 40px;">
+                                    <input type="checkbox" class="form-check-input" id="check-1">
+                                    <label class="form-check-label" for="check-1"></label>
+                                </td>
+                                <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="admin" title="admin" style="width: 3rem;height: 3rem;"></td>
+                                <td class="ver-middle">{!! $shop->name !!}</td>
+                                <td class="ver-middle">{!! $shop->phone !!}</td>
+                                <td class="ver-middle">{!! $shop->email !!}</td>
+                                <td class="ver-middle">{!! $shop->address !!}</td>
+                                <td class="ver-middle">
+                                    @switch($shop->status)
+                                        @case(1)
+                                            <span>Hoạt động</span>
+                                            @break
+                                        @case(2)
+                                            <span>Đang xác thực</span>
+                                            @break
+                                        @case(3)
+                                            <span>Khóa</span>
+                                            @break
+                                    @endswitch
+                                </td>
+                                <td class="text-xl-right ver-middle">
+                                    <a href="/admin/account/shop/{!!$shop->id!!}/1" class="mr-2" id="active-shop" title="Kích hoạt">
+                                        <i class="fa fa-envelope-open text-danger" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
+                                    <a><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

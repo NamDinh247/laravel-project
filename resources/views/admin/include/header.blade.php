@@ -10,13 +10,24 @@
     <ul class="navbar-nav ml-auto">
         <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="{{asset('Admin/dist/img/avatar.png')}}" class="user-image" alt="Admin">
-                <span class="text-white">Admin</span>
+                <img src="/Admin/dist/img/avatar.png" class="user-image" alt="Admin">
+                <span class="text-white">
+                    @if (\Illuminate\Support\Facades\Auth::check())
+                        {!! \Illuminate\Support\Facades\Auth::user()->full_name !!}
+                    @endif
+                </span>
             </a>
             <ul class="dropdown-menu">
                 <li class="user-header">
-                    <img src="{{asset('Admin/dist/img/avatar.png')}}" class="img-circle" alt="Admin">
-                    <p>ADMIN - quản trị</p>
+                    <img src="/Admin/dist/img/avatar.png" class="img-circle" alt="Admin">
+                    <p>
+                        <span style="text-transform: uppercase">
+                            @if(\Illuminate\Support\Facades\Auth::check())
+                                {!! \Illuminate\Support\Facades\Auth::user()->full_name !!}
+                            @endif
+                        </span>
+                        - quản trị
+                    </p>
                 </li>
                 <li class="user-footer" style="background-color: #6c757d;">
                     <div class="float-left">

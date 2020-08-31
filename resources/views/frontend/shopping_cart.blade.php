@@ -20,11 +20,10 @@
                 </div>
                 <section id="main" class="col-md-12">
                     <div class="cart-grid row mb-2">
-                        <div class="cart-grid-body col-md-9">
+                        <div class="cart-grid-body col-md-8">
                             <div class="card cart-container mb-3">
                                 <div class="card-block">
-                                    {{-- for từ đây --}}
-                                    @if(isset($shoppingCart))
+                                    @if(isset($shoppingCart) && count($shoppingCart) > 0)
                                         @foreach($shoppingCart as $key => $cartItem)
                                             <div class="cart-header">
                                             <div class="close1"></div>
@@ -64,7 +63,8 @@
                                                                 <div class="row p-0 m-0">
                                                                     <span class="control-label col-md-6 mt-3 px-0 mr-0 mb-2">Số lượng: </span>
                                                                     <div class="col-md-6 p-0 my-2">
-                                                                        <input type="number" min="0" class="form-control" value="{!! $cartItem['quantity'] !!}">
+                                                                        <input type="number" min="0" class="form-control"
+                                                                               value="{!! $cartItem['quantity'] !!}" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -73,7 +73,9 @@
                                                             <div class="product-variants-item col-md-6">
                                                                 <div class="row p-0 m-0">
                                                                     <span class="control-label col-md-6 px-0 mr-0 my-2">Tổng tiền: </span>
-                                                                    <span class="col-md-6 p-0 my-2">{!! $cartItem['quantity'] * $cartItem['productPrice'] !!} VND</span>
+                                                                    <span class="col-md-6 p-0 my-2">
+                                                                        {!! number_format($cartItem['quantity'] * $cartItem['productPrice'],0,',','.') !!} VND
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -97,9 +99,9 @@
                             </div>
                             <a class="label" style="color: #444;" href="#"> <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 13px;"></i> Continue shopping </a>
                         </div>
-                        <div class="cart-grid-right col-md-3">
+                        <div class="cart-grid-right col-md-4">
                             <div class="card cart-summary ">
-{{--                                <div class="cart-detailed-totals p-2">--}}
+                                <div class="cart-detailed-totals p-2">
 {{--                                    <div class="card-block">--}}
 {{--                                        <div class="cart-summary-line row mx-0">--}}
 {{--                                            <span class="label col-md-6 text-left pl-2 py-1">Giao hàng</span>--}}
@@ -110,50 +112,71 @@
 {{--                                            <span class="value col-md-6 text-right pr-2 py-1">1 Ngày</span>--}}
 {{--                                        </div>--}}
 {{--                                    </div>--}}
-{{--                                    <div class="card-block pt-4">--}}
-{{--                                        <div class="cart-summary-line row mx-0">--}}
-{{--                                            <span class="label col-md-6 text-left pl-2 py-1">Số lượng</span>--}}
-{{--                                            <span class="value col-md-6 text-right pr-2 py-1">10</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="cart-summary-line row mx-0">--}}
-{{--                                            <span class="label col-md-6 text-left pl-2 py-1">Tổng tiền</span>--}}
-{{--                                            <span class="value col-md-6 text-right pr-2 py-1">1.000.000 VND</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="cart-summary-line row mx-0">--}}
-{{--                                            <span class="label col-md-6 text-left pl-2 py-1">VAT</span>--}}
-{{--                                            <span class="value col-md-6 text-right pr-2 py-1">10.000 VND</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="cart-summary-line row mx-0">--}}
-{{--                                            <span class="label col-md-6 text-left pl-2 py-1">Chiết khấu</span>--}}
-{{--                                            <span class="value col-md-6 text-right pr-2 py-1">10.000 VND</span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
+                                    <div class="card-block">
+                                        <div class="cart-summary-line row mx-0">
+                                            <span class="label col-md-6 text-left pl-2 py-1">Số lượng</span>
+                                            <span class="value col-md-6 text-right pr-2 py-1">{!! $total_quantity !!}</span>
+                                        </div>
+                                        <div class="cart-summary-line row mx-0">
+                                            <span class="label col-md-6 text-left pl-2 py-1">Tổng tiền</span>
+                                            <span class="value col-md-6 text-right pr-2 py-1">{!! number_format($total_price,0,',','.') !!} VND</span>
+                                        </div>
+                                        <div class="cart-summary-line row mx-0">
+                                            <span class="label col-md-6 text-left pl-2 py-1">Khuyến mãi</span>
+                                            <span class="value col-md-6 text-right pr-2 py-1">{!! number_format($total_price - $total_payment,0,',','.') !!} VND</span>
+                                        </div>
+                                        <div class="cart-summary-line row mx-0">
+                                            <span class="label col-md-6 text-left pl-2 py-1">Phí vận chuyển</span>
+                                            <span class="value col-md-6 text-right pr-2 py-1">
+                                                @if(isset($shoppingCart) && count($shoppingCart) > 0)
+                                                    {!! number_format(20000,0,',','.') !!} VND
+                                                @else
+                                                    0
+                                                @endif
+                                            </span>
+                                        </div>
+                                        <div class="cart-summary-line row mx-0">
+                                            <span class="label col-md-6 text-left pl-2 py-1" style="font-size: 16px; font-weight: 500">
+                                                Tổng
+                                            </span>
+                                            <span class="value col-md-6 text-right pr-2 py-1" style="font-size: 16px; font-weight: 500">
+                                                @if(isset($shoppingCart) && count($shoppingCart) > 0)
+                                                    {!! number_format($total_payment + 20000,0,',','.') !!} VND
+                                                @else
+                                                    0
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                <form action="/shopping-cart/submit" method="POST">
+                                <form action="/shopping-cart/submit" method="post" id="createOrderForm">
                                     @csrf
+                                    <input type="hidden" name="od_total_price" value="{!! $total_payment + 20000 !!}"/>
+                                    <input type="hidden" name="ship_fee" value="20000" />
+                                    <input type="hidden" name="shop_id" value="{!! $shop_id !!}" />
                                     <div class="form-group">
                                         Người nhận <br/>
-                                        <input type="text" name="shipName">
+                                        <input type="text" name="shipName" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         Địa chỉ <br/>
-                                        <input type="text" name="shipAddress">
+                                        <input type="text" name="shipAddress" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         Số điện thoại <br/>
-                                        <input type="text" name="shipPhone">
+                                        <input type="text" name="shipPhone" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         Email <br/>
-                                        <input type="text" name="shipEmail">
+                                        <input type="text" name="shipEmail" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         Lưu ý <br/>
-                                        <input type="text" name="note">
+                                        <input type="text" name="note" class="form-control">
                                     </div>
                                     <div class="checkout text-xs-center card-block text-center p-2">
-                                        <button type="button" class="btn add-to-cart">Đặt hàng</button>
+                                        <button type="submit" class="btn add-to-cart btn-create-order">Đặt hàng</button>
                                     </div>
                                 </form>
                             </div>
@@ -543,4 +566,24 @@
 @section('main-script')
     <script src="/Admin/plugins/swiper/swiper.min.js"></script>
     <script src="/js/frontend/shoppingCart.js"></script>
+    <script>
+        $(document).ready(function () {
+            var createOrderForm = $("#createOrderForm");
+            $(".btn-create-order").click(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: '/shopping-cart/submit',
+                    data: createOrderForm.serialize(),
+                    success: function () {
+                        alert('Đặt hàng thành công');
+                        window.location.reload();
+                    },
+                    error: function () {
+                        alert('Fail, try again!');
+                    }
+                });
+            })
+        })
+    </script>
 @stop

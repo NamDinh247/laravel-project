@@ -21,6 +21,7 @@ class CreateOrderDetailsTable extends Migration
             $table->primary(['od_id', 'product_id']);
             $table->integer('od_quantity');
             $table->double('od_unit_price');
+            $table->double('prd_sale_off')->default(0);
             $table->timestamps();
         });
     }

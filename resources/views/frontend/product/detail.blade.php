@@ -48,7 +48,9 @@
             </div>
             <div class="col-md-8 product_middle">
                 <h5 class="productpage_title" itemprop="name">{!! $product->name !!}</h5>
-                <a href="#" itemprop="name"><i class="fa fa-archive" style="color: #444;"></i>&nbsp; Shop name</a>
+                <a href="#" itemprop="name"><i class="fa fa-archive" style="color: #444;"></i>
+                    &nbsp;{!! $product->shop->name !!}
+                </a>
                 <div class="hook-reviews pt-2">
                     <div class="comments_note">
                         <div class="star_content clearfix">
@@ -64,7 +66,7 @@
                     <div class="product-prices">
                         <div class="product-price h5 has-discount">
                             <div class="current-price">
-                                <span>{!! $product->price - $product->price * ($product->sale_off/100) !!} VND</span>
+                                <span>{!! number_format($product->price - $product->price * ($product->sale_off/100),0,',','.') !!} VND</span>
                                 <span class="discount discount-percentage">
                                     {!! $product->sale_off !!}%
                                 </span>
@@ -72,7 +74,7 @@
                         </div>
                         <div class="product-discount">
                             <span class="regular-price">
-                                {!! $product->price !!} vnđ
+                                {!! number_format($product->price,0,',','.') !!} vnđ
                             </span>
                         </div>
                     </div>

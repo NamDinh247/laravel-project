@@ -76,6 +76,7 @@
     <script src="/Admin/dist/js/adminlte.min.js"></script>
     <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/20.0.0/classic/ckeditor.js"></script>
+    <script src="/js/admin/admin.js"></script>
     <script>
         function activeFilterLeft(ele, el) {
             $(ele + ' .nav-link').removeClass('active');

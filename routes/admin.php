@@ -33,9 +33,11 @@ Route::get('/admin/account/user/detail', 'Admin\AdminController@detailAccountUse
 // account shop
 Route::get('/admin/account/shop', 'Admin\AdminController@listAccountShop');
 
+Route::get('/admin/account/shop/{id}/{status}', 'Admin\AdminController@getChangeStatusShop');
+
 Route::get('/admin/account/shop/new', 'Admin\AdminController@newAccountShop');
 
-Route::get('/admin/account/shop/detail', 'Admin\AdminController@detailAccountShop');
+Route::get('/admin/account/shop/detail/{id}', 'Admin\AdminController@detailAccountShop');
 
 // category
 Route::get('/admin/category/new', 'Admin\AdminController@getNewCategory');
@@ -46,9 +48,11 @@ Route::get('/admin/category/detail/{id}', 'Admin\AdminController@getDetailCatego
 
 Route::post('/admin/category/', 'Admin\AdminController@postDetailCategory');
 
-Route::post('/admin/category/delete', 'Admin\AdminController@deleteCategory')->name('category.delete');
+Route::post('/admin/category/delete', 'Admin\AdminController@deleteCategory')
+    ->name('category.delete');
 
-Route::post('/admin/category/delete-all', 'Admin\AdminController@deleteAllCategory')->name('category.deleteAll');
+Route::post('/admin/category/delete-all', 'Admin\AdminController@deleteAllCategory')
+    ->name('category.deleteAll');
 
 Route::get('/admin/category', 'Admin\AdminController@getListCategory');
 

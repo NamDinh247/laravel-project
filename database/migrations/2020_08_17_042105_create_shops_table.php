@@ -20,8 +20,10 @@ class CreateShopsTable extends Migration
             $table->string('name');
             $table->text('logo')->nullable();
             $table->string('address')->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
+            $table->integer('district')->nullable();
+            $table->integer('city')->nullable();
+            $table->string('email')->nullable()->unique();
+            $table->string('phone')->nullable()->unique();
             $table->integer('status')->default(0);
             $table->timestamps();
         });
