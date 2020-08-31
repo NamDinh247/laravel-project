@@ -84,8 +84,14 @@
                                 </div>
                             </div>
                             <div class="box_comment">
-    {{--                            <div id="fb-root"></div>--}}
-    {{--                            <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-numposts="2" data-width=""></div>--}}
+                                <div class="clearfix">
+                                    <div class="like float-left">
+                                        <i class="fa fa-thumbs-o-up" aria-hidden="true"><span class="ml-3">Thích</span></i>
+                                    </div>
+                                    <div class="detail_posts float-right">
+                                        <a href="/shop/detail">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
