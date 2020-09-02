@@ -1,9 +1,13 @@
 <div class="aside_left pl-3">
     <ul class="menu_left">
-        <li class="item_menu_left pl-2 py-2 clearfix">
-            <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
-            <span class="float-left item_menu_title pt-1">Hiện TNT</span>
-        </li>
+        @if(\Illuminate\Support\Facades\Auth::check())
+            <li class="item_menu_left pl-2 py-2 clearfix">
+                <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
+                <span class="float-left item_menu_title pt-1">
+                    {!! \Illuminate\Support\Facades\Auth::user()->full_name !!}
+                </span>
+            </li>
+        @endif
         <li class="item_menu_left pl-2 py-2 clearfix">
             <a href="/shop/list">
                 <i class="fa fa-archive float-left"></i>

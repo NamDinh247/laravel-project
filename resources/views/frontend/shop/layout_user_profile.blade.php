@@ -26,40 +26,40 @@
                     </li>
                 </ul>
                 <hr class="my-3"/>
-                <div class="side-nav-categories">
-                    <ul id="category-tabs">
+                <div class="filter_left">
+                    <ul class="menu_left">
                         <li>
-                            <a href="/profile/info" class="main-category">
-                                <i class="fa fa-user"></i>
-                                <span>Tài khoản của tôi</span>
-
+                            <a href="#manage_orders" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle clearfix collapsed">
+                                <i class="fa fa-user pr-1"></i>
+                                Tài khoản của tôi
+                                <i class="fa fa-angle-up float-right pt-2" aria-hidden="true"></i>
                             </a>
-                            <ul class="sub-category-tabs">
-                                <li><a href="/profile/info">Hồ sơ</a></li>
-                                <li><a href="/profile/change-password">Đổi mật khẩu</a></li>
+                            <ul class="collapse list-unstyled" id="manage_orders">
+                                <li>
+                                    <a href="/profile/info">Hồ sơ</a>
+                                </li>
+                                <li>
+                                    <a  href="/profile/change-password">Đổi mật khẩu</a>
+                                </li>
                             </ul>
                         </li>
-                    </ul>
-                    <ul id="category-tabs">
                         <li>
-                            <a class="main-category" href="/profile/order/list">
-                                <i class="fa fa-bars"></i>
-                                <span>Quản lí đơn hàng</span>
+                            <a href="/profile/order/list">
+                                <i class="fa fa-bars pr-1"></i>
+                                Quản lí đơn hàng
                             </a>
                         </li>
-                    </ul>
-                    <ul id="category-tabs">
                         <li>
-                            <a class="main-category" href="/detail/notifi">
-                                <i class="fa fa-bell"></i>
-                                <span>Thông báo</span>
+                            <a href="/detail/notifi">
+                                <i class="fa fa-bell pr-1"></i>
+                                Thông báo
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-sm-9 p-4">
+        <div class="col-sm-9 py-3 px-5" style="background-color: rgb(240, 242, 245);">
             @yield('main-content-profile')
         </div>
     </div>

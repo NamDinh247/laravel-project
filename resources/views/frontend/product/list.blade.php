@@ -18,7 +18,7 @@
                             <input type="text" class="form-control" name="keyword"
                                    style="border: none;padding-left: 30px;border-radius: 30px;
                                    height: 35px; line-height: 35px;" placeholder="Tìm kiếm sản phẩm">
-                            <input type="submit" style="visibility: hidden;" />
+                            <input type="submit" class="d-none" style="visibility: hidden;" />
                             <i class="fa fa-search position-absolute" style="top: 14px;left: 13px;"></i>
                         </form>
                     </li>
@@ -93,6 +93,7 @@
                 <div class="container-fluid">
                     {{-- sản phẩm mới --}}
                     <h5 class="py-2 pl-2">Sản phẩm hôm nay</h5>
+                    <hr class="pt-4 mx-2 my-0">
                     <div id="new_products" class="new_products">
                         <ul id="new_product_today" class="swiper-container">
                             <div class="swiper-wrapper clearfix">
@@ -103,8 +104,8 @@
                                                 <div class="thumbnail-container">
                                                     <a href="{!! route('home.product.detail', $prd->id) !!}" class="thumbnail product-thumbnail">
                                                         <img src="{{ $prd->large_photo }}" alt="product"/>
-                                                        <img class="replace-2x img_1 img-responsive"
-                                                             src="{{ $prd->large_photo2 }}"/>
+{{--                                                        <img class="replace-2x img_1 img-responsive"--}}
+{{--                                                             src="{{ $prd->large_photo2 }}"/>--}}
                                                     </a>
                                                     <ul class="product-flags">
                                                         <li class="on-sale">On sale!</li>
@@ -153,12 +154,12 @@
                             <a class="btn next brand_next carousel-control-next">&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
-                    <hr class="pt-2 mb-0"/>
                     {{-- for từ đây lấy sản phẩm theo categories --}}
                     @foreach($categories as $cate)
                         <h5 class="py-2 pl-2">{!! $cate->name !!}</h5>
-                        <div id="new_categories1" class="new_products">
-                            <ul id="new_product_categories1" class="swiper-container">
+                        <hr class="pt-4 mx-2 my-0">
+                        <div id="new_categories_{!! $loop->index !!}" class="new_products">
+                            <ul id="new_product_categories_{!! $loop->index !!}" class="swiper-container">
                                 <div class="swiper-wrapper clearfix">
                                     @foreach($products as $prd)
                                         @if ($prd->category_id == $cate->id)
@@ -190,15 +191,15 @@
                                                                 </div>
                                                             </div>
                                                             <span class="h3 product-title" itemprop="name">
-                                                    <a href="{!! route('home.product.detail', $prd->id) !!}" >{!! $prd->name !!} </a>
-                                                </span>
+                                                                <a href="{!! route('home.product.detail', $prd->id) !!}" >{!! $prd->name !!} </a>
+                                                            </span>
                                                             <div class="product-price-and-shipping">
                                                                 <span class="sr-only">Price</span>
                                                                 <span itemprop="price" class="price">
-                                                                    {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!}
+                                                                    {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} VND
                                                                 </span>
                                                                 <span class="sr-only">Regular price</span>
-                                                                <span class="regular-price">{!! number_format($prd->price,0,',','.') !!}</span>
+                                                                <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} VND</span>
                                                             </div>
                                                             <div class="product-actions-main">
                                                                 <a href="javascript:void(0)" class="btn btn-sm add-to-cart"
@@ -214,10 +215,12 @@
                                     @endforeach
                                 </div>
                             </ul>
-                            <div class="customNavigation">
-                                <a class="btn prev brand_prev carousel-control-prev">&nbsp;<i class="fa fa-chevron-left" aria-hidden="true"></i></a>
-                                <a class="btn next brand_next carousel-control-next">&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                            </div>
+{{--                            @if(count($products) > 5)--}}
+                                <div class="customNavigation">
+                                    <a class="btn prev brand_prev carousel-control-prev">&nbsp;<i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                                    <a class="btn next brand_next carousel-control-next">&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                                </div>
+{{--                            @endif--}}
                         </div>
                     @endforeach
                 </div>

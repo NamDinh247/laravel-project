@@ -165,14 +165,13 @@ ul{
     color: #000;
 }
 .product-price-and-shipping .regular-price {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 24px;
     letter-spacing: 0.8px;
     font-weight: 500;
     color: #a6a6a6;
     margin: 0 8px;
     text-decoration: line-through;
-    vertical-align: middle;
 }
 .product-miniature .product-actions-main {
     bottom: 0;
@@ -190,13 +189,18 @@ ul li .product-miniature a img {
     -webkit-transition: all 500ms ease 0s;
 }
 .product-miniature img {
-    max-width: 100%;
+    width: 100%;
     position: relative;
     margin: 0 auto;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     height: 210px;
     object-fit: cover;
+}
+@media (min-width: 1368px) {
+    .product-miniature img {
+        height: 300px !important;
+    }
 }
 .product-miniature img.img_1 {
     left: 0;

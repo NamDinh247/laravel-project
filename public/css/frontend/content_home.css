@@ -5,8 +5,8 @@
 }
 .box-content {
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 1px 2px #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px #c7c7c7;
 }
 .box_content_left .avatar_box, .box_header .box_img{
     width: 40px;
@@ -157,4 +157,34 @@
 .star_content .star_on i {
     color: #febd69;
 }
-
+.like, .detail_posts{
+    padding: 5px 60px; border-radius: 3px;cursor: pointer;
+}
+.like:hover, .detail_posts:hover{
+    background-color: #f0f2f5;
+}
+.navbar-badge {
+    font-size: .6rem;
+    font-weight: 300;
+    padding: 2px 4px;
+    position: absolute;
+    right: -4px;
+    top: -4px;
+}
+.badge-danger {
+    color: #fff;
+    background-color: #dc3545;
+}
+.badge-warning{
+    color: #fff;
+    background-color: #febd69;
+}
+.badge {
+    display: inline-block;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}

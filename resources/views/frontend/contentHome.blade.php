@@ -22,7 +22,6 @@
                                     <div class="avatar_box">
                                         <img class="rounded-circle" src="/img/avatar_2x.png" alt="avatar" style="width: 100%;">
                                     </div>
-                                    <i ></i>
                                     <div class="add_action">
                                         <ul class="menu_box_left pt-2 pl-2">
                                             <li class="item_menu_box_left py-2" title="Video trực tiếp"><i class="fa fa-video text-danger" aria-hidden="true"></i></li>
@@ -41,7 +40,7 @@
                         </div>
                         {{-- for từ đây --}}
                         @foreach($lst_article as $article)
-                            <div class="box-content mb-3" >
+                            <div class="box-content mb-4" >
                                 <div class="box_header pt-3">
                                     <div class="avatar_box pb-2 px-3">
                                         <div class="box_img mr-2">
@@ -66,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div class="box_body">
-                                    <div class="content_box_body">
+                                    <div class="content_box_body" style="border-top: 1px solid #ced0d4; border-bottom: 1px solid #ced0d4; ">
                                         <div class="row p-0 m-0" style="margin-bottom: 1px !important;">
                                             <div class="image1 col-md-12 p-0 m-0">
                                                 <img src="{!! $article->product->large_photo !!}" alt="">
@@ -76,8 +75,8 @@
                                             <?php $count = 0; ?>
                                             @foreach($article->product->large_photos as $p)
                                                 @if($count < 3)
-                                                    <div class="image1 col-md-4">
-                                                        <img src="{!! $p !!}" alt="" class="img-fluid">
+                                                    <div class="image1 col-md-4 px-0">
+                                                        <img src="{!! $p !!}" alt="" class="img-fluid" style="padding-right: 2px !important;">
                                                     </div>
                                                 @endif
                                                 <?php $count++; ?>
@@ -85,13 +84,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="box_comment pb-3">
+                                <div class="box_comment p-3">
                                     <div class="clearfix">
                                         <div class="like float-left">
-                                            <i class="fa fa-thumbs-o-up" aria-hidden="true"><span class="ml-3">Thích</span></i>
+                                            <i class="fa fa-thumbs-o-up" aria-hidden="true" style="font-weight: 500;"><span class="ml-2">Thích</span></i>
                                         </div>
                                         <div class="detail_posts float-right">
-                                            <a href="{!! route('home.product.detail', $article->product->id) !!}">
+                                            <a href="{!! route('home.product.detail', $article->product->id) !!}" style="font-weight: 500;">
                                                 Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                                             </a>
                                         </div>

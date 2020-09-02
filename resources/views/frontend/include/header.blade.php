@@ -29,15 +29,74 @@
             <div class="col-md-3 clearfix pr-4">
                 <div class="float-right">
                     <div class="avatar_header clearfix">
-                        <div class="float-left shopping_cart mr-1" style="border-radius: 50%;margin-top: 13px; border: 1px solid #28a745;">
-                            <a href="/shopping_cart/show">
+                        <div class="float-left shopping_cart mr-2" style="border-radius: 50%;margin-top: 13px; border: 1px solid #28a745;">
+                            <a class="position-relative" href="/shopping_cart/show" >
                                 <i class="fa fa-shopping-cart" style="padding: 8px;font-size: 13px;color: #28a745"></i>
+                                <span class="badge badge-warning navbar-badge">0</span>
                             </a>
+                        </div>
+                        {{-- notify --}}
+                        <div class="float-left shopping_cart mr-2 dropdown" style="border-radius: 50%;margin-top: 13px; border: 1px solid #28a745;">
+                            <a class="position-relative" data-toggle="dropdown" id="dropdownNotify">
+                                <i class="fa fa-bell" style="padding: 8px;font-size: 13px;color: #28a745"></i>
+                                <span class="badge badge-danger navbar-badge">3</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" aria-labelledby="dropdownNotify">
+                                <a href="#" class="dropdown-item">
+                                    <!-- Message Start -->
+                                    <div class="media">
+                                        <img src="/img/avatar_2x.png" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                        <div class="media-body">
+                                            <h3 class="dropdown-item-title">
+                                                Brad Diesel
+                                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                            </h3>
+                                            <p class="text-sm">Call me whenever you can...</p>
+                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                        </div>
+                                    </div>
+                                    <!-- Message End -->
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item">
+                                    <!-- Message Start -->
+                                    <div class="media">
+                                        <img src="/img/avatar_2x.png" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                        <div class="media-body">
+                                            <h3 class="dropdown-item-title">
+                                                John Pierce
+                                                <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                                            </h3>
+                                            <p class="text-sm">I got your message bro</p>
+                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                        </div>
+                                    </div>
+                                    <!-- Message End -->
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item">
+                                    <!-- Message Start -->
+                                    <div class="media">
+                                        <img src="/img/avatar_2x.png" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                        <div class="media-body">
+                                            <h3 class="dropdown-item-title">
+                                                Nora Silvester
+                                                <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                                            </h3>
+                                            <p class="text-sm">The subject goes here</p>
+                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                        </div>
+                                    </div>
+                                    <!-- Message End -->
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                            </div>
                         </div>
                         @if(\Illuminate\Support\Facades\Auth::check())
                             <div class="float-left" style="padding-top: 5px;">
                                 <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
-                                    <img class="float-left rounded-circle mr-1" style="width: 28px; height: 28px;" src="/img/avatar_2x.png" alt="avatar">
+                                    <img class="float-left rounded-circle mr-2" style="width: 28px; height: 28px;" src="/img/avatar_2x.png" alt="avatar">
                                     <a class="float-left name_user_header p-0" style="margin-top: 3px;">
                                         {!! \Illuminate\Support\Facades\Auth::user()->full_name !!}
                                     </a>

@@ -18,19 +18,26 @@ $(document).ready(function() {
             }
         }
     });
-    var swiper_product1 = new Swiper('#new_product_categories1', {
-        slidesPerView: 5,
-        direction: getDirection(),
-        navigation: {
-            nextEl: '#new_categories1 .carousel-control-next',
-            prevEl: '#new_categories1 .carousel-control-prev',
-        },
-        on: {
-            resize: function () {
-                swiper.changeDirection(getDirection());
+    $('.new_products').each(function (index) {
+        var id = $(this).attr('id');
+        var idSub = $(this).find('.swiper-container').attr('id');
+        console.log(id)
+        console.log(idSub)
+        new Swiper( '#' + idSub, {
+            slidesPerView: 5,
+            direction: getDirection(),
+            navigation: {
+                nextEl: '#' + id + ' .carousel-control-next',
+                prevEl: '#' + id + ' .carousel-control-prev',
+            },
+            on: {
+                resize: function () {
+                    swiper.changeDirection(getDirection());
+                }
             }
-        }
+        });
     });
+
     function getDirection() {
         var windowWidth = window.innerWidth;
         var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
