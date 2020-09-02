@@ -49,7 +49,11 @@
                                         </div>
                                         <div class="name_time">
                                             <div class="nameTime">
-                                                <div class="name">{!! \Illuminate\Support\Facades\Auth::user()->shop->name !!}</div>
+                                                <div class="name">
+                                                    @if(isset($article->shop) && $article->shop != null)
+                                                        {!! $article->shop->name !!}
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
