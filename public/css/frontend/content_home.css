@@ -163,28 +163,4 @@
 .like:hover, .detail_posts:hover{
     background-color: #f0f2f5;
 }
-.navbar-badge {
-    font-size: .6rem;
-    font-weight: 300;
-    padding: 2px 4px;
-    position: absolute;
-    right: -4px;
-    top: -4px;
-}
-.badge-danger {
-    color: #fff;
-    background-color: #dc3545;
-}
-.badge-warning{
-    color: #fff;
-    background-color: #febd69;
-}
-.badge {
-    display: inline-block;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
+

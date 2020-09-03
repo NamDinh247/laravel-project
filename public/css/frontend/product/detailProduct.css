@@ -175,10 +175,17 @@ img {
 .thumb-container.item {
     margin: 0;
 }
-.product-images > li.thumb-container > .thumb, .images-container .product_list .thumb-container .thumb {
+.product-images > li.thumb-container > .thumb{
     cursor: pointer;
     max-width: 100%;
     margin-bottom: 22px;
+}
+.images-container .product_list .thumb-container .thumb {
+    cursor: pointer;
+    margin-bottom: 22px;
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
 }
 #main .images-container .js-qv-mask .customNavigation {
     position: absolute !important;
@@ -732,4 +739,3 @@ select.form-control:not([size]):not([multiple]) {
     right: 0;
     left: auto;
 }
-
