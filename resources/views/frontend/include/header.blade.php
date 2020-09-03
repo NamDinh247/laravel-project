@@ -95,8 +95,8 @@
                         </div>
                         @if(\Illuminate\Support\Facades\Auth::check())
                             <div class="float-left" style="padding-top: 5px;">
-                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
-                                    <img class="float-left rounded-circle mr-2" style="width: 28px; height: 28px;" src="/img/avatar_2x.png" alt="avatar">
+                                <button type="button btn-account" class="btn dropdown-toggle" data-toggle="dropdown">
+                                    <img class="float-left rounded-circle mr-2" style="width: 28px; height: 28px;border: 1px solid #20c997;" src="/img/avatar_2x.png" alt="avatar">
                                     <a class="float-left name_user_header p-0" style="margin-top: 3px;">
                                         {!! \Illuminate\Support\Facades\Auth::user()->full_name !!}
                                     </a>

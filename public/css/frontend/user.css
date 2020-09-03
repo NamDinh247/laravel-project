@@ -302,4 +302,33 @@ a{
 .text-sm{
     font-size: .875rem!important;
 }
-
+.menu_filter_account li a {
+    padding: 10px;
+    font-size: 1em;
+    display: block;
+    color: #666666;
+}
+.menu_filter_account .dropdown-toggle.collapsed i.fa-angle-up {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    padding-top: 5px !important;
+    padding-bottom: 0 !important;
+}
+.menu_filter_account .dropdown-toggle i.fa-angle-up {
+    -webkit-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+    padding-top: 0 !important;
+    padding-bottom: 5px !important;
+}
+.list-unstyled li a {
+    padding: 3px 0;
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    display: block;
+}
+.menu_filter_account .dropdown-toggle::after {
+    border: none !important;
+}
+.menu_filter_account a:hover{
+    color: #0056b3;
+}

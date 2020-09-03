@@ -26,7 +26,7 @@
                     </li>
                 </ul>
                 <hr class="my-3"/>
-                <div class="filter_left">
+                <div class="filter_left menu_filter_account">
                     <ul class="menu_left">
                         <li>
                             <a href="#manage_orders" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle clearfix collapsed">

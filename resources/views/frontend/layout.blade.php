@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/frontend/style.css">
     <link rel="stylesheet" href="/css/frontend/sign/main.css">
     <link rel="stylesheet" href="/css/frontend/sign/util.css">
+    <link rel="stylesheet" href="/Admin/plugins/izitoast/iziToast.min.css">
 
     <title>
         @yield('title')
@@ -219,12 +220,15 @@
             </div>
         </div>
     </div>
+
     <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/20.0.0/classic/ckeditor.js"></script>
     <script src="/Admin/plugins/jquery/jquery.min.js"></script>
     <script src="/Admin/plugins/bootstrap/js/popper.min.js"></script>
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="/js/frontend/script.js"></script>
+    <script src="/Admin/plugins/izitoast/iziToast.min.js"></script>
+
     <script>
         $(document).ready(function () {
             $('#signIn').click(function (event) {
@@ -255,6 +259,7 @@
             }
             $('#form-signup-shop').click(function (event) {
                 $('#modal-signup-shop').modal('show');
+
             });
         })
     </script>
