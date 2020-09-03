@@ -38,3 +38,20 @@
     font-weight: bold;
     color: #c7c5c5;
 }
+#input_search_product, #resetTextarea {
+    display: none;
+}
+#input_search_product{
+    height: 32px;
+    line-height: 1;
+    font-size: 14px;
+    padding: 0.2rem 0.75rem;
+}
+.emoji-picker{
+    min-width: 220px;
+}
+#emoji_new_posts {
+    display: none;
+    top: 125px;
+    left: -6%;
+}

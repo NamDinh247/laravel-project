@@ -4,12 +4,12 @@
     <div class="manage_content pt-3 manage_posts_content">
         <div class="container">
             <div class="row px-0">
-                <div class="col-md-8 px-5">
+                <div class="col-md-12 px-5">
                     <div class="content_center">
                         {{-- new posts --}}
                         <div class="box-content mb-3" >
                             <div class="p-3 clearfix">
-                                <div class="box_content_left float-left">
+                                <div class="box_content_left float-left" style="width: 6%;">
                                     <div class="avatar_box">
                                         <img class="rounded-circle" src="/img/avatar_2x.png" alt="avatar" style="width: 100%;">
                                     </div>
@@ -17,15 +17,27 @@
                                         <ul class="menu_box_left pt-2 pl-2">
                                             <li class="item_menu_box_left py-2" title="Video trực tiếp"><i class="fa fa-video text-danger" aria-hidden="true"></i></li>
                                             <li class="item_menu_box_left py-2" title="Thêm ảnh"><i class="fa fa-picture-o text-success" aria-hidden="true"></i></li>
-                                            <li class="item_menu_box_left py-2" title="Biểu tượng cảm xúc"><i class="fa fa-smile-o text-warning" aria-hidden="true"></i></li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="box_content_right input-group float-left">
-                                    <textarea class="box_new_posts form-control mb-2" id="box_new_posts" type="text" placeholder="Sản phẩm mới nhất của bạn là gì vậy?" style="height: 39px;"></textarea>
+                                <div class="box_content_right input-group float-left position-relative" style="width: 94%;">
+                                    <div class="w-100" data-emojiarea="" data-type="unicode" data-global-picker="true">
+                                        <i class="emoji emoji-smile emoji-button fa fa-smile-o text-warning position-absolute" id="emoji_new_posts" aria-hidden="true"></i>
+                                        <textarea class="box_new_posts form-control mb-2" id="box_new_posts" type="text" placeholder="Sản phẩm mới nhất của bạn là gì vậy?" style="width: 100%;height: 39px;border: none;"></textarea>
+                                        <i class="fa fa-times-circle-o position-absolute" id="resetTextarea" style="top: -5px;right: -5px;color: #868585;font-size: 20px;z-index: 1;"></i>
+                                    </div>
                                 </div>
-                                <div class="save_posts" style="margin-left: 10%">
-                                    <button class="btn btn-sm btn-outline-success" id="post" style="width: 100%;border-radius: 20px;font-weight: 600;">Đăng</button>
+                                <div class="save_posts" style="margin-left: 6%">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <select id="input_search_product" class="form-control">
+                                                <option value="">Chọn hình ảnh sản phẩm</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <button class="btn btn-sm btn-outline-success" id="post" style="width: 100%;border-radius: 20px;font-weight: 600;">Đăng</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

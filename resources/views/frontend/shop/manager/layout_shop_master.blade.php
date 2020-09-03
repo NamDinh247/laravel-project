@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/css/frontend/product/listProduct.css">
     <link rel="stylesheet" href="/css/frontend/content_home.css">
     <link rel="stylesheet" href="/css/frontend/detail_shop.css">
+    <link rel="stylesheet" href="/Admin/plugins/emoji/style.css">
+
 @endsection
 
 @section('content')
@@ -62,13 +64,10 @@
                             </a>
                             <ul class="collapse list-unstyled" id="manage_shop">
                                 <li>
-                                    <a>Đánh giá shop</a>
-                                </li>
-                                <li>
                                     <a onclick="changeTab(this, 'manage_profile_content')">Hồ sơ shop</a>
                                 </li>
                                 <li>
-                                    <a>Danh mục của shop</a>
+                                    <a>Thông báo</a>
                                 </li>
                             </ul>
                         </li>
@@ -76,7 +75,7 @@
                             <a href="/shop/article/list">
                                 <i class="fa fa-file-text-o pr-1"></i>
                                     Quản lý bài viết
-                                <i class="fa fa-angle-up float-right pt-2" aria-hidden="true"></i>
+{{--                                <i class="fa fa-angle-up float-right pt-2" aria-hidden="true"></i>--}}
                             </a>
                         </li>
                     </ul>
@@ -111,6 +110,7 @@
 @section('main-script')
     <script src="/Admin/plugins/swiper/swiper.min.js"></script>
     <script src="/Admin/plugins/chart.js/Chart.min.js"></script>
+    <script src="/Admin/plugins/emoji/jquery.emojiarea.js"></script>
     {{--    <script src="/js/frontend/product/list.js"></script>--}}
     <script>
         $(document).ready(function() {
@@ -196,6 +196,36 @@
             $('.' + ele).removeClass('d-none');
             $('.' + ele).addClass('d-block');
         }
+        $('#box_new_posts').click(function (e) {
+            $(this).height(300);
+            $(this).css({'border-radius': '10px', 'background': '#f0f2f5'});
+            $('.add_action').show();
+            $('#post').show();
+            $('#input_search_product').show();
+            $('#emoji_new_posts').show();
+            $('#resetTextarea').show();
+        });
+        $('#post').click(function (e) {
+            $('#box_new_posts').height(25);
+            $('#box_new_posts').css('border-radius', '30px');
+            $('.add_action').hide();
+            $('#post').hide();
+            $('#input_search_product').hide();
+            $('#emoji_new_posts').hide();
+            $('#resetTextarea').hide();
+        });
+        $('#resetTextarea').click(function (e) {
+            $('#box_new_posts').height(25);
+            $('#box_new_posts').css('border-radius', '30px');
+            $('.add_action').hide();
+            $('#post').hide();
+            $('#input_search_product').hide();
+            $('#emoji_new_posts').hide();
+            $('#resetTextarea').hide();
+            $('#box_new_posts').val('');
+        });
+
+        $('#box_new_posts').on('input', function() {});
     </script>
 @stop
 

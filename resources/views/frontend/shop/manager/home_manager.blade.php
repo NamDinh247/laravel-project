@@ -792,7 +792,7 @@
             <div class="d-none manage_content pt-3 manage_posts_content">
                 <div class="container">
                     <div class="row px-0">
-                        <div class="col-md-8 px-5">
+                        <div class="col-md-12 px-5">
                             <div class="content_center">
                                 {{-- new posts --}}
                                 <div class="box-content mb-3" >
