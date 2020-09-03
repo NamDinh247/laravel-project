@@ -13,25 +13,55 @@ $(document).ready(function() {
             success: function (data) {
                 switch (Number(data)) {
                     case 306:
-                        alert('Email và số điện thoại đã tồn tại');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Email và số điện thoại đã tồn tại',
+                        });
                         break;
                     case 301:
-                        alert('Email đã tồn tại');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Email đã tồn tại',
+                        });
                         break;
                     case 302:
-                        alert('Số điện thoại đã tồn tại');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Số điện thoại đã tồn tại',
+                        });
                         break;
                     case 200:
-                        alert('Đăng ký tài khoản thành công!');
+                        iziToast.success({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Đăng ký tài khoản thành công!',
+                        });
                         window.location = '/';
                         break;
                     default:
-                        alert('Có lỗi xảy ra, vui lòng thử lại');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Có lỗi xảy ra, vui lòng thử lại',
+                        });
                         break;
                 }
             },
             error: function () {
-                alert('Fail, try again!');
+                iziToast.warning({
+                    position: 'topCenter',
+                    timeout: 2500,
+                    transitionIn: 'bounceInDown',
+                    message: 'Fail, try again!',
+                });
             }
         });
     })
@@ -45,27 +75,57 @@ $(document).ready(function() {
             success: function (data) {
                 switch (Number(data)) {
                     case 201:
-                        alert('Tài khoản chưa được kích hoạt');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Tài khoản chưa được kích hoạt!',
+                        });
                         break;
                     case 202:
-                        alert('Tài khoản đã bị ');
+                        iziToast.error({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Tài khoản không tồn tại hoặc đã bị xoá!',
+                        });
                         break;
                     case 203:
-                        alert('Đăng nhập thất bại');
+                        iziToast.error({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Đăng nhập thất bại!',
+                        });
                         break;
                     case 207:
-                        alert('Sai mật khẩu, vui lòng thử lại');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Sai mật khẩu, vui lòng thử lại',
+                        });
                         break;
                     case 200:
                         window.location = '/';
                         break;
                     default:
-                        alert('Có lỗi xảy ra, vui lòng thử lại');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Có lỗi xảy ra, vui lòng thử lại',
+                        });
                         break;
                 }
             },
             error: function (data) {
-                alert('Fail, try again!');
+                iziToast.warning({
+                    position: 'topCenter',
+                    timeout: 2500,
+                    transitionIn: 'bounceInDown',
+                    message: 'Fail, try again!',
+                });
             }
         });
     })
@@ -79,26 +139,56 @@ $(document).ready(function() {
             success: function (data) {
                 switch (Number(data)) {
                     case 306:
-                        alert('Email và số điện thoại đã tồn tại');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Email và số điện thoại đã tồn tại',
+                        });
                         break;
                     case 301:
-                        alert('Email đã tồn tại');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Email đã tồn tại',
+                        });
                         break;
                     case 302:
-                        alert('Số điện thoại đã tồn tại');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Số điện thoại đã tồn tại',
+                        });
                         break;
                     case 200:
-                        alert('Đăng ký tài khoản thành công! Tài khoản của bạn đang được xác minh. ' +
-                            'Thời gian xác minh từ 1-3 ngày. Nếu có thắc mắc vui lòng liên hệ, ' +
-                            'hotline: 0987654321.');
+                        iziToast.success({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Đăng ký tài khoản thành công! Tài khoản của bạn đang được xác minh. ' +
+                                'Thời gian xác minh từ 1-3 ngày. Nếu có thắc mắc vui lòng liên hệ, ' +
+                                'hotline: 0987654321.',
+                        });
                         break;
                     default:
-                        alert('Có lỗi xảy ra, vui lòng thử lại');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Có lỗi xảy ra, vui lòng thử lại',
+                        });
                         break;
                 }
             },
             error: function () {
-                alert('Fail, try again!');
+                iziToast.warning({
+                    position: 'topCenter',
+                    timeout: 2500,
+                    transitionIn: 'bounceInDown',
+                    message: 'Fail, try again!',
+                });
             }
         });
     })
@@ -112,28 +202,51 @@ $(document).ready(function() {
                 console.log(data);
                 switch (Number(data)) {
                     case 201:
-                        alert('Shop của bạn đang được xác minh. ' +
-                            'Thời gian xác minh từ 1-3 ngày. Nếu có thắc mắc vui lòng liên hệ, ' +
-                            'hotline: 0987654321.');
+                        iziToast.info({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Shop của bạn đang được xác minh. ' +
+                                'Thời gian xác minh từ 1-3 ngày. Nếu có thắc mắc vui lòng liên hệ, ' +
+                                'hotline: 0987654321.',
+                        });
                         break;
                     case 202:
-                        alert('Shop của bạn đang bị khóa. ' +
-                            'Vui lòng liên hệ hotline: 0987654321 để được hỗ trợ');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Shop của bạn đang bị khóa. ' +  'Vui lòng liên hệ hotline: 0987654321 để được hỗ trợ',
+                        });
                         break;
                     case 203:
-                        alert('Shop của bạn đang bị xóa. ' +
-                            'Vui lòng liên hệ hotline: 0987654321 để được hỗ trợ');
+                        iziToast.error({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Shop của bạn đang bị xóa. ' + 'Vui lòng liên hệ hotline: 0987654321 để được hỗ trợ',
+                        });
                         break;
                     case 200:
                         window.location = '/shop/order/list';
                         break;
                     default:
-                        alert('Có lỗi xảy ra, vui lòng thử lại');
+                        iziToast.warning({
+                            position: 'topCenter',
+                            timeout: 2500,
+                            transitionIn: 'bounceInDown',
+                            message: 'Có lỗi xảy ra, vui lòng thử lại',
+                        });
                         break;
                 }
             },
             error: function () {
-                alert('Fail, try again!');
+                iziToast.warning({
+                    position: 'topCenter',
+                    timeout: 2500,
+                    transitionIn: 'bounceInDown',
+                    message: 'Fail, try again!',
+                });
             }
         });
     })

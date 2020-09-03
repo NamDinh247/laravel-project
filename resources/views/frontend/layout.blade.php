@@ -226,8 +226,8 @@
     <script src="/Admin/plugins/jquery/jquery.min.js"></script>
     <script src="/Admin/plugins/bootstrap/js/popper.min.js"></script>
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/js/frontend/script.js"></script>
     <script src="/Admin/plugins/izitoast/iziToast.min.js"></script>
+    <script src="/js/frontend/script.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -236,18 +236,29 @@
                 $('#modal-signIn .form_sign_in').removeClass('d-none');
                 $('#modal-signIn .form_sign_up').addClass('d-none');
                 $('#modal-signIn .modal-dialog').removeClass('d-none');
+                $('.form_sign_in input[name="username"]').val('');
+                $('.form_sign_in input[name="password"]').val('');
             });
             $('.formsignup').click(function (event) {
                 $('#modal-signIn .form_sign_in').addClass('d-none');
                 $('#modal-signIn .form_sign_up').removeClass('d-none');
                 $('#modal-signIn .modal-dialog').removeClass('modal-lg');
                 $('#modal-signIn .modal-dialog').addClass('modal-xl');
+
+                $('.form_sign_up input[name="email"]').val('');
+                $('.form_sign_up input[name="phone"]').val('');
+                $('.form_sign_up input[name="full_name"]').val('');
+                $('.form_sign_up input[name="password"]').val('');
+                $('.form_sign_up input[name="confirm_password"]').val('');
             });
             $('.formsignin').click(function (event) {
                 $('#modal-signIn .form_sign_in').removeClass('d-none');
                 $('#modal-signIn .form_sign_up').addClass('d-none');
                 $('#modal-signIn .modal-dialog').removeClass('modal-xl');
                 $('#modal-signIn .modal-dialog').addClass('modal-lg');
+
+                $('.form_sign_in input[name="username"]').val('');
+                $('.form_sign_in input[name="password"]').val('');
             });
             var widthWindow = $(window).width();
             if (widthWindow > 1368) {
@@ -260,6 +271,10 @@
             $('#form-signup-shop').click(function (event) {
                 $('#modal-signup-shop').modal('show');
 
+                $('#modal-signup-shop .form_sign_up input[name="email"]').val('');
+                $('#modal-signup-shop .form_sign_up input[name="phone"]').val('');
+                $('#modal-signup-shop .form_sign_up input[name="address"]').val('');
+                $('#modal-signup-shop .form_sign_up input[name="name"]').val('');
             });
         })
     </script>
