@@ -8,9 +8,9 @@
 @section('main-content')
     <div class="row">
         <div class="col-12">
-            <div class="content-table bg-white">
+            <div class="content-table bg-white py-2 px-3">
                 <div class="card-header bg-white position-relative border-0">
-                    <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách tài khoản</h4>
+                    <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách bài viết</h4>
                     <div class="breadcrumb">
                         <div class="input-group input-group-sm" style="width: 200px;">
                             <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm" style="border-radius: 0 !important;">
