@@ -11,12 +11,10 @@ use App\Order_status;
 use App\Product;
 use App\Shop;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use phpDocumentor\Reflection\Types\Array_;
 
 class HomeController extends Controller
 {
