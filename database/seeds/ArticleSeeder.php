@@ -74,6 +74,61 @@ class ArticleSeeder extends Seeder
                 'created_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s'),
                 'updated_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s')
             ],
+            [
+                'id' => 6,
+                'shop_id' => 9,
+                'product_id' => 38,
+                'title' => 'Đĩa làm từ thủy tinh tái chế',
+                'detail' => 'null',
+                'type' => 1,
+                'status' => 1,
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s')
+            ],
+            [
+                'id' => 7,
+                'shop_id' => 9,
+                'product_id' => 39,
+                'title' => 'Chuông gió làm từ thủy tinh tái chế',
+                'detail' => 'null',
+                'type' => 1,
+                'status' => 1,
+                'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'id' => 8,
+                'shop_id' => 6,
+                'product_id' => 30,
+                'title' => 'Đĩa ăn làm từ nhựa tái chế',
+                'detail' =>'null',
+                'type' => 1,
+                'status' => 1,
+                'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'id' => 9,
+                'shop_id' => 5,
+                'product_id' => 25,
+                'title' => 'Bàn cà phê làm bằng nhữ chiếc lốp ô tô cũ',
+                'detail' => 'null',
+                'type' => 1,
+                'status' => 1,
+                'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'id' => 10,
+                'shop_id' => 5,
+                'product_id' => 24,
+                'title' => 'Túi sách bằng những túi ni lông',
+                'detail' => 'null',
+                'type' => 1,
+                'status' => 1,
+                'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
+            ],
 
         ]);
         if (env('DB_CONNECTION') == 'mysql') {
