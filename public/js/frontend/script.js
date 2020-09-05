@@ -43,7 +43,9 @@ $(document).ready(function() {
                             transitionIn: 'bounceInDown',
                             message: 'Đăng ký tài khoản thành công!',
                         });
-                        window.location = '/';
+                        setTimeout(() => {
+                            window.location = '/';
+                        }, 2500);
                         break;
                     default:
                         iziToast.warning({
@@ -87,7 +89,7 @@ $(document).ready(function() {
                             position: 'topCenter',
                             timeout: 2500,
                             transitionIn: 'bounceInDown',
-                            message: 'Tài khoản không tồn tại hoặc đã bị xoá!',
+                            message: 'Tài khoản đang bị khóa, vui lòng liên hệ admin để được hỗ trợ!',
                         });
                         break;
                     case 203:
@@ -95,7 +97,7 @@ $(document).ready(function() {
                             position: 'topCenter',
                             timeout: 2500,
                             transitionIn: 'bounceInDown',
-                            message: 'Đăng nhập thất bại!',
+                            message: 'Đăng nhập thất bại, vui lòng thử lại!',
                         });
                         break;
                     case 207:
@@ -103,7 +105,7 @@ $(document).ready(function() {
                             position: 'topCenter',
                             timeout: 2500,
                             transitionIn: 'bounceInDown',
-                            message: 'Sai mật khẩu, vui lòng thử lại',
+                            message: 'Sai mật khẩu, vui lòng thử lại!',
                         });
                         break;
                     case 200:
@@ -165,7 +167,7 @@ $(document).ready(function() {
                     case 200:
                         iziToast.success({
                             position: 'topCenter',
-                            timeout: 2500,
+                            timeout: 3500,
                             transitionIn: 'bounceInDown',
                             message: 'Đăng ký tài khoản thành công! Tài khoản của bạn đang được xác minh. ' +
                                 'Thời gian xác minh từ 1-3 ngày. Nếu có thắc mắc vui lòng liên hệ, ' +
@@ -216,7 +218,7 @@ $(document).ready(function() {
                             position: 'topCenter',
                             timeout: 2500,
                             transitionIn: 'bounceInDown',
-                            message: 'Shop của bạn đang bị khóa. ' +  'Vui lòng liên hệ hotline: 0987654321 để được hỗ trợ',
+                            message: 'Shop của bạn đang bị khóa. ' +  'Vui lòng liên hệ hotline: 0987654321 để được hỗ trợ.',
                         });
                         break;
                     case 203:
@@ -224,7 +226,7 @@ $(document).ready(function() {
                             position: 'topCenter',
                             timeout: 2500,
                             transitionIn: 'bounceInDown',
-                            message: 'Shop của bạn đang bị xóa. ' + 'Vui lòng liên hệ hotline: 0987654321 để được hỗ trợ',
+                            message: 'Shop của bạn đã bị xóa. ' + 'Vui lòng liên hệ hotline: 0987654321 để được hỗ trợ.',
                         });
                         break;
                     case 200:
