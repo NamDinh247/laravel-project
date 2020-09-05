@@ -48,11 +48,11 @@
                                         <img src="/img/avatar_2x.png" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                                         <div class="media-body">
                                             <h3 class="dropdown-item-title">
-                                                Brad Diesel
-                                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                                Hiện Bình Định
+                                                <span class="float-right text-sm text-success"><i class="fas fa-check"></i></span>
                                             </h3>
-                                            <p class="text-sm">Call me whenever you can...</p>
-                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                            <p class="text-sm">Đặng ký cửa hàng thành công</p>
+                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 7 ngày trước</p>
                                         </div>
                                     </div>
                                     <!-- Message End -->
@@ -80,17 +80,17 @@
                                         <img src="/img/avatar_2x.png" alt="User Avatar" class="img-size-50 img-circle mr-3">
                                         <div class="media-body">
                                             <h3 class="dropdown-item-title">
-                                                Nora Silvester
-                                                <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                                                Đơn hàng M457
+                                                <span class="float-right text-sm text-info"><i class="fas fa-truck"></i></span>
                                             </h3>
-                                            <p class="text-sm">The subject goes here</p>
-                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                            <p class="text-sm">Sản phẩm tranh treo tường gỗ đang được giao cho khách hàng <span class="font-weight-bold">Hiện Bình Định</span></p>
+                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 1 giờ trước</p>
                                         </div>
                                     </div>
                                     <!-- Message End -->
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                                <a href="#" class="dropdown-item dropdown-footer">Tất cả thông báo</a>
                             </div>
                         </div>
                         @if(\Illuminate\Support\Facades\Auth::check())
