@@ -23,7 +23,7 @@
                                 <div class="box_content_right input-group float-left position-relative" style="width: 94%;">
                                     <div class="w-100" data-emojiarea="" data-type="unicode" data-global-picker="true">
                                         <i class="emoji emoji-smile emoji-button fa fa-smile-o text-warning position-absolute" id="emoji_new_posts" aria-hidden="true"></i>
-                                        <textarea class="box_new_posts form-control mb-2" id="box_new_posts" type="text" placeholder="Sản phẩm mới nhất của bạn là gì vậy?" style="width: 100%;height: 39px;border: none;"></textarea>
+                                        <textarea class="box_new_posts form-control mb-2" id="box_new_posts" type="text" placeholder="Sản phẩm mới nhất của bạn là gì vậy?" style="width: 100%;height: 39px;border: none;resize: vertical;"></textarea>
                                         <i class="fa fa-times-circle-o position-absolute" id="resetTextarea" style="top: -5px;right: -5px;color: #868585;font-size: 20px;z-index: 1;"></i>
                                     </div>
                                 </div>

@@ -1,5 +1,7 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Danh sách bài viết')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
@@ -73,7 +75,7 @@
                             <td class="ver-middle">Ghế gỗ cổ phù hợp trong trang trí quán coffee</td>
                             <td class="ver-middle">Hoạt động</td>
                             <td class="text-xl-right ver-middle" style="min-width: 125px;">
-                                <a href="/admin/account/detail" class="mr-2" title="Sửa"><i class="fa fa-edit text-warning"></i></a>
+                                <a href="/admin/posts/detail" class="mr-2" title="Sửa"><i class="fa fa-edit text-warning"></i></a>
                                 <a value="1" onclick="showModalDeletePosts(this)" title="Xoá"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>

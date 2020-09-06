@@ -12,8 +12,8 @@
             <a href="/admin/account" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh sách tài khoản</a>
         </div>
         <div class="col-md-12">
-            <div class="container bootstrap snippet">
-                <div class="row">
+            <div class="container-fluid bg-white p-3 content_form" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);border-radius: 5px;">
+                <div class="row scroll_form">
                     <div class="col-sm-3">
                         <div class="text-center">
                             <img src="/img/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" style="border-radius: 50% !important;width: 13rem;height: 13rem; border: 2px solid #20c997;">
@@ -98,5 +98,5 @@
 
 @section('main-script')
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/js/newAccount.js"></script>
+    <script src="/js/detailAccount.js"></script>
 @endsection

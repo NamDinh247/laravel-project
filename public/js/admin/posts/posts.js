@@ -128,6 +128,11 @@ $(document).ready(function () {
     });
     var heightContent = $(window).height() - 70;
     $('#example').parent().css({'height': (heightContent - 220) + 'px', 'overflow': 'auto'});
+    $('.scroll_form').css({'height': (heightContent - 150) + 'px', 'overflow': 'auto'});
+    $('#refresh_form').click(function (e) {
+        $('#nameProduct').val('');
+        $('#box_new_posts').val('');
+    })
 });
 
 function showModalDeleteCategory(event) {
