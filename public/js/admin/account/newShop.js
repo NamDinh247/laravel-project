@@ -22,4 +22,6 @@ $(document).ready(function() {
             $('#accountForm .form-group').removeClass('d-none');
         }
     });
+    var heightContent = $(window).height() - 100;
+    $('.scroll_form').css({'height': (heightContent - 370) + 'px', 'overflow':'auto'});
 });

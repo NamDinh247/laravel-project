@@ -1,7 +1,11 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Chi tiết sản phẩm')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Admin/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+
 @endsection
 
 @section('main-content')
@@ -17,6 +21,8 @@
                             <h5>Thêm mới sản phẩm</h5>
                             <hr/>
                         </div>
+                    </div>
+                    <div class="row scroll_content_form_detail">
                         <div class="col-sm-8">
                             <form class="form row" action="#" method="post" id="accountForm">
                                 <div class="form-group col-md-6">
@@ -91,8 +97,10 @@
                             </form>
                         </div>
                         <div class="col-md-4">
-                            <label for="">Tải ảnh lên</label>
-                            <input type="file" id="uploadImages" accept="image/*" multiple>
+                            <label type="button" class="btn btn-outline-success">
+                                <input type="file" class="text-center center-block file-upload" id="uploadImages" accept="image/*" multiple style="margin-top: 20px;display: none;">
+                                <i class="fa fa-upload"></i>&nbsp; Tải ảnh lên
+                            </label>
                             <div class="images_product pt-5">
                                 <div class="row">
                                     {{-- for ở đây --}}
@@ -114,5 +122,7 @@
 
 @section('main-script')
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/js/product/detailProduct.js"></script>
+    <script src="/js/admin/product/product.js"></script>
+    <script src="/Admin/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+
 @endsection

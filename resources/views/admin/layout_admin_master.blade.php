@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{csrf_token()}}">
-    <title>Recycling</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/img/favicon.ico"/>
     <link rel="stylesheet" href="/Admin/plugins/fontawesome-free/css/all.min.css">
@@ -17,6 +16,9 @@
     <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
 {{--    <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">--}}
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <title>
+        @yield('title')
+    </title>
     @yield('header-script')
     <style>
         .ck-editor__editable {

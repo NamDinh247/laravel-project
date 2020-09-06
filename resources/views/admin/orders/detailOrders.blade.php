@@ -1,16 +1,18 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Chi tiết đơn hàng')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css" xmlns="http://www.w3.org/1999/html">
 @endsection
 
 @section('main-content')
     <div class="row pb-5">
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12 mb-3">
             <a href="/admin/orders/list" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh
                 sách đơn hàng</a>
         </div>
-        <div class="col-12">
+        <div class="col-md-12">
             <div class="container bootstrap snippet">
                 <div class="row">
                     <div class="col-sm-12">

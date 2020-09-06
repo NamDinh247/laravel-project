@@ -1,5 +1,7 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Danh sách người dùng')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
@@ -53,7 +55,7 @@
             <div class="content-table bg-white py-2 px-3" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="card-header bg-white position-relative border-0 py-3 px-0">
                     <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách tài khoản người dùng</h4>
-                    <div class="breadcrumb">
+                    <div class="breadcrumb mt-1">
                         <a href="/admin/account/user/new" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i>&nbsp; Thêm mới</a>
                     </div>
                 </div>
@@ -72,7 +74,11 @@
                             <th class="ver-middle">Email</th>
                             <th class="ver-middle">Địa chỉ</th>
                             <th class="ver-middle">Trạng thái</th>
-                            <th class="ver-middle" style="min-width: 125px;"></th>
+                            <th class="ver-middle" style="min-width: 125px;">
+                                <a id="select_delete" value="delete" onclick="showModalDeleteAccount(this)" title="Xoá nhiều">
+                                    <i class="fa fa-trash" id="delete-all"></i>
+                                </a>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -89,7 +95,7 @@
                             <td class="ver-middle">số 1, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
                             <td class="ver-middle">Hoạt động</td>
                             <td class="text-xl-right ver-middle" style="min-width: 125px;">
-                                <a class="mr-2"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
+                                <a class="mr-2" title="Xác nhận tài khoản"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
                                 <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
                                 <a value="2" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
                             </td>
@@ -107,9 +113,9 @@
                             <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
                             <td class="ver-middle">Hoạt động</td>
                             <td class="text-xl-right ver-middle" style="min-width: 125px;">
-                                <a class="mr-2"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
-                                <a href="/admin/account/user/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
-                                <a value="2" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
+                                <a class="mr-2" title="Xác nhận tài khoản"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
+                                <a href="/admin/account/user/detail" class="mr-2" title="Sửa"><i class="fa fa-edit text-warning"></i></a>
+                                <a value="2" onclick="showModalDeleteAccount(this)" title="Xoá"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -125,8 +131,8 @@
                             <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
                             <td class="ver-middle">Hoạt động</td>
                             <td class="text-xl-right ver-middle" style="min-width: 125px;">
-                                <a href="/admin/account/user/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
-                                <a value="3" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
+                                <a href="/admin/account/user/detail" class="mr-2" title="Sửa"><i class="fa fa-edit text-warning"></i></a>
+                                <a value="3" onclick="showModalDeleteAccount(this)" title="Xoá"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -142,8 +148,8 @@
                             <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
                             <td class="ver-middle">Hoạt động</td>
                             <td class="text-xl-right ver-middle" style="min-width: 125px;">
-                                <a href="/admin/account/user/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
-                                <a value="4" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
+                                <a href="/admin/account/user/detail" class="mr-2" title="Sửa"><i class="fa fa-edit text-warning"></i></a>
+                                <a value="4" onclick="showModalDeleteAccount(this)" title="Xoá"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -159,9 +165,9 @@
                             <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
                             <td class="ver-middle">Không hoạt động</td>
                             <td class="text-xl-right ver-middle" style="min-width: 125px;">
-                                <a class="mr-2"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
-                                <a href="/admin/account/user/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
-                                <a value="5" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
+                                <a class="mr-2" title="Xác nhận tài khoản"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
+                                <a href="/admin/account/user/detail" class="mr-2" title="Sửa"><i class="fa fa-edit text-warning"></i></a>
+                                <a value="5" onclick="showModalDeleteAccount(this)" title="Xoá"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         </tbody>

@@ -1,17 +1,22 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Danh sách đơn hàng')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/Admin/plugins/fontawesome-free/css/v4-shims.css">
+    <link rel="stylesheet" href="/Admin/plugins/sweetalert/sweetalert.min.css">
+
 @endsection
 
 @section('main-content')
     <div class="row">
-        <div class="col-12">
-            <div class="content-table bg-white">
-                <div class="card-header bg-white position-relative border-0">
-                    <a href="/admin/orders/list" class="card-title" style="margin-bottom: 0 !important;">Danh sách Đơn hàng</a>
-                    <div class="breadcrumb">
+        <div class="col-md-12">
+            <div class="content-table bg-white py-2 px-3 " style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
+                <div class="card-header bg-white position-relative border-0 py-3 px-0">
+                    <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách Đơn hàng</h4>
+                    <div class="breadcrumb mt-1">
                         <div class="input-group input-group-sm" style="width: 200px;">
                             <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm"
                                    style="border-radius: 0 !important;">
@@ -60,7 +65,7 @@
 {{--                            </tr>--}}
 {{--                        @endforeach--}}
                         <tr>
-                            <th class="text-xl-center ver-middle">
+                            <th class="text-xl-center ver-middle" style="width: 40px;">
                                 <input type="checkbox" class="form-check-input" id="check-th">
                                 <label class="form-check-label" for="check-th"></label>
                             </th>
@@ -69,35 +74,37 @@
                             <th class="ver-middle">Ngày đặt</th>
                             <th class="ver-middle">Tổng tiền</th>
                             <th class="ver-middle">Trạng thái đơn hàng </th>
+                            <th class="ver-middle" style="min-width: 125px;"></th>
                         </tr>
                         </thead>
                         <tbody>
                             @foreach($lstOrder as $order)
                                 <tr>
-                                    <td class="text-xl-center ver-middle">
+                                    <td class="text-xl-center ver-middle" style="width: 40px;">
                                         <input type="checkbox" class="form-check-input" id="check-1">
                                         <label class="form-check-label" for="check-1"></label>
                                     </td>
                                     <td class="ver-middle">{{ $order->od_code }}</td>
                                     <td class="ver-middle">{{ $order->user->full_name }}</td>
-                                    <td class="ver-middle">{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
+                                    <td class="ver-middle">{{ date('d/m/Y', strtotime($order->created_at)) }}</td>
                                     <td class="ver-middle">{{ number_format($order->od_total_price,0,',','.') }}</td>
                                     <td class="ver-middle">
                                         {!! $order->orderStatus->stt_name !!}
                                     </td>
-                                    <td class="text-xl-right ver-middle">
-                                        <a href="/admin/orders/detail/{!! $order->id !!}" type="button" class="btn btn-sm btn-warning"><i
-                                                class="fa fa-edit"></i>&nbsp; Chi tiết</a>
-                                        <button type="button" class="btn btn-sm btn-danger" value="3"
-                                                onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Hủy
-                                        </button>
+                                    <td class="text-xl-right ver-middle" style="min-width: 125px;">
+                                        <a href="/admin/orders/detail/{!! $order->id !!}" class="mr-2" title="Sửa">
+                                            <i class="fa fa-edit text-warning"></i>
+                                        </a>
+                                        <a value="{{ $order->id }}" onclick="showModalDeleteAccount(this)" title="Xoá">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-                <div class="row footer-table" hidden>
+                <div class="row footer-table">
                     <div class="col-md-6">
                         <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Hiển thị 1 đến
                             10 trong số 57
@@ -154,6 +161,7 @@
     <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="/Admin/plugins/moment/moment.min.js"></script>
     <script src="/Admin/plugins/moment/locale/vi.js"></script>
-    <script src="/js/orders/orders.js"></script>
+    <script src="/js/admin/orders/orders.js"></script>
+    <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
 
 @endsection

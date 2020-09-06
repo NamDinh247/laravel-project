@@ -1,15 +1,17 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Tạo tài khoản admin mới')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
 @endsection
 
 @section('main-content')
     <div class="row">
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12 mb-3">
             <a href="/admin/account" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh sách tài khoản</a>
         </div>
-        <div class="col-12">
+        <div class="col-md-12">
             <div class="container bootstrap snippet">
                 <div class="row">
                     <div class="col-sm-3">

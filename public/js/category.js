@@ -8,7 +8,7 @@ $(document).ready(function () {
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 5000
+        timer: 3000
     });
 
     $('#menu_filter .nav-link').removeClass('active');
@@ -91,11 +91,15 @@ $(document).ready(function () {
                 }
             });
     });
+    var heightContent = $(window).height() - 70;
+    $('.form_new_categories .container-fluid').css({'height': (heightContent - 60) + 'px', 'overflow': 'auto'});
+    $('.form_detail_categories .container-fluid').css({'height': (heightContent - 60) + 'px', 'overflow': 'auto'});
+    $('#example').parent().css({'height': (heightContent - 140) + 'px', 'overflow': 'auto'});
 });
 
 function showModalDeleteCategory(event) {
-    console.log(event.value)
-    deleteIDone = event.value;
+    deleteIDone = event.data-id;
+    console.log(deleteIDone)
     $('#modal-delete-category').modal('show');
 }
 

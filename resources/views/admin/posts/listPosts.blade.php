@@ -3,118 +3,78 @@
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/Admin/plugins/sweetalert/sweetalert.min.css">
+    <link rel="stylesheet" href="/Admin/plugins/fontawesome-free/css/v4-shims.css">
+
 @endsection
 
 @section('main-content')
     <div class="row">
-        <div class="col-12">
-            <div class="content-table bg-white py-2 px-3">
+        <div class="col-md-12 mb-4">
+            <div class="box-filter p-3 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
+                <div class="header_box_filter clearfix">
+                    <button type="button" class="btn btn-sm btn-default mr-2 float-left" style="border: 1px solid #ddd;" title="Tải lại"><i class="fa fa-refresh px-1"></i></button>
+                    <div class="input-group input-group-sm float-left" style="width: 200px;">
+                        <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm bài viết" style="border-radius: 0 !important;">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default" style="border: 1px solid #ced4da; border-radius: 0 !important;"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="input-group mr-1 ml-1 float-left" style="width: 250px;">
+                        <input type="text" class="form-control" readonly="" id="dateTime" style="border-radius: 0 !important;"/>
+                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                    </div>
+                    <div class="input-group mr-1 ml-1 float-left" style="width: 100px;">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Trạng thái
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="action">
+                                <a class="dropdown-item" data-val="" onclick="filterActive(this)">Tất cả</a>
+                                <a class="dropdown-item" data-val="1" onclick="filterActive(this)">Hoạt động</a>
+                                <a class="dropdown-item" data-val="0" onclick="filterActive(this)">Không hoạt động</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="content-table bg-white py-2 px-3 " style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="card-header bg-white position-relative border-0">
                     <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách bài viết</h4>
                     <div class="breadcrumb">
-                        <div class="input-group input-group-sm" style="width: 200px;">
-                            <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm" style="border-radius: 0 !important;">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default" style="border: 1px solid #ced4da; border-radius: 0 !important;"><i class="fas fa-search"></i></button>
-                            </div>
-                        </div>
-                        <div class="input-group mr-1 ml-1" style="width: 250px;">
-                            <input type="text" class="form-control" readonly="" id="dateTime" style="border-radius: 0 !important;"/>
-                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                        </div>
-                        <div class="input-group mr-1 ml-1" style="width: 200px;">
-                            <select class="form-control" style="border-radius: 0 !important;">
-                                <option value="">Tất cả</option>
-                                <option value="user">Người dùng</option>
-                                <option value="shop">Cửa hàng</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                        </div>
-                        <a href="/admin/account/new" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i>&nbsp; Thêm mới</a>
+                        <a href="/admin/posts/new" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i>&nbsp; Thêm mới</a>
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table id="example" class="table table-head-fixed text-nowrap table-hover">
                         <thead>
                         <tr>
-                            <th class="text-xl-center ver-middle">
+                            <th class="text-xl-center ver-middle" style="width: 40px;">
                                 <input type="checkbox" class="form-check-input" id="check-th">
                                 <label class="form-check-label" for="check-th"></label>
                             </th>
-                            <th class="text-xl-center ver-middle">Ảnh đai diện</th>
-                            <th class="ver-middle">Tên tài khoản</th>
-                            <th class="ver-middle">Loại tài khoản</th>
+                            <th class="ver-middle">Tên sản phẩm</th>
+                            <th class="ver-middle">Tên cửa hàng</th>
+                            <th class="ver-middle">Tiêu đề</th>
                             <th class="ver-middle">Trạng thái</th>
-                            <th class="ver-middle"></th>
+                            <th class="text-xl-right ver-middle" style="min-width: 125px;">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td class="text-xl-center ver-middle">
+                            <td class="text-xl-center ver-middle" style="width: 40px;">
                                 <input type="checkbox" class="form-check-input" id="check-1">
                                 <label class="form-check-label" for="check-1"></label>
                             </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="admin" title="admin" style="width: 4rem;height: 4rem;"></td>
-                            <td class="ver-middle">Admin</td>
-                            <td class="ver-middle">admin</td>
+                            <td class="ver-middle">Ghế gỗ cổ dùng để trang trí</td>
+                            <td class="ver-middle">Hiện Bình Định</td>
+                            <td class="ver-middle">Ghế gỗ cổ phù hợp trong trang trí quán coffee</td>
                             <td class="ver-middle">Hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-2">
-                                <label class="form-check-label" for="check-2"></label>
-                            </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 4rem;height: 4rem;"></td>
-                            <td class="ver-middle">Tái chế xanh</td>
-                            <td class="ver-middle">CỬa hàng</td>
-                            <td class="ver-middle">Hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="2" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-3">
-                                <label class="form-check-label" for="check-3"></label>
-                            </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 4rem;height: 4rem;"></td>
-                            <td class="ver-middle">Siêu tái chế</td>
-                            <td class="ver-middle">Người dùng</td>
-                            <td class="ver-middle">Hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="3" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-4">
-                                <label class="form-check-label" for="check-4"></label>
-                            </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 4rem;height: 4rem;"></td>
-                            <td class="ver-middle">cr7</td>
-                            <td class="ver-middle">Người dùng</td>
-                            <td class="ver-middle">Hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="4" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-5">
-                                <label class="form-check-label" for="check-5"></label>
-                            </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 4rem;height: 4rem;"></td>
-                            <td class="ver-middle">Nguyễn văn hiện</td>
-                            <td class="ver-middle">Người dùng</td>
-                            <td class="ver-middle">Không hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="5" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
+                            <td class="text-xl-right ver-middle" style="min-width: 125px;">
+                                <a href="/admin/account/detail" class="mr-2" title="Sửa"><i class="fa fa-edit text-warning"></i></a>
+                                <a value="1" onclick="showModalDeletePosts(this)" title="Xoá"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         </tbody>
@@ -173,6 +133,8 @@
     <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="/Admin/plugins/moment/moment.min.js"></script>
     <script src="/Admin/plugins/moment/locale/vi.js"></script>
-    <script src="/js/account.js"></script>
+    <script src="/js/admin/posts/posts.js"></script>
+    <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
+
 
 @endsection
