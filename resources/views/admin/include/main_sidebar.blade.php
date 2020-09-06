@@ -23,7 +23,7 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a class="nav-link user_filter">
+                    <a class="nav-link user_filter" style="color: #c2c7d0;">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Tài khoản

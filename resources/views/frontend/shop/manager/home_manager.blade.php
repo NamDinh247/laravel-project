@@ -893,10 +893,10 @@
         $('.aside_left_detail_shop').css({'height': (height + 10)  + 'px', 'overflow-x': 'hidden'});
         $('.content_detail_shop').css({'height': (height + 10)  + 'px', 'overflow-x': 'hidden'});
         $(function () { //tab table 5
-            var months = new Date().getDate();
+            //var months = new Date().getDate();
             var arrMonths = [];
             var arrMonthsData = [];
-            for (var i=1; i<=months;i++) {
+            for (var i=1; i<=12;i++) {
                 arrMonths.push(i);
                 arrMonthsData.push(i + Math.floor(Math.random() * 250));
             }
@@ -931,13 +931,13 @@
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Ngày'
+                                labelString: 'Tháng'
                             }
                         }],
                         yAxes: [{
                             ticks: {
                                 suggestedMin: 0,
-                                suggestedMax: 300,
+                                suggestedMax: 100000000,
                                 stepSize: 100,
                                 callback: function(value, index, values) {
                                     return value + ' VND';
