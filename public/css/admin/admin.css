@@ -197,4 +197,7 @@
 .title-banner{
     padding-top: 100px;font-weight: bold;color: #c7c5c5;
 }
+table tr td, table tr th{
+    white-space: normal;
+}
 

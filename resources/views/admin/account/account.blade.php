@@ -72,7 +72,7 @@
                                 <th class="ver-middle">Email</th>
                                 <th class="ver-middle">Địa chỉ</th>
                                 <th class="ver-middle">Trạng thái</th>
-                                <th class="ver-middle"></th>
+                                <th class="ver-middle" style="min-width: 125px;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -106,7 +106,7 @@
                                 <td class="ver-middle">anhvt@gmail.com</td>
                                 <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
                                 <td class="ver-middle">Hoạt động</td>
-                                <td class="text-xl-right ver-middle">
+                                <td class="text-xl-right ver-middle" style="min-width: 125px;">
                                     <a class="mr-2"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
                                     <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
                                     <a value="2" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
@@ -124,7 +124,7 @@
                                 <td class="ver-middle">anhvt@gmail.com</td>
                                 <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
                                 <td class="ver-middle">Hoạt động</td>
-                                <td class="text-xl-right ver-middle">
+                                <td class="text-xl-right ver-middle" style="min-width: 125px;">
                                     <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
                                     <a value="3" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
                                 </td>
@@ -141,7 +141,7 @@
                                 <td class="ver-middle">anhvt@gmail.com</td>
                                 <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
                                 <td class="ver-middle">Hoạt động</td>
-                                <td class="text-xl-right ver-middle">
+                                <td class="text-xl-right ver-middle" style="min-width: 125px;">
                                     <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
                                     <a value="4" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
                                 </td>
@@ -158,7 +158,7 @@
                                 <td class="ver-middle">anhvt@gmail.com</td>
                                 <td class="ver-middle">số 56, Trần Thái Tông, Cầu Giấy, Hà Nội</td>
                                 <td class="ver-middle">Không hoạt động</td>
-                                <td class="text-xl-right ver-middle">
+                                <td class="text-xl-right ver-middle" style="min-width: 125px;">
                                     <a class="mr-2"><i class="fa fa-envelope-open text-danger" aria-hidden="true"></i></a>
                                     <a href="/admin/account/detail" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
                                     <a value="5" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>

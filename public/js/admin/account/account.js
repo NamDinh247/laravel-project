@@ -46,7 +46,7 @@ $(document).ready(function() {
     activeFilterLeft('#menu_filter', '.user_filter');
     activeFilterAccount('.user_filter', '.user_admin_filter');
     var heightTable = $(window).height() - 150;
-    $('#example').parent().css({'height': (heightTable - 60) + 'px', 'overflow-x': 'auto', 'overflow-y': 'auto'});
+    $('#example').parent().css({'height': (heightTable - 150) + 'px', 'overflow-x': 'auto', 'overflow-y': 'auto'});
 });
 function showModalDeleteAccount(e) {
     $('#modal-delete-account').modal('show');

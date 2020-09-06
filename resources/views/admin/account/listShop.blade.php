@@ -72,7 +72,7 @@
                             <th class="ver-middle">Email</th>
                             <th class="ver-middle">Địa chỉ</th>
                             <th class="ver-middle">Trạng thái</th>
-                            <th class="ver-middle"></th>
+                            <th class="ver-middle" style="min-width: 125px;"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -100,7 +100,7 @@
                                             @break
                                     @endswitch
                                 </td>
-                                <td class="text-xl-right ver-middle">
+                                <td class="text-xl-right ver-middle" style="min-width: 125px;">
                                     @if($shop->status != 1)
                                         <a href="/admin/account/shop/{!!$shop->id!!}/1" class="mr-2" id="active-shop" title="Kích hoạt">
                                             <i class="fa fa-envelope-open text-danger" aria-hidden="true"></i>
