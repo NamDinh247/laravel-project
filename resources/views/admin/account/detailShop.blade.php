@@ -1,5 +1,7 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Chi tiết tài khoản cửa hàng')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
@@ -7,7 +9,7 @@
 
 @section('main-content')
     <div class="row">
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12 mb-3">
             <a href="/admin/account/shop" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh sách tài khoản cửa hàng</a>
         </div>
         <div class="col-12">

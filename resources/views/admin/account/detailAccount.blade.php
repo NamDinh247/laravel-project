@@ -1,17 +1,19 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Chi tiết tài khoản admin')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
 @endsection
 
 @section('main-content')
     <div class="row">
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12 mb-3">
             <a href="/admin/account" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh sách tài khoản</a>
         </div>
-        <div class="col-12">
-            <div class="container bootstrap snippet">
-                <div class="row">
+        <div class="col-md-12">
+            <div class="container-fluid bg-white p-3 content_form" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);border-radius: 5px;">
+                <div class="row scroll_form">
                     <div class="col-sm-3">
                         <div class="text-center">
                             @if($user->avatar == null || strlen($user->avatar) == 0)

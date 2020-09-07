@@ -1,5 +1,7 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Danh sách người dùng')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
@@ -53,7 +55,7 @@
             <div class="content-table bg-white py-2 px-3" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="card-header bg-white position-relative border-0 py-3 px-0">
                     <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách tài khoản người dùng</h4>
-                    <div class="breadcrumb">
+                    <div class="breadcrumb mt-1">
                         <a href="/admin/account/user/new" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i>&nbsp; Thêm mới</a>
                     </div>
                 </div>

@@ -183,7 +183,7 @@
     text-align: right;
 }
 #example tbody i{
-    font-size: 18px;
+    font-size: 1em;
 }
 .box-upload-img{
     width: 100%;
@@ -199,5 +199,11 @@
 }
 table tr td, table tr th{
     white-space: normal;
+    padding: .5rem !important;
 }
-
+table tr td a:hover, table tr th a:hover{
+    text-decoration: none;
+}
+.user_filter.active{
+    color: #fff !important;
+}

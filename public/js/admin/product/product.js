@@ -57,6 +57,23 @@ $(document).ready(function() {
         prettify: false,
         hasGrid : true
     })
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.avatar').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+    var heightContent = $(window).height() - 70;
+    $('#example').parent().css({'height': (heightContent - 220) + 'px', 'overflow-y': 'auto'});
+    $('.scroll_content_form').css({'height': (heightContent - 160) + 'px', 'overflow-y': 'auto'});
+    $('.scroll_content_form_detail').css({'height': (heightContent - 160) + 'px', 'overflow-y': 'auto'});
+    $('html').css('overflow', 'hidden');
 });
 function showModalDeleteProduct(e) {
     $('#modal-delete-product').modal('show');

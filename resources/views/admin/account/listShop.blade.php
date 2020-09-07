@@ -1,5 +1,7 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Danh sách cửa hàng')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
@@ -9,7 +11,7 @@
 
 @section('main-content')
     <div class="row">
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12 mb-3">
             <div class="box-filter p-3 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="header_box_filter clearfix">
                     <button type="button" class="btn btn-sm btn-default mr-2 float-left" style="border: 1px solid #ddd;" title="Tải lại"><i class="fa fa-refresh px-1"></i></button>
@@ -54,7 +56,7 @@
             <div class="content-table bg-white py-2 px-3" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="card-header bg-white position-relative border-0 py-3 px-0">
                     <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách tài khoản cửa hàng</h4>
-                    <div class="breadcrumb">
+                    <div class="breadcrumb mt-1">
                         <a href="/admin/account/shop/new" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i>&nbsp; Thêm mới</a>
                     </div>
                 </div>
@@ -72,7 +74,11 @@
                             <th class="ver-middle">Email</th>
                             <th class="ver-middle">Địa chỉ</th>
                             <th class="ver-middle">Trạng thái</th>
-                            <th class="ver-middle" style="min-width: 125px;"></th>
+                            <th class="ver-middle clearfix" style="min-width: 125px;">
+                                <a class="float-right" id="select_delete" value="delete" onclick="showModalDeleteAccount(this)" title="Xoá nhiều">
+                                    <i class="fa fa-trash" id="delete-all"></i>
+                                </a>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>

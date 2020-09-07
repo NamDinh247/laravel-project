@@ -1,191 +1,86 @@
 @extends('admin.layout_admin_master')
 
-@section('main-content')
-    <div class="main-dashboard pb-4">
-        <div class="row bg-white" style="margin-bottom: 20px">
-            <div class="col-md-10" style="width: 100%">
-                <h2 style="padding-bottom: 10px">Doanh thu thuần</h2>
-                <canvas id="myChart4"></canvas>
-            </div>
-        </div>
+@section('title', 'Doanh thu')
 
-        {{--        <div style="width: 100%">--}}
-        {{--            <h2 style="padding-bottom: 50px">Tổng doanh thu</h2>--}}
-        {{--            <canvas id="myChart"></canvas>--}}
-        {{--        </div>--}}
-        <div class="row ">
-            <div class="col-md-4  my-3">
-                <div>
-                    <canvas id="myChart1" class="bg-white"></canvas>
+@section('header-script')
+    <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/Admin/plugins/fontawesome-free/css/v4-shims.css">
+    <style>
+        .total_orders, .total_orders1, total_orders2{
+            font-size: 20px !important;
+            font-weight: normal !important;
+        }
+    </style>
+@endsection
+
+@section('main-content')
+    <div class="row mx-2">
+        <div class="col-md-9 pt-4 px-4 pb-5 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 2px rgba(0,0,0,.2);">
+            <h5 class="pb-4 pl-2">Doanh thu</h5>
+            <canvas id="revenue"></canvas>
+        </div>
+        <div class="col-md-3">
+            <div class="row ml-2 mb-3 p-2 pl-4 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 2px rgba(0,0,0,.2);">
+                <div class="col-md-3 p-0">
+                    <input type="text" class="total_orders" data-min="0" data-max="">
+                </div>
+                <div class="col-md-9 p-0">
+                    <p class="font-weight-bold mb-0 pb-1" style="font-size: 25px;">100</p>
+                    <p>Tổng số đơn hàng</p>
                 </div>
             </div>
-            <div class="col-md-4  my-3">
-                <div>
-                    <canvas id="myChart2" class="bg-white"></canvas>
+            <div class="row ml-2 mb-3 p-2 pl-4 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 2px rgba(0,0,0,.2);">
+                <div class="col-md-3 p-0">
+                    <input type="text" class="total_orders1" data-min="0" data-max="">
+                </div>
+                <div class="col-md-9 p-0">
+                    <p class="font-weight-bold m-0 pb-1" style="font-size: 25px;">93</p>
+                    <p>Tổng số đơn thành công</p>
                 </div>
             </div>
-            <div class="col-md-4  my-3">
-                <div>
-                    <canvas id="myChart3" class="bg-white"></canvas>
+            <div class="row ml-2 mb-3 p-2 pl-4 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 2px rgba(0,0,0,.2);">
+                <div class="col-md-3 p-0">
+                    <input type="text" class="total_orders2" data-min="0" data-max="">
+                </div>
+                <div class="col-md-9 p-0">
+                    <p class="font-weight-bold m-0 pb-1" style="font-size: 25px;">70</p>
+                    <p style="font-size: 13px;">Tổng số đơn trừ tiền thành công</p>
                 </div>
             </div>
         </div>
     </div>
-
-
 @endsection
 
 @section('main-script')
-    <script>
-        $(function () { //tab table 1
-            var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            var ctx1 = document.getElementById('myChart').getContext('2d');
-            var myChart = new Chart(ctx1, {
-                type: 'line',
-                data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-                    datasets: [{
-                        label: 'My Second dataset',
-                        fill: false,
-                        backgroundColor: 'rgb(54, 162, 235)',
-                        borderColor: 'rgb(54, 162, 235)',
-                        data: [30, 20, 55, 62, 55, 34],
-                    }]
-                },
-                options: {
-                    legend: {
-                        display: false,
-                    },
-                    responsive: true,
-                    hover: {
-                        mode: 'nearest',
-                        intersect: true
-                    },
-                    scales: {
-                        xAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Month'
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                suggestedMin: 0,
-                                suggestedMax: 100,
-                                stepSize: 25
-                            },
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Money'
-                            }
-                        }]
-                    }
-                }
-            });
-        });
-    </script>
-    <script>
-
-        $(function () { //tab table 2
-            var ctx1 = document.getElementById('myChart1').getContext('2d');
-            var myChart1 = new Chart(ctx1, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        backgroundColor: ['#000000'],
-                        borderColor: '#fff',
-                        data: [10],
-                        borderWidth: [0, 0]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    cutoutPercentage: 88,
-                    title: {
-                        display: true,
-                        text: 'ABC Doughnut'
-                    },
-                    animation: {
-                        animateRotate: true,
-                        duration: 2000
-                    }
-                }
-            });
-        });
-    </script>
-    <script>
-
-        $(function () { //tab table 3
-            var ctx1 = document.getElementById('myChart2').getContext('2d');
-            var myChart2 = new Chart(ctx1, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        backgroundColor: ['#000000'],
-                        borderColor: '#fff',
-                        data: [10],
-                        borderWidth: [0, 0]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    cutoutPercentage: 88,
-                    title: {
-                        display: true,
-                        text: 'ABC Doughnut'
-                    },
-                    animation: {
-                        animateRotate: true,
-                        duration: 2000
-                    }
-                }
-            });
-        });
-    </script>
-    <script>
-
-        $(function () { //tab table 4
-            var ctx1 = document.getElementById('myChart3').getContext('2d');
-            var myChart3 = new Chart(ctx1, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        backgroundColor: ['#000000'],
-                        borderColor: '#fff',
-                        data: [10],
-                        borderWidth: [0, 0]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    cutoutPercentage: 88,
-                    title: {
-                        display: true,
-                        text: 'ABC Doughnut'
-                    },
-                    animation: {
-                        animateRotate: true,
-                        duration: 2000
-                    }
-                }
-            });
-        });
-    </script>
+    <script src="/Admin/plugins/chart.js/Chart.min.js"></script>
+    <script src="/Admin/plugins/jquery-knob/jquery.knob.min.js"></script>
     <script>
         $(function () { //tab table 5
-            var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            var ctx1 = document.getElementById('myChart4').getContext('2d');
-            var myChart4 = new Chart(ctx1, {
-                type: 'bar',
+            //var months = new Date().getDate();
+            var arrMonths = [];
+            var arrMonthsData = [];
+            for (var i=1; i<=12;i++) {
+                arrMonths.push('Tháng ' + i);
+                arrMonthsData.push(i + Math.floor(Math.random() * 500));
+            }
+            console.log(arrMonths)
+            var ctx = document.getElementById('revenue').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
                 data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                    labels: arrMonths,
                     datasets: [{
                         fill: false,
-                        backgroundColor: 'rgb(54, 162, 235)',
-                        borderColor: 'rgb(54, 162, 235)',
-                        data: [30, 20, 55, 62, 55, 34],
+                        backgroundColor: '#20c997',
+                        borderColor: '#20c997',
+                        borderWidth: 1,
+                        data: arrMonthsData,
+                        pointBorderWidth: 1,
+                        pointRadius: 4,
+                        pointBorderColor: '#20c997',
+                        pointBackgroundColor: '#fff',
+                        label: 'Tổng doanh thu'
                     }]
                 },
                 options: {
@@ -203,27 +98,49 @@
                     },
                     scales: {
                         xAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Month'
+                            gridLines : {
+                                display : false,
+                                drawBorder: false,
                             }
                         }],
                         yAxes: [{
                             ticks: {
                                 suggestedMin: 0,
-                                suggestedMax: 300,
-                                stepSize: 100
+                                suggestedMax: 1000,
+                                stepSize: 200,
+                                callback: function(value, index, values) {
+                                    if (value === 0) {
+                                        return value + '  ';
+                                    } else {
+                                        return value + ' tr';
+                                    }
+                                }
                             },
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Money'
+                            gridLines : {
+                                display : true,
+                                color: '#efefef',
+                                drawBorder: false,
                             }
                         }]
                     }
                 }
             });
+            var objectKnob = {
+                'min':0,
+                'max':100,
+                'width': '70',
+                'height': '70',
+                'readOnly': true,
+                'thickness': '.15',
+                'fgColor': '#444',
+                'bgColor': '#20c997'
+            }
+            $(".total_orders").knob(objectKnob);
+            $('.total_orders').val(60).trigger('change');
+            $(".total_orders1").knob(objectKnob);
+            $('.total_orders1').val(55).trigger('change');
+            $(".total_orders2").knob(objectKnob);
+            $('.total_orders2').val(40).trigger('change');
         });
     </script>
 @endsection

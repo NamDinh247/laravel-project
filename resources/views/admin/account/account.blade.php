@@ -1,5 +1,7 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Quản lý tài khoản admin')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
