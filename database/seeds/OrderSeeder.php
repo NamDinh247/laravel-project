@@ -19,7 +19,7 @@ class OrderSeeder extends Seeder
             [
                 'id' => 1,
                 'account_id' => 2,
-                'shop_id' => 7,
+                'shop_id' => 2,
                 'od_code' => 1,
                 'od_total_price' => 400000,
                 'ship_name' => 'Đỗ Mạnh Hùng',
@@ -35,7 +35,7 @@ class OrderSeeder extends Seeder
             [
                 'id' => 2,
                 'account_id' => 1,
-                'shop_id' => 8,
+                'shop_id' => 2,
                 'od_code' => 2,
                 'od_total_price' => 1000000,
                 'ship_name' => 'Đỗ Mạnh Hùng',
