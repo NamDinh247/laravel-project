@@ -4,6 +4,10 @@ var loginForm = $("#loginForm");
 var registerShopForm = $("#registerShopForm");
 
 $(document).ready(function() {
+    if (parseInt($("#userLogin").val()) === 0){
+        $('#modal-signIn').modal('show');
+    }
+
     $(".login100-form .btnRegister").click(function (evt) {
         evt.preventDefault();
         $.ajax({

@@ -18,17 +18,23 @@
             <div class="login100-pic js-tilt" data-tilt>
                 <img src="/img/img-01.png" alt="IMG">
             </div>
-            <form class="login100-form validate-form">
+            @if( \Illuminate\Support\Facades\Session::has('success_message'))
+                <div>
+                    {{ \Illuminate\Support\Facades\Session::get('success_message') }}
+                </div>
+            @endif
+            <form class="login100-form validate-form" action="/admin/login" method="post">
+                @csrf
                 <span class="login100-form-title">Admin Login</span>
                 <div class="wrap-input100 validate-input" data-validate="User name is required">
-                    <input class="input100" type="text" name="email" placeholder="User name">
+                    <input class="input100" type="text" name="username" placeholder="User name">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-user" aria-hidden="true"></i>
 						</span>
                 </div>
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="pass" placeholder="Password">
+                    <input class="input100" type="password" name="password" placeholder="Password">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>

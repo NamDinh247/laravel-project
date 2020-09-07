@@ -61,7 +61,10 @@ class HomeController extends Controller
 
     public function getLogin()
     {
-        return view('frontend.sign.signIn');
+        if(Auth::check())
+            return redirect()->route('homePage');
+        else
+            return view('frontend.login');
     }
 
     public function postLogin(Request $request)

@@ -15,12 +15,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/admin/login', 'Admin\AdminController@login')
     ->name('admin.login');
 
-Route::get('/admin/home', 'Admin\AdminController@home');
+Route::post('/admin/login', 'Admin\AdminController@postLogin');
 
 Route::get('/admin/logout', 'Admin\AdminController@getAdminLogout');
 
 // account admin
-Route::group(['prefix' => 'admin'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function() {
+    Route::get('/home', 'Admin\AdminController@home');
+
     Route::get('/account', 'Admin\AdminController@accountManagement');
 
     Route::get('/account/new', 'Admin\AdminController@newAccount');

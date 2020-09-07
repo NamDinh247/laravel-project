@@ -14,6 +14,7 @@ use App\Shop;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Mockery\Exception;
 
 class AdminController extends Controller
@@ -21,12 +22,46 @@ class AdminController extends Controller
     //
     public function home()
     {
-        return view('admin.layout_admin_master');
+        return view('admin.chartjs');
     }
 
     public function login()
     {
         return view('admin.login_admin');
+    }
+
+    public function postLogin(Request $request)
+    {
+        $login1 = [
+            'email' => $request->username,
+            'password' => $request->password
+        ];
+        $login2 = [
+            'phone' => $request->username,
+            'password' => $request->password
+        ];
+        if (Auth::attempt($login1, true) || Auth::attempt($login2, true)) {
+            $user = Auth::user();
+
+            if ($user->status == 1) {
+                // login success
+                return redirect('/admin/home');
+            } else {
+                // login fail
+                Auth::logout();
+                return redirect()->back()->with(['success_message' => 'Tài khoản không hoạt động']);
+            }
+        } else {
+            $userByKey = User::where('email', $request->username)
+                ->orWhere('phone', $request->username)
+                ->where('status', [1,2])
+                ->first();
+            if ($userByKey && $userByKey->id) {
+                // wrong pass
+                return redirect()->back()->with(['success_message' => 'Sai mật khẩu']);
+            }
+            return redirect()->back()->with(['success_message' => 'Đăng nhập thất bại']);
+        }
     }
 
     public function getAdminLogout() {
@@ -232,19 +267,26 @@ class AdminController extends Controller
 
     public function getChangeStatusShop(Request $request)
     {
-        $shop = Shop::where('id', $request->id)->where('status', '!=', -1)->first();
-        if ($shop) {
+        try {
+            $shop = Shop::where('id', $request->id)->where('status', '!=', -1)->first();
+            if ($shop == null) {
+                return abort(404);
+            }
             $user = User::where('id', $shop->account_id)->where('status', '!=', -1)->first();
-            if ($user) {
-                $shop->status = $request->status;
-                $user->role = 4;
+            if ($user == null) {
+                return abort(404);
+            }
+            $shop->status = $request->status;
+            $user->role = 4;
+            DB::transaction(function() use ($user, $shop) {
                 $user->save();
                 $shop->save();
-                return redirect('/admin/account/shop');
-            }
-            return view('errors.404');
-        } else {
-            return view('errors.404');
+            });
+            return redirect('/admin/account/shop')
+                ->with(['success_message' => 'Kích hoạt tài khoản thành công']);
+        } catch (\Exception $ex) {
+            return redirect('/admin/account/shop')
+                ->with(['success_message' => 'Kích hoạt tài khoản không thành công']);
         }
     }
 
