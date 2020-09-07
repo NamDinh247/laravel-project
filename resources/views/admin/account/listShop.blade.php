@@ -82,7 +82,13 @@
                                     <input type="checkbox" class="form-check-input" id="check-1">
                                     <label class="form-check-label" for="check-1"></label>
                                 </td>
-                                <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="admin" title="admin" style="width: 3rem;height: 3rem;"></td>
+                                <td class="text-xl-center ver-middle">
+                                    @if($shop->logo == null || strlen($shop->logo) == 0)
+                                        <img src="/img/donors1.jpg" class="img-circle" alt="Logo" title="admin" style="width: 3rem;height: 3rem;">
+                                    @else
+                                        <img src="{!! $shop->small_photo !!}" class="img-circle" alt="Logo" title="admin" style="width: 3rem;height: 3rem;">
+                                    @endif
+                                </td>
                                 <td class="ver-middle">{!! $shop->name !!}</td>
                                 <td class="ver-middle">{!! $shop->phone !!}</td>
                                 <td class="ver-middle">{!! $shop->email !!}</td>
@@ -106,7 +112,7 @@
                                             <i class="fa fa-envelope-open text-danger" aria-hidden="true"></i>
                                         </a>
                                     @endif
-                                    <a href="#" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
+                                    <a href="/admin/account/shops/detail/{!! $shop->id !!}" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
                                     <a><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -116,24 +122,10 @@
                 </div>
                 <div class="row footer-table">
                     <div class="col-md-6">
-                        <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Hiển thị 1 đến 10 trong số 57</div>
+{{--                        <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Hiển thị 1 đến 10 trong số 57</div>--}}
                     </div>
                     <nav class="col-md-6 clearfix">
-                        <ul class="pagination float-right">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#"><i class="fa fa-chevron-left"></i></a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active">
-                                <span class="page-link">2
-                                    <span class="sr-only">(current)</span>
-                                </span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#"><i class="fa fa-chevron-right"></i></a>
-                            </li>
-                        </ul>
+                        {!! $lstShop->links() !!}
                     </nav>
                 </div>
             </div>

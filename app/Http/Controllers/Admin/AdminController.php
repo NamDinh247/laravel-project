@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Article;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Order;
@@ -12,6 +13,7 @@ use App\Product;
 use App\Shop;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
 
 class AdminController extends Controller
@@ -27,6 +29,11 @@ class AdminController extends Controller
         return view('admin.login_admin');
     }
 
+    public function getAdminLogout() {
+        Auth::logout();
+        return redirect('/admin/login');
+    }
+
     // category
     public function listCategory()
     {
@@ -37,9 +44,8 @@ class AdminController extends Controller
     {
         $categories = Category::where('status', '=', 1)
             ->orderby('created_at', 'desc')
-            ->paginate(5);
-//        dd($categories);
-        return view('admin.category.listCategory')->with('categories', $categories);
+            ->paginate(20);
+        return view('admin.category.listCategory', compact('categories'));
 
 //        $date ['keyword'] = '';
 //        $category_list = Category::query();
@@ -122,37 +128,105 @@ class AdminController extends Controller
     // list account admin
     public function accountManagement()
     {
-        return view('admin.account.account');
+        $lstUserAdmin = User::whereIn('role', [2])
+            ->where('status', '!=', -1)
+            ->orderby('created_at', 'desc')
+            ->paginate(15);
+        return view('admin.account.account', compact('lstUserAdmin'));
     }
 
     // detail account admin
-    public function detailAccount()
+    public function detailAccount($id)
     {
-        return view('admin.account.detailAccount');
+        $user = User::where('id', $id)->where('status', '!=', -1)->first();
+        if ($user == null) {
+            return abort(404);
+        }
+        return view('admin.account.detailAccount', compact('user'));
+    }
+
+    public function postEditUser(Request $request)
+    {
+        try {
+            $user = User::where('id', $request->id)->where('status', '!=', -1)->first();
+            if ($user == null) {
+                return abort(404);
+            }
+            $user->user_name = $request->user_name;
+            $user->full_name = $request->full_name;
+            $user->phone = $request->phone;
+            $user->email = $request->email;
+            $user->status = $request->status;
+            $user->address = $request->address;
+            $user->save();
+            return redirect()->back()->with(['success_message' => 'Cập nhật tài khoản thành công']);
+        } catch (\Exception $ex) {
+            return redirect()->back()->with(['success_message' => 'Cập nhật tài khoản không thành công']);
+        }
+    }
+
+    public function newAccount()
+    {
+        return view('admin.account.newUser');
+    }
+
+    public function newAccountUser()
+    {
+        return view('admin.account.newAccount');
+    }
+
+    public function postCreateUser(Request $request)
+    {
+        try {
+            // no check unique phone + email
+            $user = new User();
+            $user->user_name = $request->user_name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->full_name = $request->full_name;
+            $user->phone = $request->phone;
+            $user->role = $request->role;
+            $user->status = 1;
+            $user->save();
+            if ($request->role == 2) {
+                return redirect('/admin/account')->with(['success_message' => 'Tạo mới tài khoản thành công']);
+            }
+            return redirect('/admin/account/user')->with(['success_message' => 'Tạo mới tài khoản thành công']);
+        } catch (\Exception $ex) {
+            return redirect('/admin/account')->with(['success_message' => 'Tạo mới tài không thành công']);
+        }
     }
 
     // list account user
     public function listAccountUser()
     {
-        return view('admin.account.listUser');
+        $lstUser = User::whereIn('role', [3,4])
+            ->where('status', '!=', -1)
+            ->orderby('created_at', 'desc')
+            ->paginate(20);
+        return view('admin.account.listUser', compact('lstUser'));
     }
 
     // new account user
-    public function newAccountUser()
-    {
-        return view('admin.account.newUser');
-    }
+
 
     // detail account user
-    public function detailAccountUser()
+    public function detailAccountUser($id)
     {
-        return view('admin.account.detailUser');
+        $user = User::where('id', $id)->where('status', '!=', -1)->first();
+        if ($user == null) {
+            return abort(404);
+        }
+
+        return view('admin.account.detailUser', compact('user'));
     }
 
     // list account shop
     public function listAccountShop()
     {
-        $lstShop = Shop::whereNotIn('status', [-1])->get();
+        $lstShop = Shop::whereNotIn('status', [-1])
+            ->orderby('created_at', 'desc')
+            ->paginate(20);
         return view('admin.account.listShop', compact('lstShop'));
     }
 
@@ -181,16 +255,41 @@ class AdminController extends Controller
     }
 
     // detail account shop
-    public function detailAccountShop()
+    public function detailAccountShop($id)
     {
-        return view('admin.account.detailShop');
+        $shop = Shop::where('id', $id)->where('status', '!=', -1)->first();
+        if ($shop == null) {
+            return  abort(404);
+        }
+        return view('admin.account.detailShop', compact('shop'));
+    }
+
+    public function postEditShop(Request $request)
+    {
+        try {
+            $shop = Shop::where('id', $request->id)->where('status', '!=', -1)->first();
+            if ($shop == null) {
+                return abort(404);
+            }
+            $shop->name = $request->name;
+            $shop->address = $request->address;
+            $shop->phone = $request->phone;
+            $shop->email = $request->email;
+            $shop->save();
+            return redirect()->back()->with(['success_message' => 'Cập nhật tài khoản thành công']);
+        } catch (\Exception $ex) {
+            return redirect()->back()->with(['success_message' => 'Cập nhật tài khoản không thành công']);
+        }
     }
 
     // product
     public function listProduct(Request $request)
     {
-        $products = Product::where('status', '=', 1)->orderby('id', 'desc')->paginate(10);
-        return view('admin.products.listProduct')->with('products', $products);
+        $products = Product::where('status', '=', 1)
+            ->orderby('created_at', 'desc')
+            ->paginate(20);
+        $lstCate = Category::where('status', 1)->get();
+        return view('admin.products.listProduct', compact('products', 'lstCate'));
     }
 
     public function newProduct()
@@ -307,7 +406,10 @@ class AdminController extends Controller
     // posts
     public function listPosts()
     {
-        return view('admin.posts.listPosts');
+        $lstArticle = Article::where('status', '!=', -1)
+            ->orderby('created_at', 'desc')
+            ->paginate(20);
+        return view('admin.posts.listPosts', compact('lstArticle'));
     }
 
     public function newPosts()

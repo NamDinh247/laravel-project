@@ -17,6 +17,23 @@
             <div class="aside_left pl-3">
                 <div class="filter_left">
                     <ul class="menu_left menu_filter_orders">
+                        <li class="item_menu_left pl-2 py-2 clearfix">
+                            @if(\Illuminate\Support\Facades\Auth::user()->shop->logo == null ||
+                                strlen(\Illuminate\Support\Facades\Auth::user()->shop->logo) == 0)
+                                <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
+                            @else
+                                <img class="rounded-circle float-left mr-2" src="{!! \Illuminate\Support\Facades\Auth::user()->shop->small_photo !!}" alt="avatar left">
+                            @endif
+                            <span class="float-left item_menu_title pt-1">
+                                {!! \Illuminate\Support\Facades\Auth::user()->shop->name !!}
+                            </span>
+                        </li>
+                        <li>
+                            <a href="/shop/revenue">
+                                <i class="fa fa-line-chart pr-1"></i>
+                                Doanh thu
+                            </a>
+                        </li>
                         <li>
                             <a href="#manage_orders" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle clearfix collapsed">
                                 <i class="fa fa-file-text-o pr-1"></i>
@@ -43,18 +60,12 @@
                             </a>
                             <ul class="collapse list-unstyled" id="manage_product">
                                 <li>
-                                    <a onclick="changeTab(this, 'manage_product_content')">Tất cả </a>
+                                    <a href="/shop/products/list">Tất cả </a>
                                 </li>
                                 <li>
-                                    <a onclick="changeTab(this, 'manage_product_new_content')">Thêm sản phẩm</a>
+                                    <a href="/shop/products/create">Thêm sản phẩm</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li>
-                            <a onclick="changeTab(this, 'manage_dashboard_content')">
-                                <i class="fa fa-line-chart pr-1"></i>
-                                Doanh thu
-                            </a>
                         </li>
                         <li>
                             <a href="#manage_shop" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle clearfix collapsed">
@@ -64,7 +75,7 @@
                             </a>
                             <ul class="collapse list-unstyled" id="manage_shop">
                                 <li>
-                                    <a onclick="changeTab(this, 'manage_profile_content')">Hồ sơ shop</a>
+                                    <a href="/shop/profile">Hồ sơ shop</a>
                                 </li>
                                 <li>
                                     <a>Thông báo</a>
@@ -83,7 +94,7 @@
             </div>
         </div>
         <div class="col-sm-9 pt-2 content_detail_shop px-4" style="background-color: rgb(240, 242, 245);">
-            @if( \Illuminate\Support\Facades\Session::has('msg'))
+            @if( \Illuminate\Support\Facades\Session::has('success_message'))
                 <div class="box-body" style="background-color: green">
                     <div class="box box-success box-solid">
                         <div class="box-header with-border">
@@ -97,7 +108,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            {{ \Illuminate\Support\Facades\Session::get('msg') }}
+                            {{ \Illuminate\Support\Facades\Session::get('success_message') }}
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -197,13 +208,14 @@
             $('.' + ele).addClass('d-block');
         }
         $('#box_new_posts').click(function (e) {
-            $(this).height(300);
+            $(this).height(100);
             $(this).css({'border-radius': '10px', 'background': '#f0f2f5'});
             $('.add_action').show();
             $('#post').show();
             $('#input_search_product').show();
             $('#emoji_new_posts').show();
             $('#resetTextarea').show();
+            $('#content-post').removeClass('d-none');
         });
         $('#post').click(function (e) {
             $('#box_new_posts').height(25);

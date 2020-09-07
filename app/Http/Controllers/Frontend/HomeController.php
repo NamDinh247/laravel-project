@@ -145,14 +145,25 @@ class HomeController extends Controller
     }
     # End region login, register
 
+    # Region user shop
     public function getListShop()
     {
-//        $shops = Shop::where('status', '=', 1)
-//            ->orderby('created_at', 'desc')
-//            ->paginate(10);
-//        return view('frontend.shop.list', compact('shops'));
-        return view('frontend.shop.list');
+        $lstShop = Shop::where('status', '=', 1)
+            ->orderby('created_at', 'desc')
+            ->paginate(10);
+        return view('frontend.shop.list', compact('lstShop'));
     }
+
+    public function getDetailShop($id)
+    {
+        $shop = Shop::where('id', $id)->where('status', 1)->first();
+        if ($shop == null) {
+            return abort(404);
+        }
+        return view('frontend.shop.detail', compact('shop'));
+    }
+
+    #End region user shop
 
     # User product
     public function getListProduct()
@@ -168,6 +179,20 @@ class HomeController extends Controller
             ->with('categories', $categories)
             ->with('products', $products)
             ->with('prd_today', $prd_today);
+    }
+
+    public function getListProductByCate($id)
+    {
+        try {
+            $data = array();
+            $data['lst_product'] = Product::where('category_id', $id)
+                ->where('status', '!=', -1)
+                ->orderby('created_at', 'desc')
+                ->paginate(15);
+            return view('frontend.product.list_by_cate', compact('data'));
+        } catch (\Exception $ex) {
+            return abort(404);
+        }
     }
 
     public function getListProductResearch(Request $request)
@@ -372,7 +397,7 @@ class HomeController extends Controller
             ->whereNotIn('od_status', [-1])
             ->first();
         if ($order == null) {
-            return view('errors.404');
+            return abort(404);
         }
         $order_detail = Order_detail::where('od_id', $order->id)->get();
         return view('frontend.shop.order_detail', compact('order', 'order_detail'));
@@ -432,12 +457,12 @@ class HomeController extends Controller
             }
 
             $lstOrder = Order::where('shop_id', $shop->id)
-                ->whereNotIn('od_status', [-1, 1])
+                ->whereNotIn('od_status', [-1])
                 ->orderby('created_at', 'desc')
-                ->paginate(10);
+                ->paginate(20);
             return view('frontend.shop.manager.list_order', compact('lstOrder'));
         } catch (\Exception $ex) {
-            return view('errors.404');
+            return abort(404);
         }
     }
 
@@ -472,29 +497,179 @@ class HomeController extends Controller
             }
             $order->od_status = $request->get('order_status');
             $order->save();
-            return redirect()->back()->with(['msg' => 'Cập nhật đơn hàng thành công']);
+            return redirect()->back()->with(['success_message' => 'Cập nhật đơn hàng thành công']);
         } catch (\Exception $ex) {
-            return redirect()->back()->with(['msg' => 'Cập nhật đơn hàng không thành công']);
+            return redirect()->back()->with(['success_message' => 'Cập nhật đơn hàng không thành công']);
+        }
+    }
+
+    public function getListProductShop()
+    {
+        try {
+            $user = Auth::user();
+            $shop = Shop::where('account_id', $user->id)
+                ->where('status', '!=', -1)
+                ->first();
+            $lstProduct = Product::where('shop_id', $shop->id)
+                ->where('status', '!=', -1)
+                ->orderby('created_at', 'desc')
+                ->paginate(20);
+            $lstCate = Category::where('status', 1)->get();
+            return view('frontend.shop.manager.list_product', compact('lstProduct', 'lstCate'));
+        } catch (\Exception $ex) {
+            return abort(404);
+        }
+    }
+
+    public function getDetailProductShop($id)
+    {
+        $product = Product::where('id', $id)->where('status', '!=', -1)->first();
+        if ($product == null) {
+            return abort(404);
+        }
+        $lstCate = Category::where('status', 1)->get();
+        return view('frontend.shop.manager.detail_product', compact('product', 'lstCate'));
+    }
+
+    public function postEditProductShop(Request $request)
+    {
+        try {
+            $product = Product::where('id', $request->id)->where('status', 1)->first();
+            $product->name = $request->name;
+            $product->price = $request->price;
+            $product->sale_off = $request->sale_off;
+            $product->description = $request->description;
+            $product->save();
+            return redirect()->back()->with(['success_message' => 'Cập nhật sản phẩm thành công']);
+        } catch (\Exception $ex) {
+            return redirect()->back()->with(['success_message' => 'Cập nhật sản phẩm không thành công']);
+        }
+    }
+
+    public function getCreateProductShop()
+    {
+        $lstCate = Category::where('status', 1)->get();
+        return view('frontend.shop.manager.create_product', compact('lstCate')) ;
+    }
+
+    public function postCreateProductShop(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            $shop = Shop::where('account_id', $user->id)
+                ->where('status', '!=', -1)
+                ->first();
+            $product = new Product();
+            $product->category_id = $request->category_id;
+            $product->shop_id = $shop->id;
+            $product->prd_code = (string)random_int(1, 999);
+            $product->name = $request->name;
+            $product->price = $request->price;
+            // upload image
+//        $product->thumbnail = $request->thumbnail;
+            $product->description = $request->description;
+            $product->type = 1;
+            $product->sale_off = $request->sale_off;
+            $product->status = 1;
+            $product->save();
+            return redirect('/shop/products/list')->with(['success_message' => 'Tạo mới sản phẩm thành công']);
+        } catch (\Exception $ex) {
+            dd($ex->getMessage());
+            return redirect('/shop/products/list')->with(['success_message' => 'Tạo mới sản phẩm không thành công']);
+        }
+    }
+
+    public function getProfileShop()
+    {
+        try {
+            $user = Auth::user();
+            $shop = Shop::where('account_id', $user->id)
+                ->where('status', '!=', -1)
+                ->first();
+            if ($shop == null) {
+                return abort(404);
+            }
+            return view('frontend.shop.manager.shop_profile', compact('shop'));
+        } catch (\Exception $ex) {
+            return abort(404);
+        }
+    }
+
+    public function postProfileShop(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            $shop = Shop::where('account_id', $user->id)
+                ->where('status', '!=', -1)
+                ->first();
+            if ($shop == null) {
+                return abort(404);
+            }
+            $shop->name = $request->name;
+            $shop->phone = $request->phone;
+            $shop->email = $request->email;
+            $shop->address = $request->address;
+            $shop->district = $request->district;
+            $shop->city = $request->city;
+            $shop->save();
+            return redirect()->back()->with(['success_message' => 'Cập nhật hồ sơ thành công']);
+        } catch (\Exception $ex) {
+            return redirect()->back()->with(['success_message' => 'Cập nhật hồ sơ không thành công']);
         }
     }
 
     public function getListArticle()
     {
-        $user = Auth::user();
-        $shop = Shop::where('account_id', $user->id)
-            ->where('status', '!=', -1)
-            ->first();
-        if ($shop == null) {
-            return view('errors.404');
+        try {
+            $user = Auth::user();
+            $shop = Shop::where('account_id', $user->id)
+                ->where('status', '!=', -1)
+                ->first();
+            if ($shop == null) {
+                return abort(404);
+            }
+            $lst_article = Article::where('shop_id', $shop->id)
+                ->where('status', '!=', -1)
+                ->orderby('created_at', 'desc')
+                ->get();
+            $lst_product = Product::where('shop_id', $shop->id)
+                ->where('status', 1)
+                ->orderby('created_at', 'desc')
+                ->get();
+            return view('frontend.shop.manager.list_article',
+                compact('lst_article', 'shop', 'lst_product'));
+        } catch (\Exception $ex) {
+            return abort(404);
         }
-        $lst_article = Article::where('shop_id', $shop->id)
-            ->where('status', '!=', -1)->get();
-        return view('frontend.shop.manager.list_article', compact('lst_article'));
+    }
+
+    public function postCreateArticle(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            $shop = Shop::where('account_id', $user->id)
+                ->where('status', '!=', -1)
+                ->first();
+            if ($shop == null) {
+                return abort(404);
+            }
+            $article = new Article();
+            $article->shop_id = $shop->id;
+            $article->product_id = $request->product_id;
+            $article->title = $request->title;
+            $article->type = 1;
+            $article->status = 1;
+            $article->save();
+            return redirect()->back()->with(['success_message' => 'Thêm bài viết thành công']);
+        } catch (\Exception $ex) {
+            dd($ex);
+            return redirect()->back()->with(['success_message' => 'Thêm bài viết không thành công']);
+        }
+    }
+
+    public function getRevenueShop()
+    {
+        return view('frontend.shop.manager.revenue');
     }
     # End shop
-
-    // detail shop
-    public function getDetailShop(){
-        return view('frontend.shop.manager.home_manager');
-    }
 }

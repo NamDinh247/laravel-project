@@ -199,7 +199,7 @@ $(document).ready(function() {
         evt.preventDefault();
         $.ajax({
             type: "GET",
-            url: 'channel/shop',
+            url: '/channel/shop',
             success: function (data) {
                 console.log(data);
                 switch (Number(data)) {

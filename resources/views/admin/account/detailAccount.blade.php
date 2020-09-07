@@ -14,80 +14,63 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="text-center">
-                            <img src="/img/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" style="border-radius: 50% !important;width: 13rem;height: 13rem; border: 2px solid #20c997;">
-                            <input type="file" class="text-center center-block file-upload" style="margin-top: 20px;">
+                            @if($user->avatar == null || strlen($user->avatar) == 0)
+                                <img src="/img/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" style="border-radius: 50% !important;width: 13rem;height: 13rem; border: 2px solid #20c997;">
+                            @else
+                                <img src="{!! $user->largar_photo !!}" class="avatar img-circle img-thumbnail" alt="avatar" style="border-radius: 50% !important;width: 13rem;height: 13rem; border: 2px solid #20c997;">
+                            @endif
+{{--                            <input type="file" class="text-center center-block file-upload" style="margin-top: 20px;">--}}
                         </div>
                     </div>
                     <div class="col-sm-9">
                         <h5>Thông tin chung</h5>
                         <hr/>
-                        <form class="form row" action="#" method="post" id="accountForm">
+                        <form class="form row" action="/admin/account/edit" method="post" id="userAdminForm">
+                            @csrf
+                            <input type="text" name="id" hidden value="{!! $user->id !!}"/>
+                            <input type="text" name="user_name" hidden value="{!! $user->user_name !!}"/>
+                            <input type="text" name="address" hidden value="{!! $user->address !!}"/>
                             <div class="form-group col-md-6">
-                                <label>Tên tài khoản</label>
-                                <input type="text" class="form-control" id="userName" placeholder="Tên tài khoản">
+                                <label>Họ và tên</label>
+                                <input type="text" class="form-control" name="full_name"
+                                       placeholder="Tên tài khoản" value="{!! $user->full_name !!}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Loại tài khoản</label>
-                                <select id="type-account" class="form-control">
-                                    <option value="">Chọn loại tài khoản</option>
-                                    <option value="user">Người dùng</option>
-                                    <option value="shop">Cửa hàng</option>
-                                    <option value="admin">Admin</option>
+                                <select id="type-account" class="form-control" readonly>
+                                    <option value="1" @if($user->role == 1) selected @endif>Super Admin</option>
+                                    <option value="2" @if($user->role == 2) selected @endif>Admin</option>
+{{--                                    <option value="user">Người dùng</option>--}}
+{{--                                    <option value="shop">Cửa hàng</option>--}}
                                 </select>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label>Số điện thoại</label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Nhập số điện thoại">
+                                <input type="text" class="form-control" name="phone"
+                                       placeholder="Nhập số điện thoại" value="{!! $user->phone !!}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com">
+                                <input type="email" class="form-control" name="email"
+                                       placeholder="you@email.com" value="{!! $user->email !!}">
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="password">Mật khẩu</label>
-                                <input type="password" class="form-control" id="password" placeholder="Mật khẩu">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Kiểm chứng</label>
-                                <input type="password" class="form-control" id="password2" placeholder="Nhập lại mật khẩu">
-                            </div>
+{{--                            <div class="form-group col-md-6">--}}
+{{--                                <label for="password">Mật khẩu</label>--}}
+{{--                                <input type="password" class="form-control" id="password" placeholder="Mật khẩu">--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group col-md-6">--}}
+{{--                                <label>Kiểm chứng</label>--}}
+{{--                                <input type="password" class="form-control" id="password2" placeholder="Nhập lại mật khẩu">--}}
+{{--                            </div>--}}
                             <div class="form-group col-md-6">
                                 <label>Trạng thái</label>
-                                <select id="status" class="form-control">
-                                    <option value="active">Hoạt động</option>
-                                    <option value="inactive">Không hoạt động</option>
+                                <select name="status" class="form-control">
+                                    <option value="1" @if($user->status == 1) selected @endif>Hoạt động</option>
+                                    <option value="3" @if($user->status == 3) selected @endif>Khóa</option>
                                 </select>
                             </div>
                             {{-- show --}}
-                            <div class="form-group content-bottom-detail col-md-6 d-none">
-                                <label>Loại sản phẩm</label>
-                                <select id="type-product" class="form-control">
-                                    <option value="">Chọn loại sản phẩm</option>
-                                    <option value="metal">Kim loại</option>
-                                    <option value="wood">Gỗ</option>
-                                    <option value="rubber">Nhựa, cao su</option>
-                                    <option value="glass">Thuỷ tinh</option>
-                                    <option value="synthetic">Vật liệu tổng hợp</option>
-                                    <option value="other">Khác</option>
-                                </select>
-                            </div>
-                            <div class="form-group content-bottom-detail col-md-6 d-none">
-                                <label>Địa chỉ</label>
-                                <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ">
-                            </div>
-                            <div class="form-group content-bottom-detail col-md-6 d-none">
-                                <label>Số tài khoản ngân hàng</label>
-                                <input type="text" class="form-control" id="number_bank" placeholder="Nhập số tài khoản">
-                            </div>
-                            <div class="form-group content-bottom-detail col-md-6 d-none">
-                                <label>Ngân hàng</label>
-                                <input type="text" class="form-control" id="bank" placeholder="Nhập tên ngân hàng">
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label>Ghi chú</label>
-                                <textarea type="text" class="form-control" id="address" placeholder="Nhập ghi chú" style="resize: vertical;"></textarea>
-                            </div>
                             <div class="form-group col-md-12">
                                 <div class="col-md-6 p-0">
                                     <button class="btn btn-lg btn-success" type="submit"><i class="fa fa-save"></i>&nbsp; Lưu</button>

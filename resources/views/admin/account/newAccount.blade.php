@@ -21,69 +21,37 @@
                     <div class="col-sm-9">
                         <h5>Thông tin chung</h5>
                         <hr/>
-                        <form class="form row" action="#" method="post" id="accountForm">
+                        <form class="form row" action="/admin/account/create" method="post" id="accountForm">
+                            @csrf
+                            <input type="text" name="role" value="3" hidden/>
                             <div class="form-group col-md-6">
                                 <label>Tên tài khoản</label>
-                                <input type="text" class="form-control" id="userName" placeholder="Tên tài khoản">
+                                <input type="text" class="form-control" name="user_name" placeholder="Tên tài khoản" required>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Loại tài khoản</label>
-                                <select id="type-account" class="form-control">
-                                    <option value="">Chọn loại tài khoản</option>
-                                    <option value="user">Người dùng</option>
-                                    <option value="shop">Cửa hàng</option>
-                                    <option value="admin">Admin</option>
-                                </select>
+                                <label>Họ và tên</label>
+                                <input type="text" class="form-control" name="full_name" placeholder="Tên tài khoản" required>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label>Số điện thoại</label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Nhập số điện thoại">
+                                <input type="text" class="form-control" name="phone" placeholder="Nhập số điện thoại" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com">
+                                <input type="email" class="form-control" name="email" placeholder="you@email.com" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="password">Mật khẩu</label>
-                                <input type="password" class="form-control" id="password" placeholder="Mật khẩu">
+                                <input type="password" class="form-control" name="password" placeholder="Mật khẩu" required>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Kiểm chứng</label>
-                                <input type="password" class="form-control" id="password2" placeholder="Nhập lại mật khẩu">
-                            </div>
-                            {{-- show --}}
-                            <div class="form-group col-md-6 d-none">
-                                <label>Loại sản phẩm</label>
-                                <select id="type-product" class="form-control">
-                                    <option value="">Chọn loại sản phẩm</option>
-                                    <option value="metal">Kim loại</option>
-                                    <option value="wood">Gỗ</option>
-                                    <option value="rubber">Nhựa, cao su</option>
-                                    <option value="glass">Thuỷ tinh</option>
-                                    <option value="synthetic">Vật liệu tổng hợp</option>
-                                    <option value="other">Khác</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6 d-none">
-                                <label>Địa chỉ</label>
-                                <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ">
-                            </div>
-                            <div class="form-group col-md-6 d-none">
-                                <label>Số tài khoản ngân hàng</label>
-                                <input type="text" class="form-control" id="number_bank" placeholder="Nhập số tài khoản">
-                            </div>
-                            <div class="form-group col-md-6 d-none">
-                                <label>Ngân hàng</label>
-                                <input type="text" class="form-control" id="bank" placeholder="Nhập tên ngân hàng">
-                            </div>
-                            <div class="form-group col-md-12 d-none">
-                                <label>Ghi chú</label>
-                                <textarea type="text" class="form-control" id="address" placeholder="Nhập ghi chú" style="resize: vertical;"></textarea>
+                                <label>Xác nhận mật khẩu</label>
+                                <input type="password" class="form-control" name="confirm_pass" placeholder="Nhập lại mật khẩu" required>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <button class="btn btn-lg btn-success" type="submit"><i class="fa fa-save"></i>&nbsp; Lưu</button>
+                                    <button class="btn btn-lg btn-success" type="submit"><i class="fa fa-save"></i>&nbsp; Tạo mới</button>
                                 </div>
                             </div>
                         </form>

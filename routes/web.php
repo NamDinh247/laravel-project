@@ -35,11 +35,17 @@ Route::post('/shop/register', 'Frontend\HomeController@postShopRegister')
     ->name('customer.shop.postRegister');
 #End region login,register
 
-Route::get('/shop/list', 'Frontend\HomeController@getListShop')
+Route::get('/shops/list', 'Frontend\HomeController@getListShop')
+    ->name('home.shop.list');
+
+Route::get('/shops/detail/{id}', 'Frontend\HomeController@getDetailShop')
     ->name('home.shop.list');
 
 # User product
 Route::get('/product/list', 'Frontend\HomeController@getListProduct')
+    ->name('home.product.list');
+
+Route::get('/product/cate/{id}', 'Frontend\HomeController@getListProductByCate')
     ->name('home.product.list');
 
 Route::get('/product/list/research', 'Frontend\HomeController@getListProductResearch')
@@ -92,8 +98,26 @@ Route::get('/shop/order/{id}', 'Frontend\HomeController@getDetailOrder')
 Route::post('/shop/order/change-status', 'Frontend\HomeController@postChangeOrder')
     ->name('customer.shop.postChangeStatus');
 
+Route::get('/shop/products/list', 'Frontend\HomeController@getListProductShop');
+
+Route::get('/shop/products/detail/{id}', 'Frontend\HomeController@getDetailProductShop');
+
+Route::post('/shop/products/edit', 'Frontend\HomeController@postEditProductShop');
+
+Route::get('/shop/products/create', 'Frontend\HomeController@getCreateProductShop');
+
+Route::post('/shop/products/create', 'Frontend\HomeController@postCreateProductShop');
+
+Route::get('/shop/profile', 'Frontend\HomeController@getProfileShop');
+
+Route::post('/shop/profile', 'Frontend\HomeController@postProfileShop');
+
 Route::get('/shop/article/list', 'Frontend\HomeController@getListArticle')
     ->name('customer.shop.getListArticle');
+
+Route::post('/shop/article/create', 'Frontend\HomeController@postCreateArticle');
+
+Route::get('/shop/revenue', 'Frontend\HomeController@getRevenueShop');
 # End shop
 
 # Test send mail

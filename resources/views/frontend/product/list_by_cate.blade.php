@@ -22,10 +22,14 @@
                             <i class="fa fa-search position-absolute" style="top: 14px;left: 13px;"></i>
                         </form>
                     </li>
+                    @if(\Illuminate\Support\Facades\Auth::check())
                     <li class="item_menu_left pl-2 py-2 clearfix">
                         <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
-                        <span class="float-left item_menu_title pt-1">Hiện TNT</span>
+                        <span class="float-left item_menu_title pt-1">
+                            {!! \Illuminate\Support\Facades\Auth::user()->full_name !!}
+                        </span>
                     </li>
+                    @endif
                 </ul>
                 <hr class="my-3"/>
                 <div class="filter_left">
@@ -54,36 +58,34 @@
 
                     <h5 class="pb-2" style="color: #65676b;font-size: 16px !important;">Hạng mục</h5>
                     <ul class="menu_left menu_categories">
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list" style="color: #444;">
-                                <i class="fa fa-cubes float-left"></i>
-                                <span class="float-left item_menu_title">Kim loại</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-tree float-left"></i>
-                                <span class="float-left item_menu_title">Gỗ</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-futbol-o float-left"></i>
-                                <span class="float-left item_menu_title">Nhựa, cao su</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-glass float-left"></i>
-                                <span class="float-left item_menu_title">Thuỷ tinh</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-window-minimize float-left"></i>
-                                <span class="float-left item_menu_title">Khác</span>
-                            </a>
-                        </li>
+                        <?php $lstCate = \App\Category::where('status', '!=', -1)->get(); ?>
+                        @foreach($lstCate as $cate)
+                            <li class="item_menu_left pl-2 py-2 clearfix">
+                                <a href="/product/cate/{!! $cate->id !!}" style="color: #444;">
+                                    @switch($cate->id)
+                                        @case(1)
+                                        <i class="fa fa-cubes float-left"></i>
+                                        @break
+                                        @case(2)
+                                        <i class="fa fa-tree float-left"></i>
+                                        @break
+                                        @case(3)
+                                        <i class="fa fa-futbol-o float-left"></i>
+                                        @break
+                                        @case(4)
+                                        <i class="fa fa-glass float-left"></i>
+                                        @break
+                                        @case(5)
+                                        <i class="fa fa-window-minimize float-left"></i>
+                                        @break
+                                        @default
+                                        <i class="fa fa-window-minimize float-left"></i>
+                                        @break
+                                    @endswitch
+                                    <span class="float-left item_menu_title">{!! $cate->name !!}</span>
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -92,7 +94,9 @@
             <div class="col-md-12 px-0">
                 <div class="container-fluid">
                     {{-- sản phẩm mới --}}
+                    @if(isset($data['keyword']) && strlen($data['keyword']) > 0)
                     <h5 class="py-2 mb-3 pl-2">Tìm kiếm theo từ khóa: {!! $data['keyword'] !!}</h5>
+                    @endif
                     <div id="new_products" class="new_products">
                         <ul id="new_product_today" class="swiper-container">
                             <div class="swiper-wrapper clearfix row">

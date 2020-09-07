@@ -107,24 +107,14 @@
                                 <label class="form-check-label" for="check-th"></label>
                             </th>
                             <th class="ver-middle">Mã sản phẩm</th>
+                            <th class="ver-middle">Hình ảnh</th>
                             <th class="ver-middle">Tên sản phẩm</th>
-                            <th class="ver-middle">Cửa hàng</th>
                             <th class="ver-middle">Loại sản phẩm</th>
                             <th class="ver-middle">Giá bán</th>
-                            <th class="ver-middle">Số lượng</th>
-                            <th class="ver-middle">Trạng thái</th>
+                            <th class="ver-middle">Giảm giá</th>
                             <th class="ver-middle">Ngày tạo</th>
-                            <th class="ver-middle">
-                                <div class="dropdown">
-                                    <a class="btn dropdown-toggle bg-white"
-                                       style="border: 1px solid #ced4da !important; padding: .3rem .75rem !important; border-radius: 0 !important;"
-                                       role="button" id="bulkaction_product" data-toggle="dropdown" aria-haspopup="true"
-                                       aria-expanded="false">Thao tác nhiều</a>
-                                    <div class="dropdown-menu" aria-labelledby="bulkaction_product">
-                                        <a class="dropdown-item active">Xoá</a>
-                                    </div>
-                                </div>
-                            </th>
+                            <th class="ver-middle">Trạng thái</th>
+                            <th class="ver-middle text-xl-right">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -135,13 +125,31 @@
                                     <label class="form-check-label" for="check-{{$pro->id}}"></label>
                                 </td>
                                 <td class="ver-middle">{{$pro->id}}</td>
+                                <td class="ver-middle">
+                                    @if($pro->thumbnail == null || strlen($pro->thumbnail) == 0)
+                                        <img src="/img/donors1.jpg" class="img-circle" alt="product" title="admin" style="width: 3rem;height: 3rem;">
+                                    @else
+                                        <img src="{!! $pro->small_photo !!}" class="img-circle" alt="product" title="admin" style="width: 3rem;height: 3rem;">
+                                    @endif
+                                </td>
                                 <td class="ver-middle">{{$pro->name}}</td>
-                                <td class="ver-middle">{{$pro->shop_id}}</td>
-                                <td class="ver-middle">{{$pro->category_id}}</td>
-                                <td class="ver-middle">{{$pro->price}} VND</td>
-                                <td class="ver-middle">{{$pro->quantily}}</td>
-                                <td class="ver-middle">{{$pro->status}}</td>
-                                <td class="ver-middle">{{$pro->created_at}}</td>
+                                <td class="ver-middle">
+                                    @foreach($lstCate as $cate)
+                                        @if($cate->id == $pro->category_id)
+                                            {!! $cate->name !!}
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td class="ver-middle">{{number_format($pro->price,0,',','.')}} VND</td>
+                                <td class="ver-middle">{{$pro->sale_off}}%</td>
+                                <td class="ver-middle">{{date('d-m-Y', strtotime($pro->created_at))}}</td>
+                                <td class="ver-middle">
+                                    @if($pro->status == 1)
+                                        Họat động
+                                    @else
+                                        Khóa
+                                    @endif
+                                </td>
                                 <td class="text-xl-right ver-middle">
                                     <a href="/admin/product/detail" type="button" class="btn btn-sm btn-warning"><i
                                             class="fa fa-edit"></i>&nbsp; Sửa</a>

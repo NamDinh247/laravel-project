@@ -41,82 +41,44 @@
                                 <input type="checkbox" class="form-check-input" id="check-th">
                                 <label class="form-check-label" for="check-th"></label>
                             </th>
-                            <th class="text-xl-center ver-middle">Ảnh đai diện</th>
-                            <th class="ver-middle">Tên tài khoản</th>
-                            <th class="ver-middle">Loại tài khoản</th>
+                            <th class="text-xl-center ver-middle">Hình ảnh</th>
+                            <th class="ver-middle">Sản phẩm</th>
+                            <th class="ver-middle">Tên shop</th>
+                            <th class="ver-middle">Tiêu đề</th>
                             <th class="ver-middle">Trạng thái</th>
-                            <th class="ver-middle"></th>
+                            <th class="ver-middle">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($lstArticle as $article)
                         <tr>
                             <td class="text-xl-center ver-middle">
                                 <input type="checkbox" class="form-check-input" id="check-1">
                                 <label class="form-check-label" for="check-1"></label>
                             </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="admin" title="admin" style="width: 4rem;height: 4rem;"></td>
-                            <td class="ver-middle">Admin</td>
-                            <td class="ver-middle">admin</td>
-                            <td class="ver-middle">Hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                            </td>
-                        </tr>
-                        <tr>
                             <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-2">
-                                <label class="form-check-label" for="check-2"></label>
+                                @if($article->product->thumbnail == null || strlen($article->product->thumbnail) == 0)
+                                    <img src="/img/donors1.jpg" class="img-circle" alt="article" title="admin" style="width: 4rem;height: 4rem;">
+                                @else
+                                    <img src="{!! $article->product->small_photo !!}" class="img-circle" alt="article" title="admin" style="width: 3rem;height: 3rem;">
+                                @endif
                             </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 4rem;height: 4rem;"></td>
-                            <td class="ver-middle">Tái chế xanh</td>
-                            <td class="ver-middle">CỬa hàng</td>
-                            <td class="ver-middle">Hoạt động</td>
+                            <td class="ver-middle">{!! $article->product->name !!}</td>
+                            <td class="ver-middle">{!! $article->shop->name !!}</td>
+                            <td class="ver-middle">{!! $article->title !!}</td>
+                            <td class="ver-middle">
+                                @if($article->status == 1)
+                                    Hoạt động
+                                @else
+                                    Khóa
+                                @endif
+                            </td>
                             <td class="text-xl-right ver-middle">
-                                <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="2" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
+                                <a href="#" class="mr-2"><i class="fa fa-edit text-danger" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-3">
-                                <label class="form-check-label" for="check-3"></label>
-                            </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 4rem;height: 4rem;"></td>
-                            <td class="ver-middle">Siêu tái chế</td>
-                            <td class="ver-middle">Người dùng</td>
-                            <td class="ver-middle">Hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="3" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-4">
-                                <label class="form-check-label" for="check-4"></label>
-                            </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 4rem;height: 4rem;"></td>
-                            <td class="ver-middle">cr7</td>
-                            <td class="ver-middle">Người dùng</td>
-                            <td class="ver-middle">Hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="4" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xl-center ver-middle">
-                                <input type="checkbox" class="form-check-input" id="check-5">
-                                <label class="form-check-label" for="check-5"></label>
-                            </td>
-                            <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="" style="width: 4rem;height: 4rem;"></td>
-                            <td class="ver-middle">Nguyễn văn hiện</td>
-                            <td class="ver-middle">Người dùng</td>
-                            <td class="ver-middle">Không hoạt động</td>
-                            <td class="text-xl-right ver-middle">
-                                <a href="/admin/account/detail" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                <button type="button" class="btn btn-sm btn-danger" value="5" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i>&nbsp; Xoá</button>
-                            </td>
-                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -125,21 +87,7 @@
                         <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Hiển thị 1 đến 10 trong số 57</div>
                     </div>
                     <nav class="col-md-6 clearfix">
-                        <ul class="pagination float-right">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#"><i class="fa fa-chevron-left"></i></a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active">
-                                <span class="page-link">2
-                                    <span class="sr-only">(current)</span>
-                                </span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#"><i class="fa fa-chevron-right"></i></a>
-                            </li>
-                        </ul>
+                        {!! $lstArticle->links() !!}
                     </nav>
                 </div>
             </div>
