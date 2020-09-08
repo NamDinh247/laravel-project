@@ -68,7 +68,7 @@
                             <div class="product-prices">
                                 <div class="product-price h5 has-discount">
                                     <div class="current-price">
-                                        <span>{!! number_format($product->price - $product->price * ($product->sale_off/100),0,',','.') !!} VND</span>
+                                        <span>{!! number_format($product->price - $product->price * ($product->sale_off/100),0,',','.') !!} đ</span>
                                         <span class="discount discount-percentage">
                                             {!! $product->sale_off !!}%
                                         </span>
@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="product-discount">
                                     <span class="regular-price">
-                                        {!! number_format($product->price,0,',','.') !!} vnđ
+                                        {!! number_format($product->price,0,',','.') !!} đ
                                     </span>
                                 </div>
                             </div>

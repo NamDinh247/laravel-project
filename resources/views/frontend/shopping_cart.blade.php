@@ -86,7 +86,7 @@
                                                                     <div class="row p-0 m-0">
                                                                         <span class="control-label col-md-6 px-0 mr-0 my-0">Tổng tiền: </span>
                                                                         <span class="col-md-6 p-0 my-0">
-                                                                            {!! number_format($cartItem['quantity'] * $cartItem['productPrice'],0,',','.') !!} VND
+                                                                            {!! number_format($cartItem['quantity'] * $cartItem['productPrice'],0,',','.') !!} đ
                                                                         </span>
                                                                     </div>
                                                                 </div>

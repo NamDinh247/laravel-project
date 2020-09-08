@@ -1,7 +1,7 @@
 @extends('frontend.shop.layout_user_profile')
 
 @section('main-content-profile')
-    <div class="row bg-white p-3">
+    <div class="row bg-white p-3 m-0" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-sm-12">
@@ -50,16 +50,16 @@
                                 </select>
                             </div>
                             <div class="col-md-12">
-                                <button class="btn btn-sm btn-success" type="submit"><i class="fa fa-save"></i>&nbsp; Lưu
+                                <button class="btn btn-sm btn-outline-success" type="submit"><i class="fa fa-save"></i>&nbsp; Lưu
                                 </button>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group col-md-12 text-center">
-                                <img src="/img/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar"
+                                <img src="/img/avatar_2x.png" class="avatar img-circle img-thumbnail mb-3" alt="avatar"
                                      style="border-radius: 50% !important;width: 13rem;height: 13rem; border: 2px solid #20c997;">
                                 <br>
-                                <input type="file" class="text-center center-block file-upload choose">
+                                <label type="button" class="btn btn-sm btn-outline-success"><input type="file" class="text-center center-block file-upload choose d-none" accept="image/*"><i class="fa fa-upload"></i>&nbsp; Tải ảnh lên</label>
                             </div>
 
                         </div>
