@@ -24,7 +24,7 @@
             <div class="row px-3">
                 <div class="col-md-4">
                     <div class="row p-2 mr-1 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 2px rgba(0,0,0,.2);">
-                        <div class="col-md-3 p-0">
+                        <div class="col-md-3 p-0 d-flex justify-content-center">
                             <input type="text" class="total_orders" data-min="0" data-max="">
                         </div>
                         <div class="col-md-9 p-0">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="row p-2 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 2px rgba(0,0,0,.2);">
-                        <div class="col-md-3 p-0">
+                        <div class="col-md-3 p-0 d-flex justify-content-center">
                             <input type="text" class="total_orders1" data-min="0" data-max="">
                         </div>
                         <div class="col-md-9 p-0">
@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="row p-2 ml-1 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 2px rgba(0,0,0,.2);">
-                        <div class="col-md-3 p-0">
+                        <div class="col-md-3 p-0 d-flex justify-content-center">
                             <input type="text" class="total_orders2" data-min="0" data-max="">
                         </div>
                         <div class="col-md-9 p-0">
