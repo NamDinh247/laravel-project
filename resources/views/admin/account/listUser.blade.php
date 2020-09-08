@@ -9,7 +9,7 @@
 @endsection
 
 @section('main-content')
-    <div class="row">
+    <div class="row scroll_content pb-3">
         <div class="col-md-12 mb-4">
             <div class="box-filter p-3 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="header_box_filter clearfix">
@@ -72,7 +72,7 @@
                             <th class="ver-middle">Số điện thoại</th>
                             <th class="ver-middle">Email</th>
                             <th class="ver-middle">Trạng thái</th>
-                            <th class="ver-middle" style="min-width: 125px;">Thao tác</th>
+                            <th class="text-xl-right ver-middle" style="min-width: 125px;">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>

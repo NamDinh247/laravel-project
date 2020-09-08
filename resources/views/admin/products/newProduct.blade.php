@@ -9,7 +9,7 @@
 @endsection
 
 @section('main-content')
-    <div class="row">
+    <div class="row scroll_content_form pt-1 pb-3">
         <div class="col-md-12 mb-3">
             <a href="/admin/product" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh
                 sách sản phẩm</a>

@@ -11,14 +11,14 @@
 @endsection
 
 @section('main-content')
-    <div class="row">
+    <div class="row scroll_content pb-3 pt-1">
         <div class="col-md-12">
             <div class="content-table bg-white py-2 px-3 " style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="card-header bg-white position-relative border-0 py-3 px-0">
                     <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách Đơn hàng</h4>
                     <div class="breadcrumb mt-1">
                         <div class="input-group input-group-sm" style="width: 200px;">
-                            <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm"
+                            <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm đơn hàng"
                                    style="border-radius: 0 !important;">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default"
@@ -104,9 +104,25 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="row footer-table">
+                <div class="row footer-table px-3">
+                    <div class="col-md-12 pl-2 mb-3 total_money" style="border-bottom: 1px solid #ddd;">
+                        <div class="clearfix py-2">
+                            <div class="float-left pr-4">
+                                Chiết khấu: <label class="pl-2"> 10%</label>
+                            </div>
+                            <div class="float-left pr-4">
+                                Tổng số đơn hoàn thành: <label class="pl-2"> 15 đơn hàng</label>
+                            </div>
+                            <div class="float-left pr-4">
+                                Tổng số đơn chiết khấu: <label class="pl-2"> 13 đơn hàng</label>
+                            </div>
+                            <div class="float-left pr-4">
+                                Tổng tiền chiết khấu: <label class="pl-2"> 2.000.000 VND</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-6">
-                        <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Hiển thị 1 đến
+                        <div class="dataTables_info pt-2" id="example1_info" role="status" aria-live="polite">Hiển thị 1 đến
                             10 trong số 57
                         </div>
                     </div>

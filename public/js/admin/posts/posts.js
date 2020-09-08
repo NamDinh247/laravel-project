@@ -127,7 +127,7 @@ $(document).ready(function () {
         //     });
     });
     var heightContent = $(window).height() - 70;
-    $('#example').parent().css({'height': (heightContent - 220) + 'px', 'overflow': 'auto'});
+    $('.scroll_content').parent().css({'height': (heightContent + 20) + 'px', 'overflow': 'auto'});
     $('.scroll_form').css({'height': (heightContent - 150) + 'px', 'overflow': 'auto'});
     $('#refresh_form').click(function (e) {
         $('#nameProduct').val('');

@@ -3,17 +3,20 @@
 @section('title', 'Chi tiết đơn hàng')
 
 @section('header-script')
-    <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css" xmlns="http://www.w3.org/1999/html">
+    <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/Admin/plugins/fontawesome-free/css/v4-shims.css">
+    <link rel="stylesheet" href="/Admin/plugins/sweetalert/sweetalert.min.css">
 @endsection
 
 @section('main-content')
-    <div class="row pb-5">
+    <div class="row scroll_content_detail pb-3">
         <div class="col-md-12 mb-3">
             <a href="/admin/orders/list" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh
                 sách đơn hàng</a>
         </div>
         <div class="col-md-12">
-            <div class="container bootstrap snippet">
+            <div class="container-fluid bg-white p-3 content_form" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="row">
                     <div class="col-sm-12">
                         <span style="font-size: 20px; font-weight: 500">
@@ -182,5 +185,9 @@
 @endsection
 @section('main-script')
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/js/detailAccount.js"></script>
+    <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/Admin/plugins/moment/moment.min.js"></script>
+    <script src="/Admin/plugins/moment/locale/vi.js"></script>
+    <script src="/js/admin/orders/orders.js"></script>
+    <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
 @endsection

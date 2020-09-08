@@ -46,13 +46,12 @@ $(document).ready(function () {
         }
     }).on('hide.daterangepicker', function (ev, picker) {
         $('#dateTime').val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+        $('.total_money').show();
     }).on('cancel.daterangepicker', function (ev, picker) {
         $('#dateTime').val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
     });
 
-
-    $('#menu_filter .nav-link').removeClass('active');
-    $('.orders_filter').addClass('active');
+    activeFilterLeft('#menu_filter', '.orders_filter');
 
     $('#deleteAll_category').click(function () {
         var deleteIds = [];
@@ -128,11 +127,11 @@ $(document).ready(function () {
             });
     });
     var heightContent = $(window).height() - 70;
-    $('#example').parent().css({'height': (heightContent - 150) + 'px', 'overflow': 'auto'});
+    $('.scroll_content').parent().css({'height': (heightContent) + 'px', 'overflow-y': 'auto', 'overflow-x': 'hidden'});
+    $('.scroll_content_detail').parent().css({'height': (heightContent) + 'px', 'overflow-y': 'auto', 'overflow-x': 'hidden'});
 });
 
 function showModalDeleteCategory(event) {
-    console.log(event.value)
     deleteIDone = event.value;
     $('#modal-delete-category').modal('show');
 }
