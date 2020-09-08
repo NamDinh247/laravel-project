@@ -76,30 +76,45 @@
                                         <img src="/img/img_sign_in.jpg" alt="" class="w-100" style="object-fit: cover;height: 300px;">
                                     </div>
                                     <div class="col-md-8">
-                                        <h5>Bán đồ tái chế</h5>
+                                        <h5 class="pb-3">Bán đồ tái chế</h5>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <p>Số điện thoại</p>
+                                                <p><i class="fa fa-phone"></i>&nbsp; Số điện thoại:</p>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <p>0989898980</p>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row pt-2">
                                             <div class="col-md-3">
-                                                <p>Email</p>
+                                                <p><i class="fa fa-envelope"></i>&nbsp; Email:</p>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <p>bandotaiche@gmail.com</p>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row pt-2">
                                             <div class="col-md-3">
-                                                <p>Địa chỉ</p>
+                                                <p><i class="fa fa-map"></i>&nbsp; Địa chỉ:</p>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <p style="white-space: normal;">Số 12, Trần Thái Tông, Cầu Giấy, Hà Nội</p>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row pt-2">
                                             <div class="col-md-3">
-                                                <p>Loại sản phẩm</p>
+                                                <p><i class="fa fa-cubes"></i>&nbsp; Loại sản phẩm:</p>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <p>Kim loại, Thuỷ tinh, Gỗ:</p>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row pt-2">
                                             <div class="col-md-3">
-                                                <p>Số lượng mặt hàng</p>
+                                                <p><i class="fa fa-tags"></i>&nbsp; Số lượng mặt hàng:</p>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <p>268</p>
                                             </div>
                                         </div>
                                     </div>
