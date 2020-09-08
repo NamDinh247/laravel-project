@@ -11,6 +11,7 @@ use App\Order_status;
 use App\Product;
 use App\Shop;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -320,15 +321,6 @@ class HomeController extends Controller
         return redirect('/shopping_cart/show');
     }
 
-    public static function generateOrderCode($n) {
-        $generator = "1357902468";
-        $result = "";
-        for ($i = 1; $i <= $n; $i++) {
-            $result .= substr($generator, (rand()%(strlen($generator))), 1);
-        }
-        return $result;
-    }
-
     public function submit(Request $request)
     {
         try {
@@ -343,7 +335,6 @@ class HomeController extends Controller
             $order = new Order();
             $order->account_id = $user->id;
             $order->shop_id = $request->shop_id;
-            $order->od_code = self::generateOrderCode(8);
             $order->od_total_price = $request->od_total_price;
             $order->ship_name = $request->shipName;
             $order->ship_address = $request->shipAddress;
@@ -371,16 +362,26 @@ class HomeController extends Controller
             }
             DB::transaction(function() use ($order, $orderDetails) {
                 $order->save(); // có id của order.
+                $order->od_code = $this->genOrderCode($order->id);
+                $order->save();
                 foreach ($orderDetails as $orderDetail){
                     $orderDetail->od_id = $order->id;
                     $orderDetail->save();
                 }
             });
             Session::remove('shoppingCart');
-            return true;
+            return 200;
         } catch (\Exception $ex) {
-            return false;
+            return 500;
         }
+    }
+
+    public function genOrderCode($id) {
+        $dateCreate = Carbon::now();
+        $numOrder = Order::whereMonth('created_at',Carbon::now()->month)
+            ->whereYear('created_at',Carbon::now()->year)
+            ->where('id','<=',$id)->count();
+        return 'DH'.$dateCreate->format('ymd').$numOrder;
     }
     # End shopping cart
 

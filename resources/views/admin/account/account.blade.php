@@ -77,35 +77,37 @@
                         </thead>
                         <tbody>
                             @foreach($lstUserAdmin as $user)
-                                @if(\Illuminate\Support\Facades\Auth::user()->id != $user->id)
-                                    <tr>
-                                        <td class="text-xl-center ver-middle" style="width: 40px;">
-                                            <input type="checkbox" class="form-check-input" id="check-1">
-                                            <label class="form-check-label" for="check-1"></label>
-                                        </td>
-                                        <td class="text-xl-center ver-middle">
-                                            @if($user->avatar == null || strlen($user->avatar) == 0)
-                                                <img src="/img/donors1.jpg" class="img-circle" alt="admin" title="admin" style="width: 3rem;height: 3rem;">
-                                            @else
-                                                <img src="{!! $user->small_photo !!}" class="img-circle" alt="admin" title="admin" style="width: 3rem;height: 3rem;">
-                                            @endif
-                                        </td>
-                                        <td class="ver-middle">{!! $user->full_name !!}</td>
-                                        <td class="ver-middle">{!! $user->phone !!}</td>
-                                        <td class="ver-middle">{!! $user->email !!}</td>
-                                        <td class="ver-middle">
-                                            @if($user->status == 2)
-                                                Khóa
-                                            @else
-                                                Hoạt động
-                                            @endif
-                                        </td>
-                                        <td class="text-xl-right ver-middle">
+                                <tr>
+                                    <td class="text-xl-center ver-middle" style="width: 40px;">
+                                        <input type="checkbox" class="form-check-input" id="check-1">
+                                        <label class="form-check-label" for="check-1"></label>
+                                    </td>
+                                    <td class="text-xl-center ver-middle">
+                                        @if($user->avatar == null || strlen($user->avatar) == 0)
+                                            <img src="/img/donors1.jpg" class="img-circle" alt="admin" title="admin" style="width: 3rem;height: 3rem;">
+                                        @else
+                                            <img src="{!! $user->small_photo !!}" class="img-circle" alt="admin" title="admin" style="width: 3rem;height: 3rem;">
+                                        @endif
+                                    </td>
+                                    <td class="ver-middle">{!! $user->full_name !!}</td>
+                                    <td class="ver-middle">{!! $user->phone !!}</td>
+                                    <td class="ver-middle">{!! $user->email !!}</td>
+                                    <td class="ver-middle">
+                                        @if($user->status == 2)
+                                            Khóa
+                                        @else
+                                            Hoạt động
+                                        @endif
+                                    </td>
+                                    <td class="text-xl-right ver-middle">
+                                        @if(\Illuminate\Support\Facades\Auth::user()->id != $user->id)
+                                            @if($user->role != 1)
                                             <a href="/admin/account/detail/{!! $user->id !!}" class="mr-2"><i class="fa fa-edit text-danger" aria-hidden="true"></i></a>
                                             <a value="2" onclick="showModalDeleteAccount(this)"><i class="fa fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                @endif
+                                            @endif
+                                        @endif
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

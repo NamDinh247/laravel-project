@@ -575,9 +575,19 @@
                     type: "POST",
                     url: '/shopping-cart/submit',
                     data: createOrderForm.serialize(),
-                    success: function () {
-                        alert('Đặt hàng thành công');
-                        window.location.reload();
+                    success: function (data) {
+                        switch (Number(data)) {
+                            case 200:
+                                alert('Đặt hàng thành công');
+                                window.location.reload();
+                                break;
+                            case 500:
+                                alert('Fail, try again!');
+                                break;
+                            default:
+                                alert('Fail, try again!');
+                                break;
+                        }
                     },
                     error: function () {
                         alert('Fail, try again!');

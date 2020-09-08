@@ -163,7 +163,7 @@ class AdminController extends Controller
     // list account admin
     public function accountManagement()
     {
-        $lstUserAdmin = User::whereIn('role', [2])
+        $lstUserAdmin = User::whereIn('role', [1,2])
             ->where('status', '!=', -1)
             ->orderby('created_at', 'desc')
             ->paginate(15);
