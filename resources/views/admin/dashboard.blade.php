@@ -72,7 +72,6 @@
                 arrMonths.push('Tháng ' + i);
                 arrMonthsData.push(i + Math.floor(Math.random() * 500));
             }
-            console.log(arrMonths)
             var ctx = document.getElementById('revenue').getContext('2d');
             var chart = new Chart(ctx, {
                 type: 'line',
