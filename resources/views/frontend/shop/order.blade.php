@@ -21,9 +21,9 @@
                         <tr>
                             <td class="ver-middle">{{ $loop->iteration }}</td>
                             <td class="ver-middle">{!! $order->od_code !!}</td>
-                            <td class="ver-middle">{!! date('d-m-Y', strtotime($order->created_at)) !!}</td>
+                            <td class="ver-middle">{!! date('d/m/Y', strtotime($order->created_at)) !!}</td>
                             <td class="ver-middle">{!! $order->order_detail->product->name !!}</td>
-                            <td class="ver-middle">{!! number_format($order->od_total_price,0,',','.') !!}</td>
+                            <td class="ver-middle">{!! number_format($order->od_total_price,0,',','.') !!} đ</td>
                             <td class="ver-middle">{!! $order->orderStatus->stt_name !!}</td>
                             <td class="text-xl-right ver-middle">
                                 <a href="/profile/order/detail/{!! $order->id !!}" title="Chi tiết">

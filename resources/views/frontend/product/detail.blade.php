@@ -112,7 +112,7 @@
                                             <div class="add">
                                                 <a href="javascript:void(0)" class="btn btn-sm add-to-cart"
                                                    data-id="{{$product->id}}">
-                                                    <i class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng
+                                                    <i class="fa fa-shopping-cart"></i>Thêm vào giở
                                                 </a>
 
                                                 <span id="product-availability"> </span>

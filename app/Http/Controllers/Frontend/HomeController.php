@@ -157,13 +157,14 @@ class HomeController extends Controller
         return view('frontend.shop.list', compact('lstShop'));
     }
 
-    public function getDetailShop($id)
+    public function getDetailShop()
     {
-        $shop = Shop::where('id', $id)->where('status', 1)->first();
-        if ($shop == null) {
-            return abort(404);
-        }
-        return view('frontend.shop.detail', compact('shop'));
+//        $shop = Shop::where('id', $id)->where('status', 1)->first();
+//        if ($shop == null) {
+//            return abort(404);
+//        }
+//        return view('frontend.shop.detail', compact('shop'));
+        return view('frontend.shop.detail');
     }
 
     #End region user shop

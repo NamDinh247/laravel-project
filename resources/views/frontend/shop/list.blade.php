@@ -92,7 +92,7 @@
                                         @endif
                                     </div>
                                     <div class="col-md-8 pl-0 position-relative">
-                                        <h5 class="card-title">{!! $shop->name !!}</h5>
+                                        <h5 class="card-title" style="color: #53ad5e;">{!! $shop->name !!}</h5>
                                         <p class="card-text"></p>
                                         <?php
                                             $lstPrd = \App\Product::where('shop_id', $shop->id)->where('status', 1)->get();

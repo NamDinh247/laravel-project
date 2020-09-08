@@ -1,6 +1,6 @@
 @extends('frontend.layout')
 
-@section('title', 'Quản lý của hàng')
+@section('title', 'Chi tiết cửa hàng')
 
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/swiper/swiper.min.css">
@@ -17,59 +17,45 @@
                         <input type="text" class="form-control" style="border: none;padding-left: 30px;border-radius: 30px;height: 35px; line-height: 35px;" placeholder="Tìm kiếm cửa hàng">
                         <i class="fa fa-search position-absolute" style="top: 14px;left: 13px;"></i>
                     </li>
-                    @if(\Illuminate\Support\Facades\Auth::check())
                     <li class="item_menu_left pl-2 py-2 clearfix">
-                        <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
-                        <span class="float-left item_menu_title pt-1">
-                            {!! \Illuminate\Support\Facades\Auth::user()-> full_name !!}
-                        </span>
+                        <a href="/product/list" style="color: #444;">
+                            <i class="fa fa-file-text-o float-left"></i>
+                            <span class="float-left item_menu_title">Bài viết</span>
+                        </a>
                     </li>
-                    @endif
+                    <li class="item_menu_left pl-2 py-2 clearfix">
+                        <a href="/product/list">
+                            <i class="fa fa-tags float-left"></i>
+                            <span class="float-left item_menu_title">Sản phẩm</span>
+                        </a>
+                    </li>
                 </ul>
                 <hr class="my-3"/>
                 <div class="filter_left">
                     <h5 style="color: #65676b;font-size: 16px !important;">Bộ lọc</h5>
                     <ul class="menu_left menu_filter">
                         <li class="item_menu_left pl-2 py-2">
-                            <div class="title_filter py-1" style="font-weight: 500;">Tỉnh thành</div>
+                            <div class="title_filter py-1" style="font-weight: 500;">Loại sản phẩm</div>
                             <select class="form-control" style="background-color: #f0f2f5 !important;">
-                                <option value="1" selected readonly>Hà Nội</option>
+                                <option value="1" selected>Tất cả</option>
+                                <option value="1">kim loại</option>
+                                <option value="2" >Gỗ</option>
+                                <option value="1">Nhựa, cao su</option>
+                                <option value="1">Thuỷ tinh</option>
+                                <option value="1">Khác</option>
                             </select>
                         </li>
-                    </ul>
-                    <hr class="my-3"/>
-
-                    <h5 class="pb-2" style="color: #65676b;font-size: 16px !important;">Hạng mục</h5>
-                    <ul class="menu_left menu_categories">
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list" style="color: #444;">
-                                <i class="fa fa-cubes float-left"></i>
-                                <span class="float-left item_menu_title">Kim loại</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-tree float-left"></i>
-                                <span class="float-left item_menu_title">Gỗ</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-futbol-o float-left"></i>
-                                <span class="float-left item_menu_title">Nhựa, cao su</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-glass float-left"></i>
-                                <span class="float-left item_menu_title">Thuỷ tinh</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-window-minimize float-left"></i>
-                                <span class="float-left item_menu_title">Khác</span>
-                            </a>
+                        <li class="item_menu_left pl-2 py-2">
+                            <div class="title_filter py-1" style="font-weight: 500;">Giá</div>
+                            <div class="row px-0">
+                                <div class="col-md-5 pr-0">
+                                    <input type="number" min="0" max="9999999" class="form-control" placeholder="Thấp nhất" style="background-color: #f0f2f5;">
+                                </div>
+                                <div class="col-md-2 px-0 py-2 text-center">đến</div>
+                                <div class="col-md-5 pl-0">
+                                    <input type="number" min="0" class="form-control" placeholder="Cao nhất" style="background-color: #f0f2f5;">
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -78,94 +64,184 @@
         <div class="col-md-9 pt-2" id="content_list_shop" style="background-color: #f0f2f5;">
             <div class="col-md-12 px-0">
                 <div class="container-fluid">
-                    <div class="row">
+                    <div class="row px-2">
                         {{-- danh sách cửa hàng --}}
+                        <div class="col-md-12 px-0">
+                            <h5 class="py-2 pl-2"><a href="/shops/list" class="text-success"><i class="fa fa-chevron-left text-secondary"></i>&nbsp; Danh sách cửa hàng</a></h5>
+                        </div>
                         <div class="col-md-12">
-                            <h5 class="py-2 pl-2">Danh sách cửa hàng</h5>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card my-2 border-0">
-                                <div class="card-body row">
-                                    <div class="col-md-4 cart-img-shop" style="max-width: 220px;">
-                                        <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/img_sign_in.jpg" alt="ảnh 1" style="object-fit: cover;">
+                            <div class="content_introduce">
+                                <div class="row py-3 bg-white">
+                                    <div class="col-md-4 px-4">
+                                        <img src="/img/img_sign_in.jpg" alt="" class="w-100" style="object-fit: cover;height: 300px;">
                                     </div>
-                                    <div class="col-md-8 pl-0 position-relative">
-                                        <h5 class="card-title">Chuyên tái chế và trang trí vườn</h5>
-                                        <p class="card-text">Với rất nhiều đồ vật cũ được tái chế qua bàn tay nghệ nhân đã trở lên sinh động, đẹp mắt. Biến khu vườn của bạn tràn đầy sứ sông hơn bao giờ hết.</p>
-                                        <p class="card-text pt-2">Vật liệu: kim loại</p>
-                                        <p class="card-text pt-2">Số lượng mặt hàng: 100</p>
-                                        <p class="position-absolute" style="bottom: 0;right: 15px;"><a href="/shop/detail" class="" style="color: #2aa846;">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                            </a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card my-2 border-0">
-                                <div class="card-body row">
-                                    <div class="col-md-4 cart-img-shop" style="max-width: 220px;">
-                                        <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/img_sign_in.jpg" alt="ảnh 1" style="object-fit: cover;">
-                                    </div>
-                                    <div class="col-md-8 pl-0 position-relative">
-                                        <h5 class="card-title">Chuyên tái chế và trang trí vườn</h5>
-                                        <p class="card-text">Với rất nhiều đồ vật cũ được tái chế qua bàn tay nghệ nhân đã trở lên sinh động, đẹp mắt. Biến khu vườn của bạn tràn đầy sứ sông hơn bao giờ hết.</p>
-                                        <p class="card-text pt-2">Vật liệu: kim loại</p>
-                                        <p class="card-text pt-2">Số lượng mặt hàng: 100</p>
-                                        <p class="position-absolute" style="bottom: 0;right: 15px;"><a href="/shop/detail" class="" style="color: #2aa846;">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                            </a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card my-2 border-0">
-                                <div class="card-body row">
-                                    <div class="col-md-4 cart-img-shop" style="max-width: 220px;">
-                                        <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/img_sign_in.jpg" alt="ảnh 1" style="object-fit: cover;">
-                                    </div>
-                                    <div class="col-md-8 pl-0 position-relative">
-                                        <h5 class="card-title">Chuyên tái chế và trang trí vườn</h5>
-                                        <p class="card-text">Với rất nhiều đồ vật cũ được tái chế qua bàn tay nghệ nhân đã trở lên sinh động, đẹp mắt. Biến khu vườn của bạn tràn đầy sứ sông hơn bao giờ hết.</p>
-                                        <p class="card-text pt-2">Vật liệu: kim loại</p>
-                                        <p class="card-text pt-2">Số lượng mặt hàng: 100</p>
-                                        <p class="position-absolute" style="bottom: 0;right: 15px;"><a href="/shop/detail" class="" style="color: #2aa846;">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                            </a></p>
+                                    <div class="col-md-8">
+                                        <h5>Bán đồ tái chế</h5>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <p>Số điện thoại</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <p>Email</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <p>Địa chỉ</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <p>Loại sản phẩm</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <p>Số lượng mặt hàng</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card my-2 border-0">
-                                <div class="card-body row">
-                                    <div class="col-md-4 cart-img-shop" style="max-width: 220px;">
-                                        <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/img_sign_in.jpg" alt="ảnh 1" style="object-fit: cover;">
+                        <div class="col-md-12 pt-3">
+                            <h5 class="pt-3">Danh sách sản phẩm</h5>
+                            <hr>
+                            <div id="new_products" class="new_products">
+                                <ul id="new_product_today" class="swiper-container">
+                                    <div class="swiper-wrapper clearfix row mx-0">
+{{--                                        @foreach($data['lst_product'] as $prd)--}}
+                                            <div class="swiper-slide text-center float-left">
+                                                <li class="item">
+                                                    <article class="product-miniature">
+                                                        <div class="thumbnail-container">
+{{--                                                            <a href="{!! route('home.product.detail', $prd->id) !!}" class="thumbnail product-thumbnail">--}}
+{{--                                                                <img src="{{ $prd->large_photo }}" alt="product"/>--}}
+{{--                                                                <img class="replace-2x img_1 img-responsive"--}}
+{{--                                                                     src="{{ $prd->large_photo2 }}"/>--}}
+{{--                                                            </a>--}}
+                                                            <a href="" class="thumbnail product-thumbnail">
+                                                                <img src="/img/img_sign_in.jpg" alt="product" class="w-100" style="object-fit: cover;"/>
+                                                            </a>
+                                                            <ul class="product-flags">
+                                                                <li class="on-sale">On sale!</li>
+                                                                <li class="new">New</li>
+                                                                <li class="discount_type_flag">
+                                                                    <span class="discount-percentage">-20%</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="product-description">
+                                                            <div class="comments_note">
+                                                                <div class="star_content clearfix">
+                                                                    <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                                    <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                                    <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                                    <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                                    <div class="star star_on"><i class="fa fa-star"></i></div>
+                                                                </div>
+                                                            </div>
+                                                            <span class="h3 product-title" itemprop="name">
+{{--                                                                <a href="{!! route('home.product.detail', $prd->id) !!}" >{!! $prd->name !!} </a>--}}
+                                                                <a href="#">Bàn Tái Chế Từ Bộ Phận Xe Đạp</a>
+                                                            </span>
+                                                            <div class="product-price-and-shipping p-0">
+                                                                <span class="sr-only">Price</span>
+                                                                <span itemprop="price" class="price">
+{{--                                                            {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} đ--}}
+                                                                    200.000 đ
+                                                        </span>
+                                                                <span class="sr-only">Regular price</span>
+{{--                                                                <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} đ</span>--}}
+                                                                <span class="regular-price">100.000 đ</span>
+                                                            </div>
+                                                            <div class="product-actions-main">
+                                                                <a href="javascript:void(0)" class="btn btn-sm add-to-cart"
+{{--                                                                   data-id="{{$prd->id}}">--}}
+                                                                   data-id="1">
+                                                                    <i class="fa fa-shopping-cart"></i>Thêm vào giỏ
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </li>
+                                            </div>
+{{--                                        @endforeach--}}
                                     </div>
-                                    <div class="col-md-8 pl-0 position-relative">
-                                        <h5 class="card-title">Chuyên tái chế và trang trí vườn</h5>
-                                        <p class="card-text">Với rất nhiều đồ vật cũ được tái chế qua bàn tay nghệ nhân đã trở lên sinh động, đẹp mắt. Biến khu vườn của bạn tràn đầy sứ sông hơn bao giờ hết.</p>
-                                        <p class="card-text pt-2">Vật liệu: kim loại</p>
-                                        <p class="card-text pt-2">Số lượng mặt hàng: 100</p>
-                                        <p class="position-absolute" style="bottom: 0;right: 15px;"><a href="/shop/detail" class="" style="color: #2aa846;">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                            </a></p>
-                                    </div>
-                                </div>
+                                </ul>
+{{--                                {{ $data['lst_product']->links() }}--}}
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card my-2 border-0">
-                                <div class="card-body row">
-                                    <div class="col-md-4 cart-img-shop" style="max-width: 220px;">
-                                        <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/img_sign_in.jpg" alt="ảnh 1" style="object-fit: cover;">
-                                    </div>
-                                    <div class="col-md-8 pl-0 position-relative">
-                                        <h5 class="card-title">Chuyên tái chế và trang trí vườn</h5>
-                                        <p class="card-text">Với rất nhiều đồ vật cũ được tái chế qua bàn tay nghệ nhân đã trở lên sinh động, đẹp mắt. Biến khu vườn của bạn tràn đầy sứ sông hơn bao giờ hết.</p>
-                                        <p class="card-text pt-2">Vật liệu: kim loại</p>
-                                        <p class="card-text pt-2">Số lượng mặt hàng: 100</p>
-                                        <p class="position-absolute" style="bottom: 0;right: 15px;"><a href="/shop/detail" class="" style="color: #2aa846;">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                            </a></p>
+                        <div class="col-md-12 pt-3">
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <div id="list_posts">
+        {{--                                @foreach($lst_article as $article)--}}
+                                            <div class="box-content mb-3" >
+                                                <div class="box_header pt-3">
+                                                    <div class="avatar_box pb-2 px-3">
+                                                        <div class="box_img mr-2">
+        {{--                                                    @if($article->shop->logo == null || strlen($article->shop->logo) == 0)--}}
+                                                                <img class="rounded-circle float-left" src="/img/avatar_2x.png" alt="avatar" style="width: 100%;">
+        {{--                                                    @else--}}
+        {{--                                                        <img class="rounded-circle float-left" src="{!! $article->shop->small_photo !!}" alt="avatar" style="width: 100%;">--}}
+        {{--                                                    @endif--}}
+                                                        </div>
+                                                        <div class="name_time">
+                                                            <div class="nameTime">
+                                                                <div class="name">super admin</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="content_header px-2 py-1">
+                                                        <div class="content_header_child">
+                                                            <span>
+                                                                Từ những bộ phần cũ trên xe đạp có thể tạo thành nhiều đồ vật mang tính thẩm mỹ cao
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="box_body">
+                                                    <div class="content_box_body" style="border-top: 1px solid #ced0d4; border-bottom: 1px solid #ced0d4; ">
+                                                        <div class="row p-0 m-0" style="margin-bottom: 1px !important;">
+                                                            <div class="image1 col-md-12 p-0 m-0">
+                                                                <img src="https://res.cloudinary.com/bigbignoobbb/image/upload/toi9ycfv8b2ahrgztqnv.jpg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row p-0 m-0">
+        {{--                                                    <?php $count = 0; ?>--}}
+        {{--                                                    @foreach($article->product->large_photos as $p)--}}
+        {{--                                                        @if($count < 3)--}}
+                                                                    <div class="image1 col-md-4 px-0">
+                                                                        <img src="https://res.cloudinary.com/bigbignoobbb/image/upload/toi9ycfv8b2ahrgztqnv.jpg" alt="" class="img-fluid" style="padding-right: 2px !important;">
+                                                                    </div>
+                                                                    <div class="image1 col-md-4 px-0">
+                                                                        <img src="https://res.cloudinary.com/bigbignoobbb/image/upload/toi9ycfv8b2ahrgztqnv.jpg" alt="" class="img-fluid" style="padding-right: 2px !important;">
+                                                                    </div>
+                                                                    <div class="image1 col-md-4 px-0">
+                                                                        <img src="https://res.cloudinary.com/bigbignoobbb/image/upload/toi9ycfv8b2ahrgztqnv.jpg" alt="" class="img-fluid" style="padding-right: 2px !important;">
+                                                                    </div>
+        {{--                                                        @endif--}}
+        {{--                                                        <?php $count++; ?>--}}
+        {{--                                                    @endforeach--}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="box_comment p-3">
+                                                    <div class="clearfix">
+                                                        <div class="like float-left">
+                                                            <i class="fa fa-thumbs-o-up" aria-hidden="true"><span class="ml-3">Thích</span></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+        {{--                                @endforeach--}}
                                     </div>
                                 </div>
+                                <div class="col-md-2"></div>
                             </div>
                         </div>
                     </div>
@@ -176,7 +252,7 @@
 @stop
 @section('main-script')
     <script src="/Admin/plugins/swiper/swiper.min.js"></script>
-    <script src="/js/frontend/shop/home.js"></script>
+    <script src="/js/frontend/product/list.js"></script>
     <script>
         $(document).ready(function() {
             $('.menu-header li').removeClass('active');
