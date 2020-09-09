@@ -2970,7 +2970,7 @@ var Colorpicker = function () {
         this.options.extensions.push({ name: 'debugger' });
       }
 
-      // Register and instantiate extensions
+      // SaveRegister and instantiate extensions
       this.options.extensions.forEach(function (ext) {
         _this.registerExtension(Colorpicker.extensions[ext.name.toLowerCase()], ext.options || {});
       });
