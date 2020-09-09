@@ -14,7 +14,7 @@
                             <div class="col-md-3 p-0 d-flex justify-content-center">
                                 <input type="text" class="total_orders" data-min="0" data-max="">
                             </div>
-                            <div class="col-md-9 p-0">
+                            <div class="col-md-9 p-0 pl-1">
                                 <p class="font-weight-bold mb-0 pb-1" style="font-size: 25px;">100</p>
                                 <p>Tổng số đơn hàng</p>
                             </div>
@@ -25,7 +25,7 @@
                             <div class="col-md-3 p-0 d-flex justify-content-center">
                                 <input type="text" class="total_orders1" data-min="0" data-max="">
                             </div>
-                            <div class="col-md-9 p-0">
+                            <div class="col-md-9 p-0 pl-1">
                                 <p class="font-weight-bold m-0 pb-1" style="font-size: 25px;">93</p>
                                 <p>Tổng số đơn thành công</p>
                             </div>
@@ -36,7 +36,7 @@
                             <div class="col-md-3 p-0 d-flex justify-content-center">
                                 <input type="text" class="total_orders2" data-min="0" data-max="">
                             </div>
-                            <div class="col-md-9 p-0">
+                            <div class="col-md-9 p-0 pl-1">
                                 <p class="font-weight-bold m-0 pb-1" style="font-size: 25px;">70</p>
                                 <p style="font-size: 13px;">Tổng số đơn trừ tiền thành công</p>
                             </div>
