@@ -1532,7 +1532,7 @@ function getAlpha(string) {
 // generators
 function hexString(rgba, a) {
    var a = (a !== undefined && rgba.length === 3) ? a : rgba[3];
-   return "#" + hexDouble(rgba[0]) 
+   return "#" + hexDouble(rgba[0])
               + hexDouble(rgba[1])
               + hexDouble(rgba[2])
               + (
@@ -7214,7 +7214,7 @@ var core_layouts = {
 	defaults: {},
 
 	/**
-	 * Register a box to a chart.
+	 * SaveRegister a box to a chart.
 	 * A box is simply a reference to an object that requires layout. eg. Scales, Legend, Title.
 	 * @param {Chart} chart - the chart to use
 	 * @param {ILayoutItem} item - the item to add to be layed out
@@ -20626,7 +20626,7 @@ core_controller.scaleService = core_scaleService;
 core_controller.Ticks = core_ticks;
 core_controller.Tooltip = core_tooltip;
 
-// Register built-in scales
+// SaveRegister built-in scales
 
 core_controller.helpers.each(scales, function(scale, type) {
 	core_controller.scaleService.registerScaleType(type, scale, scale._defaults);

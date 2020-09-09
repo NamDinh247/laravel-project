@@ -1,5 +1,5 @@
 /*! =======================================================
-                      VERSION  10.6.2              
+                      VERSION  10.6.2
 ========================================================= */
 "use strict";
 
@@ -2050,7 +2050,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 			}
 			$.bridget(NAMESPACE_ALTERNATE, Slider);
 
-			// Auto-Register data-provide="slider" Elements
+			// Auto-SaveRegister data-provide="slider" Elements
 			$(function () {
 				$("input[data-provide=slider]")[autoRegisterNamespace]();
 			});

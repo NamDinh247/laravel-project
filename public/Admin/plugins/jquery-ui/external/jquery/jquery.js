@@ -10326,7 +10326,7 @@ if ( xhrSupported ) {
 						window.setTimeout( callback );
 					} else {
 
-						// Register the callback, but delay it in case `xhr.send` throws
+						// SaveRegister the callback, but delay it in case `xhr.send` throws
 						// Add to the list of active xhr callbacks
 						xhr.onreadystatechange = xhrCallbacks[ id ] = callback;
 					}
@@ -10956,7 +10956,7 @@ jQuery.fn.andSelf = jQuery.fn.addBack;
 
 
 
-// Register as a named AMD module, since jQuery can be concatenated with other
+// SaveRegister as a named AMD module, since jQuery can be concatenated with other
 // files that may use define, but not via a proper concatenation script that
 // understands anonymous AMD modules. A named AMD is safest and most robust
 // way to register. Lowercase jquery is used because AMD module names are

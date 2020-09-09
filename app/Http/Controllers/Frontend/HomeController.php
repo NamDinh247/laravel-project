@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Frontend;
 use App\Article;
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SaveLogin;
+use App\Http\Requests\SaveRegister;
+use App\Http\Requests\SaveShopRegister;
 use App\Order;
 use App\Order_detail;
 use App\Order_status;
@@ -32,7 +35,7 @@ class HomeController extends Controller
     }
 
     # Region login, register
-    public function postRegister(Request $request)
+    public function postRegister(SaveRegister $request)
     {
         try {
             $email = strtolower($request->email);
@@ -48,6 +51,7 @@ class HomeController extends Controller
                 // phone exist
                 return 302;
             } else {
+                $request->validated();
                 $user = new User();
                 $user->email = $email;
                 $user->password = bcrypt($request->password);
@@ -60,8 +64,10 @@ class HomeController extends Controller
                 return 200;
             }
         } catch (\Exception $ex) {
+            dd($ex);
             return 500;
         }
+
     }
 
     public function getLogin()
@@ -74,6 +80,7 @@ class HomeController extends Controller
 
     public function postLogin(Request $request)
     {
+//        $request->validated();
         $login1 = [
             'email' => $request->username,
             'password' => $request->password
@@ -120,7 +127,7 @@ class HomeController extends Controller
         return redirect()->route('homePage');
     }
 
-    public function postShopRegister(Request $request)
+    public function postShopRegister(SaveShopRegister $request)
     {
         try {
             $email = strtolower($request->email);
@@ -136,6 +143,7 @@ class HomeController extends Controller
                 // phone exist
                 return 302;
             } else {
+                $request->validated();
                 $shop = new Shop();
                 $shop->account_id = Auth::user()->id;
                 $shop->name = $request->name;
