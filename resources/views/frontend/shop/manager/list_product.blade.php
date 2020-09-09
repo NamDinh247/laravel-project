@@ -4,71 +4,71 @@
     <div class="manage_content pt-3 manage_product_content">
         <div class="row">
             <div class="col-md-12 mb-3">
-                <div class="card border-0 border-r-0">
-                    <form action="/admin/products/listProduct" method="get" id="product-form">
-                        <div class="card-body border-0 clearfix">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Tìm kiếm với từ khóa</label>
-                                        <input value="" type="text" name="keyword" class="form-control border-r-0"
-                                               placeholder="Từ khóa">
-                                        <input type="submit" style="visibility: hidden;"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group mb-4">
-                                        <label for="exampleFormControlSelect1">Dòng sản phẩm</label>
-                                        <select name="category_id" class="form-control border-r-0" id="categorySelect">
-                                            <option value="0">Tất cả</option>
-                                            @foreach($lstCate as $cate)
-                                                <option value="{{$cate->id}}">{{$cate->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+                <div class="box-filter py-3 px-2 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
+                    <div class="header_box_filter clearfix">
+                        <div class="input-group float-left" style="width: 200px;">
+                            <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm sản phẩm" style="border-radius: 0 !important;">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default" style="border: 1px solid #ced4da; border-radius: 0 !important;"><i class="fas fa-search"></i></button>
                             </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label for="exampleFormControlSelect1">Giảm giá</label>
-                                    <a class="btn dropdown-toggle bg-white style_dropdown border-r-1" role="button"
-                                       id="filter_type" style="padding: 16px 16px;"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                                    <div class="dropdown-menu" style="width: 50%" aria-labelledby="filter_type">
-                                        <div class="p-3">
-                                            <input id="range_1" class="p-3 form-control border-r-0" type="text"
-                                                   name="range_1" value="">
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- giá bán --}}
-                                <div class="col-md-2">
-                                    <label for="exampleFormControlSelect1">Giá bán</label>
-                                    <a class="btn dropdown-toggle bg-white style_dropdown" role="button"
-                                       id="filter_type"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                                    <div class="dropdown-menu border-r-0" style="width: 50%;"
-                                         aria-labelledby="filter_type">
-                                        <div class="p-3">
-                                            <label>Từ:
-                                                <input class="form-control" type="number" min="0" placeholder="0">
-                                            </label>
-                                            <label class="pt-2 pb-2">Đến:
-                                                <input class="form-control" type="number" min="0" placeholder="0"/>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- date --}}
-                                <div class=" col-md-3 input-group mr-1 float-left mb-4" style="width: 20%;">
-                                    <input type="text" class="form-control border-r-0" readonly="" id="dateTime"
-                                           style="padding: 16px 16px;"/>
-                                    <div class="input-group-addon border-0"><i class="fa fa-calendar"></i></div>
+                        </div>
+                        <div class="input-group mr-1 ml-1 float-left" style="width: 250px;">
+                            <input type="text" class="form-control" readonly="" id="dateTime" style="border-radius: 0 !important;"/>
+                            <div class="input-group-addon"><i class="fa fa-calendar pt-1"></i></div>
+                        </div>
+                        <div class="input-group mr-1 ml-1 float-left" style="width: 147px;">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="actionTypeProduct" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Loại sản phẩm
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="actionTypeProduct">
+                                    <a class="dropdown-item" data-val="" onclick="filterActive(this)">Tất cả</a>
+                                    <a class="dropdown-item" data-val="1" onclick="filterActive(this)">Kim loại</a>
+                                    <a class="dropdown-item" data-val="2" onclick="filterActive(this)">Gỗ</a>
+                                    <a class="dropdown-item" data-val="3" onclick="filterActive(this)">Nhựa, Cao su</a>
+                                    <a class="dropdown-item" data-val="4" onclick="filterActive(this)">Thuỷ tinh</a>
+                                    <a class="dropdown-item" data-val="5" onclick="filterActive(this)">Khác</a>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                        <div class="input-group mr-1 ml-1 float-left" style="width: 115px;">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Trạng thái
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="action">
+                                    <a class="dropdown-item" data-val="" onclick="filterActive(this)">Tất cả</a>
+                                    <a class="dropdown-item" data-val="1" onclick="filterActive(this)">Hoạt động</a>
+                                    <a class="dropdown-item" data-val="0" onclick="filterActive(this)">Không hoạt động</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mr-1 ml-1 float-left" style="width: 107px;">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="filter_type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Giảm giá
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="filter_type">
+                                    <div class="p-3">
+                                        <input id="range_1" class="p-3" type="text" name="range_1" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mr-1 ml-1 float-left" style="width: 100px;">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="filter_sale" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Giá bán
+                                </button>
+                                <div class="dropdown-menu border-r-0" aria-labelledby="filter_sale">
+                                    <div class="p-3">
+                                        <label>Từ:  <input class="form-control" type="number" min="0" placeholder="0"></label>
+                                        <label class="pt-2 pb-2">Đến:  <input class="form-control" type="number" min="0" placeholder="0"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-12">
