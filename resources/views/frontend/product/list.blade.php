@@ -106,8 +106,6 @@
                                                 <div class="thumbnail-container">
                                                     <a href="{!! route('home.product.detail', $prd->id) !!}" class="thumbnail product-thumbnail">
                                                         <img src="{{ $prd->large_photo }}" alt="product"/>
-{{--                                                        <img class="replace-2x img_1 img-responsive"--}}
-{{--                                                             src="{{ $prd->large_photo2 }}"/>--}}
                                                     </a>
                                                     <ul class="product-flags">
                                                         <li class="on-sale">On sale!</li>
@@ -233,27 +231,4 @@
 @section('main-script')
     <script src="/Admin/plugins/swiper/swiper.min.js"></script>
     <script src="/js/frontend/product/list.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.add-to-cart').click(function () {
-                var productId = $(this).attr('data-id');
-                $.ajax({
-                    'url': '/shopping-cart/add',
-                    'method': 'GET',
-                    'data': {
-                        "_token": $('meta[name="csrf-token"]').attr('content'),
-                        'productId': productId,
-                        'quantity': 1
-                    },
-                    'success': function () {
-                        // Thông báo thành công, reload lại trang.
-                        alert('Action success');
-                    },
-                    'error': function () {
-                        alert('Action fails');
-                    }
-                })
-            });
-        });
-    </script>
 @stop

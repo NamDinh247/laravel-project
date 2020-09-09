@@ -322,27 +322,4 @@
         $('.filter_left').css({'height': (height - 126)  + 'px', 'overflow-x': 'hidden'});
         $('#content_list_shop').css({'height': (height + 10)  + 'px', 'overflow-x': 'hidden'});
     </script>
-    <script>
-        $(document).ready(function () {
-            $('.add-to-cart').click(function () {
-                var productId = $(this).attr('data-id');
-                $.ajax({
-                    'url': '/shopping-cart/add',
-                    'method': 'GET',
-                    'data': {
-                        "_token": $('meta[name="csrf-token"]').attr('content'),
-                        'productId': productId,
-                        'quantity': 1
-                    },
-                    'success': function () {
-                        // Thông báo thành công, reload lại trang.
-                        alert('Action success');
-                    },
-                    'error': function () {
-                        alert('Action fails');
-                    }
-                })
-            });
-        });
-    </script>
 @stop

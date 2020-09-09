@@ -39,12 +39,6 @@
             </div>
         </div>
     </div>
-    <?php $prd_name = $order->order_detail->product->name; ?>
-    <?php $quantity = $order->order_detail->od_quantity; ?>
-    <?php $price = $order->order_detail->product->price; ?>
-    <?php $sale_off = $order->order_detail->product->sale_off; ?>
-    <?php $total_prd = $quantity * ($price - $price * ($sale_off/100)); ?>
-    <?php $total_money = $quantity * $price; ?>
     @foreach($order_detail as $item)
         <div class="row mb-4">
             <div class="col-md-4">
@@ -73,13 +67,13 @@
             <div class="col-md-2">
                 <label>Giảm giá</label>
                 <div>
-                    {!! number_format($item->od_unit_price * $item->od_quantity * ($item->product->sale_off/100),0,',','.') !!}
+                    {!! number_format($item->od_unit_price * $item->od_quantity * ($item->prd_sale_off/100),0,',','.') !!}
                 </div>
             </div>
             <div class="col-md-2 text-right">
                 <label>Tạm tính</label>
                 <div>
-                    {!! number_format($item->od_unit_price * $item->od_quantity - $item->od_unit_price * $item->od_quantity * ($item->product->sale_off/100),0,',','.') !!}
+                    {!! number_format($item->od_unit_price * $item->od_quantity - $item->od_unit_price * $item->od_quantity * ($item->prd_sale_off/100),0,',','.') !!}
                 </div>
             </div>
         </div>
@@ -90,16 +84,16 @@
         </div>
         <div class="col-md-4">
             <div>
-                <p>Tạm tính: {!! $order->od_total_price !!}</p>
+                <p>Tạm tính: {!! number_format(($order->od_total_price - $order->ship_fee),0,',','.') !!} đ</p>
             </div>
             <div>
-                <p>Giảm giá: {!! 0 !!}</p>
+                <p>Giảm giá: {!! number_format($total_sale_off,0,',','.') !!} đ</p>
             </div>
             <div>
-                <p>Phí vận chuyển: {!! $order->ship_fee !!}</p>
+                <p>Phí vận chuyển: {!! number_format($order->ship_fee,0,',','.') !!} đ</p>
             </div>
             <div>
-                <p>Tổng cộng: {!! $order->od_total_price + $order->ship_fee !!}</p>
+                <p>Tổng cộng: {!! number_format($order->od_total_price,0,',','.') !!} đ</p>
             </div>
         </div>
     </div>
@@ -112,17 +106,14 @@
         <div class="row my-3">
             <div class="col-4">
                 <select class="form-control" name="order_status"
-                        @if($order->od_status == 5 || $order->od_status == 6) disabled @endif>
+                    @if($order->od_status == 5 || $order->od_status == 6) readonly @endif>
                     @foreach($order_status as $stt)
                         @if($stt->stt_order >= $order->od_status)
-                            @if($stt->stt_order == 1)
-                            @else
-                                <option value="{!! $stt->stt_order !!}"
-                                        @if($order->od_status == $stt->stt_order) selected @endif
-                                >
-                                    {!! $stt->stt_name !!}
-                                </option>
-                            @endif
+                            <option value="{!! $stt->stt_order !!}"
+                                    @if($order->od_status == $stt->stt_order) selected @endif
+                            >
+                                {!! $stt->stt_name !!}
+                            </option>
                         @endif
                     @endforeach
                 </select>

@@ -51,7 +51,7 @@ class OrderStatusSeeder extends Seeder
                 'id' => 6,
                 'stt_name' => 'Hủy',
                 'stt_nameAction' => 'Hủy',
-                'stt_order' => 11,
+                'stt_order' => 6,
             ]
         ]);
 

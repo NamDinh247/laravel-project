@@ -33,14 +33,21 @@
                             <div class="float-left shopping_cart mr-2" style="border-radius: 50%;margin-top: 13px; border: 1px solid #28a745;">
                                 <a class="position-relative" href="/shopping_cart/show" >
                                     <i class="fa fa-shopping-cart" style="padding: 8px;font-size: 13px;color: #28a745"></i>
-                                    <span class="badge badge-warning navbar-badge">0</span>
+                                    <span class="badge badge-warning navbar-badge">
+                                        <?php $shoppingCart = Session::get('shoppingCart'); ?>
+                                        @if(isset($shoppingCart))
+                                            {!! count($shoppingCart) !!}
+                                        @else
+                                            0
+                                        @endif
+                                    </span>
                                 </a>
                             </div>
                             {{-- notify --}}
                             <div class="float-left shopping_cart mr-2 dropdown" style="border-radius: 50%;margin-top: 13px; border: 1px solid #28a745;">
                                 <a class="position-relative" data-toggle="dropdown" id="dropdownNotify">
                                     <i class="fa fa-bell" style="padding: 8px;font-size: 13px;color: #28a745"></i>
-                                    <span class="badge badge-danger navbar-badge">3</span>
+                                    <span class="badge badge-danger navbar-badge"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" aria-labelledby="dropdownNotify">
                                     <a href="#" class="dropdown-item">

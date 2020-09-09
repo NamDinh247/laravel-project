@@ -14,33 +14,41 @@
     <div class="row scroll_content pb-3 pt-1">
         <div class="col-md-12">
             <div class="content-table bg-white py-2 px-3 " style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
-                <div class="card-header bg-white position-relative border-0 py-3 px-0">
-                    <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách Đơn hàng</h4>
-                    <div class="breadcrumb mt-1">
-                        <div class="input-group input-group-sm" style="width: 200px;">
-                            <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm đơn hàng"
-                                   style="border-radius: 0 !important;">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default"
-                                        style="border: 1px solid #ced4da; border-radius: 0 !important;"><i
-                                        class="fas fa-search"></i></button>
+                <form action="/admin/orders/list" method="get" id="order_search">
+                    <div class="card-header bg-white position-relative border-0 py-3 px-0">
+                        <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách Đơn hàng</h4>
+                        <div class="breadcrumb mt-1">
+                            <div class="input-group input-group-sm" style="width: 200px;">
+                                <input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm đơn hàng"
+                                      value="{!! $data['keyword'] !!}" style="border-radius: 0 !important;">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"
+                                            style="border: 1px solid #ced4da; border-radius: 0 !important;"><i
+                                            class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                            <div class="input-group mr-1 ml-1" style="width: 250px;">
+                                <input type="text" class="form-control" name="dates"
+                                       style="border-radius: 0 !important;"/>
+                                <input type="hidden" name="start">
+                                <input type="hidden" name="end">
+                                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                            </div>
+                            <div class="input-group mr-1 ml-1" style="width: 200px;">
+                                <select class="form-control" id="orderStatusSelect" name="od_status" style="border-radius: 0 !important;">
+                                    <option value="0">Tất cả</option>
+                                    @foreach($data['lstOrderStats'] as $status)
+                                        <option value="{!! $status->stt_order !!}"
+                                                @if($data['od_status'] == $status->stt_order) selected @endif>
+                                            {!! $status->stt_name !!}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <div class="input-group mr-1 ml-1" style="width: 250px;">
-                            <input type="text" class="form-control" readonly="" id="dateTime"
-                                   style="border-radius: 0 !important;"/>
-                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                        </div>
-                        <div class="input-group mr-1 ml-1" style="width: 200px;">
-                            <select class="form-control" style="border-radius: 0 !important;">
-                                <option value="">Tất cả</option>
-                                <option value="shop">Cửa hàng</option>
-                                <option value="od_code">Mã đơn hàng</option>
-                                <option value="od_status">Trạng thái</option>
-                            </select>
-                        </div>
                     </div>
-                </div>
+                    <input type="submit" name="" id="" hidden/>
+                </form>
                 <div class="card-body table-responsive p-0">
                     <table id="example" class="table table-head-fixed text-nowrap table-hover">
                         <thead>
@@ -78,7 +86,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach($lstOrder as $order)
+                            @foreach($data['lstOrder'] as $order)
                                 <tr>
                                     <td class="text-xl-center ver-middle" style="width: 40px;">
                                         <input type="checkbox" class="form-check-input" id="check-1">
@@ -105,7 +113,7 @@
                     </table>
                 </div>
                 <div class="row footer-table px-3">
-                    <div class="col-md-12 pl-2 mb-3 total_money" style="border-bottom: 1px solid #ddd;">
+                    <div class="col-md-12 pl-2 mb-3" style="border-bottom: 1px solid #ddd;">
                         <div class="clearfix py-2">
                             <div class="float-left pr-4">
                                 Chiết khấu: <label class="pl-2"> 10%</label>
@@ -179,5 +187,29 @@
     <script src="/Admin/plugins/moment/locale/vi.js"></script>
     <script src="/js/admin/orders/orders.js"></script>
     <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
-
+    <script>
+        $('input[name="dates"]').daterangepicker(
+            {
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }
+        );
+        $('#orderStatusSelect').change(function () {
+            $('#order_search').submit();
+        })
+        $('input[name="dates"]').on('apply.daterangepicker', function(ev, picker) {
+            $('input[name="start"]').val(picker.startDate.format('YYYY-MM-DD'));
+            $('input[name="end"]').val(picker.endDate.format('YYYY-MM-DD'));
+            $('#order_search').submit();
+        });
+    </script>
 @endsection

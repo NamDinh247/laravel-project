@@ -24,7 +24,11 @@ class HomeController extends Controller
         $lst_article = Article::where('status', '!=', -1)
             ->orderby('created_at', 'desc')
             ->get();
-        return view('frontend.contentHome', compact('lst_article'));
+        $lst_shops = Shop::where('status', 1)
+            ->take(5)
+            ->orderby('created_at', 'asc')
+            ->get();
+        return view('frontend.contentHome', compact('lst_article', 'lst_shops'));
     }
 
     # Region login, register
@@ -237,7 +241,9 @@ class HomeController extends Controller
             if ($product == null) {
                 return view('errors.404');
             }
-            return view('frontend.product.detail', compact('product'));
+            $list_product = Product::where('category_id', 2)->get();
+            return view('frontend.product.detail',
+                compact('product', 'list_product'));
         } catch (\Exception $ex) {
             return false;
         }
@@ -247,21 +253,28 @@ class HomeController extends Controller
     # Shopping cart
     public function getShoppingCart()
     {
-        $shoppingCart = Session::get('shoppingCart');
-        $total_quantity = 0;
-        $total_price = 0;
-        $total_payment = 0;
-        $shop_id = null;
-        if (isset($shoppingCart) && count($shoppingCart) > 0) {
-            foreach ($shoppingCart as $item) {
-                $total_quantity += $item['quantity'];
-                $total_price += $item['quantity'] * $item['productPrice'];
-                $total_payment += $item['quantity'] * $item['productPrice'] - $item['productPrice'] * ($item['productSaleOff']/100);
-                $shop_id = $item['shop_id'];
+        try {
+            $shoppingCart = Session::get('shoppingCart');
+            $total_quantity = 0;
+            $total_price = 0;
+            $total_payment = 0;
+            $shop_id = null;
+            if (isset($shoppingCart) && count($shoppingCart) > 0) {
+                foreach ($shoppingCart as $item) {
+                    $total_quantity += $item['quantity'];
+                    $total_price += $item['quantity'] * $item['productPrice'];
+                    $total_payment += $item['quantity'] * $item['productPrice'] - $item['productPrice'] * ($item['productSaleOff']/100);
+                    $shop_id = $item['shop_id'];
+                }
             }
+            $list_product = Product::where('category_id', 2)
+                ->orderby('created_at', 'desc')
+                ->get();
+            return view('frontend.shopping_cart',
+                compact('shoppingCart', 'total_quantity', 'total_price', 'total_payment', 'shop_id', 'list_product'));
+        } catch (\Exception $ex) {
+            return abort(404);
         }
-        return view('frontend.shopping_cart',
-            compact('shoppingCart', 'total_quantity', 'total_price', 'total_payment', 'shop_id'));
     }
 
     public function getAddShoppingCart(Request $request)
@@ -270,10 +283,12 @@ class HomeController extends Controller
             $productId = $request->get('productId');
             $quantity = $request->get('quantity');
             // kiểm tra sản phẩm theo id truyền lên.
-            $product = Product::find($productId);
+            $product = Product::where('id', $productId)
+                ->where('status', '=', 1)
+                ->first();
             if ($product == null) {
                 // nếu không tồn tại sản phẩm đưa về trang lỗi ko tìm thấy.
-                return false;
+                return abort(404);
             }
 
             // lấy thông tin giỏ hàng từ trong session.
@@ -311,7 +326,7 @@ class HomeController extends Controller
             Session::put('shoppingCart', $shoppingCart);
             return redirect('/shopping_cart/show');
         } catch (\Exception $ex) {
-            return false;
+            return abort(404);
         }
     }
 
@@ -366,7 +381,7 @@ class HomeController extends Controller
                 $orderDetail->product_id = $productId;
                 $orderDetail->od_quantity = $quantity;
                 $orderDetail->od_unit_price = $product->price;
-//            $orderDetail->prd_sale_off = $product->sale_off;
+                $orderDetail->prd_sale_off = $product->sale_off;
                 array_push($orderDetails, $orderDetail);
             }
             DB::transaction(function() use ($order, $orderDetails) {
@@ -404,16 +419,26 @@ class HomeController extends Controller
 
     public function getDetailOrderUser(Request $request)
     {
-        $user = Auth::user();
-        $order = Order::where('id', $request->id)
-            ->where('account_id', $user->id)
-            ->whereNotIn('od_status', [-1])
-            ->first();
-        if ($order == null) {
+        try {
+            $user = Auth::user();
+            $order = Order::where('id', $request->id)
+                ->where('account_id', $user->id)
+                ->whereNotIn('od_status', [-1])
+                ->first();
+            if ($order == null) {
+                return abort(404);
+            }
+
+            $total_sale_off = 0;
+            $order_detail = Order_detail::where('od_id', $order->id)->get();
+            foreach ($order_detail as $item) {
+                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off/100);
+            }
+
+            return view('frontend.shop.order_detail', compact('order', 'order_detail', 'total_sale_off'));
+        } catch (\Exception $ex) {
             return abort(404);
         }
-        $order_detail = Order_detail::where('od_id', $order->id)->get();
-        return view('frontend.shop.order_detail', compact('order', 'order_detail'));
     }
 
     public function getProfileInfo()
@@ -487,14 +512,19 @@ class HomeController extends Controller
                 ->first();
             $order_status = Order_status::all();
             if ($order == null) {
-                return view('errors.404');
+                return abort(404);
             }
+
+            $total_sale_off = 0;
             $order_detail = Order_detail::where('od_id', $order->id)->get();
+            foreach ($order_detail as $item) {
+                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off/100);
+            }
 
             return view('frontend.shop.manager.order_detail',
-                compact('order', 'order_detail', 'order_status'));
+                compact('order', 'order_detail', 'order_status', 'total_sale_off'));
         } catch (\Exception $ex) {
-            return view('errors.404');
+            return abort(404);
         }
     }
 
