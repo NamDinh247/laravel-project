@@ -22,7 +22,7 @@ class AdminController extends Controller
     //
     public function home()
     {
-        return view('admin.chartjs');
+        return view('admin.dashboard');
     }
 
     public function login()
@@ -163,7 +163,7 @@ class AdminController extends Controller
     // list account admin
     public function accountManagement()
     {
-        $lstUserAdmin = User::whereIn('role', [2])
+        $lstUserAdmin = User::whereIn('role', [1,2])
             ->where('status', '!=', -1)
             ->orderby('created_at', 'desc')
             ->paginate(15);
@@ -401,12 +401,46 @@ class AdminController extends Controller
     }
 
     // orders
-    public function getListOrder()
+    public function getListOrder(Request $request)
     {
-        $lstOrder = Order::whereNotIn('od_status', [-1])
-            ->orderby('created_at', 'desc')
-            ->paginate(15);
-        return view('admin.orders.listOrders', compact('lstOrder'));
+        try {
+            $data = array();
+            $data['keyword'] = '';
+            $data['od_status'] = 0;
+            $lstOrderStats = Order_status::all();
+            $data['lstOrderStats'] = $lstOrderStats;
+            $lstOrder = Order::query();
+            if ($request->has('od_status') && $request->get('od_status') != 0) {
+                $data['od_status'] = $request->get('od_status');
+                $lstOrder = $lstOrder->where('od_status', '=', $request->get('od_status'));
+            }
+            if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+                $data['keyword'] = $request->get('keyword');
+                $lstOrder = $lstOrder->where('od_code', 'like', '%' . $request->get('keyword') . '%');
+            }
+            if ($request->has('start') && strlen($request->get('start')) > 0 && $request->has('end') && strlen($request->get('end')) > 0) {
+                $data['start'] = $request->get('start');
+                $data['end'] = $request->get('end');
+                $from = date($request->get('start') . ' 00:00:00');
+                $to = date($request->get('end') . ' 23:59:00');
+                $lstOrder = $lstOrder->whereBetween('created_at', [$from, $to]);
+                $dataOrder = array();
+                $dataOrder['totalOrder'] = count($lstOrder);
+            }
+            $data['lstOrder'] = $lstOrder->where('od_status', '!=', -1)
+                ->orderby('id', 'desc')
+                ->paginate(15);
+
+
+//        $lstOrder = Order::whereNotIn('od_status', [-1])
+//            ->orderby('created_at', 'desc')
+//            ->paginate(15);
+
+//        return view('admin.orders.listOrders', compact('lstOrder', 'lstOrderStats'));
+            return view('admin.orders.listOrders', compact('data'));
+        } catch (\Exception $ex) {
+            return abort(404);
+        }
     }
 
     public function newOrders()
@@ -422,12 +456,18 @@ class AdminController extends Controller
                 ->first();
             $order_status = Order_status::all();
             if ($order == null) {
-                return view('errors.404');
+                return abort(404);
             }
+
+            $total_sale_off = 0;
             $order_detail = Order_detail::where('od_id', $order->id)->get();
-            return view('admin.orders.detailOrders', compact('order', 'order_status', 'order_detail'));
+            foreach ($order_detail as $item) {
+                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off/100);
+            }
+            return view('admin.orders.detailOrders',
+                compact('order', 'order_status', 'order_detail', 'total_sale_off'));
         } catch (\Exception $ex) {
-            return false;
+            return abort(404);
         }
     }
 

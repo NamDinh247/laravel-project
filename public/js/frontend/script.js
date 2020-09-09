@@ -256,4 +256,40 @@ $(document).ready(function() {
             }
         });
     })
+
+    $('.add-to-cart').click(function () {
+        var productId = $(this).attr('data-id');
+        $.ajax({
+            'url': '/shopping-cart/add',
+            'method': 'GET',
+            'data': {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+                'productId': productId,
+                'quantity': 1
+            },
+            'success': function () {
+                // Thông báo thành công, reload lại trang.
+                iziToast.success({
+                    position: 'topCenter',
+                    timeout: 1500,
+                    transitionIn: 'bounceInDown',
+                    message: 'Thêm vào giỏ hàng thành công!',
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
+            },
+            'error': function () {
+                iziToast.warning({
+                    position: 'topCenter',
+                    timeout: 1500,
+                    transitionIn: 'bounceInDown',
+                    message: 'Có lỗi xảy ra, vui lòng thử lại',
+                });
+            }
+        })
+    });
+    var heightContent = $(window).height() - 60;
+    $('#container_detail').css({'height': heightContent + 'px', 'overflow-y': 'auto', 'overflow-x': 'hidden'});
+
 });

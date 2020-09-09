@@ -30,7 +30,7 @@
         </div>
         <div class="card-body table-responsive py-0 px-4 bg-white">
             <h5 href="/admin/orders/list" class="card-title m-0 py-3" style="margin-bottom: 0 !important;">Đơn hàng</h5>
-            <table id="example" class="table table-head-fixed text-nowrap table-hover">
+            <table id="example" style="font-size: 95%" class="table table-head-fixed text-nowrap table-hover">
                 <thead>
                 <tr>
                     <th class="text-xl-center ver-middle" style="width: 40px;">
@@ -48,7 +48,7 @@
                 <tbody>
                 @foreach($lstOrder as $order)
                     <tr>
-                        <td class="text-xl-center ver-middle" style="width: 40px;">>
+                        <td class="text-xl-center ver-middle" style="width: 40px;">
                             <input type="checkbox" class="form-check-input" id="check-1">
                             <label class="form-check-label" for="check-1"></label>
                         </td>
@@ -63,9 +63,12 @@
                             <a href="/shop/order/{!! $order->id !!}" class="btn btn-sm btn-warning">
                                 <i class="fa fa-edit"></i>&nbsp; Chi tiết
                             </a>
-                            <a href="#" class="btn btn-sm btn-danger">
-                                <i class="fa fa-trash"></i>&nbsp; Hủy
-                            </a>
+                            @if($order->od_status == 5 || $order->od_status == 6)
+                            @else
+                                <a href="#" class="btn btn-sm btn-danger">
+                                    <i class="fa fa-trash"></i>&nbsp; Hủy
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

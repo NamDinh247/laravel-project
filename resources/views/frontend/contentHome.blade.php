@@ -44,14 +44,19 @@
                                 <div class="box_header pt-3">
                                     <div class="avatar_box pb-2 px-3">
                                         <div class="box_img mr-2">
-                                            <img class="rounded-circle float-left" src="/img/avatar_2x.png" alt="avatar" style="width: 100%;">
+                                            @if($article->shop->logo == null || strlen($article->shop->logo) == 0)
+                                                <img class="rounded-circle float-left" src="/img/avatar_2x.png" alt="avatar" style="width: 100%;">
+                                            @else
+                                                <img class="rounded-circle float-left" src="{!! $article->shop->small_photo !!}" alt="avatar" style="width: 100%;">
+                                            @endif
                                         </div>
                                         <div class="name_time">
                                             <div class="nameTime">
                                                 <div class="name">
-                                                    @if(isset($article->shop) && $article->shop != null)
-                                                        {!! $article->shop->name !!}
-                                                    @endif
+                                                    {!! $article->shop->name !!}
+                                                </div>
+                                                <div style="font-size: 11px; color: green">
+                                                    {!! date('d-m-Y', strtotime($article->created_at)) !!}
                                                 </div>
                                             </div>
                                         </div>
@@ -102,15 +107,20 @@
                 </div>
                 <div class="col-md-4 px-4">
                     <a class="py-2" style="font-size: 18px; font-weight: 500;">5 cửa hàng bán chạy nhất tháng</a>
-                    <hr class="py-2"/>
+                    <hr class="py-1"/>
+                    @foreach($lst_shops as $shop)
                     <div class="row pb-3">
                         <div class="col-md-12 py-3">
                             <div class="row">
-                                <div class="col-md-4" style="height: 100px;">
-                                    <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/post1.jpg" alt="ảnh shop 1" style="object-fit: cover;">
+                                <div class="col-md-4" style="height: 110px;">
+                                    @if($shop->logo == null || strlen($shop->logo) == 0)
+                                        <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/post1.jpg" alt="img_shop" style="object-fit: cover;">
+                                    @else
+                                        <img class="img-thumbnail border-0 p-0 w-100 h-100" src="{!! $shop->large_photo !!}" alt="img_shop" style="object-fit: cover;">
+                                    @endif
                                 </div>
                                 <div class="col-md-8">
-                                    <a href="/shop/detail" class="" style="font-size: 14px;font-weight: 500;">Bàn đá thuỷ tinh tái chế</a>
+                                    <a href="/shop/detail" class="" style="font-size: 14px;font-weight: 500;">{!! $shop->name !!}</a>
                                     <div class="comments_note pb-1">
                                         <div class="star_content clearfix">
                                             <div class="star star_on"><i class="fa fa-star"></i></div>
@@ -120,96 +130,23 @@
                                             <div class="star star_on"><i class="fa fa-star"></i></div>
                                         </div>
                                     </div>
-                                    <p class="card-text">Vật liệu: thuỷ tinh</p>
-                                    <p class="card-text">Với 250 loại sản phảm khác nhau</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 py-3">
-                            <div class="row">
-                                <div class="col-md-4" style="height: 100px;">
-                                    <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/post1.jpg" alt="ảnh shop 1" style="object-fit: cover;">
-                                </div>
-                                <div class="col-md-8">
-                                    <a href="/shop/detail" class="" style="font-size: 14px;font-weight: 500;">Bàn đá thuỷ tinh tái chế</a>
-                                    <div class="comments_note pb-1">
-                                        <div class="star_content clearfix">
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                        </div>
-                                    </div>
-                                    <p class="card-text">Vật liệu: thuỷ tinh</p>
-                                    <p class="card-text">Với 250 loại sản phảm khác nhau</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 py-3">
-                            <div class="row">
-                                <div class="col-md-4" style="height: 100px;">
-                                    <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/post1.jpg" alt="ảnh shop 1" style="object-fit: cover;">
-                                </div>
-                                <div class="col-md-8">
-                                    <a href="/shop/detail" class="" style="font-size: 14px;font-weight: 500;">Bàn đá thuỷ tinh tái chế</a>
-                                    <div class="comments_note pb-1">
-                                        <div class="star_content clearfix">
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                        </div>
-                                    </div>
-                                    <p class="card-text">Vật liệu: thuỷ tinh</p>
-                                    <p class="card-text">Với 250 loại sản phảm khác nhau</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 py-3">
-                            <div class="row">
-                                <div class="col-md-4" style="height: 100px;">
-                                    <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/post1.jpg" alt="ảnh shop 1" style="object-fit: cover;">
-                                </div>
-                                <div class="col-md-8">
-                                    <a href="/shop/detail" class="" style="font-size: 14px;font-weight: 500;">Bàn đá thuỷ tinh tái chế</a>
-                                    <div class="comments_note pb-1">
-                                        <div class="star_content clearfix">
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                        </div>
-                                    </div>
-                                    <p class="card-text">Vật liệu: thuỷ tinh</p>
-                                    <p class="card-text">Với 250 loại sản phảm khác nhau</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 py-3">
-                            <div class="row">
-                                <div class="col-md-4" style="height: 100px;">
-                                    <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/post1.jpg" alt="ảnh shop 1" style="object-fit: cover;">
-                                </div>
-                                <div class="col-md-8">
-                                    <a href="/shop/detail" class="" style="font-size: 14px;font-weight: 500;">Bàn đá thuỷ tinh tái chế</a>
-                                    <div class="comments_note pb-1">
-                                        <div class="star_content clearfix">
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                            <div class="star star_on"><i class="fa fa-star"></i></div>
-                                        </div>
-                                    </div>
-                                    <p class="card-text">Vật liệu: thuỷ tinh</p>
-                                    <p class="card-text">Với 250 loại sản phảm khác nhau</p>
+                                    <?php
+                                    $lstPrd = \App\Product::where('shop_id', $shop->id)->where('status', 1)->get();
+                                    $lstCateByShop = array();
+                                    foreach ($lstPrd as $prd) {
+                                        if (in_array($prd->category->name, $lstCateByShop)) {
+                                            continue;
+                                        }
+                                        array_push($lstCateByShop, $prd->category->name);
+                                    };
+                                    ?>
+                                    <p class="card-text">Danh mục: {!! implode(", ",$lstCateByShop) !!}</p>
+                                    <p class="card-text">Với {!! count($lstPrd); !!} sản phảm khác nhau</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>

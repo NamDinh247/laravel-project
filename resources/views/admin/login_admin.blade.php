@@ -18,14 +18,16 @@
             <div class="login100-pic js-tilt" data-tilt>
                 <img src="/img/img-01.png" alt="IMG">
             </div>
-            @if( \Illuminate\Support\Facades\Session::has('success_message'))
-                <div>
-                    {{ \Illuminate\Support\Facades\Session::get('success_message') }}
-                </div>
-            @endif
             <form class="login100-form validate-form" action="/admin/login" method="post">
                 @csrf
                 <span class="login100-form-title">Admin Login</span>
+                @if( \Illuminate\Support\Facades\Session::has('success_message'))
+                    <ul class="mb-3 pl-4" style="font-size: 90%; color: red;">
+                        <li>
+                            {{ \Illuminate\Support\Facades\Session::get('success_message') }}
+                        </li>
+                    </ul>
+                @endif
                 <div class="wrap-input100 validate-input" data-validate="User name is required">
                     <input class="input100" type="text" name="username" placeholder="User name">
                     <span class="focus-input100"></span>

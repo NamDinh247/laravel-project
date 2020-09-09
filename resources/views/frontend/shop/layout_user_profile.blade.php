@@ -14,12 +14,12 @@
         <div class="col-md-3 pt-4" style="background-color: #fff !important;box-shadow: 1px 0 5px -2px #888;">
             <div class="aside_left pl-3">
                 <ul class="menu_left">
-                    <li class="item_menu_left pl-2 py-2 search_left position-relative">
+                    <!-- <li class="item_menu_left pl-2 py-2 search_left position-relative">
                         <input type="text" class="form-control"
                                style="border: none;padding-left: 30px;border-radius: 30px;height: 35px; line-height: 35px;"
                                placeholder="Tìm kiếm sản phẩm">
                         <i class="fa fa-search position-absolute" style="top: 14px;left: 13px;"></i>
-                    </li>
+                    </li> -->
                     @if(\Illuminate\Support\Facades\Auth::check())
                     <li class="item_menu_left pl-2 py-2 clearfix">
                         <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">

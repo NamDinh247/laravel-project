@@ -46,12 +46,6 @@
                     </div>
                 </div>
                 <hr/>
-                <?php $prd_name = $order->order_detail->product->name; ?>
-                <?php $quantity = $order->order_detail->od_quantity; ?>
-                <?php $price = $order->order_detail->product->price; ?>
-                <?php $sale_off = $order->order_detail->product->sale_off; ?>
-                <?php $total_prd = $quantity * ($price - $price * ($sale_off/100)); ?>
-                <?php $total_money = $quantity * $price; ?>
                 <div class="row mb-0">
                     <div class="col-md-4">
                         <label>Sản phẩm</label>
@@ -93,24 +87,24 @@
                         </div>
                         <div class="col-md-2">
                             <div>
-                                {!! number_format($item->od_unit_price * $item->od_quantity * ($item->product->sale_off/100),0,',','.') !!} đ
+                                {!! number_format($item->od_unit_price * $item->od_quantity * ($item->prd_sale_off/100),0,',','.') !!} đ
                             </div>
                         </div>
                         <div class="col-md-2 text-right">
                             <div>
-                                {!! number_format($item->od_unit_price * $item->od_quantity - $item->od_unit_price * $item->od_quantity * ($item->product->sale_off/100),0,',','.') !!} đ
+                                {!! number_format($item->od_unit_price * $item->od_quantity - $item->od_unit_price * $item->od_quantity * ($item->prd_sale_off/100),0,',','.') !!} đ
                             </div>
                         </div>
                     </div>
                     <hr/>
                 @endforeach
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-7">
 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="pt-1">
                                     <p style="font-size: 16px;">Tạm tính:</p>
                                 </div>
@@ -124,22 +118,21 @@
                                     <p style="font-size: 16px;">Tổng cộng:</p>
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="pt-1">
-                                    <p style="font-size: 16px;">{!! number_format($order->od_total_price,0,',','.') !!} đ</p>
+                                    <p style="font-size: 16px;">{!! number_format(($order->od_total_price - $order->ship_fee),0,',','.') !!} đ</p>
                                 </div>
                                 <div class="pt-1">
-                                    <p style="font-size: 16px;">{!! 0 !!} đ</p>
+                                    <p style="font-size: 16px;">{!! number_format($total_sale_off,0,',','.') !!} đ</p>
                                 </div>
                                 <div class="pt-1">
                                     <p style="font-size: 16px;">{!! number_format($order->ship_fee,0,',','.') !!} đ</p>
                                 </div>
                                 <div class="pt-1">
-                                    <p class="text-success font-weight-bold" style="font-size: 16px;">{!! number_format($order->od_total_price + $order->ship_fee,0,',','.') !!} đ</p>
+                                    <p class="text-success font-weight-bold" style="font-size: 16px;">{!! number_format($order->od_total_price,0,',','.') !!} đ</p>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

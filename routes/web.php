@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/shops/list', 'Frontend\HomeController@getListShop')
         ->name('home.shop.list');
 
-    Route::get('/shop/detail', 'Frontend\HomeController@getDetailShop')
+    Route::get('/shops/detail/{id}', 'Frontend\HomeController@getDetailShop')
         ->name('home.shop.list');
 
 # User product
