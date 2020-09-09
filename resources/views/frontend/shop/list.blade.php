@@ -41,36 +41,34 @@
 
                     <h5 class="pb-2" style="color: #65676b;font-size: 16px !important;">Hạng mục</h5>
                     <ul class="menu_left menu_categories">
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list" style="color: #444;">
-                                <i class="fa fa-cubes float-left"></i>
-                                <span class="float-left item_menu_title">Kim loại</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-tree float-left"></i>
-                                <span class="float-left item_menu_title">Gỗ</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-futbol-o float-left"></i>
-                                <span class="float-left item_menu_title">Nhựa, cao su</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-glass float-left"></i>
-                                <span class="float-left item_menu_title">Thuỷ tinh</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-window-minimize float-left"></i>
-                                <span class="float-left item_menu_title">Khác</span>
-                            </a>
-                        </li>
+                        <?php $lstCate = \App\Category::where('status', '!=', -1)->get(); ?>
+                        @foreach($lstCate as $cate)
+                            <li class="item_menu_left pl-2 py-2 clearfix">
+                                <a href="/product/cate/{!! $cate->id !!}" style="color: #444;">
+                                    @switch($cate->id)
+                                        @case(1)
+                                        <i class="fa fa-cubes float-left"></i>
+                                        @break
+                                        @case(2)
+                                        <i class="fa fa-tree float-left"></i>
+                                        @break
+                                        @case(3)
+                                        <i class="fa fa-futbol-o float-left"></i>
+                                        @break
+                                        @case(4)
+                                        <i class="fa fa-glass float-left"></i>
+                                        @break
+                                        @case(5)
+                                        <i class="fa fa-window-minimize float-left"></i>
+                                        @break
+                                        @default
+                                        <i class="fa fa-window-minimize float-left"></i>
+                                        @break
+                                    @endswitch
+                                    <span class="float-left item_menu_title">{!! $cate->name !!}</span>
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -79,95 +77,43 @@
             <div class="col-md-12 px-0">
                 <div class="container-fluid">
                     <div class="row">
-                        {{-- danh sách cửa hàng --}}
                         <div class="col-md-12">
                             <h5 class="py-2 pl-2">Danh sách cửa hàng</h5>
                         </div>
+                        @foreach($lstShop as $shop)
                         <div class="col-md-6">
                             <div class="card my-2 border-0">
                                 <div class="card-body row">
                                     <div class="col-md-4 cart-img-shop" style="max-width: 220px;">
-                                        <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/img_sign_in.jpg" alt="ảnh 1" style="object-fit: cover;">
+                                        @if($shop->logo == null || strlen($shop->logo) == 0)
+                                            <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/img_sign_in.jpg" alt="ảnh 1" style="object-fit: cover;">
+                                        @else
+                                            <img class="img-thumbnail border-0 p-0 w-100 h-100" src="{!! $shop->large_photo !!}" alt="ảnh 1" style="object-fit: cover;">
+                                        @endif
                                     </div>
                                     <div class="col-md-8 pl-0 position-relative">
-                                        <h5 class="card-title">Chuyên tái chế và trang trí vườn</h5>
-                                        <p class="card-text">Với rất nhiều đồ vật cũ được tái chế qua bàn tay nghệ nhân đã trở lên sinh động, đẹp mắt. Biến khu vườn của bạn tràn đầy sứ sông hơn bao giờ hết.</p>
-                                        <p class="card-text pt-2">Vật liệu: kim loại</p>
-                                        <p class="card-text pt-2">Số lượng mặt hàng: 100</p>
-                                        <p class="position-absolute" style="bottom: 0;right: 15px;"><a href="/shop/detail" class="" style="color: #2aa846;">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                        <h5 class="card-title" style="color: #53ad5e;">{!! $shop->name !!}</h5>
+                                        <p class="card-text"></p>
+                                        <?php
+                                            $lstPrd = \App\Product::where('shop_id', $shop->id)->where('status', 1)->get();
+                                            $lstCateByShop = array();
+                                            foreach ($lstPrd as $prd) {
+                                                if (in_array($prd->category->name, $lstCateByShop)) {
+                                                    continue;
+                                                }
+                                                array_push($lstCateByShop, $prd->category->name);
+                                            };
+                                        ?>
+                                        <p class="card-text pt-2">Danh mục: {!! implode(", ",$lstCateByShop) !!}</p>
+
+                                        <p class="card-text pt-2">Số lượng mặt hàng: {!! count($lstPrd); !!}</p>
+                                        <p class="position-absolute" style="bottom: 0;right: 15px;"><a href="/shops/detail/{!! $shop->id !!}" class="" style="color: #2aa846;">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                                             </a></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card my-2 border-0">
-                                <div class="card-body row">
-                                    <div class="col-md-4 cart-img-shop" style="max-width: 220px;">
-                                        <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/img_sign_in.jpg" alt="ảnh 1" style="object-fit: cover;">
-                                    </div>
-                                    <div class="col-md-8 pl-0 position-relative">
-                                        <h5 class="card-title">Chuyên tái chế và trang trí vườn</h5>
-                                        <p class="card-text">Với rất nhiều đồ vật cũ được tái chế qua bàn tay nghệ nhân đã trở lên sinh động, đẹp mắt. Biến khu vườn của bạn tràn đầy sứ sông hơn bao giờ hết.</p>
-                                        <p class="card-text pt-2">Vật liệu: kim loại</p>
-                                        <p class="card-text pt-2">Số lượng mặt hàng: 100</p>
-                                        <p class="position-absolute" style="bottom: 0;right: 15px;"><a href="/shop/detail" class="" style="color: #2aa846;">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                            </a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card my-2 border-0">
-                                <div class="card-body row">
-                                    <div class="col-md-4 cart-img-shop" style="max-width: 220px;">
-                                        <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/img_sign_in.jpg" alt="ảnh 1" style="object-fit: cover;">
-                                    </div>
-                                    <div class="col-md-8 pl-0 position-relative">
-                                        <h5 class="card-title">Chuyên tái chế và trang trí vườn</h5>
-                                        <p class="card-text">Với rất nhiều đồ vật cũ được tái chế qua bàn tay nghệ nhân đã trở lên sinh động, đẹp mắt. Biến khu vườn của bạn tràn đầy sứ sông hơn bao giờ hết.</p>
-                                        <p class="card-text pt-2">Vật liệu: kim loại</p>
-                                        <p class="card-text pt-2">Số lượng mặt hàng: 100</p>
-                                        <p class="position-absolute" style="bottom: 0;right: 15px;"><a href="/shop/detail" class="" style="color: #2aa846;">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                            </a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card my-2 border-0">
-                                <div class="card-body row">
-                                    <div class="col-md-4 cart-img-shop" style="max-width: 220px;">
-                                        <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/img_sign_in.jpg" alt="ảnh 1" style="object-fit: cover;">
-                                    </div>
-                                    <div class="col-md-8 pl-0 position-relative">
-                                        <h5 class="card-title">Chuyên tái chế và trang trí vườn</h5>
-                                        <p class="card-text">Với rất nhiều đồ vật cũ được tái chế qua bàn tay nghệ nhân đã trở lên sinh động, đẹp mắt. Biến khu vườn của bạn tràn đầy sứ sông hơn bao giờ hết.</p>
-                                        <p class="card-text pt-2">Vật liệu: kim loại</p>
-                                        <p class="card-text pt-2">Số lượng mặt hàng: 100</p>
-                                        <p class="position-absolute" style="bottom: 0;right: 15px;"><a href="/shop/detail" class="" style="color: #2aa846;">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                            </a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card my-2 border-0">
-                                <div class="card-body row">
-                                    <div class="col-md-4 cart-img-shop" style="max-width: 220px;">
-                                        <img class="img-thumbnail border-0 p-0 w-100 h-100" src="/img/img_sign_in.jpg" alt="ảnh 1" style="object-fit: cover;">
-                                    </div>
-                                    <div class="col-md-8 pl-0 position-relative">
-                                        <h5 class="card-title">Chuyên tái chế và trang trí vườn</h5>
-                                        <p class="card-text">Với rất nhiều đồ vật cũ được tái chế qua bàn tay nghệ nhân đã trở lên sinh động, đẹp mắt. Biến khu vườn của bạn tràn đầy sứ sông hơn bao giờ hết.</p>
-                                        <p class="card-text pt-2">Vật liệu: kim loại</p>
-                                        <p class="card-text pt-2">Số lượng mặt hàng: 100</p>
-                                        <p class="position-absolute" style="bottom: 0;right: 15px;"><a href="/shop/detail" class="" style="color: #2aa846;">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                            </a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

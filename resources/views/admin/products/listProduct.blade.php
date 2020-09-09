@@ -1,101 +1,94 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Danh sách sản phẩm')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="/Admin/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+    <link rel="stylesheet" href="/Admin/plugins/fontawesome-free/css/v4-shims.css">
+
 @endsection
 
 @section('main-content')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card border-0 border-r-0">
-                <form action="/admin/products/listProduct" method="get" id="product-form">
-                    <div class="card-body border-0 clearfix">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Tìm kiếm với từ khóa</label>
-                                    <input value="" type="text" name="keyword" class="form-control border-r-0"
-                                           placeholder="Từ khóa">
-                                    <input type="submit" style="visibility: hidden;"/>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mb-4">
-                                    <label for="exampleFormControlSelect1">Dòng sản phẩm</label>
-                                    <select name="category_id" class="form-control border-r-0" id="categorySelect">
-                                        <option value="0">Tất cả</option>
-                                        {{--                                        @foreach($categories as $cate)--}}
-                                        {{--                                            <option value="{{$cate->id}}" {{$cate->id == $category_id ? 'selected':''}}>{{$cate->name}}</option>--}}
-                                        {{--                                        @endforeach--}}
-                                    </select>
-                                </div>
-                            </div>
-                            {{-- type product --}}
-                            <div class="col-md-4">
-                                <div class="form-group mb-4">
-                                    <label for="exampleFormControlSelect1">Loại sản phẩm</label>
-                                    <select name="category_id" class="form-control border-r-0" id="categorySelect">
-                                        <option value="0">Tất cả</option>
-                                        {{--                                        @foreach($categories as $cate)--}}
-                                        {{--                                            <option value="{{$cate->id}}" {{$cate->id == $category_id ? 'selected':''}}>{{$cate->name}}</option>--}}
-                                        {{--                                        @endforeach--}}
-                                    </select>
-                                </div>
-                            </div>
+    <div class="row scroll_content pb-3 pt-1">
+        <div class="col-md-12 mb-3">
+            <div class="box-filter p-3 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
+                <div class="header_box_filter clearfix">
+                    <button type="button" class="btn btn-sm btn-default mr-2 float-left" style="border: 1px solid #ddd;" title="Tải lại"><i class="fa fa-refresh px-1"></i></button>
+                    <div class="input-group input-group-sm float-left" style="width: 200px;">
+                        <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm sản phẩm" style="border-radius: 0 !important;">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default" style="border: 1px solid #ced4da; border-radius: 0 !important;"><i class="fas fa-search"></i></button>
                         </div>
-                        <br>
-                        {{-- giảm giá --}}
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="exampleFormControlSelect1">Giảm giá</label>
-                                <a class="btn dropdown-toggle bg-white style_dropdown border-r-1" role="button"
-                                   id="filter_type" style="padding: 16px 16px;"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                                <div class="dropdown-menu" style="width: 50%" aria-labelledby="filter_type">
-                                    <div class="p-3">
-                                        <input id="range_1" class="p-3 form-control border-r-0" type="text"
-                                               name="range_1" value="">
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- giá bán --}}
-                            <div class="col-md-2">
-                                <label for="exampleFormControlSelect1">Giá bán</label>
-                                <a class="btn dropdown-toggle bg-white style_dropdown" role="button"
-                                   id="filter_type"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                                <div class="dropdown-menu border-r-0" style="width: 50%;"
-                                     aria-labelledby="filter_type">
-                                    <div class="p-3">
-                                        <label>Từ:
-                                            <input class="form-control" type="number" min="0" placeholder="0">
-                                        </label>
-                                        <label class="pt-2 pb-2">Đến:
-                                            <input class="form-control" type="number" min="0" placeholder="0"/>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- date --}}
-                            <div class=" col-md-3 input-group mr-1 float-left mb-4" style="width: 20%;">
-                                <input type="text" class="form-control border-r-0" readonly="" id="dateTime"
-                                       style="padding: 16px 16px;"/>
-                                <div class="input-group-addon border-0"><i class="fa fa-calendar"></i></div>
+                    </div>
+                    <div class="input-group mr-1 ml-1 float-left" style="width: 250px;">
+                        <input type="text" class="form-control" readonly="" id="dateTime" style="border-radius: 0 !important;"/>
+                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                    </div>
+                    <div class="input-group mr-1 ml-1 float-left" style="width: 130px;">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="actionTypeProduct" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Loại sản phẩm
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="actionTypeProduct">
+                                <a class="dropdown-item" data-val="" onclick="filterActive(this)">Tất cả</a>
+                                <a class="dropdown-item" data-val="1" onclick="filterActive(this)">Kim loại</a>
+                                <a class="dropdown-item" data-val="2" onclick="filterActive(this)">Gỗ</a>
+                                <a class="dropdown-item" data-val="3" onclick="filterActive(this)">Nhựa, Cao su</a>
+                                <a class="dropdown-item" data-val="4" onclick="filterActive(this)">Thuỷ tinh</a>
+                                <a class="dropdown-item" data-val="5" onclick="filterActive(this)">Khác</a>
                             </div>
                         </div>
                     </div>
-                </form>
+                    <div class="input-group mr-1 ml-1 float-left" style="width: 100px;">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Trạng thái
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="action">
+                                <a class="dropdown-item" data-val="" onclick="filterActive(this)">Tất cả</a>
+                                <a class="dropdown-item" data-val="1" onclick="filterActive(this)">Hoạt động</a>
+                                <a class="dropdown-item" data-val="0" onclick="filterActive(this)">Không hoạt động</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mr-1 ml-1 float-left" style="width: 95px;">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="filter_type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Giảm giá
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="filter_type">
+                                <div class="p-3">
+                                    <input id="range_1" class="p-3" type="text" name="range_1" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mr-1 ml-1 float-left" style="width: 100px;">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="filter_sale" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Giá bán
+                            </button>
+                            <div class="dropdown-menu border-r-0" aria-labelledby="filter_sale">
+                                <div class="p-3">
+                                    <label>Từ:  <input class="form-control" type="number" min="0" placeholder="0"></label>
+                                    <label class="pt-2 pb-2">Đến:  <input class="form-control" type="number" min="0" placeholder="0"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-12">
-            <div class="card content-table bg-white">
-                <div class="card-header bg-white position-relative border-0">
+        <div class="col-md-12">
+            <div class="content-table bg-white py-2 px-3" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
+                <div class="card-header bg-white position-relative border-0 py-3 px-0">
                     <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách sản phẩm</h4>
                     <div class="breadcrumb">
-                        <a href="/admin/product/new" type="button" class="btn btn-sm btn-success"><i
-                                class="fa fa-plus"></i>&nbsp; Thêm mới</a>
+                        <a href="/admin/product/new" type="button" class="btn btn-sm btn-success">
+                            <i class="fa fa-plus"></i>&nbsp; Thêm mới
+                        </a>
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
@@ -107,47 +100,52 @@
                                 <label class="form-check-label" for="check-th"></label>
                             </th>
                             <th class="ver-middle">Mã sản phẩm</th>
+                            <th class="ver-middle">Hình ảnh</th>
                             <th class="ver-middle">Tên sản phẩm</th>
-                            <th class="ver-middle">Cửa hàng</th>
                             <th class="ver-middle">Loại sản phẩm</th>
                             <th class="ver-middle">Giá bán</th>
-                            <th class="ver-middle">Số lượng</th>
-                            <th class="ver-middle">Trạng thái</th>
+                            <th class="ver-middle">Giảm giá</th>
                             <th class="ver-middle">Ngày tạo</th>
-                            <th class="ver-middle">
-                                <div class="dropdown">
-                                    <a class="btn dropdown-toggle bg-white"
-                                       style="border: 1px solid #ced4da !important; padding: .3rem .75rem !important; border-radius: 0 !important;"
-                                       role="button" id="bulkaction_product" data-toggle="dropdown" aria-haspopup="true"
-                                       aria-expanded="false">Thao tác nhiều</a>
-                                    <div class="dropdown-menu" aria-labelledby="bulkaction_product">
-                                        <a class="dropdown-item active">Xoá</a>
-                                    </div>
-                                </div>
-                            </th>
+                            <th class="ver-middle">Trạng thái</th>
+                            <th class="ver-middle text-xl-right">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($products as $pro)
                             <tr>
-                                <td class="text-xl-center ver-middle">
+                                <td class="text-xl-center ver-middle" style="width: 40px;">
                                     <input type="checkbox" class="form-check-input" id="check-{{$pro->id}}">
                                     <label class="form-check-label" for="check-{{$pro->id}}"></label>
                                 </td>
                                 <td class="ver-middle">{{$pro->id}}</td>
+                                <td class="ver-middle">
+                                    @if($pro->thumbnail == null || strlen($pro->thumbnail) == 0)
+                                        <img src="/img/donors1.jpg" class="img-circle" alt="product" title="admin" style="width: 3rem;height: 3rem;">
+                                    @else
+                                        <img src="{!! $pro->small_photo !!}" class="img-circle" alt="product" title="admin" style="width: 3rem;height: 3rem;">
+                                    @endif
+                                </td>
                                 <td class="ver-middle">{{$pro->name}}</td>
-                                <td class="ver-middle">{{$pro->shop_id}}</td>
-                                <td class="ver-middle">{{$pro->category_id}}</td>
-                                <td class="ver-middle">{{$pro->price}} VND</td>
-                                <td class="ver-middle">{{$pro->quantily}}</td>
-                                <td class="ver-middle">{{$pro->status}}</td>
-                                <td class="ver-middle">{{$pro->created_at}}</td>
+                                <td class="ver-middle">
+                                    @foreach($lstCate as $cate)
+                                        @if($cate->id == $pro->category_id)
+                                            {!! $cate->name !!}
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td class="ver-middle">{{number_format($pro->price,0,',','.')}} VND</td>
+                                <td class="ver-middle">{{$pro->sale_off}}%</td>
+                                <td class="ver-middle">{{date('d-m-Y', strtotime($pro->created_at))}}</td>
+                                <td class="ver-middle">
+                                    @if($pro->status == 1)
+                                        Họat động
+                                    @else
+                                        Khóa
+                                    @endif
+                                </td>
                                 <td class="text-xl-right ver-middle">
-                                    <a href="/admin/product/detail" type="button" class="btn btn-sm btn-warning"><i
-                                            class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                    <button type="button" class="btn btn-sm btn-danger" value="1"
-                                            onclick="showModalDeleteProduct(this)"><i class="fa fa-trash"></i>&nbsp; Xoá
-                                    </button>
+                                    <a href="/admin/product/detail" class="pr-2" title="Sửa"><i class="fa fa-edit text-warning" style="font-size: 1em;"></i></a>
+                                    <a value="1" onclick="showModalDeleteProduct(this)" title="Xoá"><i class="fa fa-trash" style="font-size: 1em;"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -212,6 +210,6 @@
     <script src="/Admin/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
     <script src="/Admin/plugins/moment/moment.min.js"></script>
     <script src="/Admin/plugins/moment/locale/vi.js"></script>
-    <script src="/js/product/product.js"></script>
+    <script src="/js/admin/product/product.js"></script>
 
 @endsection

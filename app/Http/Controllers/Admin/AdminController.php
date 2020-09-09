@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Article;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Order;
@@ -12,6 +13,8 @@ use App\Product;
 use App\Shop;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Mockery\Exception;
 
 class AdminController extends Controller
@@ -19,12 +22,51 @@ class AdminController extends Controller
     //
     public function home()
     {
-        return view('admin.layout_admin_master');
+        return view('admin.dashboard');
     }
 
     public function login()
     {
         return view('admin.login_admin');
+    }
+
+    public function postLogin(Request $request)
+    {
+        $login1 = [
+            'email' => $request->username,
+            'password' => $request->password
+        ];
+        $login2 = [
+            'phone' => $request->username,
+            'password' => $request->password
+        ];
+        if (Auth::attempt($login1, true) || Auth::attempt($login2, true)) {
+            $user = Auth::user();
+
+            if ($user->status == 1) {
+                // login success
+                return redirect('/admin/home');
+            } else {
+                // login fail
+                Auth::logout();
+                return redirect()->back()->with(['success_message' => 'Tài khoản không hoạt động']);
+            }
+        } else {
+            $userByKey = User::where('email', $request->username)
+                ->orWhere('phone', $request->username)
+                ->where('status', [1,2])
+                ->first();
+            if ($userByKey && $userByKey->id) {
+                // wrong pass
+                return redirect()->back()->with(['success_message' => 'Sai mật khẩu']);
+            }
+            return redirect()->back()->with(['success_message' => 'Đăng nhập thất bại']);
+        }
+    }
+
+    public function getAdminLogout() {
+        Auth::logout();
+        return redirect('/admin/login');
     }
 
     // category
@@ -37,9 +79,8 @@ class AdminController extends Controller
     {
         $categories = Category::where('status', '=', 1)
             ->orderby('created_at', 'desc')
-            ->paginate(5);
-//        dd($categories);
-        return view('admin.category.listCategory')->with('categories', $categories);
+            ->paginate(20);
+        return view('admin.category.listCategory', compact('categories'));
 
 //        $date ['keyword'] = '';
 //        $category_list = Category::query();
@@ -122,55 +163,130 @@ class AdminController extends Controller
     // list account admin
     public function accountManagement()
     {
-        return view('admin.account.account');
+        $lstUserAdmin = User::whereIn('role', [1,2])
+            ->where('status', '!=', -1)
+            ->orderby('created_at', 'desc')
+            ->paginate(15);
+        return view('admin.account.account', compact('lstUserAdmin'));
     }
 
     // detail account admin
-    public function detailAccount()
+    public function detailAccount($id)
     {
-        return view('admin.account.detailAccount');
+        $user = User::where('id', $id)->where('status', '!=', -1)->first();
+        if ($user == null) {
+            return abort(404);
+        }
+        return view('admin.account.detailAccount', compact('user'));
+    }
+
+    public function postEditUser(Request $request)
+    {
+        try {
+            $user = User::where('id', $request->id)->where('status', '!=', -1)->first();
+            if ($user == null) {
+                return abort(404);
+            }
+            $user->user_name = $request->user_name;
+            $user->full_name = $request->full_name;
+            $user->phone = $request->phone;
+            $user->email = $request->email;
+            $user->status = $request->status;
+            $user->address = $request->address;
+            $user->save();
+            return redirect()->back()->with(['success_message' => 'Cập nhật tài khoản thành công']);
+        } catch (\Exception $ex) {
+            return redirect()->back()->with(['success_message' => 'Cập nhật tài khoản không thành công']);
+        }
+    }
+
+    public function newAccount()
+    {
+        return view('admin.account.newUser');
+    }
+
+    public function newAccountUser()
+    {
+        return view('admin.account.newAccount');
+    }
+
+    public function postCreateUser(Request $request)
+    {
+        try {
+            // no check unique phone + email
+            $user = new User();
+            $user->user_name = $request->user_name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->full_name = $request->full_name;
+            $user->phone = $request->phone;
+            $user->role = $request->role;
+            $user->status = 1;
+            $user->save();
+            if ($request->role == 2) {
+                return redirect('/admin/account')->with(['success_message' => 'Tạo mới tài khoản thành công']);
+            }
+            return redirect('/admin/account/user')->with(['success_message' => 'Tạo mới tài khoản thành công']);
+        } catch (\Exception $ex) {
+            return redirect('/admin/account')->with(['success_message' => 'Tạo mới tài không thành công']);
+        }
     }
 
     // list account user
     public function listAccountUser()
     {
-        return view('admin.account.listUser');
+        $lstUser = User::whereIn('role', [3,4])
+            ->where('status', '!=', -1)
+            ->orderby('created_at', 'desc')
+            ->paginate(20);
+        return view('admin.account.listUser', compact('lstUser'));
     }
 
     // new account user
-    public function newAccountUser()
-    {
-        return view('admin.account.newUser');
-    }
+
 
     // detail account user
-    public function detailAccountUser()
+    public function detailAccountUser($id)
     {
-        return view('admin.account.detailUser');
+        $user = User::where('id', $id)->where('status', '!=', -1)->first();
+        if ($user == null) {
+            return abort(404);
+        }
+
+        return view('admin.account.detailUser', compact('user'));
     }
 
     // list account shop
     public function listAccountShop()
     {
-        $lstShop = Shop::whereNotIn('status', [-1])->get();
+        $lstShop = Shop::whereNotIn('status', [-1])
+            ->orderby('created_at', 'desc')
+            ->paginate(20);
         return view('admin.account.listShop', compact('lstShop'));
     }
 
     public function getChangeStatusShop(Request $request)
     {
-        $shop = Shop::where('id', $request->id)->where('status', '!=', -1)->first();
-        if ($shop) {
+        try {
+            $shop = Shop::where('id', $request->id)->where('status', '!=', -1)->first();
+            if ($shop == null) {
+                return abort(404);
+            }
             $user = User::where('id', $shop->account_id)->where('status', '!=', -1)->first();
-            if ($user) {
-                $shop->status = $request->status;
-                $user->role = 4;
+            if ($user == null) {
+                return abort(404);
+            }
+            $shop->status = $request->status;
+            $user->role = 4;
+            DB::transaction(function() use ($user, $shop) {
                 $user->save();
                 $shop->save();
-                return redirect('/admin/account/shop');
-            }
-            return view('errors.404');
-        } else {
-            return view('errors.404');
+            });
+            return redirect('/admin/account/shop')
+                ->with(['success_message' => 'Kích hoạt tài khoản thành công']);
+        } catch (\Exception $ex) {
+            return redirect('/admin/account/shop')
+                ->with(['success_message' => 'Kích hoạt tài khoản không thành công']);
         }
     }
 
@@ -181,16 +297,41 @@ class AdminController extends Controller
     }
 
     // detail account shop
-    public function detailAccountShop()
+    public function detailAccountShop($id)
     {
-        return view('admin.account.detailShop');
+        $shop = Shop::where('id', $id)->where('status', '!=', -1)->first();
+        if ($shop == null) {
+            return  abort(404);
+        }
+        return view('admin.account.detailShop', compact('shop'));
+    }
+
+    public function postEditShop(Request $request)
+    {
+        try {
+            $shop = Shop::where('id', $request->id)->where('status', '!=', -1)->first();
+            if ($shop == null) {
+                return abort(404);
+            }
+            $shop->name = $request->name;
+            $shop->address = $request->address;
+            $shop->phone = $request->phone;
+            $shop->email = $request->email;
+            $shop->save();
+            return redirect()->back()->with(['success_message' => 'Cập nhật tài khoản thành công']);
+        } catch (\Exception $ex) {
+            return redirect()->back()->with(['success_message' => 'Cập nhật tài khoản không thành công']);
+        }
     }
 
     // product
     public function listProduct(Request $request)
     {
-        $products = Product::where('status', '=', 1)->orderby('id', 'desc')->paginate(10);
-        return view('admin.products.listProduct')->with('products', $products);
+        $products = Product::where('status', '=', 1)
+            ->orderby('created_at', 'desc')
+            ->paginate(20);
+        $lstCate = Category::where('status', 1)->get();
+        return view('admin.products.listProduct', compact('products', 'lstCate'));
     }
 
     public function newProduct()
@@ -260,12 +401,46 @@ class AdminController extends Controller
     }
 
     // orders
-    public function getListOrder()
+    public function getListOrder(Request $request)
     {
-        $lstOrder = Order::whereNotIn('od_status', [-1])
-            ->orderby('created_at', 'desc')
-            ->paginate(15);
-        return view('admin.orders.listOrders', compact('lstOrder'));
+        try {
+            $data = array();
+            $data['keyword'] = '';
+            $data['od_status'] = 0;
+            $lstOrderStats = Order_status::all();
+            $data['lstOrderStats'] = $lstOrderStats;
+            $lstOrder = Order::query();
+            if ($request->has('od_status') && $request->get('od_status') != 0) {
+                $data['od_status'] = $request->get('od_status');
+                $lstOrder = $lstOrder->where('od_status', '=', $request->get('od_status'));
+            }
+            if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+                $data['keyword'] = $request->get('keyword');
+                $lstOrder = $lstOrder->where('od_code', 'like', '%' . $request->get('keyword') . '%');
+            }
+            if ($request->has('start') && strlen($request->get('start')) > 0 && $request->has('end') && strlen($request->get('end')) > 0) {
+                $data['start'] = $request->get('start');
+                $data['end'] = $request->get('end');
+                $from = date($request->get('start') . ' 00:00:00');
+                $to = date($request->get('end') . ' 23:59:00');
+                $lstOrder = $lstOrder->whereBetween('created_at', [$from, $to]);
+                $dataOrder = array();
+                $dataOrder['totalOrder'] = count($lstOrder);
+            }
+            $data['lstOrder'] = $lstOrder->where('od_status', '!=', -1)
+                ->orderby('id', 'desc')
+                ->paginate(15);
+
+
+//        $lstOrder = Order::whereNotIn('od_status', [-1])
+//            ->orderby('created_at', 'desc')
+//            ->paginate(15);
+
+//        return view('admin.orders.listOrders', compact('lstOrder', 'lstOrderStats'));
+            return view('admin.orders.listOrders', compact('data'));
+        } catch (\Exception $ex) {
+            return abort(404);
+        }
     }
 
     public function newOrders()
@@ -281,12 +456,18 @@ class AdminController extends Controller
                 ->first();
             $order_status = Order_status::all();
             if ($order == null) {
-                return view('errors.404');
+                return abort(404);
             }
+
+            $total_sale_off = 0;
             $order_detail = Order_detail::where('od_id', $order->id)->get();
-            return view('admin.orders.detailOrders', compact('order', 'order_status', 'order_detail'));
+            foreach ($order_detail as $item) {
+                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off/100);
+            }
+            return view('admin.orders.detailOrders',
+                compact('order', 'order_status', 'order_detail', 'total_sale_off'));
         } catch (\Exception $ex) {
-            return false;
+            return abort(404);
         }
     }
 
@@ -307,7 +488,10 @@ class AdminController extends Controller
     // posts
     public function listPosts()
     {
-        return view('admin.posts.listPosts');
+        $lstArticle = Article::where('status', '!=', -1)
+            ->orderby('created_at', 'desc')
+            ->paginate(20);
+        return view('admin.posts.listPosts', compact('lstArticle'));
     }
 
     public function newPosts()
@@ -322,7 +506,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.chartjs');
+        return view('admin.dashboard');
     }
     //
 

@@ -27,4 +27,6 @@ $(document).ready(function() {
         $('.file-upload').removeClass('d-none');
         $('.content_information').addClass('d-none');
     })
+    var heightContent = $(window).height() - 100;
+    $('.scroll_form').css({'height': (heightContent - 370) + 'px', 'overflow':'auto'});
 });

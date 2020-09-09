@@ -1,17 +1,22 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Chi tiết đơn hàng')
+
 @section('header-script')
-    <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css" xmlns="http://www.w3.org/1999/html">
+    <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/Admin/plugins/fontawesome-free/css/v4-shims.css">
+    <link rel="stylesheet" href="/Admin/plugins/sweetalert/sweetalert.min.css">
 @endsection
 
 @section('main-content')
-    <div class="row pb-5">
-        <div class="col-md-12 mb-4">
+    <div class="row scroll_content_detail pb-3">
+        <div class="col-md-12 mb-3">
             <a href="/admin/orders/list" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh
                 sách đơn hàng</a>
         </div>
-        <div class="col-12">
-            <div class="container bootstrap snippet">
+        <div class="col-md-12">
+            <div class="container-fluid bg-white p-3 content_form" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="row">
                     <div class="col-sm-12">
                         <span style="font-size: 20px; font-weight: 500">
@@ -74,15 +79,7 @@
                     </div>
                 </div>
                 <hr>
-                <?php $prd_name = $order->order_detail->product->name; ?>
-                <?php $quantity = $order->order_detail->od_quantity; ?>
-                <?php $price = $order->order_detail->product->price; ?>
-                <?php $sale_off = $order->order_detail->product->sale_off; ?>
-                <?php $total_prd = $quantity * ($price - $price * ($sale_off/100)); ?>
-                <?php $total_money = $quantity * $price; ?>
-                <?php $discount = 0; ?>
                 @foreach($order_detail as $item)
-                    <?php $discount += $item->od_unit_price * $item->od_quantity * ($item->product->sale_off/100); ?>
                     <div class="row mb-4">
                         <div class="col-md-4">
                             <label>Sản phẩm</label>
@@ -110,13 +107,13 @@
                         <div class="col-md-2">
                             <label>Giảm giá</label>
                             <div>
-                                {!! number_format($item->od_unit_price * $item->od_quantity * ($item->product->sale_off/100),0,',','.') !!}
+                                {!! number_format($item->od_unit_price * $item->od_quantity * ($item->prd_sale_off/100),0,',','.') !!}
                             </div>
                         </div>
                         <div class="col-md-2 text-right">
                             <label>Tạm tính</label>
                             <div>
-                                {!! number_format($item->od_unit_price * $item->od_quantity - $item->od_unit_price * $item->od_quantity * ($item->product->sale_off/100),0,',','.') !!}
+                                {!! number_format($item->od_unit_price * $item->od_quantity - $item->od_unit_price * $item->od_quantity * ($item->prd_sale_off/100),0,',','.') !!}
                             </div>
                         </div>
                     </div>
@@ -135,10 +132,10 @@
                                 <p>Tổng cộng: </p>
                             </div>
                             <div class="col-4 text-right">
-                                <p>{!! number_format($order->od_total_price,0,',','.') !!}</p>
-                                <p>{!! number_format($discount,0,',','.') !!}</p>
-                                <p>{!! number_format($order->ship_fee,0,',','.') !!}</p>
-                                <p>{!! number_format($order->od_total_price + $order->ship_fee,0,',','.') !!}</p>
+                                <p>{!! number_format(($order->od_total_price - $order->ship_fee),0,',','.') !!} đ</p>
+                                <p>{!! number_format($total_sale_off,0,',','.') !!} đ</p>
+                                <p>{!! number_format($order->ship_fee,0,',','.') !!} đ</p>
+                                <p>{!! number_format($order->od_total_price,0,',','.') !!} đ</p>
                             </div>
                         </div>
                     </div>
@@ -153,7 +150,7 @@
                     <div class="row my-3">
                         <div class="col-4">
                             <select class="form-control" name="order_status"
-                                    @if($order->od_status == 5 || $order->od_status == 6) disabled @endif>
+                                @if($order->od_status == 5 || $order->od_status == 6) disabled @endif>
                                 @foreach($order_status as $stt)
                                     @if($stt->stt_order >= $order->od_status)
                                         <option value="{!! $stt->stt_order !!}"
@@ -180,5 +177,9 @@
 @endsection
 @section('main-script')
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/js/detailAccount.js"></script>
+    <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/Admin/plugins/moment/moment.min.js"></script>
+    <script src="/Admin/plugins/moment/locale/vi.js"></script>
+    <script src="/js/admin/orders/orders.js"></script>
+    <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
 @endsection

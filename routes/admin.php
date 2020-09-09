@@ -12,74 +12,88 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/login', 'Admin\AdminController@login');
+Route::get('/admin/login', 'Admin\AdminController@login')
+    ->name('admin.login');
 
-Route::get('/admin/home', 'Admin\AdminController@home');
+Route::post('/admin/login', 'Admin\AdminController@postLogin');
+
+Route::get('/admin/logout', 'Admin\AdminController@getAdminLogout');
 
 // account admin
-Route::get('/admin/account', 'Admin\AdminController@accountManagement');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function() {
+    Route::get('/home', 'Admin\AdminController@home');
 
-Route::get('/admin/account/new', 'Admin\AdminController@newAccount');
+    Route::get('/account', 'Admin\AdminController@accountManagement');
 
-Route::get('/admin/account/detail', 'Admin\AdminController@detailAccount');
+    Route::get('/account/new', 'Admin\AdminController@newAccount');
+
+    Route::get('/account/detail/{id}', 'Admin\AdminController@detailAccount');
+
+    Route::post('/account/edit', 'Admin\AdminController@postEditUser');
+
+    Route::post('/account/create', 'Admin\AdminController@postCreateUser');
 
 // account user
-Route::get('/admin/account/user', 'Admin\AdminController@listAccountUser');
+    Route::get('/account/user', 'Admin\AdminController@listAccountUser');
 
-Route::get('/admin/account/user/new', 'Admin\AdminController@newAccountUser');
+    Route::get('/account/user/new', 'Admin\AdminController@newAccountUser');
 
-Route::get('/admin/account/user/detail', 'Admin\AdminController@detailAccountUser');
+    Route::get('/account/user/detail/{id}', 'Admin\AdminController@detailAccountUser');
 
 // account shop
-Route::get('/admin/account/shop', 'Admin\AdminController@listAccountShop');
+    Route::get('/account/shop', 'Admin\AdminController@listAccountShop');
 
-Route::get('/admin/account/shop/{id}/{status}', 'Admin\AdminController@getChangeStatusShop');
+    Route::get('/account/shop/{id}/{status}', 'Admin\AdminController@getChangeStatusShop');
 
-Route::get('/admin/account/shop/new', 'Admin\AdminController@newAccountShop');
+    Route::get('/account/shop/new', 'Admin\AdminController@newAccountShop');
 
-Route::get('/admin/account/shop/detail/{id}', 'Admin\AdminController@detailAccountShop');
+    Route::get('/account/shops/detail/{id}', 'Admin\AdminController@detailAccountShop');
+
+    Route::post('/account/shop/edit', 'Admin\AdminController@postEditShop');
 
 // category
-Route::get('/admin/category/new', 'Admin\AdminController@getNewCategory');
+    Route::get('/category/new', 'Admin\AdminController@getNewCategory');
 
-Route::post('/admin/category/new', 'Admin\AdminController@postNewCategory');
+    Route::post('/category/new', 'Admin\AdminController@postNewCategory');
 
-Route::get('/admin/category/detail/{id}', 'Admin\AdminController@getDetailCategory');
+    Route::get('/category/detail/{id}', 'Admin\AdminController@getDetailCategory');
 
-Route::post('/admin/category/', 'Admin\AdminController@postDetailCategory');
+    Route::post('/category/', 'Admin\AdminController@postDetailCategory');
 
-Route::post('/admin/category/delete', 'Admin\AdminController@deleteCategory')
-    ->name('category.delete');
+    Route::post('/category/delete', 'Admin\AdminController@deleteCategory')
+        ->name('category.delete');
 
-Route::post('/admin/category/delete-all', 'Admin\AdminController@deleteAllCategory')
-    ->name('category.deleteAll');
+    Route::post('/category/delete-all', 'Admin\AdminController@deleteAllCategory')
+        ->name('category.deleteAll');
 
-Route::get('/admin/category', 'Admin\AdminController@getListCategory');
+    Route::get('/category', 'Admin\AdminController@getListCategory');
 
 // product
-Route::get('/admin/product', 'Admin\AdminController@listProduct');
+    Route::get('/product', 'Admin\AdminController@listProduct');
 
-Route::get('/admin/product/new', 'Admin\AdminController@newProduct');
+    Route::get('/product/new', 'Admin\AdminController@newProduct');
 
-Route::post('/admin/product/new', 'Admin\AdminController@postNewProduct');
+    Route::post('/product/new', 'Admin\AdminController@postNewProduct');
 
-Route::get('/admin/product/detail', 'Admin\AdminController@detailProduct');
+    Route::get('/product/detail', 'Admin\AdminController@detailProduct');
 
 // orders
 //Route::get('/admin/orders', 'Admin\AdminController@listOrders');
-Route::get('/admin/orders/list', 'Admin\AdminController@getListOrder');
+    Route::get('/orders/list', 'Admin\AdminController@getListOrder');
 
-Route::get('/admin/orders/new', 'Admin\AdminController@newOrders');
+    Route::get('/orders/new', 'Admin\AdminController@newOrders');
 
-Route::get('/admin/orders/detail/{id}', 'Admin\AdminController@getDetailOrder');
+    Route::get('/orders/detail/{id}', 'Admin\AdminController@getDetailOrder');
 
-Route::post('/admin/orders/change-order/{id}', 'Admin\AdminController@postChangeOrder');
+    Route::post('/orders/change-order/{id}', 'Admin\AdminController@postChangeOrder');
 
 // posts
-Route::get('/admin/posts', 'Admin\AdminController@listPosts');
+    Route::get('/posts', 'Admin\AdminController@listPosts');
 
-Route::get('/admin/dashboard', 'Admin\AdminController@index');
+    Route::get('/dashboard', 'Admin\AdminController@index');
 
-Route::get('/admin/posts/new', 'Admin\AdminController@newPosts');
+    Route::get('/posts/new', 'Admin\AdminController@newPosts');
 
-Route::get('/admin/posts/detail', 'Admin\AdminController@detailPosts');
+    Route::get('/posts/detail', 'Admin\AdminController@detailPosts');
+});
+

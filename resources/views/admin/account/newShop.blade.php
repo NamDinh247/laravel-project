@@ -1,16 +1,18 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Tạo tài khoản cửa hàng mới')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
 @endsection
 
 @section('main-content')
     <div class="row">
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12 mb-3">
             <a href="/admin/account/shop" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh sách tài khoản cửa hàng</a>
         </div>
         <div class="col-12">
-            <div class="container-fluid bg-white p-3 content_form" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);border-radius: 5px;">
+            <div class="container-fluid bg-white p-3 content_form" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="box-banner pb-3 position-relative">
@@ -19,6 +21,8 @@
                             <button type="button" class="btn btn-outline-success position-absolute" style="top: 55%; left: 45%;"><input type="file" class="text-center center-block file-upload" style="margin-top: 20px;display: none;"><i class="fa fa-upload"></i>&nbsp; Tải ảnh lên</button>
                         </div>
                     </div>
+                </div>
+                <div class="row scroll_form">
                     <div class="col-sm-3">
                         <div class="text-center">
                             <img src="/img/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" style="border-radius: 50% !important;width: 13rem;height: 13rem; border: 2px solid #20c997;">

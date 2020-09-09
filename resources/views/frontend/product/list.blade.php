@@ -22,10 +22,14 @@
                             <i class="fa fa-search position-absolute" style="top: 14px;left: 13px;"></i>
                         </form>
                     </li>
+                    @if(\Illuminate\Support\Facades\Auth::check())
                     <li class="item_menu_left pl-2 py-2 clearfix">
                         <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
-                        <span class="float-left item_menu_title pt-1">Hiện TNT</span>
+                        <span class="float-left item_menu_title pt-1">
+                            {!! \Illuminate\Support\Facades\Auth::user()->full_name !!}
+                        </span>
                     </li>
+                    @endif
                 </ul>
                 <hr class="my-3"/>
                 <div class="filter_left">
@@ -54,36 +58,34 @@
 
                     <h5 class="pb-2" style="color: #65676b;font-size: 16px !important;">Hạng mục</h5>
                     <ul class="menu_left menu_categories">
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list" style="color: #444;">
-                                <i class="fa fa-cubes float-left"></i>
-                                <span class="float-left item_menu_title">Kim loại</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-tree float-left"></i>
-                                <span class="float-left item_menu_title">Gỗ</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-futbol-o float-left"></i>
-                                <span class="float-left item_menu_title">Nhựa, cao su</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-glass float-left"></i>
-                                <span class="float-left item_menu_title">Thuỷ tinh</span>
-                            </a>
-                        </li>
-                        <li class="item_menu_left pl-2 py-2 clearfix">
-                            <a href="/product/list">
-                                <i class="fa fa-window-minimize float-left"></i>
-                                <span class="float-left item_menu_title">Khác</span>
-                            </a>
-                        </li>
+                        <?php $lstCate = \App\Category::where('status', '!=', -1)->get(); ?>
+                        @foreach($lstCate as $cate)
+                            <li class="item_menu_left pl-2 py-2 clearfix">
+                                <a href="/product/cate/{!! $cate->id !!}" style="color: #444;">
+                                    @switch($cate->id)
+                                        @case(1)
+                                        <i class="fa fa-cubes float-left"></i>
+                                        @break
+                                        @case(2)
+                                        <i class="fa fa-tree float-left"></i>
+                                        @break
+                                        @case(3)
+                                        <i class="fa fa-futbol-o float-left"></i>
+                                        @break
+                                        @case(4)
+                                        <i class="fa fa-glass float-left"></i>
+                                        @break
+                                        @case(5)
+                                        <i class="fa fa-window-minimize float-left"></i>
+                                        @break
+                                        @default
+                                        <i class="fa fa-window-minimize float-left"></i>
+                                        @break
+                                    @endswitch
+                                    <span class="float-left item_menu_title">{!! $cate->name !!}</span>
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -104,8 +106,6 @@
                                                 <div class="thumbnail-container">
                                                     <a href="{!! route('home.product.detail', $prd->id) !!}" class="thumbnail product-thumbnail">
                                                         <img src="{{ $prd->large_photo }}" alt="product"/>
-{{--                                                        <img class="replace-2x img_1 img-responsive"--}}
-{{--                                                             src="{{ $prd->large_photo2 }}"/>--}}
                                                     </a>
                                                     <ul class="product-flags">
                                                         <li class="on-sale">On sale!</li>
@@ -128,13 +128,13 @@
                                                     <span class="h3 product-title" itemprop="name">
                                                     <a href="{!! route('home.product.detail', $prd->id) !!}" >{!! $prd->name !!} </a>
                                                 </span>
-                                                    <div class="product-price-and-shipping">
+                                                    <div class="product-price-and-shipping p-0">
                                                         <span class="sr-only">Price</span>
                                                         <span itemprop="price" class="price">
-                                                            {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} VND
+                                                            {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} đ
                                                         </span>
                                                         <span class="sr-only">Regular price</span>
-                                                        <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} VND</span>
+                                                        <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} đ</span>
                                                     </div>
                                                     <div class="product-actions-main">
                                                         <a href="javascript:void(0)" class="btn btn-sm add-to-cart"
@@ -193,13 +193,13 @@
                                                             <span class="h3 product-title" itemprop="name">
                                                                 <a href="{!! route('home.product.detail', $prd->id) !!}" >{!! $prd->name !!} </a>
                                                             </span>
-                                                            <div class="product-price-and-shipping">
+                                                            <div class="product-price-and-shipping p-0">
                                                                 <span class="sr-only">Price</span>
                                                                 <span itemprop="price" class="price">
-                                                                    {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} VND
+                                                                    {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} đ
                                                                 </span>
                                                                 <span class="sr-only">Regular price</span>
-                                                                <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} VND</span>
+                                                                <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} đ</span>
                                                             </div>
                                                             <div class="product-actions-main">
                                                                 <a href="javascript:void(0)" class="btn btn-sm add-to-cart"
@@ -231,27 +231,4 @@
 @section('main-script')
     <script src="/Admin/plugins/swiper/swiper.min.js"></script>
     <script src="/js/frontend/product/list.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.add-to-cart').click(function () {
-                var productId = $(this).attr('data-id');
-                $.ajax({
-                    'url': '/shopping-cart/add',
-                    'method': 'GET',
-                    'data': {
-                        "_token": $('meta[name="csrf-token"]').attr('content'),
-                        'productId': productId,
-                        'quantity': 1
-                    },
-                    'success': function () {
-                        // Thông báo thành công, reload lại trang.
-                        alert('Action success');
-                    },
-                    'error': function () {
-                        alert('Action fails');
-                    }
-                })
-            });
-        });
-    </script>
 @stop

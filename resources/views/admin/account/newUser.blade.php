@@ -1,16 +1,19 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Tạo tài khoản người dùng mới')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
 @endsection
 
 @section('main-content')
     <div class="row">
-        <div class="col-md-12 mb-4">
-            <a href="/admin/account/user" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh sách tài khoản người dùng</a>
+        <div class="col-md-12 mb-2">
+{{--            <a href="/admin/account/user" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh sách tài khoản người dùng</a>--}}
+            <h4>Thêm tài khoản admin</h4>
         </div>
-        <div class="col-12">
-            <div class="container-fluid bg-white p-3 content_form" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);border-radius: 5px;">
+        <div class="col-md-12">
+            <div class="container-fluid bg-white p-3 content_form" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="text-center">
@@ -21,35 +24,31 @@
                     <div class="col-sm-9">
                         <h5>Thông tin chung</h5>
                         <hr/>
-                        <form class="form row" action="#" method="post" id="accountForm">
+                        <form class="form row" action="/admin/account/create" method="post" id="accountForm">
+                            @csrf
+                            <input type="text" name="role" value="2" hidden/>
                             <div class="form-group col-md-6">
-                                <label>Tên tài khoản</label>
-                                <input type="text" class="form-control" id="userName" placeholder="Tên tài khoản">
+                                <label>Họ và tên</label>
+                                <input type="text" class="form-control" name="full_name" placeholder="Tên đầy đủ" required>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label>Tên đầy đủ</label>
-                                <input type="text" class="form-control" id="fullName" placeholder="Tên đầy đủ">
-                            </div>
-
                             <div class="form-group col-md-6">
                                 <label>Số điện thoại</label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Nhập số điện thoại">
+                                <input type="text" class="form-control" name="phone" placeholder="Nhập số điện thoại" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com">
+                                <input type="email" class="form-control" name="email" placeholder="you@email.com" required>
+                            </div>
+                            <div class="col-md-6">
+
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="password">Mật khẩu</label>
-                                <input type="password" class="form-control" id="password" placeholder="Mật khẩu">
+                                <input type="password" class="form-control" name="password" placeholder="Mật khẩu" required>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="email">Địa chỉ</label>
-                                <input type="text" class="form-control" name="address" id="address" placeholder="Nhập địa chỉ của bạn">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Kiểm chứng</label>
-                                <input type="password" class="form-control" id="password2" placeholder="Nhập lại mật khẩu">
+                                <label>Xác nhận mật khẩu</label>
+                                <input type="password" class="form-control" name="comfirm_pass" placeholder="Nhập lại mật khẩu" required>
                             </div>
                             <div class="form-group col-md-12 ">
                                 <button class="btn btn-lg btn-success" type="submit"><i class="fa fa-save"></i>&nbsp; Lưu</button>

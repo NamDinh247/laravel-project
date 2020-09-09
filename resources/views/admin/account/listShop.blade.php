@@ -1,5 +1,7 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Danh sách cửa hàng')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
@@ -8,48 +10,53 @@
 @endsection
 
 @section('main-content')
-    <div class="row">
-        <div class="col-12">
+    <div class="row scroll_content pb-3">
+        <div class="col-md-12 mb-3">
+            <div class="box-filter p-3 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
+                <div class="header_box_filter clearfix">
+                    <button type="button" class="btn btn-sm btn-default mr-2 float-left" style="border: 1px solid #ddd;" title="Tải lại"><i class="fa fa-refresh px-1"></i></button>
+                    <div class="input-group input-group-sm float-left" style="width: 200px;">
+                        <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm quản trị" style="border-radius: 0 !important;">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default" style="border: 1px solid #ced4da; border-radius: 0 !important;"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="input-group mr-1 ml-1 float-left" style="width: 250px;">
+                        <input type="text" class="form-control" readonly="" id="dateTime" style="border-radius: 0 !important;"/>
+                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                    </div>
+                    <div class="input-group mr-1 ml-1 float-left" style="width: 100px;">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Trạng thái
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="action">
+                                <a class="dropdown-item" data-val="" onclick="filterActive(this)">Tất cả</a>
+                                <a class="dropdown-item" data-val="1" onclick="filterActive(this)">Hoạt động</a>
+                                <a class="dropdown-item" data-val="0" onclick="filterActive(this)">Không hoạt động</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mr-1 ml-1 float-left" style="width: 155px;">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="accuracy" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Kích hoạt tài khoản
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="accuracy">
+                                <a class="dropdown-item" data-val="" onclick="filterAccuracy(this)">Tất cả</a>
+                                <a class="dropdown-item" data-val="1" onclick="filterAccuracy(this)">Đã xác thực email</a>
+                                <a class="dropdown-item" data-val="0" onclick="filterAccuracy(this)">Chưa xác thực email</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
             <div class="content-table bg-white py-2 px-3" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="card-header bg-white position-relative border-0 py-3 px-0">
                     <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách tài khoản cửa hàng</h4>
-                    <div class="breadcrumb">
-                        <button type="button" class="btn btn-sm btn-default mr-2" style="border: 1px solid #ddd;" title="Tải lại"><i class="fa fa-refresh px-1"></i></button>
-                        <div class="input-group input-group-sm" style="width: 200px;">
-                            <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm cửa hàng" style="border-radius: 0 !important;">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default" style="border: 1px solid #ced4da; border-radius: 0 !important;"><i class="fas fa-search"></i></button>
-                            </div>
-                        </div>
-                        <div class="input-group mr-1 ml-1" style="width: 250px;">
-                            <input type="text" class="form-control" readonly="" id="dateTime" style="border-radius: 0 !important;"/>
-                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                        </div>
-                        <div class="input-group mr-1 ml-1" style="width: 100px;">
-                            <div class="dropdown">
-                                <button class="btn btn-default btn-sm dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Trạng thái
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="action">
-                                    <a class="dropdown-item" data-val="" onclick="filterActive(this)">Tất cả</a>
-                                    <a class="dropdown-item" data-val="1" onclick="filterActive(this)">Hoạt động</a>
-                                    <a class="dropdown-item" data-val="0" onclick="filterActive(this)">Không hoạt động</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-group mr-1 ml-1" style="width: 155px;">
-                            <div class="dropdown">
-                                <button class="btn btn-default btn-sm dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="accuracy" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Kích hoạt tài khoản
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="accuracy">
-                                    <a class="dropdown-item" data-val="" onclick="filterAccuracy(this)">Tất cả</a>
-                                    <a class="dropdown-item" data-val="1" onclick="filterAccuracy(this)">Đã xác thực email</a>
-                                    <a class="dropdown-item" data-val="0" onclick="filterAccuracy(this)">Chưa xác thực email</a>
-
-                                </div>
-                            </div>
-                        </div>
+                    <div class="breadcrumb mt-1">
                         <a href="/admin/account/shop/new" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i>&nbsp; Thêm mới</a>
                     </div>
                 </div>
@@ -67,7 +74,11 @@
                             <th class="ver-middle">Email</th>
                             <th class="ver-middle">Địa chỉ</th>
                             <th class="ver-middle">Trạng thái</th>
-                            <th class="ver-middle"></th>
+                            <th class="ver-middle clearfix" style="min-width: 125px;">
+                                <a class="float-right" id="select_delete" value="delete" onclick="showModalDeleteAccount(this)" title="Xoá nhiều">
+                                    <i class="fa fa-trash" id="delete-all"></i>
+                                </a>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -77,7 +88,13 @@
                                     <input type="checkbox" class="form-check-input" id="check-1">
                                     <label class="form-check-label" for="check-1"></label>
                                 </td>
-                                <td class="text-xl-center ver-middle"><img src="/img/donors1.jpg" class="img-circle" alt="admin" title="admin" style="width: 3rem;height: 3rem;"></td>
+                                <td class="text-xl-center ver-middle">
+                                    @if($shop->logo == null || strlen($shop->logo) == 0)
+                                        <img src="/img/donors1.jpg" class="img-circle" alt="Logo" title="admin" style="width: 3rem;height: 3rem;">
+                                    @else
+                                        <img src="{!! $shop->small_photo !!}" class="img-circle" alt="Logo" title="admin" style="width: 3rem;height: 3rem;">
+                                    @endif
+                                </td>
                                 <td class="ver-middle">{!! $shop->name !!}</td>
                                 <td class="ver-middle">{!! $shop->phone !!}</td>
                                 <td class="ver-middle">{!! $shop->email !!}</td>
@@ -95,13 +112,13 @@
                                             @break
                                     @endswitch
                                 </td>
-                                <td class="text-xl-right ver-middle">
+                                <td class="text-xl-right ver-middle" style="min-width: 125px;">
                                     @if($shop->status != 1)
                                         <a href="/admin/account/shop/{!!$shop->id!!}/1" class="mr-2" id="active-shop" title="Kích hoạt">
                                             <i class="fa fa-envelope-open text-danger" aria-hidden="true"></i>
                                         </a>
                                     @endif
-                                    <a href="#" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
+                                    <a href="/admin/account/shops/detail/{!! $shop->id !!}" class="mr-2"><i class="fa fa-edit text-warning"></i></a>
                                     <a><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -111,24 +128,10 @@
                 </div>
                 <div class="row footer-table">
                     <div class="col-md-6">
-                        <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Hiển thị 1 đến 10 trong số 57</div>
+{{--                        <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Hiển thị 1 đến 10 trong số 57</div>--}}
                     </div>
                     <nav class="col-md-6 clearfix">
-                        <ul class="pagination float-right">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#"><i class="fa fa-chevron-left"></i></a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active">
-                                <span class="page-link">2
-                                    <span class="sr-only">(current)</span>
-                                </span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#"><i class="fa fa-chevron-right"></i></a>
-                            </li>
-                        </ul>
+                        {!! $lstShop->links() !!}
                     </nav>
                 </div>
             </div>

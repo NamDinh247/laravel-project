@@ -22,4 +22,8 @@ $(document).ready(function() {
             $('#accountForm .form-group').removeClass('d-none');
         }
     });
+    activeFilterLeft('#menu_filter', '.user_filter');
+    activeFilterAccount('.user_filter', '.user_admin_filter');
+    var heightContent = $(window).height() - 70;
+    $('.scroll_form').css({'height': (heightContent - 90) + 'px', 'overflow':'auto'});
 });

@@ -14,16 +14,20 @@
         <div class="col-md-3 pt-4" style="background-color: #fff !important;box-shadow: 1px 0 5px -2px #888;">
             <div class="aside_left pl-3">
                 <ul class="menu_left">
-                    <li class="item_menu_left pl-2 py-2 search_left position-relative">
+                    <!-- <li class="item_menu_left pl-2 py-2 search_left position-relative">
                         <input type="text" class="form-control"
                                style="border: none;padding-left: 30px;border-radius: 30px;height: 35px; line-height: 35px;"
                                placeholder="Tìm kiếm sản phẩm">
                         <i class="fa fa-search position-absolute" style="top: 14px;left: 13px;"></i>
-                    </li>
+                    </li> -->
+                    @if(\Illuminate\Support\Facades\Auth::check())
                     <li class="item_menu_left pl-2 py-2 clearfix">
                         <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
-                        <span class="float-left item_menu_title pt-1">Hiện TNT</span>
+                        <span class="float-left item_menu_title pt-1">
+                            {!! \Illuminate\Support\Facades\Auth::user()->full_name !!}
+                        </span>
                     </li>
+                    @endif
                 </ul>
                 <hr class="my-3"/>
                 <div class="filter_left menu_filter_account">
@@ -59,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-9 py-3 px-5" style="background-color: rgb(240, 242, 245);">
+        <div class="col-sm-9 py-3 scroll_content" style="background-color: rgb(240, 242, 245);">
             @yield('main-content-profile')
         </div>
     </div>
@@ -69,8 +73,6 @@
     <script src="/js/frontend/product/list.js"></script>
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
-    <script src="/js/frontend/orders/orders.js"></script>
-    <script src="/js/frontend/shop/home.js"></script>
     <script>
         $('#category-tabs li a').click(function () {
             $(this).next('ul').slideToggle('500');
@@ -84,7 +86,7 @@
         });
         var height = $(window).height() - 70;
         $('.filter_left').css({'height': (height - 126)  + 'px', 'overflow-x': 'hidden'});
-        $('#content_list_shop').css({'height': (height + 10)  + 'px', 'overflow-x': 'hidden'});
+        $('.scroll_content').css({'height': (height + 15)  + 'px', 'overflow-x': 'hidden', 'overflow-y': 'auto'});
     </script>
 @stop
 

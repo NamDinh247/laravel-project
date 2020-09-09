@@ -19,10 +19,10 @@ class CreateArticlesTable extends Migration
             $table->foreign('shop_id')->references('id')->on('shops');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->string('title');
-            $table->text('detail');
-            $table->integer('type');
-            $table->integer('status');
+            $table->string('title')->nullable();
+            $table->text('detail')->nullable();
+            $table->integer('type')->default(1);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

@@ -1,12 +1,16 @@
 @extends('admin.layout_admin_master')
 
+@section('title', 'Tạo mới sản phẩm')
+
 @section('header-script')
     <link rel="stylesheet" href="/Admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Admin/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+
 @endsection
 
 @section('main-content')
-    <div class="row">
-        <div class="col-md-12 mb-4">
+    <div class="row scroll_content_form pt-1 pb-3">
+        <div class="col-md-12 mb-3">
             <a href="/admin/product" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh
                 sách sản phẩm</a>
         </div>
@@ -18,6 +22,8 @@
                             <h5>Thêm mới sản phẩm</h5>
                             <hr/>
                         </div>
+                    </div>
+                    <div class="row p-0 scroll_content_form" >
                         <div class="col-sm-8">
                             <form class="form row" action="/admin/product/new" method="post" id="accountForm">
                                 @csrf
@@ -95,11 +101,20 @@
                             </form>
                         </div>
                         <div class="col-md-4">
-                            <label for="">Ảnh sản phẩm</label>
-                            <div class="form-group">
-                                <button type="button" id="upload_widget" class="btn btn-primary">Tải ảnh
-                                </button>
-                                <div class="thumbnails"></div>
+                            <label type="button" class="btn btn-outline-success">
+                                <input type="file" class="text-center center-block file-upload" id="uploadImages" accept="image/*" multiple style="margin-top: 20px;display: none;">
+                                <i class="fa fa-upload"></i>&nbsp; Tải ảnh lên
+                            </label>
+                            <div class="images_product pt-5">
+                                <div class="row">
+                                    {{-- for ở đây --}}
+                                    <div class="col-md-4">
+                                        <div class="image_product position-relative">
+                                            <img src="" alt="">
+                                            <i class="position-absolute fa fa-trash" style="top: 0; right: 0;font-size: 13px; color: red;"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -111,7 +126,8 @@
 
 @section('main-script')
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/js/product/newProduct.js"></script>
+    <script src="/Admin/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+    <script src="/js/admin/product/product.js"></script>
     <script type="text/javascript">
         var myWidget = cloudinary.createUploadWidget(
             {

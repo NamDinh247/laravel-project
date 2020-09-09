@@ -4,7 +4,7 @@
     <div class="d-block manage_content manage_orders_content">
         <div class="card-header bg-white position-relative border-0 p-0 mb-4">
             <div class="breadcrumb m-0 bg-white">
-                <div class="input-group input-group-sm" style="width: 200px;">
+                <div class="input-group" style="width: 250px;">
                     <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm đơn hàng"
                            style="border-radius: 0 !important;">
                     <div class="input-group-append">
@@ -14,9 +14,9 @@
                     </div>
                 </div>
                 <div class="input-group mr-1 ml-1" style="width: 250px;">
-                    <input type="text" class="form-control" readonly="" id="dateTime"
+                    <input type="text" class="form-control" readonly="" id="dateTime_orders"
                            style="border-radius: 0 !important;"/>
-                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                    <div class="input-group-addon"><i class="fa fa-calendar pt-1"></i></div>
                 </div>
                 <div class="input-group mr-1 ml-1" style="width: 200px;">
                     <select class="form-control" style="border-radius: 0 !important;">
@@ -30,10 +30,10 @@
         </div>
         <div class="card-body table-responsive py-0 px-4 bg-white">
             <h5 href="/admin/orders/list" class="card-title m-0 py-3" style="margin-bottom: 0 !important;">Đơn hàng</h5>
-            <table id="example" class="table table-head-fixed text-nowrap table-hover">
+            <table id="example" style="font-size: 95%" class="table table-head-fixed text-nowrap table-hover">
                 <thead>
                 <tr>
-                    <th class="text-xl-center ver-middle">
+                    <th class="text-xl-center ver-middle" style="width: 40px;">
                         <input type="checkbox" class="form-check-input" id="check-th">
                         <label class="form-check-label" for="check-th"></label>
                     </th>
@@ -48,7 +48,7 @@
                 <tbody>
                 @foreach($lstOrder as $order)
                     <tr>
-                        <td class="text-xl-center ver-middle">
+                        <td class="text-xl-center ver-middle" style="width: 40px;">
                             <input type="checkbox" class="form-check-input" id="check-1">
                             <label class="form-check-label" for="check-1"></label>
                         </td>
@@ -63,9 +63,12 @@
                             <a href="/shop/order/{!! $order->id !!}" class="btn btn-sm btn-warning">
                                 <i class="fa fa-edit"></i>&nbsp; Chi tiết
                             </a>
-                            <a href="#" class="btn btn-sm btn-danger">
-                                <i class="fa fa-trash"></i>&nbsp; Hủy
-                            </a>
+                            @if($order->od_status == 5 || $order->od_status == 6)
+                            @else
+                                <a href="#" class="btn btn-sm btn-danger">
+                                    <i class="fa fa-trash"></i>&nbsp; Hủy
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

@@ -9,9 +9,15 @@
                         {{-- new posts --}}
                         <div class="box-content mb-3" >
                             <div class="p-3 clearfix">
+                                <form action="/shop/article/create" method="post">
+                                @csrf
                                 <div class="box_content_left float-left" style="width: 6%;">
                                     <div class="avatar_box">
-                                        <img class="rounded-circle" src="/img/avatar_2x.png" alt="avatar" style="width: 100%;">
+                                        @if($shop->logo == null || strlen($shop->logo) == 0)
+                                            <img class="rounded-circle" src="/img/avatar_2x.png" alt="avatar" style="width: 100%;">
+                                        @else
+                                            <img class="rounded-circle" src="{!! $shop->small_photo !!}" alt="avatar" style="width: 100%;">
+                                        @endif
                                     </div>
                                     <div class="add_action">
                                         <ul class="menu_box_left pt-2 pl-2">
@@ -23,22 +29,29 @@
                                 <div class="box_content_right input-group float-left position-relative" style="width: 94%;">
                                     <div class="w-100" data-emojiarea="" data-type="unicode" data-global-picker="true">
                                         <i class="emoji emoji-smile emoji-button fa fa-smile-o text-warning position-absolute" id="emoji_new_posts" aria-hidden="true"></i>
-                                        <textarea class="box_new_posts form-control mb-2" id="box_new_posts" type="text" placeholder="Sản phẩm mới nhất của bạn là gì vậy?" style="width: 100%;height: 39px;border: none;"></textarea>
+                                        <textarea class="box_new_posts form-control mb-2" id="box_new_posts" type="text"
+                                                  placeholder="Sản phẩm mới nhất của bạn là gì vậy?"
+                                                  style="width: 100%;height: 39px;border: none;" name="title"></textarea>
                                         <i class="fa fa-times-circle-o position-absolute" id="resetTextarea" style="top: -5px;right: -5px;color: #868585;font-size: 20px;z-index: 1;"></i>
                                     </div>
                                 </div>
-                                <div class="save_posts" style="margin-left: 6%">
-                                    <div class="row">
+                                <div class="save_posts d-none" id="content-post" style="margin-left: 6%">
+                                    <div class="row mb-2">
                                         <div class="col-md-7">
-                                            <select id="input_search_product" class="form-control">
-                                                <option value="">Chọn hình ảnh sản phẩm</option>
+                                            <select name="product_id" class="form-control">
+                                                @foreach($lst_product as $product)
+                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-5">
                                             <button class="btn btn-sm btn-outline-success" id="post" style="width: 100%;border-radius: 20px;font-weight: 600;">Đăng</button>
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                         </div>
                         {{-- for từ đây --}}
@@ -47,7 +60,11 @@
                             <div class="box_header pt-3">
                                 <div class="avatar_box pb-2 px-3">
                                     <div class="box_img mr-2">
-                                        <img class="rounded-circle float-left" src="/img/avatar_2x.png" alt="avatar" style="width: 100%;">
+                                        @if($article->shop->logo == null || strlen($article->shop->logo) == 0)
+                                            <img class="rounded-circle float-left" src="/img/avatar_2x.png" alt="avatar" style="width: 100%;">
+                                        @else
+                                            <img class="rounded-circle float-left" src="{!! $article->shop->small_photo !!}" alt="avatar" style="width: 100%;">
+                                        @endif
                                     </div>
                                     <div class="name_time">
                                         <div class="nameTime">
@@ -87,9 +104,6 @@
                                 <div class="clearfix">
                                     <div class="like float-left">
                                         <i class="fa fa-thumbs-o-up" aria-hidden="true"><span class="ml-3">Thích</span></i>
-                                    </div>
-                                    <div class="detail_posts float-right">
-                                        <a href="/shop/detail">Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>

@@ -19,14 +19,14 @@ class CreateProductsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->unsignedBigInteger('shop_id');
             $table->foreign('shop_id')->references('id')->on('shops');
-            $table->string('prd_code');
-            $table->string('name');
-            $table->double('price');
-            $table->text('thumbnail');
-            $table->text('description');
-            $table->integer('type');
-            $table->double('sale_off');
-            $table->integer('status');
+            $table->string('prd_code')->nullable();
+            $table->string('name')->nullable();
+            $table->double('price')->nullable();
+            $table->text('thumbnail')->nullable();
+            $table->text('description')->nullable();
+            $table->integer('type')->default(1);
+            $table->double('sale_off')->default(0);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

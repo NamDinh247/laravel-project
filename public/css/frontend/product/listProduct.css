@@ -136,6 +136,8 @@ ul{
     float: left;
     position: relative;
     width: 100%;
+    min-height: 40px;
+
 }
 .product-title a {
     color: #000;

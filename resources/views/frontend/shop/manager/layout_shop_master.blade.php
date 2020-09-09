@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="/css/frontend/content_home.css">
     <link rel="stylesheet" href="/css/frontend/detail_shop.css">
     <link rel="stylesheet" href="/Admin/plugins/emoji/style.css">
-
+    <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
+    <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/Admin/plugins/moment/moment.min.js"></script>
+    <script src="/Admin/plugins/moment/locale/vi.js"></script>
 @endsection
 
 @section('content')
@@ -17,6 +20,23 @@
             <div class="aside_left pl-3">
                 <div class="filter_left">
                     <ul class="menu_left menu_filter_orders">
+                        <li class="item_menu_left pl-2 py-2 clearfix">
+                            @if(\Illuminate\Support\Facades\Auth::user()->shop->logo == null ||
+                                strlen(\Illuminate\Support\Facades\Auth::user()->shop->logo) == 0)
+                                <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
+                            @else
+                                <img class="rounded-circle float-left mr-2" src="{!! \Illuminate\Support\Facades\Auth::user()->shop->small_photo !!}" alt="avatar left">
+                            @endif
+                            <span class="float-left item_menu_title pt-1">
+                                {!! \Illuminate\Support\Facades\Auth::user()->shop->name !!}
+                            </span>
+                        </li>
+                        <li>
+                            <a href="/shop/revenue">
+                                <i class="fa fa-line-chart pr-1"></i>
+                                Doanh thu
+                            </a>
+                        </li>
                         <li>
                             <a href="#manage_orders" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle clearfix collapsed">
                                 <i class="fa fa-file-text-o pr-1"></i>
@@ -43,18 +63,12 @@
                             </a>
                             <ul class="collapse list-unstyled" id="manage_product">
                                 <li>
-                                    <a onclick="changeTab(this, 'manage_product_content')">Tất cả </a>
+                                    <a href="/shop/products/list">Tất cả </a>
                                 </li>
                                 <li>
-                                    <a onclick="changeTab(this, 'manage_product_new_content')">Thêm sản phẩm</a>
+                                    <a href="/shop/products/create">Thêm sản phẩm</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li>
-                            <a onclick="changeTab(this, 'manage_dashboard_content')">
-                                <i class="fa fa-line-chart pr-1"></i>
-                                Doanh thu
-                            </a>
                         </li>
                         <li>
                             <a href="#manage_shop" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle clearfix collapsed">
@@ -64,7 +78,7 @@
                             </a>
                             <ul class="collapse list-unstyled" id="manage_shop">
                                 <li>
-                                    <a onclick="changeTab(this, 'manage_profile_content')">Hồ sơ shop</a>
+                                    <a href="/shop/profile">Hồ sơ shop</a>
                                 </li>
                                 <li>
                                     <a>Thông báo</a>
@@ -83,7 +97,7 @@
             </div>
         </div>
         <div class="col-sm-9 pt-2 content_detail_shop px-4" style="background-color: rgb(240, 242, 245);">
-            @if( \Illuminate\Support\Facades\Session::has('msg'))
+            @if( \Illuminate\Support\Facades\Session::has('success_message'))
                 <div class="box-body" style="background-color: green">
                     <div class="box box-success box-solid">
                         <div class="box-header with-border">
@@ -97,7 +111,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            {{ \Illuminate\Support\Facades\Session::get('msg') }}
+                            {{ \Illuminate\Support\Facades\Session::get('success_message') }}
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -111,78 +125,106 @@
     <script src="/Admin/plugins/swiper/swiper.min.js"></script>
     <script src="/Admin/plugins/chart.js/Chart.min.js"></script>
     <script src="/Admin/plugins/emoji/jquery.emojiarea.js"></script>
+    <script src="/Admin/plugins/jquery-knob/jquery.knob.min.js"></script>
+
+    <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
+
     {{--    <script src="/js/frontend/product/list.js"></script>--}}
     <script>
         $(document).ready(function() {
             $('.menu-header li').removeClass('active');
             $('.menu-header a[title="Cửa hàng"]').parent().addClass('active');
-        });
-        var height = $(window).height() - 70;
-        $('.aside_left_detail_shop').css({'height': (height + 10)  + 'px', 'overflow-x': 'hidden'});
-        $('.content_detail_shop').css({'height': (height + 10)  + 'px', 'overflow-x': 'hidden'});
-        $(function () { //tab table 5
+            var height = $(window).height() - 70;
+            $('.aside_left_detail_shop').css({'height': (height + 10)  + 'px', 'overflow-x': 'hidden'});
+            $('.content_detail_shop').css({'height': (height + 10)  + 'px', 'overflow-x': 'hidden'});
 
-            var months = new Date().getDate();
-            var arrMonths = [];
-            var arrMonthsData = [];
-
-            for (var i=1; i<=months;i++) {
-                arrMonths.push(i);
-                arrMonthsData.push(i + Math.floor(Math.random() * 250));
-            }
-            console.log(arrMonths)
-            var ctx = document.getElementById('revenue_shop').getContext('2d');
-            var chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: arrMonths,
-                    datasets: [{
-                        fill: false,
-                        backgroundColor: 'rgb(54, 162, 235)',
-                        borderColor: 'rgb(54, 162, 235)',
-                        data: arrMonthsData,
-                    }]
-                },
-                options: {
-                    legend: {
-                        display: false,
-                    },
-                    responsive: true,
-                    tooltips: {
-                        mode: 'index',
-                        intersect: false,
-                    },
-                    hover: {
-                        mode: 'nearest',
-                        intersect: true
-                    },
-                    scales: {
-                        xAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Ngày'
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                suggestedMin: 0,
-                                suggestedMax: 300,
-                                stepSize: 100,
-                                callback: function(value, index, values) {
-                                    return value + ' VND';
-                                }
-                            },
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Giá trị'
-                            }
-                        }]
-                    }
+            $(function () { //tab table 5
+                //var months = new Date().getDate();
+                var arrMonths = [];
+                var arrMonthsData = [];
+                for (var i=1; i<=12;i++) {
+                    arrMonths.push('Tháng ' + i);
+                    arrMonthsData.push(i + Math.floor(Math.random() * 500));
                 }
+                var ctx = document.getElementById('revenue_shop').getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: arrMonths,
+                        datasets: [{
+                            fill: false,
+                            backgroundColor: '#20c997',
+                            borderColor: '#20c997',
+                            borderWidth: 1,
+                            data: arrMonthsData,
+                            pointBorderWidth: 1,
+                            pointRadius: 4,
+                            pointBorderColor: '#20c997',
+                            pointBackgroundColor: '#fff',
+                            label: 'Tổng doanh thu'
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: false,
+                        },
+                        responsive: true,
+                        tooltips: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        hover: {
+                            mode: 'nearest',
+                            intersect: true
+                        },
+                        scales: {
+                            xAxes: [{
+                                gridLines : {
+                                    display : false,
+                                    drawBorder: false,
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    suggestedMin: 0,
+                                    suggestedMax: 1000,
+                                    stepSize: 200,
+                                    callback: function(value, index, values) {
+                                        if (value === 0) {
+                                            return value + '  ';
+                                        } else {
+                                            return value + ' tr';
+                                        }
+                                    }
+                                },
+                                gridLines : {
+                                    display : true,
+                                    color: '#efefef',
+                                    drawBorder: false,
+                                }
+                            }]
+                        }
+                    }
+                });
+                var objectKnob = {
+                    'min':0,
+                    'max':100,
+                    'width': '70',
+                    'height': '70',
+                    'readOnly': true,
+                    'thickness': '.15',
+                    'fgColor': '#444',
+                    'bgColor': '#20c997'
+                }
+                $(".total_orders").knob(objectKnob);
+                $('.total_orders').val(60).trigger('change');
+                $(".total_orders1").knob(objectKnob);
+                $('.total_orders1').val(55).trigger('change');
+                $(".total_orders2").knob(objectKnob);
+                $('.total_orders2').val(40).trigger('change');
             });
         });
+
         $('#edit_shop').click(function (event) {
             $(this).addClass('d-none');
             $('#accountForm_editshop').removeClass('d-none');
@@ -197,13 +239,14 @@
             $('.' + ele).addClass('d-block');
         }
         $('#box_new_posts').click(function (e) {
-            $(this).height(300);
+            $(this).height(100);
             $(this).css({'border-radius': '10px', 'background': '#f0f2f5'});
             $('.add_action').show();
             $('#post').show();
             $('#input_search_product').show();
             $('#emoji_new_posts').show();
             $('#resetTextarea').show();
+            $('#content-post').removeClass('d-none');
         });
         $('#post').click(function (e) {
             $('#box_new_posts').height(25);
@@ -226,6 +269,47 @@
         });
 
         $('#box_new_posts').on('input', function() {});
+
+        //filter date
+        var localevn = {
+            "format": "DD/MM/YYYY",
+            "separator": " - ",
+            "applyLabel": "Áp dụng",
+            "cancelLabel": "Hủy",
+            "fromLabel": "Từ",
+            "toLabel": "Đến",
+            "customRangeLabel": "Tùy chỉnh",
+            "weekLabel": "W",
+            "daysOfWeek": ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+            "monthNames": ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+            "firstDay": 1
+        };
+        var rsFromDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1).setHours(0, 0, 0, 0);
+        var rsToDate = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).setHours(0, 0, 0, 0) + 86400000 - 1;
+        $('#dateTime_orders').daterangepicker({
+            format: 'DD/MM/YYYY',
+            opens: "left",
+            drops: 'down',
+            locale: localevn,
+            startDate: moment(rsFromDate),
+            endDate: moment(rsToDate),
+            alwaysShowCalendars: true,
+            ranges: {
+                // 'Hôm qua': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                // 'Hôm nay': [moment(), moment()],
+                'Tuần trước': [moment().subtract(1, 'weeks').startOf('weeks'), moment().subtract(1, 'weeks').endOf('weeks')],
+                'Tuần này': [moment().startOf('weeks'), moment().endOf('weeks')],
+                'Tuần sau': [moment().subtract(-1, 'weeks').startOf('weeks'), moment().subtract(-1, 'weeks').endOf('weeks')],
+                'Tháng trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'Tháng này': [moment().startOf('month'), moment().endOf('month')],
+                'Tháng sau': [moment().subtract(-1, 'month').startOf('month'), moment().subtract(-1, 'month').endOf('month')]
+            }
+        }).on('hide.daterangepicker', function (ev, picker) {
+            $('#dateTime').val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+            $('.total_money').show();
+        }).on('cancel.daterangepicker', function (ev, picker) {
+            $('#dateTime').val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+        });
     </script>
 @stop
 

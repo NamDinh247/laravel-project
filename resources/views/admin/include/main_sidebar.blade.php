@@ -6,10 +6,21 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{asset('Admin/dist/img/avatar.png')}}" class="img-circle elevation-2" alt="User Image">
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    @if(\Illuminate\Support\Facades\Auth::user()->avatar == null ||
+                        strlen(\Illuminate\Support\Facades\Auth::user()->avatar) == 0)
+                        <img src="/Admin/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+                    @else
+                        <img src="{!! \Illuminate\Support\Facades\Auth::user()->small_photo !!}" class="img-circle" alt="Admin">
+                    @endif
+                @endif
             </div>
             <div class="info">
-                <a href="#" class="d-block">ADMIN</a>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    <a href="#" class="d-block">
+                        {!! \Illuminate\Support\Facades\Auth::user()->full_name !!}
+                    </a>
+                @endif
             </div>
         </div>
 
@@ -23,7 +34,7 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a class="nav-link user_filter">
+                    <a class="nav-link user_filter" style="color: #c2c7d0;">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Tài khoản
