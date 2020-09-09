@@ -164,7 +164,16 @@ class HomeController extends Controller
         if ($shop == null) {
             return abort(404);
         }
-        return view('frontend.shop.detail', compact('shop'));
+        $lstProduct = Product::where('shop_id', $shop->id)
+            ->where('status', 1)
+            ->orderby('created_at', 'desc')
+            ->get();
+        $lstArticle = Article::where('shop_id', $shop->id)
+            ->where('status', 1)
+            ->orderby('created_at', 'desc')
+            ->get();
+        return view('frontend.shop.detail',
+            compact('shop', 'lstProduct', 'lstArticle'));
     }
 
     #End region user shop

@@ -11,11 +11,10 @@
 @endsection
 
 @section('main-content')
-    <div class="row">
+    <div class="row scroll_content pt-1 pb-3">
         <div class="col-md-12 mb-4">
             <div class="box-filter p-3 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="header_box_filter clearfix">
-                    <button type="button" class="btn btn-sm btn-default mr-2 float-left" style="border: 1px solid #ddd;" title="Tải lại"><i class="fa fa-refresh px-1"></i></button>
                     <div class="input-group input-group-sm float-left" style="width: 200px;">
                         <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm bài viết" style="border-radius: 0 !important;">
                         <div class="input-group-append">
@@ -43,7 +42,7 @@
         </div>
         <div class="col-md-12">
             <div class="content-table bg-white py-2 px-3 " style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
-                <div class="card-header bg-white position-relative border-0">
+                <div class="card-header bg-white position-relative border-0 px-0">
                     <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách bài viết</h4>
                     <div class="breadcrumb">
                         <a href="/admin/posts/new" type="button" class="btn btn-sm btn-success"><i class="fa fa-plus"></i>&nbsp; Thêm mới</a>
@@ -62,7 +61,7 @@
                             <th class="ver-middle">Tên shop</th>
                             <th class="ver-middle">Tiêu đề</th>
                             <th class="ver-middle">Trạng thái</th>
-                            <th class="ver-middle">Thao tác</th>
+                            <th class="text-xl-right ver-middle">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -90,8 +89,8 @@
                                 @endif
                             </td>
                             <td class="text-xl-right ver-middle">
-                                <a href="#" class="mr-2"><i class="fa fa-edit text-danger" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-trash"></i></a>
+                                <a href="#" class="mr-2"><i class="fa fa-edit text-warning" aria-hidden="true"></i></a>
+                                <a><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         @endforeach

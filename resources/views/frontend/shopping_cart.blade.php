@@ -15,7 +15,7 @@
             <div id="content-wrapper" class="row">
                 <div class="tab-main-title col-md-12" style="margin-bottom: 15px !important; border: none;">
                     <h2 class="h1 products-section-title text-uppercase" style="font-size: 16px !important;">
-                        SHOPPING CART
+                        GIỎ HÀNG MUA SẮM
                     </h2>
                 </div>
                 <section id="main" class="col-md-12">
@@ -26,78 +26,116 @@
                                     @if(isset($shoppingCart) && count($shoppingCart) > 0)
                                         @foreach($shoppingCart as $key => $cartItem)
                                             <div class="cart-header">
-                                            <div class="close1"></div>
-                                            <div class="cart-sec simpleCart_shelfItem">
-                                                <div class="cart-item cyc py-0" style="border-bottom: none;">
-                                                    <img src="{!! $cartItem['prd_detail']->large_photo !!}" class="img-responsive" alt="" />
+                                                <div class="close1 position-absolute" style="top: 0; right: 10px;z-index: 1;">
+                                                    <a href="/shopping-cart/remove?productId={{$cartItem['productId']}}" title="Bỏ sản phẩm khỏi giỏ hàng"><i class="fa fa-times text-secondary"></i></a>&nbsp;
                                                 </div>
-                                                <div class="cart-item-info">
-                                                    <h3><a href="#">{{ $cartItem['productName'] }}</a>
-                                                        <span>Mã sản phẩm: {!! $cartItem['prd_detail']->prd_code !!}</span>
-                                                    </h3>
-                                                    <ul class="qty">
-                                                        <li class="row py-1">
-                                                            <div class="product-variants-item col-md-6">
-                                                                <div class="row p-0 m-0">
-                                                                    <span class="control-label col-md-6 px-0 mr-0 my-2">Cửa hàng: </span>
-                                                                    <span class="col-md-6 p-0 my-2">
-                                                                        <a href="#">
-                                                                            {!! $cartItem['prd_detail']->shop->name !!}
-                                                                        </a>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="row py-1">
-                                                            <div class="product-variants-item col-md-6">
-                                                                <div class="row p-0 m-0">
-                                                                    <span class="control-label col-md-6 px-0 mr-0 my-2">Loại sản phẩm: </span>
-                                                                    <span class="col-md-6 p-0 my-2">
-                                                                        {!! $cartItem['prd_detail']->category->name !!}
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="row py-1">
-                                                            <div class="product-add-to-cart clearfix col-md-6">
-                                                                <div class="row p-0 m-0">
-                                                                    <span class="control-label col-md-6 mt-3 px-0 mr-0 mb-2">Số lượng: </span>
-                                                                    <div class="col-md-6 p-0 my-2">
-                                                                        <input type="number" min="0" class="form-control"
-                                                                               value="{!! $cartItem['quantity'] !!}" readonly>
+                                                <div class="cart-sec simpleCart_shelfItem mb-3">
+                                                    <div class="cart-item cyc py-0" style="border-bottom: none;">
+                                                        <img src="{!! $cartItem['prd_detail']->large_photo !!}" class="img-responsive" alt="" style="height: 220px;object-fit: cover;"/>
+                                                    </div>
+                                                    <div class="cart-item-info">
+                                                        <h3>
+                                                            <a href="/product/detail/{{$cartItem['productId']}}">{{ $cartItem['productName'] }}</a>
+                                                        </h3>
+                                                        <div class="d-inline" style="font-size: 14px;">Mã sản phẩm: <span class="pl-3">{!! $cartItem['prd_detail']->prd_code !!}</span></div>
+                                                        <ul class="qty">
+                                                            <li class="row py-1">
+                                                                <div class="product-variants-item col-md-6">
+                                                                    <div class="row p-0 m-0">
+                                                                        <span class="control-label col-md-6 px-0 mr-0 my-0">Cửa hàng: </span>
+                                                                        <span class="col-md-6 p-0 my-0">
+                                                                            <a >
+{{--                                                                                href="/shop/detail/{{$cartItem['shopId']}}"--}}
+                                                                                {!! $cartItem['prd_detail']->shop->name !!}
+                                                                            </a>
+                                                                        </span>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="row py-1">
-                                                            <div class="product-variants-item col-md-6">
-                                                                <div class="row p-0 m-0">
-                                                                    <span class="control-label col-md-6 px-0 mr-0 my-2">Tổng tiền: </span>
-                                                                    <span class="col-md-6 p-0 my-2">
-                                                                        {!! number_format($cartItem['quantity'] * $cartItem['productPrice'],0,',','.') !!} VND
-                                                                    </span>
+                                                            </li>
+                                                            <li class="row py-1">
+                                                                <div class="product-variants-item col-md-6">
+                                                                    <div class="row p-0 m-0">
+                                                                        <span class="control-label col-md-6 px-0 mr-0 my-0">Loại sản phẩm: </span>
+                                                                        <span class="col-md-6 p-0 my-0">
+                                                                            {!! $cartItem['prd_detail']->category->name !!}
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
+                                                            </li>
+                                                            <li class="row py-1">
+                                                                <div class="product-add-to-cart clearfix col-md-6">
+                                                                    <div class="row p-0 m-0">
+                                                                        <span class="control-label col-md-6 mt-3 px-0 mr-0 mb-2">Số lượng: </span>
+                                                                        <div class="col-md-6 p-0 my-2">
+                                                                            <div class="row ml-0">
+                                                                                <div class="col-md-9 pl-0">
+                                                                                    <input type="number" min="0" class="form-control float-left" value="{!! $cartItem['quantity'] !!}" readonly>
+                                                                                </div>
+                                                                                <div class="col-md-2 p-0" style="margin-top: -4px;">
+                                                                                    <span><a href="/shopping-cart/add?productId={{$cartItem['productId']}}&quantity=1"><i class="fa fa-plus text-success"></i></a></span>
+                                                                                    <span><a href="/shopping-cart/add?productId={{$cartItem['productId']}}&quantity=-1"><i class="fa fa-minus text-danger"></i></a></span>
+                                                                                </div>
+                                                                            </div>
 
-                                                    <div class="delivery">
-                                                        <a href="/shopping-cart/add?productId={{$cartItem['productId']}}&quantity=1">Add</a>&nbsp;
-                                                        <a href="/shopping-cart/add?productId={{$cartItem['productId']}}&quantity=-1">Sub</a>&nbsp;
-                                                        <a href="/shopping-cart/remove?productId={{$cartItem['productId']}}">Remove</a>&nbsp;
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="row py-1">
+                                                                <div class="product-variants-item col-md-6">
+                                                                    <div class="row p-0 m-0">
+                                                                        <span class="control-label col-md-6 px-0 mr-0 my-0">Tổng tiền: </span>
+                                                                        <span class="col-md-6 p-0 my-0">
+                                                                            {!! number_format($cartItem['quantity'] * $cartItem['productPrice'],0,',','.') !!} đ
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
                                                     </div>
+                                                    <div class="clearfix"></div>
                                                 </div>
-                                                <div class="clearfix"></div>
                                             </div>
-                                        </div>
                                         @endforeach
+                                    @else
+                                        <p class="py-3 text-center" style="color: #a09f9f;">Chưa có sản phẩm trong giỏ!</p>
                                     @endif
                                 </div>
-                                <div class="cart-overview js-cart d-none">
-                                    <span class="no-items">There are no more items in your cart</span>
+                            </div>
+                            <div class="information_pay pt-3 pb-3">
+                                <div class="content_information_pay p-3" style="border: 1px solid rgba(0,0,0,.125);border-radius: .25rem;">
+                                    <form action="/shopping-cart/submit" method="post" id="createOrderForm" class="row">
+                                        @csrf
+                                        <input type="hidden" name="od_total_price" value="{!! $total_payment + 20000 !!}"/>
+                                        <input type="hidden" name="ship_fee" value="20000" />
+                                        <input type="hidden" name="shop_id" value="{!! $shop_id !!}" />
+                                        <div class="form-group col-md-6">
+                                            <label class="font-weight-bold" style="font-size: 14px;">Người nhận</label>
+                                            <input type="text" name="shipName" class="form-control" placeholder="Tên người nhận">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="font-weight-bold" style="font-size: 14px;">Địa chỉ</label>
+                                            <input type="text" name="shipAddress" class="form-control" placeholder="Nhập địa chỉ">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="font-weight-bold" style="font-size: 14px;">Số điện thoại</label>
+                                            <input type="text" name="shipPhone" class="form-control" placeholder="Nhập số điện thoại">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="font-weight-bold" style="font-size: 14px;">Email</label>
+                                            <input type="email" name="shipEmail" class="form-control" placeholder="you@gmail.com">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label class="font-weight-bold" style="font-size: 14px;">Lưu ý</label>
+                                            <input type="text" name="note" class="form-control" placeholder="Nhập lưu ý">
+                                        </div>
+                                        <div class="checkout pt-3 col-md-12 d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-sm btn-outline-success btn-create-order">Đặt hàng</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <a class="label" style="color: #444;" href="#"> <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 13px;"></i> Continue shopping </a>
+                            <a class="label" style="color: #444;" href="/product/list"> <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 13px;"></i> Tiếp tục mua sắm </a>
                         </div>
                         <div class="cart-grid-right col-md-4">
                             <div class="card cart-summary ">
@@ -113,35 +151,33 @@
 {{--                                        </div>--}}
 {{--                                    </div>--}}
                                     <div class="card-block">
-                                        <div class="cart-summary-line row mx-0">
-                                            <span class="label col-md-6 text-left pl-2 py-1">Số lượng</span>
-                                            <span class="value col-md-6 text-right pr-2 py-1">{!! $total_quantity !!}</span>
-                                        </div>
+{{--                                        <div class="cart-summary-line row mx-0">--}}
+{{--                                            <span class="label col-md-6 text-left pl-2 py-1">Số lượng</span>--}}
+{{--                                            <span class="value col-md-6 text-right pr-2 py-1">{!! $total_quantity !!}</span>--}}
+{{--                                        </div>--}}
                                         <div class="cart-summary-line row mx-0">
                                             <span class="label col-md-6 text-left pl-2 py-1">Tổng tiền</span>
-                                            <span class="value col-md-6 text-right pr-2 py-1">{!! number_format($total_price,0,',','.') !!} VND</span>
+                                            <span class="value col-md-6 text-right pr-2 py-1">{!! number_format($total_price,0,',','.') !!} đ</span>
                                         </div>
                                         <div class="cart-summary-line row mx-0">
                                             <span class="label col-md-6 text-left pl-2 py-1">Khuyến mãi</span>
-                                            <span class="value col-md-6 text-right pr-2 py-1">{!! number_format($total_price - $total_payment,0,',','.') !!} VND</span>
+                                            <span class="value col-md-6 text-right pr-2 py-1">{!! number_format($total_price - $total_payment,0,',','.') !!} đ</span>
                                         </div>
                                         <div class="cart-summary-line row mx-0">
                                             <span class="label col-md-6 text-left pl-2 py-1">Phí vận chuyển</span>
-                                            <span class="value col-md-6 text-right pr-2 py-1">
+                                            <span class="value col-md-6 text-right pr-2 py-1" co>
                                                 @if(isset($shoppingCart) && count($shoppingCart) > 0)
-                                                    {!! number_format(20000,0,',','.') !!} VND
+                                                    {!! number_format(20000,0,',','.') !!} đ
                                                 @else
                                                     0
                                                 @endif
                                             </span>
                                         </div>
                                         <div class="cart-summary-line row mx-0">
-                                            <span class="label col-md-6 text-left pl-2 py-1" style="font-size: 16px; font-weight: 500">
-                                                Tổng
-                                            </span>
-                                            <span class="value col-md-6 text-right pr-2 py-1" style="font-size: 16px; font-weight: 500">
+                                            <span class="label col-md-6 text-left pl-2 py-1" style="font-size: 16px; font-weight: 500">Tổng tiền</span>
+                                            <span class="value col-md-6 text-right pr-2 py-1" style="font-size: 16px; font-weight: 500; color: #228b22;">
                                                 @if(isset($shoppingCart) && count($shoppingCart) > 0)
-                                                    {!! number_format($total_payment + 20000,0,',','.') !!} VND
+                                                    {!! number_format($total_payment + 20000,0,',','.') !!} đ
                                                 @else
                                                     0
                                                 @endif
@@ -149,44 +185,14 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <form action="/shopping-cart/submit" method="post" id="createOrderForm">
-                                    @csrf
-                                    <input type="hidden" name="od_total_price" value="{!! $total_payment + 20000 !!}"/>
-                                    <input type="hidden" name="ship_fee" value="20000" />
-                                    <input type="hidden" name="shop_id" value="{!! $shop_id !!}" />
-                                    <div class="form-group">
-                                        Người nhận <br/>
-                                        <input type="text" name="shipName" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        Địa chỉ <br/>
-                                        <input type="text" name="shipAddress" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        Số điện thoại <br/>
-                                        <input type="text" name="shipPhone" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        Email <br/>
-                                        <input type="text" name="shipEmail" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        Lưu ý <br/>
-                                        <input type="text" name="note" class="form-control">
-                                    </div>
-                                    <div class="checkout text-xs-center card-block text-center p-2">
-                                        <button type="submit" class="btn add-to-cart btn-create-order">Đặt hàng</button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>
                 </section>
-                <section class="featured-products clearfix px-2">
-                    <div class="tab-main-title">
-                        <h2 class="h1 products-section-title text-uppercase">
-                            Popular Products
+                <section class="featured-products clearfix px-2 py-3">
+                    <div class="tab-main-title pb-3">
+                        <h2 class="products-section-title text-uppercase pb-2" style="border-bottom: 1px solid #dfdfdf;">
+                            Có thể bạn cũng thích
                         </h2>
                     </div>
                     <div id="spe_res">
@@ -553,8 +559,8 @@
                                     </article>
                                 </li>
                             </ul>
-                            <h5 class="text-center"><a class="all-product-link" href="https://prestashop.templatemela.com/PRSADD11/PRS273/index.php?id_category=2&amp;controller=category&amp;id_lang=1">
-                                All products <i class="fa fa-chevron-right" aria-hidden="true" style="font-size: 13px;"></i>
+                            <h5 class="text-center"><a class="all-product-link" href="/product/list">
+                                Tất cả sản phẩm <i class="fa fa-chevron-right" aria-hidden="true" style="font-size: 13px;"></i>
                             </a></h5>
                         </div>
                     </div>
@@ -595,5 +601,7 @@
                 });
             })
         })
+        var heightcontent = $(window).height() - 60;
+        $('#columns_inner').parent().parent().css({'height': (heightcontent) + 'px', 'overflow-x': 'hidden', 'overflow-y': 'auto'});
     </script>
 @stop

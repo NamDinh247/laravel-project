@@ -9,11 +9,10 @@
 @endsection
 
 @section('main-content')
-    <div class="row">
+    <div class="row scroll_content">
         <div class="col-md-12 mb-4">
             <div class="box-filter p-3 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="header_box_filter clearfix">
-                    <button type="button" class="btn btn-sm btn-default mr-2 float-left" style="border: 1px solid #ddd;" title="Tải lại"><i class="fa fa-refresh px-1"></i></button>
                     <div class="input-group input-group-sm float-left" style="width: 200px;">
                         <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm quản trị" style="border-radius: 0 !important;">
                         <div class="input-group-append">

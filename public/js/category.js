@@ -21,7 +21,6 @@ $(document).ready(function () {
                 deleteIds.push(Number($(this).val()));
             }
         })
-        console.log(deleteIds)
         if (deleteIds.length == 0) {
             Toast.fire({
                 type: 'error',
@@ -33,7 +32,6 @@ $(document).ready(function () {
             "_token": $('meta[name="csrf-token"]').attr('content'),
             'ids': deleteIds
         }
-        console.log(data)
         $.ajax({
             url: "/admin/category/delete-all",
             method: 'POST',
@@ -63,8 +61,6 @@ $(document).ready(function () {
         event.preventDefault();
         var id = [parseInt(deleteIDone)];
         var token = $(this).data("token");
-        console.log(token);
-        console.log(id);
         $.ajax(
             {
                 url: "/admin/category/delete",
@@ -94,7 +90,7 @@ $(document).ready(function () {
     var heightContent = $(window).height() - 70;
     $('.form_new_categories .container-fluid').css({'height': (heightContent - 60) + 'px', 'overflow': 'auto'});
     $('.form_detail_categories .container-fluid').css({'height': (heightContent - 60) + 'px', 'overflow': 'auto'});
-    $('#example').parent().css({'height': (heightContent - 140) + 'px', 'overflow': 'auto'});
+    $('.scroll_content').parent().css({'height': (heightContent + 20) + 'px', 'overflow-y': 'auto', 'overflow-x': 'hidden'});
 });
 
 function showModalDeleteCategory(event) {

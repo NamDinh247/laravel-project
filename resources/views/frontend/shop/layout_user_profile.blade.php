@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-9 py-3 px-5" style="background-color: rgb(240, 242, 245);">
+        <div class="col-sm-9 py-3 scroll_content" style="background-color: rgb(240, 242, 245);">
             @yield('main-content-profile')
         </div>
     </div>
@@ -73,8 +73,6 @@
     <script src="/js/frontend/product/list.js"></script>
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
-    <script src="/js/frontend/orders/orders.js"></script>
-    <script src="/js/frontend/shop/home.js"></script>
     <script>
         $('#category-tabs li a').click(function () {
             $(this).next('ul').slideToggle('500');
@@ -88,7 +86,7 @@
         });
         var height = $(window).height() - 70;
         $('.filter_left').css({'height': (height - 126)  + 'px', 'overflow-x': 'hidden'});
-        $('#content_list_shop').css({'height': (height + 10)  + 'px', 'overflow-x': 'hidden'});
+        $('.scroll_content').css({'height': (height + 15)  + 'px', 'overflow-x': 'hidden', 'overflow-y': 'auto'});
     </script>
 @stop
 

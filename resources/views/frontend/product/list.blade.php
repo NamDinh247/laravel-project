@@ -130,13 +130,13 @@
                                                     <span class="h3 product-title" itemprop="name">
                                                     <a href="{!! route('home.product.detail', $prd->id) !!}" >{!! $prd->name !!} </a>
                                                 </span>
-                                                    <div class="product-price-and-shipping">
+                                                    <div class="product-price-and-shipping p-0">
                                                         <span class="sr-only">Price</span>
                                                         <span itemprop="price" class="price">
-                                                            {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} VND
+                                                            {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} đ
                                                         </span>
                                                         <span class="sr-only">Regular price</span>
-                                                        <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} VND</span>
+                                                        <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} đ</span>
                                                     </div>
                                                     <div class="product-actions-main">
                                                         <a href="javascript:void(0)" class="btn btn-sm add-to-cart"
@@ -195,13 +195,13 @@
                                                             <span class="h3 product-title" itemprop="name">
                                                                 <a href="{!! route('home.product.detail', $prd->id) !!}" >{!! $prd->name !!} </a>
                                                             </span>
-                                                            <div class="product-price-and-shipping">
+                                                            <div class="product-price-and-shipping p-0">
                                                                 <span class="sr-only">Price</span>
                                                                 <span itemprop="price" class="price">
-                                                                    {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} VND
+                                                                    {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} đ
                                                                 </span>
                                                                 <span class="sr-only">Regular price</span>
-                                                                <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} VND</span>
+                                                                <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} đ</span>
                                                             </div>
                                                             <div class="product-actions-main">
                                                                 <a href="javascript:void(0)" class="btn btn-sm add-to-cart"

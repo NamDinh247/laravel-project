@@ -18,7 +18,7 @@
                             <input type="text" class="form-control" name="keyword"
                                    style="border: none;padding-left: 30px;border-radius: 30px;
                                    height: 35px; line-height: 35px;" placeholder="Tìm kiếm sản phẩm">
-                            <input type="submit" style="visibility: hidden;" />
+                            <input type="submit" class="d-none" style="visibility: hidden;" />
                             <i class="fa fa-search position-absolute" style="top: 14px;left: 13px;"></i>
                         </form>
                     </li>
@@ -99,7 +99,7 @@
                     @endif
                     <div id="new_products" class="new_products">
                         <ul id="new_product_today" class="swiper-container">
-                            <div class="swiper-wrapper clearfix row">
+                            <div class="swiper-wrapper clearfix row mx-0">
                                 @foreach($data['lst_product'] as $prd)
                                     <div class="swiper-slide text-center float-left">
                                         <li class="item">
@@ -131,13 +131,13 @@
                                                     <span class="h3 product-title" itemprop="name">
                                                     <a href="{!! route('home.product.detail', $prd->id) !!}" >{!! $prd->name !!} </a>
                                                 </span>
-                                                    <div class="product-price-and-shipping">
+                                                    <div class="product-price-and-shipping p-0">
                                                         <span class="sr-only">Price</span>
                                                         <span itemprop="price" class="price">
-                                                            {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} VND
+                                                            {!! number_format($prd->price - ($prd->price * ($prd->sale_off/100)),0,',','.') !!} đ
                                                         </span>
                                                         <span class="sr-only">Regular price</span>
-                                                        <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} VND</span>
+                                                        <span class="regular-price">{!! number_format($prd->price,0,',','.') !!} đ</span>
                                                     </div>
                                                     <div class="product-actions-main">
                                                         <a href="javascript:void(0)" class="btn btn-sm add-to-cart"

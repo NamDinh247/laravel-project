@@ -9,7 +9,7 @@
 @endsection
 
 @section('main-content')
-    <div class="row">
+    <div class="row scroll_content_form_detail pt-1 pb-3">
         <div class="col-md-12 mb-4">
             <a href="/admin/product" class="gobacklist"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Danh sách sản phẩm</a>
         </div>
@@ -22,7 +22,7 @@
                             <hr/>
                         </div>
                     </div>
-                    <div class="row scroll_content_form_detail">
+                    <div class="row">
                         <div class="col-sm-8">
                             <form class="form row" action="#" method="post" id="accountForm">
                                 <div class="form-group col-md-6">

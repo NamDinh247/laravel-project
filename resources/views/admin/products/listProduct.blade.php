@@ -11,7 +11,7 @@
 @endsection
 
 @section('main-content')
-    <div class="row">
+    <div class="row scroll_content pb-3 pt-1">
         <div class="col-md-12 mb-3">
             <div class="box-filter p-3 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="header_box_filter clearfix">
@@ -144,11 +144,8 @@
                                     @endif
                                 </td>
                                 <td class="text-xl-right ver-middle">
-                                    <a href="/admin/product/detail" type="button" class="btn btn-sm btn-warning"><i
-                                            class="fa fa-edit"></i>&nbsp; Sửa</a>
-                                    <button type="button" class="btn btn-sm btn-danger" value="1"
-                                            onclick="showModalDeleteProduct(this)"><i class="fa fa-trash"></i>&nbsp; Xoá
-                                    </button>
+                                    <a href="/admin/product/detail" class="pr-2" title="Sửa"><i class="fa fa-edit text-warning" style="font-size: 1em;"></i></a>
+                                    <a value="1" onclick="showModalDeleteProduct(this)" title="Xoá"><i class="fa fa-trash" style="font-size: 1em;"></i></a>
                                 </td>
                             </tr>
                         @endforeach

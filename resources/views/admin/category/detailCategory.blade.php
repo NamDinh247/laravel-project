@@ -15,7 +15,7 @@
                 Danh sách danh mục</a>
         </div>
         <div class="col-md-12 form_detail_categories" >
-            <div class="container-fluid bg-white p-3 content_form" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);border-radius: 5px;">
+            <div class="container-fluid bg-white p-3 content_form" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="row">
                     <div class="col-md-12">
                         <h5>Sửa thông tin danh mục</h5>

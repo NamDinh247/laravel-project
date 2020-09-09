@@ -10,7 +10,7 @@
 @endsection
 
 @section('main-content')
-    <div class="row">
+    <div class="row scroll_content pb-3 pt-1">
         <div class="col-md-12">
             <div class="content-table bg-white py-2 px-3" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="card-header bg-white position-relative border-0 py-3 px-0">

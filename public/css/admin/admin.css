@@ -207,3 +207,9 @@ table tr td a:hover, table tr th a:hover{
 .user_filter.active{
     color: #fff !important;
 }
+html{
+    overflow: hidden;
+}
+.total_money {
+    display: none;
+}

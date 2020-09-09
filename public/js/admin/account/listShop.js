@@ -45,8 +45,8 @@ $(document).ready(function() {
 
     activeFilterLeft('#menu_filter', '.user_filter');
     activeFilterAccount('.user_filter', '.user_shop_filter');
-    var heightTable = $(window).height() - 150;
-    $('#example').parent().css({'height': (heightTable - 150) + 'px', 'overflow-x': 'auto', 'overflow-y': 'auto'});
+    var heightTable = $(window).height() - 80;
+    $('.scroll_content').parent().css({'height': (heightTable + 10) + 'px', 'overflow-x': 'hidden', 'overflow-y': 'auto'});
 });
 function showModalDeleteAccount(e) {
     $('#modal-delete-account').modal('show');

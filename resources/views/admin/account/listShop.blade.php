@@ -10,7 +10,7 @@
 @endsection
 
 @section('main-content')
-    <div class="row">
+    <div class="row scroll_content pb-3">
         <div class="col-md-12 mb-3">
             <div class="box-filter p-3 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="header_box_filter clearfix">

@@ -70,10 +70,9 @@ $(document).ready(function() {
         readURL(this);
     });
     var heightContent = $(window).height() - 70;
-    $('#example').parent().css({'height': (heightContent - 220) + 'px', 'overflow-y': 'auto'});
-    $('.scroll_content_form').css({'height': (heightContent - 160) + 'px', 'overflow-y': 'auto'});
-    $('.scroll_content_form_detail').css({'height': (heightContent - 160) + 'px', 'overflow-y': 'auto'});
-    $('html').css('overflow', 'hidden');
+    $('.scroll_content').parent().css({'height': (heightContent + 20) + 'px', 'overflow-y': 'auto', 'overflow-x': 'hidden'});
+    $('.scroll_content_form').css({'height': (heightContent) + 'px', 'overflow-y': 'auto'});
+    $('.scroll_content_form_detail').css({'height': (heightContent) + 'px', 'overflow-y': 'auto', 'overflow-x': 'hidden'});
 });
 function showModalDeleteProduct(e) {
     $('#modal-delete-product').modal('show');
