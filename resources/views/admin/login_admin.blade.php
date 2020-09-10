@@ -20,30 +20,36 @@
             </div>
             <form class="login100-form validate-form" action="/admin/login" method="post">
                 @csrf
-                <span class="login100-form-title">Admin Login</span>
+                <span class="login100-form-title">Đăng nhập</span>
                 @if( \Illuminate\Support\Facades\Session::has('success_message'))
                     <ul class="mb-3 pl-4" style="font-size: 90%; color: red;">
                         <li>
                             {{ \Illuminate\Support\Facades\Session::get('success_message') }}
                         </li>
                     </ul>
+                @elseif( \Illuminate\Support\Facades\Session::has('error_message'))
+                    <ul class="mb-3 pl-4" style="font-size: 90%; color: red;">
+                        <li>
+                            {{ \Illuminate\Support\Facades\Session::get('error_message') }}
+                        </li>
+                    </ul>
                 @endif
-                <div class="wrap-input100 validate-input" data-validate="User name is required">
-                    <input class="input100" type="text" name="username" placeholder="User name">
+                <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập tên tài khoản">
+                    <input class="input100" type="text" name="username" placeholder="Tên tài khoản">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-user" aria-hidden="true"></i>
 						</span>
                 </div>
-                <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="password" placeholder="Password">
+                <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập mật khẩu">
+                    <input class="input100" type="password" name="password" placeholder="Mật khẩu">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>
                     </span>
                 </div>
                 <div class="container-login100-form-btn">
-                    <button class="login100-form-btn">Login</button>
+                    <button class="login100-form-btn">Đăng nhập</button>
                 </div>
                 <div class="text-center p-t-136">
                     <a class="txt2"></a>

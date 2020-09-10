@@ -550,7 +550,7 @@ class HomeController extends Controller
             $order->save();
             return redirect()->back()->with(['success_message' => 'Cập nhật đơn hàng thành công']);
         } catch (\Exception $ex) {
-            return redirect()->back()->with(['success_message' => 'Cập nhật đơn hàng không thành công']);
+            return redirect()->back()->with(['error_message' => 'Cập nhật đơn hàng không thành công']);
         }
     }
 
@@ -593,7 +593,7 @@ class HomeController extends Controller
             $product->save();
             return redirect()->back()->with(['success_message' => 'Cập nhật sản phẩm thành công']);
         } catch (\Exception $ex) {
-            return redirect()->back()->with(['success_message' => 'Cập nhật sản phẩm không thành công']);
+            return redirect()->back()->with(['error_message' => 'Cập nhật sản phẩm không thành công']);
         }
     }
 
@@ -626,7 +626,7 @@ class HomeController extends Controller
             return redirect('/shop/products/list')->with(['success_message' => 'Tạo mới sản phẩm thành công']);
         } catch (\Exception $ex) {
             dd($ex->getMessage());
-            return redirect('/shop/products/list')->with(['success_message' => 'Tạo mới sản phẩm không thành công']);
+            return redirect('/shop/products/list')->with(['error_message' => 'Tạo mới sản phẩm không thành công']);
         }
     }
 
@@ -665,7 +665,7 @@ class HomeController extends Controller
             $shop->save();
             return redirect()->back()->with(['success_message' => 'Cập nhật hồ sơ thành công']);
         } catch (\Exception $ex) {
-            return redirect()->back()->with(['success_message' => 'Cập nhật hồ sơ không thành công']);
+            return redirect()->back()->with(['error_message' => 'Cập nhật hồ sơ không thành công']);
         }
     }
 
@@ -713,8 +713,7 @@ class HomeController extends Controller
             $article->save();
             return redirect()->back()->with(['success_message' => 'Thêm bài viết thành công']);
         } catch (\Exception $ex) {
-            dd($ex);
-            return redirect()->back()->with(['success_message' => 'Thêm bài viết không thành công']);
+            return redirect()->back()->with(['error_message' => 'Thêm bài viết không thành công']);
         }
     }
 

@@ -37,17 +37,15 @@
                                 </div>
                                 <div class="save_posts d-none" id="content-post" style="margin-left: 6%">
                                     <div class="row mb-2">
-                                        <div class="col-md-7">
-                                            <select name="product_id" class="form-control">
+                                        <div class="col-md-7 pt-1">
+                                            <select name="product_id" id="input_search_product" class="form-control">
                                                 @foreach($lst_product as $product)
                                                     <option value="{{ $product->id }}">{{ $product->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <button class="btn btn-sm btn-outline-success" id="post" style="width: 100%;border-radius: 20px;font-weight: 600;">Đăng</button>
+                                        <div class="col-md-5 pl-0">
+                                            <button class="btn btn-sm btn-outline-success mt-1" id="post" style="width: 100%;border-radius: 20px;font-weight: 600;">Đăng</button>
                                         </div>
                                     </div>
                                 </div>
