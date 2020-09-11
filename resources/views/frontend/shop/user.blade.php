@@ -59,13 +59,18 @@
                                 <img src="/img/avatar_2x.png" class="avatar img-circle img-thumbnail mb-3" alt="avatar"
                                      style="border-radius: 50% !important;width: 13rem;height: 13rem; border: 2px solid #20c997;">
                                 <br>
-                                <label type="button" class="btn btn-sm btn-outline-success"><input type="file" class="text-center center-block file-upload choose d-none" accept="image/*"><i class="fa fa-upload"></i>&nbsp; Tải ảnh lên</label>
+                                <label type="button" class="btn btn-sm btn-outline-success"><input type="file" class="text-center center-block file-upload choose d-none" accept="image/*">
+                                    <i class="fa fa-upload"></i>&nbsp; Tải ảnh lên
+                                </label>
                             </div>
-
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('main-script')
+    <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/admin/account/detailAccount.js"></script>
 @endsection

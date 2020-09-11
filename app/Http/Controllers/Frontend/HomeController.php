@@ -72,7 +72,7 @@ class HomeController extends Controller
 
     public function getLogin()
     {
-        if(Auth::check())
+        if (Auth::check())
             return redirect()->route('homePage');
         else
             return view('frontend.login');
@@ -111,7 +111,7 @@ class HomeController extends Controller
         } else {
             $userByKey = User::where('email', $request->username)
                 ->orWhere('phone', $request->username)
-                ->where('status', [1,2])
+                ->where('status', [1, 2])
                 ->first();
             if ($userByKey && $userByKey->id) {
                 // wrong pass
@@ -271,7 +271,7 @@ class HomeController extends Controller
                 foreach ($shoppingCart as $item) {
                     $total_quantity += $item['quantity'];
                     $total_price += $item['quantity'] * $item['productPrice'];
-                    $total_payment += $item['quantity'] * $item['productPrice'] - $item['productPrice'] * ($item['productSaleOff']/100);
+                    $total_payment += $item['quantity'] * $item['productPrice'] - $item['productPrice'] * ($item['productSaleOff'] / 100);
                     $shop_id = $item['shop_id'];
                 }
             }
@@ -328,7 +328,7 @@ class HomeController extends Controller
             }
             // đưa sản phẩm vào giỏ hàng với key chính là id của sản phẩm.
             $shoppingCart[$product->id] = $cartItem;
-            if($cartItem['quantity'] <= 0){
+            if ($cartItem['quantity'] <= 0) {
                 unset($shoppingCart[$product->id]);
             }
             Session::put('shoppingCart', $shoppingCart);
@@ -377,11 +377,11 @@ class HomeController extends Controller
             $order->od_status = 1;
 
             $orderDetails = array();
-            foreach ($shoppingCart as $key => $cartItem){
+            foreach ($shoppingCart as $key => $cartItem) {
                 $productId = $cartItem['productId'];
                 // check status
                 $product = Product::find($productId);
-                if($product == null){
+                if ($product == null) {
                     continue;
                 }
                 $quantity = $cartItem['quantity'];
@@ -392,11 +392,11 @@ class HomeController extends Controller
                 $orderDetail->prd_sale_off = $product->sale_off;
                 array_push($orderDetails, $orderDetail);
             }
-            DB::transaction(function() use ($order, $orderDetails) {
+            DB::transaction(function () use ($order, $orderDetails) {
                 $order->save(); // có id của order.
                 $order->od_code = $this->genOrderCode($order->id);
                 $order->save();
-                foreach ($orderDetails as $orderDetail){
+                foreach ($orderDetails as $orderDetail) {
                     $orderDetail->od_id = $order->id;
                     $orderDetail->save();
                 }
@@ -408,12 +408,22 @@ class HomeController extends Controller
         }
     }
 
-    public function genOrderCode($id) {
+    public function genOrderCode($id)
+    {
         $dateCreate = Carbon::now();
-        $numOrder = Order::whereMonth('created_at',Carbon::now()->month)
-            ->whereYear('created_at',Carbon::now()->year)
-            ->where('id','<=',$id)->count();
-        return 'DH'.$dateCreate->format('ymd').$numOrder;
+        $numOrder = Order::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('id', '<=', $id)->count();
+        return 'DH' . $dateCreate->format('ymd') . $numOrder;
+    }
+
+    public function genProductCode($id)
+    {
+        $dateCreate = Carbon::now();
+        $numProduct = Product::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('id', '<=', $id)->count();
+        return 'DH' . $dateCreate->format('ymd') . $numProduct;
     }
     # End shopping cart
 
@@ -440,7 +450,7 @@ class HomeController extends Controller
             $total_sale_off = 0;
             $order_detail = Order_detail::where('od_id', $order->id)->get();
             foreach ($order_detail as $item) {
-                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off/100);
+                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off / 100);
             }
 
             return view('frontend.shop.order_detail', compact('order', 'order_detail', 'total_sale_off'));
@@ -526,7 +536,7 @@ class HomeController extends Controller
             $total_sale_off = 0;
             $order_detail = Order_detail::where('od_id', $order->id)->get();
             foreach ($order_detail as $item) {
-                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off/100);
+                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off / 100);
             }
 
             return view('frontend.shop.manager.order_detail',
@@ -600,7 +610,7 @@ class HomeController extends Controller
     public function getCreateProductShop()
     {
         $lstCate = Category::where('status', 1)->get();
-        return view('frontend.shop.manager.create_product', compact('lstCate')) ;
+        return view('frontend.shop.manager.create_product', compact('lstCate'));
     }
 
     public function postCreateProductShop(Request $request)
@@ -617,7 +627,10 @@ class HomeController extends Controller
             $product->name = $request->name;
             $product->price = $request->price;
             // upload image
-//        $product->thumbnail = $request->thumbnail;
+            $thumbnails = $request->get('thumbnails');
+            foreach ($thumbnails as $thumbnail) {
+                $product->thumbnail .= $thumbnail . ',';
+            }
             $product->description = $request->description;
             $product->type = 1;
             $product->sale_off = $request->sale_off;

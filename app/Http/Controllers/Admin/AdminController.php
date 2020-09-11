@@ -12,6 +12,7 @@ use App\Product;
 
 use App\Shop;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +55,7 @@ class AdminController extends Controller
         } else {
             $userByKey = User::where('email', $request->username)
                 ->orWhere('phone', $request->username)
-                ->where('status', [1,2])
+                ->where('status', [1, 2])
                 ->first();
             if ($userByKey && $userByKey->id) {
                 // wrong pass
@@ -64,7 +65,8 @@ class AdminController extends Controller
         }
     }
 
-    public function getAdminLogout() {
+    public function getAdminLogout()
+    {
         Auth::logout();
         return redirect('/admin/login');
     }
@@ -146,7 +148,6 @@ class AdminController extends Controller
 
     public function deleteAllCategory(Request $request)
     {
-        #Hàm sai, ko delete trực tiếp, delete bằng cách update stats = -1;
         try {
             $ids = $request->get('ids');
             foreach ($ids as $id) {
@@ -163,7 +164,7 @@ class AdminController extends Controller
     // list account admin
     public function accountManagement()
     {
-        $lstUserAdmin = User::whereIn('role', [1,2])
+        $lstUserAdmin = User::whereIn('role', [1, 2])
             ->where('status', '!=', -1)
             ->orderby('created_at', 'desc')
             ->paginate(15);
@@ -235,7 +236,7 @@ class AdminController extends Controller
     // list account user
     public function listAccountUser()
     {
-        $lstUser = User::whereIn('role', [3,4])
+        $lstUser = User::whereIn('role', [3, 4])
             ->where('status', '!=', -1)
             ->orderby('created_at', 'desc')
             ->paginate(20);
@@ -278,7 +279,7 @@ class AdminController extends Controller
             }
             $shop->status = $request->status;
             $user->role = 4;
-            DB::transaction(function() use ($user, $shop) {
+            DB::transaction(function () use ($user, $shop) {
                 $user->save();
                 $shop->save();
             });
@@ -301,7 +302,7 @@ class AdminController extends Controller
     {
         $shop = Shop::where('id', $id)->where('status', '!=', -1)->first();
         if ($shop == null) {
-            return  abort(404);
+            return abort(404);
         }
         return view('admin.account.detailShop', compact('shop'));
     }
@@ -337,39 +338,58 @@ class AdminController extends Controller
     public function newProduct()
     {
         $listCate = Category::where('status', '=', 1)->get();
-        return view('admin.products.newProduct')->with('listCate', $listCate);
+        $lstShop = Shop::where('status', '!=', -1)->get();
+        return view('admin.products.newProduct', compact('listCate', 'lstShop'));
     }
 
     public function postNewProduct(Request $request)
     {
-        $product = new Product();
-        $id = $request->get('id');
-        $name = $request->get('name');
-        $price = $request->get('price');
-        $category_id = $request->get('category_id');
-        $shop_id = $request->get('shop_id');
-        $sale_off = $request->get('sale_off');
-        $thumbnails = $request->get('thumbnails');
-        $description = $request->get('description');
+        try {
+            $product = new Product();
+//        $id = $request->get('id');
+//        $name = $request->get('name');
+//        $price = $request->get('price');
+//        $category_id = $request->get('category_id');
+//        $shop_id = $request->get('shop_id');
+//        $sale_off = $request->get('sale_off');
+            $thumbnails = $request->get('thumbnails');
+//        $description = $request->get('description');
 
-        $product->id = $id;
-        $product->name = $name;
-        $product->price = $price;
-        $product->category_id = $category_id;
-        $product->shop_id = $shop_id;
-        $product->sale_off = $sale_off;
-        $product->description = $description;
-        foreach ($thumbnails as $thumbnail) {
-            $product->thumbnail .= $thumbnail . ',';
+            $product->name = $request->name;
+            $product->price = $request->price;
+            $product->category_id = $request->category_id;
+            $product->shop_id = $request->shop_id;
+            $product->sale_off = $request->sale_off;
+            $product->description = $request->description;
+            foreach ($thumbnails as $thumbnail) {
+                $product->thumbnail .= $thumbnail . ',';
+            }
+            $product->save();
+            $product->prd_code = $this->genProductCode($product->id);
+            $product->save();
+
+            return redirect('/admin/product')->with(['success_message' => 'Tạo mới sản phẩm thành công!']);
+        } catch (Exception $ex) {
+            return abort(404);
         }
-        $product->save();
-
-        return redirect('/admin/category/listProduct');
     }
 
-    public function detailProduct()
+    public function genProductCode($id)
     {
-        return view('admin.products.detailProduct');
+        $dateCreate = Carbon::now();
+        $numProduct = Product::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('id', '<=', $id)->count();
+        return 'SP' . $dateCreate->format('ymd') . $numProduct;
+    }
+
+    public function detailProduct($id)
+    {
+        $product = Product::where('id', $id)
+            ->where('status', '=', 1)->first();
+        $lstCate = Category::where('status', '=', 1)->get();
+        $lstShop = Shop::where('status', '!=', -1)->get();
+        return view('admin.products.detailProduct', compact('product', 'lstCate', 'lstShop'));
     }
 
     public function getListProduct(Request $request)
@@ -398,6 +418,36 @@ class AdminController extends Controller
         $data['categories'] = $categories;
         return view('admin.products.listProduct')
             ->with($data);
+    }
+
+    #Delete Product
+    public function deleteProduct(Request $request)
+    {
+        try {
+            $product = Product::where('id', '=', $request->get('id'))
+                ->where('status', '=', 1)
+                ->first();
+            $product->status = -1;
+            $product->save();
+            return true;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
+    public function deleteAllProduct(Request $request)
+    {
+        try {
+            $ids = $request->get('ids');
+            foreach ($ids as $id) {
+                $product = Product::where('id', '=', $id)->where('status', '=', 1)->first();
+                $product->status = -1;
+                $product->save();
+            }
+            return true;
+        } catch (Exception $ex) {
+            return false;
+        }
     }
 
     // orders
@@ -462,7 +512,7 @@ class AdminController extends Controller
             $total_sale_off = 0;
             $order_detail = Order_detail::where('od_id', $order->id)->get();
             foreach ($order_detail as $item) {
-                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off/100);
+                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off / 100);
             }
             return view('admin.orders.detailOrders',
                 compact('order', 'order_status', 'order_detail', 'total_sale_off'));

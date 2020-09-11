@@ -21,19 +21,20 @@
                         <i class="fa fa-search position-absolute" style="top: 14px;left: 13px;"></i>
                     </li> -->
                     @if(\Illuminate\Support\Facades\Auth::check())
-                    <li class="item_menu_left pl-2 py-2 clearfix">
-                        <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
-                        <span class="float-left item_menu_title pt-1">
+                        <li class="item_menu_left pl-2 py-2 clearfix">
+                            <img class="rounded-circle float-left mr-2" src="/img/avatar_2x.png" alt="avatar left">
+                            <span class="float-left item_menu_title pt-1">
                             {!! \Illuminate\Support\Facades\Auth::user()->full_name !!}
                         </span>
-                    </li>
+                        </li>
                     @endif
                 </ul>
                 <hr class="my-3"/>
                 <div class="filter_left menu_filter_account">
                     <ul class="menu_left">
                         <li>
-                            <a href="#manage_orders" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle clearfix collapsed">
+                            <a href="#manage_orders" data-toggle="collapse" aria-expanded="false"
+                               class="dropdown-toggle clearfix collapsed">
                                 <i class="fa fa-user pr-1"></i>
                                 Tài khoản của tôi
                                 <i class="fa fa-angle-up float-right pt-2" aria-hidden="true"></i>
@@ -43,7 +44,7 @@
                                     <a href="/profile/info">Hồ sơ</a>
                                 </li>
                                 <li>
-                                    <a  href="/profile/change-password">Đổi mật khẩu</a>
+                                    <a href="/profile/change-password">Đổi mật khẩu</a>
                                 </li>
                             </ul>
                         </li>
@@ -80,13 +81,13 @@
         });
     </script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.menu-header li').removeClass('active');
             $('.menu-header a[title="Cửa hàng"]').parent().addClass('active');
         });
         var height = $(window).height() - 70;
-        $('.filter_left').css({'height': (height - 126)  + 'px', 'overflow-x': 'hidden'});
-        $('.scroll_content').css({'height': (height + 15)  + 'px', 'overflow-x': 'hidden', 'overflow-y': 'auto'});
+        $('.filter_left').css({'height': (height - 126) + 'px', 'overflow-x': 'hidden'});
+        $('.scroll_content').css({'height': (height + 15) + 'px', 'overflow-x': 'hidden', 'overflow-y': 'auto'});
     </script>
 @stop
 

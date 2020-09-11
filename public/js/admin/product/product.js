@@ -1,9 +1,93 @@
-$(document).ready(function() {
+var deleteIDone = 0;
+$(document).ready(function () {
     $(document).on('click', '#check-th', function (event) {
         $('.form-check-input').prop('checked', $(this).prop('checked'));
     });
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    });
+
     $('#menu_filter .nav-link').removeClass('active');
     $('.product_filter').addClass('active');
+
+    $('#deleteAll_product').click(function () {
+        var deleteIds = [];
+        $('.product-checkbox').each(function () {
+            if ($(this).prop('checked') == true) {
+                deleteIds.push(Number($(this).val()));
+            }
+        })
+        if (deleteIds.length == 0) {
+            Toast.fire({
+                type: 'error',
+                title: 'Xin vui lòng chọn danh mục sản phẩm cần xóa'
+            })
+            return;
+        }
+        var data = {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            'ids': deleteIds
+        }
+        $.ajax({
+            url: "/admin/product/delete-all",
+            method: 'POST',
+            data: {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+                'ids': deleteIds
+            },
+            dataType: "json",
+            'success': function () {
+                Toast.fire({
+                    type: 'success',
+                    title: 'Xóa sản phẩm thành công'
+                });
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1500);
+            },
+            'error': function () {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Xin vui lòng chọn các sản phẩm cần xóa'
+                })
+            }
+        })
+    })
+
+    $("#delete_product").click(function (event) {
+        event.preventDefault();
+        var id = [parseInt(deleteIDone)];
+        var token = $(this).data("token");
+        $.ajax(
+            {
+                url: "/admin/product/delete",
+                type: 'POST',
+                dataType: "JSON",
+                data: {
+                    "id": id,
+                    "_token": token,
+                },
+                'success': function () {
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Xóa sản phẩm thành công'
+                    });
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 1500);
+                },
+                'error': function () {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Xin vui lòng chọn sản phẩm cần xóa'
+                    })
+                }
+            });
+    });
 
     //filter date
     var localevn = {
@@ -47,17 +131,17 @@ $(document).ready(function() {
 
     /* ION SLIDER */
     $('#range_1').ionRangeSlider({
-        min     : 0,
-        max     : 100,
-        from    : 0,
-        to      : 10,
-        type    : 'double',
-        step    : 1,
-        postfix  : '%',
+        min: 0,
+        max: 100,
+        from: 0,
+        to: 10,
+        type: 'double',
+        step: 1,
+        postfix: '%',
         prettify: false,
-        hasGrid : true
+        hasGrid: true
     })
-    var readURL = function(input) {
+    var readURL = function (input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -66,14 +150,30 @@ $(document).ready(function() {
             reader.readAsDataURL(input.files[0]);
         }
     }
-    $(".file-upload").on('change', function(){
+    $(".file-upload").on('change', function () {
         readURL(this);
     });
     var heightContent = $(window).height() - 70;
-    $('.scroll_content').parent().css({'height': (heightContent + 20) + 'px', 'overflow-y': 'auto', 'overflow-x': 'hidden'});
+    $('.scroll_content').parent().css({
+        'height': (heightContent + 20) + 'px',
+        'overflow-y': 'auto',
+        'overflow-x': 'hidden'
+    });
     $('.scroll_content_form').css({'height': (heightContent) + 'px', 'overflow-y': 'auto'});
-    $('.scroll_content_form_detail').css({'height': (heightContent) + 'px', 'overflow-y': 'auto', 'overflow-x': 'hidden'});
+    $('.scroll_content_form_detail').css({
+        'height': (heightContent) + 'px',
+        'overflow-y': 'auto',
+        'overflow-x': 'hidden'
+    });
+
 });
-function showModalDeleteProduct(e) {
+
+
+function showModalDeleteProduct(event) {
+    deleteIDone = $(event).attr('data-id');
     $('#modal-delete-product').modal('show');
+}
+
+function showModalDeleteAllProduct(e) {
+    $('#modal-deleteAll-product').modal('show');
 }
