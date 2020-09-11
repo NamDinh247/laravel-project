@@ -29,7 +29,6 @@
             <div class="col-md-3 clearfix pr-4">
                 <div class="float-right">
                     <div class="avatar_header clearfix">
-                        @if(\Illuminate\Support\Facades\Auth::check())
                             <div class="float-left shopping_cart mr-2" style="border-radius: 50%;margin-top: 13px; border: 1px solid #28a745;">
                                 <a class="position-relative" href="/shopping_cart/show" >
                                     <i class="fa fa-shopping-cart" style="padding: 8px;font-size: 13px;color: #28a745"></i>
@@ -44,6 +43,7 @@
                                 </a>
                             </div>
                             {{-- notify --}}
+                        @if(\Illuminate\Support\Facades\Auth::check())
                             <div class="float-left shopping_cart mr-2 dropdown" style="border-radius: 50%;margin-top: 13px; border: 1px solid #28a745;">
                                 <a class="position-relative" data-toggle="dropdown" id="dropdownNotify">
                                     <i class="fa fa-bell" style="padding: 8px;font-size: 13px;color: #28a745"></i>

@@ -30,41 +30,45 @@ Route::post('/login', 'Frontend\HomeController@postLogin')
 
 Route::get('/logout', 'Frontend\HomeController@getLogout')
     ->name('home.logout');
+#product
+Route::get('/product/list', 'Frontend\HomeController@getListProduct')
+    ->name('home.product.list');
+
+Route::get('/product/cate/{id}', 'Frontend\HomeController@getListProductByCate')
+    ->name('home.product.list');
+
+Route::get('/product/list/research', 'Frontend\HomeController@getListProductResearch')
+    ->name('home.product.list.research');
+
+Route::get('/product/detail/{id}', 'Frontend\HomeController@getDetailProduct')
+    ->name('home.product.detail');
+
+#shopping cart
+Route::get('/shopping-cart/add', 'Frontend\HomeController@getAddShoppingCart')
+    ->name('user.addShoppingCart');
+
+Route::get('/shopping-cart/remove', 'Frontend\HomeController@getRemoveShoppingCart')
+    ->name('user.removeShoppingCart');
+#shop
+Route::get('/shops/list', 'Frontend\HomeController@getListShop')
+    ->name('home.shop.list');
+
+Route::get('/shops/detail/{id}', 'Frontend\HomeController@getDetailShop')
+    ->name('home.shop.list');
+#end
 
 Route::group(['middleware' => 'auth'], function() {
     Route::post('/shop/register', 'Frontend\HomeController@postShopRegister')
         ->name('customer.shop.postRegister');
 #End region login,register
 
-    Route::get('/shops/list', 'Frontend\HomeController@getListShop')
-        ->name('home.shop.list');
-
-    Route::get('/shops/detail/{id}', 'Frontend\HomeController@getDetailShop')
-        ->name('home.shop.list');
-
 # User product
-    Route::get('/product/list', 'Frontend\HomeController@getListProduct')
-        ->name('home.product.list');
 
-    Route::get('/product/cate/{id}', 'Frontend\HomeController@getListProductByCate')
-        ->name('home.product.list');
-
-    Route::get('/product/list/research', 'Frontend\HomeController@getListProductResearch')
-        ->name('home.product.list.research');
-
-    Route::get('/product/detail/{id}', 'Frontend\HomeController@getDetailProduct')
-        ->name('home.product.detail');
 # End user product
 
 # User shopping cart
     Route::get('/shopping_cart/show', 'Frontend\HomeController@getShoppingCart')
         ->name('user.shoppingCart');
-
-    Route::get('/shopping-cart/add', 'Frontend\HomeController@getAddShoppingCart')
-        ->name('user.addShoppingCart');
-
-    Route::get('/shopping-cart/remove', 'Frontend\HomeController@getRemoveShoppingCart')
-        ->name('user.removeShoppingCart');
 
     Route::post('/shopping-cart/submit', 'Frontend\HomeController@submit');
 # End user shopping cart

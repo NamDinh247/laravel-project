@@ -120,7 +120,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-8">
-                                    <a href="/shop/detail" class="" style="font-size: 14px;font-weight: 500;">{!! $shop->name !!}</a>
+                                    <a href="/shops/detail/{!! $shop->id !!}" class="" style="font-size: 14px;font-weight: 500;">{!! $shop->name !!}</a>
                                     <div class="comments_note pb-1">
                                         <div class="star_content clearfix">
                                             <div class="star star_on"><i class="fa fa-star"></i></div>
