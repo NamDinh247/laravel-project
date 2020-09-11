@@ -23,19 +23,14 @@
                             <hr/>
                         </div>
                     </div>
-                    <div class="row p-0 scroll_content_form" >
+                    <div class="row p-0 scroll_content_form">
                         <div class="col-sm-8">
                             <form class="form row" action="/admin/product/new" method="post" id="accountForm">
                                 @csrf
                                 <div class="form-group col-md-6">
-                                    <label>Mã sản phẩm</label>
-                                    <input type="text" class="form-control" id="id" placeholder="Mã sản phẩm">
-                                </div>
-                                <div class="form-group col-md-6">
                                     <label>Tên sản phẩm</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Tên sản phẩm">
+                                    <input type="text" class="form-control" name="name" placeholder="Tên sản phẩm">
                                 </div>
-                                {{-- danh mục này lấy từ category --}}
                                 <div class="form-group col-md-6">
                                     <label>Loại sản phẩm</label>
                                     <select id="type-product" class="form-control" name="category_id">
@@ -47,44 +42,30 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                {{-- tìm hiểu và sử dụng select2 ở đây --}}
                                 <div class="form-group col-md-6">
-                                    <label>Mã cửa hàng</label>
-                                    <input type="text" class="form-control" id="shop_id" placeholder="Mã cửa hàng">
-                                    {{--                                    <select id="select_shop" class="form-control">--}}
-                                    {{--                                        --}}{{-- đây là dữ liệu mẫu, for từ đây, xong thì xoá comment này --}}
-                                    {{--                                        <option value="">Chọn loại sản phẩm</option>--}}
-                                    {{--                                        <option value="user">Kim loại</option>--}}
-                                    {{--                                        <option value="shop">Gỗ</option>--}}
-                                    {{--                                        <option value="admin">Nhựa, cao su</option>--}}
-                                    {{--                                    </select>--}}
+                                    <label>Tên cửa hàng</label>
+                                    <select id="select_shop" name="shop_id" class="form-control">
+                                        @foreach($lstShop as $shop)
+                                            <option value="{!! $shop->id !!}">{!! $shop->name !!}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Giá bán (VND)</label>
-                                    <input type="number" class="form-control" min="0" id="price" placeholder="0">
+                                    <input type="number" class="form-control" min="0" name="price" placeholder="0">
                                 </div>
-                                <div class="form-group col-md-6">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Giảm giá</label>
-                                    <select id="sale_shop" class="form-control" name="sale_off">
-                                        <option value="1">Có</option>
-                                        <option value="0">Không</option>
-                                    </select>
-                                </div>
-                                {{-- show --}}
                                 <div class="form-group col-md-6">
                                     <label>Giá trị giảm giá (%)</label>
-                                    <input type="number" class="form-control" id="percent" min="0" max="100"
+                                    <input type="number" class="form-control" name="sale_off" min="0" max="100"
                                            placeholder="0">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Giá bán sau giảm giá</label>
-                                    <input type="number" class="form-control" id="price2" placeholder="0">
-                                </div>
                                 <div class="form-group col-md-12">
-                                    <label>Ghi chú</label>
-                                    <textarea type="text" class="form-control" id="address" name="description" placeholder="Nhập ghi chú"
+                                    <label>Mô tả sản phẩm</label>
+                                    <textarea type="text" class="form-control" id="address" name="description"
+                                              placeholder="Nhập mô tả"
                                               style="resize: vertical;"></textarea>
                                 </div>
                                 <div class="form-group">
@@ -101,18 +82,18 @@
                             </form>
                         </div>
                         <div class="col-md-4">
-                            <label type="button" class="btn btn-outline-success">
-                                <input type="file" class="text-center center-block file-upload" id="uploadImages" accept="image/*" multiple style="margin-top: 20px;display: none;">
-                                <i class="fa fa-upload"></i>&nbsp; Tải ảnh lên
-                            </label>
-                            <div class="images_product pt-5">
-                                <div class="row">
-                                    {{-- for ở đây --}}
-                                    <div class="col-md-4">
-                                        <div class="image_product position-relative">
-                                            <img src="" alt="">
-                                            <i class="position-absolute fa fa-trash" style="top: 0; right: 0;font-size: 13px; color: red;"></i>
-                                        </div>
+                            <div class="col-md-12">
+                                <label>Thêm ảnh sản phẩm</label>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="thumbnails">
+                                        <label type="button" class="btn btn-outline-success">
+                                            <input type="button" class="text-center center-block file-upload"
+                                                   id="upload_widget" accept="image/*" multiple=""
+                                                   style="margin-top: 20px;display: none;">
+                                            <i class="fa fa-upload"></i>&nbsp; Tải ảnh lên
+                                        </label>
                                     </div>
                                 </div>
                             </div>
