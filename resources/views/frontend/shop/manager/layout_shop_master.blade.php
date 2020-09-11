@@ -12,6 +12,7 @@
     <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="/Admin/plugins/moment/moment.min.js"></script>
     <script src="/Admin/plugins/moment/locale/vi.js"></script>
+    <link rel="stylesheet" href="/Admin/plugins/izitoast/iziToast.min.css">
 @endsection
 
 @section('content')
@@ -98,23 +99,16 @@
         </div>
         <div class="col-sm-9 pt-2 content_detail_shop px-4" style="background-color: rgb(240, 242, 245);">
             @if( \Illuminate\Support\Facades\Session::has('success_message'))
-                <div class="box-body" style="background-color: green">
-                    <div class="box box-success box-solid">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Thành công</h3>
-
-                            <div class="box-tools pull-right" hidden>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove">
-                                    <i class="fa fa-times"></i></button>
-                            </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            {{ \Illuminate\Support\Facades\Session::get('success_message') }}
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-check"></i> Thông báo!</h5>
+                    {{ \Illuminate\Support\Facades\Session::get('success_message') }}
+                </div>
+            @elseif( \Illuminate\Support\Facades\Session::has('error_message'))
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-exclamation-triangle"></i> Thông báo!</h5>
+                    {{ \Illuminate\Support\Facades\Session::get('error_message') }}
                 </div>
             @endif
             @yield('main-content-shop')
@@ -126,7 +120,7 @@
     <script src="/Admin/plugins/chart.js/Chart.min.js"></script>
     <script src="/Admin/plugins/emoji/jquery.emojiarea.js"></script>
     <script src="/Admin/plugins/jquery-knob/jquery.knob.min.js"></script>
-
+    <script src="/Admin/plugins/izitoast/iziToast.min.js"></script>
     <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
 
     {{--    <script src="/js/frontend/product/list.js"></script>--}}
@@ -232,7 +226,6 @@
             $('.content_information').addClass('d-none');
         })
         function changeTab(e, ele) {
-            console.log(ele)
             $(this).css('color', '#0056b');
             $('.manage_content').removeClass('d-block').addClass('d-none');
             $('.' + ele).removeClass('d-none');
@@ -256,6 +249,26 @@
             $('#input_search_product').hide();
             $('#emoji_new_posts').hide();
             $('#resetTextarea').hide();
+            var title_posts = $('#box_new_posts').val();
+            if (!title_posts) {
+                iziToast.warning({
+                    position: 'topCenter',
+                    timeout: 1000,
+                    transitionIn: 'bounceInDown',
+                    message: 'Vui lòng nhập tiêu đề!',
+                });
+                return false;
+            } else {
+                var notify = $('#notify_posts').val();
+                console.log(notify)
+                // iziToast.warning({
+                //     position: 'topCenter',
+                //     timeout: 1000,
+                //     transitionIn: 'bounceInDown',
+                //     message: 'Vui lòng nhập tiêu đề!',
+                // });
+                $('#box_new_posts').val('');
+            }
         });
         $('#resetTextarea').click(function (e) {
             $('#box_new_posts').height(25);

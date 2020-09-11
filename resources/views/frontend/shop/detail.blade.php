@@ -120,31 +120,31 @@
                                     <div class="col-md-8">
                                         <h5 class="pb-3">{!! $shop->name !!}</h5>
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <p><i class="fa fa-phone"></i>&nbsp; Số điện thoại:</p>
                                             </div>
-                                            <div class="col-md-9">
+                                            <div class="col-md-8">
                                                 <p>{!! $shop->phone !!}</p>
                                             </div>
                                         </div>
                                         <div class="row pt-2">
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <p><i class="fa fa-envelope"></i>&nbsp; Email:</p>
                                             </div>
-                                            <div class="col-md-9">
+                                            <div class="col-md-8">
                                                 <p>{!! $shop->email !!}</p>
                                             </div>
                                         </div>
                                         <div class="row pt-2">
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <p><i class="fa fa-map"></i>&nbsp; Địa chỉ:</p>
                                             </div>
-                                            <div class="col-md-9">
+                                            <div class="col-md-8">
                                                 <p style="white-space: normal;">{!! $shop->address !!}</p>
                                             </div>
                                         </div>
                                         <div class="row pt-2">
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <?php
                                                 $lstPrd = \App\Product::where('shop_id', $shop->id)->where('status', 1)->get();
                                                 $lstCateByShop = array();
@@ -157,15 +157,15 @@
                                                 ?>
                                                 <p><i class="fa fa-cubes"></i>&nbsp; Loại sản phẩm:</p>
                                             </div>
-                                            <div class="col-md-9">
+                                            <div class="col-md-8">
                                                 <p>{!! implode(", ",$lstCateByShop) !!}</p>
                                             </div>
                                         </div>
                                         <div class="row pt-2">
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <p><i class="fa fa-tags"></i>&nbsp; Số lượng mặt hàng:</p>
                                             </div>
-                                            <div class="col-md-9">
+                                            <div class="col-md-8">
                                                 <p>{!! count($lstPrd) !!}</p>
                                             </div>
                                         </div>

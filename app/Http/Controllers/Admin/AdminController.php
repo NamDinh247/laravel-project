@@ -49,7 +49,7 @@ class AdminController extends Controller
             } else {
                 // login fail
                 Auth::logout();
-                return redirect()->back()->with(['success_message' => 'Tài khoản không hoạt động']);
+                return redirect()->back()->with(['error_message' => 'Tài khoản không hoạt động']);
             }
         } else {
             $userByKey = User::where('email', $request->username)
@@ -58,9 +58,9 @@ class AdminController extends Controller
                 ->first();
             if ($userByKey && $userByKey->id) {
                 // wrong pass
-                return redirect()->back()->with(['success_message' => 'Sai mật khẩu']);
+                return redirect()->back()->with(['error_message' => 'Sai mật khẩu']);
             }
-            return redirect()->back()->with(['success_message' => 'Đăng nhập thất bại']);
+            return redirect()->back()->with(['error_message' => 'Đăng nhập thất bại']);
         }
     }
 
@@ -197,7 +197,7 @@ class AdminController extends Controller
             $user->save();
             return redirect()->back()->with(['success_message' => 'Cập nhật tài khoản thành công']);
         } catch (\Exception $ex) {
-            return redirect()->back()->with(['success_message' => 'Cập nhật tài khoản không thành công']);
+            return redirect()->back()->with(['error_message' => 'Cập nhật tài khoản không thành công']);
         }
     }
 
@@ -229,7 +229,7 @@ class AdminController extends Controller
             }
             return redirect('/admin/account/user')->with(['success_message' => 'Tạo mới tài khoản thành công']);
         } catch (\Exception $ex) {
-            return redirect('/admin/account')->with(['success_message' => 'Tạo mới tài không thành công']);
+            return redirect('/admin/account')->with(['error_message' => 'Tạo mới tài không thành công']);
         }
     }
 
@@ -286,8 +286,7 @@ class AdminController extends Controller
             return redirect('/admin/account/shop')
                 ->with(['success_message' => 'Kích hoạt tài khoản thành công']);
         } catch (\Exception $ex) {
-            return redirect('/admin/account/shop')
-                ->with(['success_message' => 'Kích hoạt tài khoản không thành công']);
+            return redirect('/admin/account/shop')->with(['error_message' => 'Kích hoạt tài khoản không thành công']);
         }
     }
 
@@ -321,7 +320,7 @@ class AdminController extends Controller
             $shop->save();
             return redirect()->back()->with(['success_message' => 'Cập nhật tài khoản thành công']);
         } catch (\Exception $ex) {
-            return redirect()->back()->with(['success_message' => 'Cập nhật tài khoản không thành công']);
+            return redirect()->back()->with(['error_message' => 'Cập nhật tài khoản không thành công']);
         }
     }
 
@@ -503,16 +502,20 @@ class AdminController extends Controller
 
     public function postChangeOrder(Request $request)
     {
-        $od_id = $request->get('od_id');
-        $order = Order::where('id', '=', $od_id)
-            ->whereNotIn('od_status', [-1])
-            ->first();
-        if ($order == null) {
-            return false;
+        try {
+            $od_id = $request->get('od_id');
+            $order = Order::where('id', '=', $od_id)
+                ->whereNotIn('od_status', [-1])
+                ->first();
+            if ($order == null) {
+                return false;
+            }
+            $order->od_status = $request->get('order_status');
+            $order->save();
+            return redirect()->back()->with(['success_message' => 'Cập nhật đơn hàng thành công']);
+        } catch (\Exception $ex) {
+            return redirect()->back()->with(['error_message' => 'Cập nhật đơn hàng không thành công']);
         }
-        $order->od_status = $request->get('order_status');
-        $order->save();
-        return redirect()->back()->with(['success_message' => 'Cập nhật đơn hàng thành công']);
     }
 
     // posts
