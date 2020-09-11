@@ -511,11 +511,12 @@ class AdminController extends Controller
                 $data['lstOrder'] = $lstOrder;
                 return view('admin.orders.listOrders', compact('data'));
             }
-            $data['lstOrder'] = $lstOrder->where('od_status', '!=', -1)
+            $data['lstOrder'] = $lstOrder->whereNotIn('od_status', [-1])
                 ->orderby('id', 'desc')
                 ->paginate(20)
                 ->appends($request->only('keyword'))
                 ->appends($request->only('od_status'));
+//            dd($data['lstOrder']);
             return view('admin.orders.listOrders', compact('data'));
         } catch (\Exception $ex) {
             return abort(404);
