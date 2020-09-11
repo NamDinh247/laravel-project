@@ -17,7 +17,7 @@
                         <form action="/product/list/research" method="get">
                             <input type="text" class="form-control" name="keyword"
                                    style="border: none;padding-left: 30px;border-radius: 30px;
-                                   height: 35px; line-height: 35px;" placeholder="Tìm kiếm sản phẩm">
+                                   height: 35px; line-height: 35px;" placeholder="Tìm kiếm sản phẩm" value="">
                             <input type="submit" class="d-none" style="visibility: hidden;" />
                             <i class="fa fa-search position-absolute" style="top: 14px;left: 13px;"></i>
                         </form>

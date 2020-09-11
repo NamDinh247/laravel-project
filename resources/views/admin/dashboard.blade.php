@@ -113,7 +113,7 @@
                         yAxes: [{
                             ticks: {
                                 suggestedMin: 0,
-                                suggestedMax: 1000,
+                                suggestedMax: 600,
                                 stepSize: 200,
                                 callback: function(value, index, values) {
                                     if (value === 0) {

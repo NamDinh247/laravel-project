@@ -77,19 +77,20 @@ class AdminController extends Controller
 
     public function getListCategory(Request $request)
     {
-        $categories = Category::where('status', '=', 1)
-            ->orderby('created_at', 'desc')
-            ->paginate(20);
-        return view('admin.category.listCategory', compact('categories'));
+        $data = array();
+        $data['keyword'] = '';
+        $categories = Category::query();
+        if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+            $data['keyword'] = $request->get('keyword');
+            $categories = $categories->where('name', 'like', '%' . $request->get('keyword') . '%')
+                ->orWhere('note', 'like', '%' . $request->get('keyword') . '%');
+        }
 
-//        $date ['keyword'] = '';
-//        $category_list = Category::query();
-//        if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
-//            $data['keyword'] = $request->get('keyword');
-//            $category_list = $category_list->where('name', 'like', '%' . $request->get('keyword') . '%');
-//        }
-//        $data['listCate'] = $category_list->get();
-//        return view('admin.category.listCategory')->with($data);
+        $data['categories'] = $categories->where('status', '=', 1)
+            ->orderby('created_at', 'desc')
+            ->paginate(20)
+            ->appends($request->only('keyword'));
+        return view('admin.category.listCategory', compact('data'));
     }
 
     public function getDetailCategory($id)
@@ -327,11 +328,29 @@ class AdminController extends Controller
     // product
     public function listProduct(Request $request)
     {
-        $products = Product::where('status', '=', 1)
-            ->orderby('created_at', 'desc')
-            ->paginate(20);
+        $data = array();
+        $data['keyword'] = '';
+        $data['category_id'] = 0;
         $lstCate = Category::where('status', 1)->get();
-        return view('admin.products.listProduct', compact('products', 'lstCate'));
+        $products = Product::query();
+
+        if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+            $data['keyword'] = $request->get('keyword');
+            $products = $products->where('name', 'like', '%' . $request->get('keyword') . '%')
+                ->orWhere('prd_code', 'like', '%' . $request->get('keyword') . '%');
+        }
+
+        if ($request->has('category_id') && $request->get('category_id') != 0) {
+            $data['category_id'] = $request->get('category_id');
+            $products = $products->where('category_id', '=', $request->get('category_id'));
+        }
+
+        $data['products'] = $products->where('status', '=', 1)
+            ->orderby('created_at', 'desc')
+            ->paginate(20)
+            ->appends($request->only('keyword'))
+            ->appends($request->only('category_id'));
+        return view('admin.products.listProduct', compact('data', 'lstCate'));
     }
 
     public function newProduct()
@@ -423,20 +442,31 @@ class AdminController extends Controller
                 $data['end'] = $request->get('end');
                 $from = date($request->get('start') . ' 00:00:00');
                 $to = date($request->get('end') . ' 23:59:00');
-                $lstOrder = $lstOrder->whereBetween('created_at', [$from, $to]);
+                $lstOrder = $lstOrder->whereBetween('created_at', [$from, $to])->paginate(20)
+                    ->appends($request->only('start'))
+                    ->appends($request->only('end'));
+                $totalOrderFinish = Order::whereBetween('created_at', [$from, $to])
+                    ->where('od_status', 5)->count();
+                $totalRevenueOrderFinish = Order::whereBetween('created_at', [$from, $to])
+                    ->where('od_status', 5)->sum('od_total_price');
+                $totalOrderCancel = Order::whereBetween('created_at', [$from, $to])
+                    ->where('od_status', 6)->count();
+                $totalOrderProcess = Order::whereBetween('created_at', [$from, $to])
+                    ->whereIn('od_status', [1,2,3,4])->count();
                 $dataOrder = array();
-                $dataOrder['totalOrder'] = count($lstOrder);
+                $dataOrder['totalOrderFinish'] = $totalOrderFinish;
+                $dataOrder['totalOrderCancel'] = $totalOrderCancel;
+                $dataOrder['totalOrderProcess'] = $totalOrderProcess;
+                $dataOrder['totalRevenueOrderFinish'] = $totalRevenueOrderFinish;
+                $data['dataOrder'] = $dataOrder;
+                $data['lstOrder'] = $lstOrder;
+                return view('admin.orders.listOrders', compact('data'));
             }
             $data['lstOrder'] = $lstOrder->where('od_status', '!=', -1)
                 ->orderby('id', 'desc')
-                ->paginate(15);
-
-
-//        $lstOrder = Order::whereNotIn('od_status', [-1])
-//            ->orderby('created_at', 'desc')
-//            ->paginate(15);
-
-//        return view('admin.orders.listOrders', compact('lstOrder', 'lstOrderStats'));
+                ->paginate(20)
+                ->appends($request->only('keyword'))
+                ->appends($request->only('od_status'));
             return view('admin.orders.listOrders', compact('data'));
         } catch (\Exception $ex) {
             return abort(404);

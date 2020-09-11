@@ -493,20 +493,67 @@ class HomeController extends Controller
         }
     }
 
-    public function getListOrder()
+    public function getListOrder(Request $request)
     {
         try {
             $user = Auth::user();
-            $shop = Shop::where('account_id', $user->id)->first();
+            $shop = Shop::where('account_id', $user->id)->where('status', '=', 1)->first();
             if ($shop == null) {
                 return view('errors.404');
             }
 
-            $lstOrder = Order::where('shop_id', $shop->id)
-                ->whereNotIn('od_status', [-1])
-                ->orderby('created_at', 'desc')
-                ->paginate(20);
-            return view('frontend.shop.manager.list_order', compact('lstOrder'));
+            $data = array();
+            $data['keyword'] = '';
+            $data['od_status'] = 0;
+            $lstOrderStats = Order_status::all();
+            $data['lstOrderStats'] = $lstOrderStats;
+            $lstOrder = Order::query();
+            if ($request->has('od_status') && $request->get('od_status') != 0) {
+                $data['od_status'] = $request->get('od_status');
+                $lstOrder = $lstOrder->where('od_status', '=', $request->get('od_status'));
+            }
+            if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+                $data['keyword'] = $request->get('keyword');
+                $lstOrder = $lstOrder->where('od_code', 'like', '%' . $request->get('keyword') . '%');
+            }
+            if ($request->has('start') && strlen($request->get('start')) > 0 && $request->has('end') && strlen($request->get('end')) > 0) {
+                $data['start'] = $request->get('start');
+                $data['end'] = $request->get('end');
+                $from = date($request->get('start') . ' 00:00:00');
+                $to = date($request->get('end') . ' 23:59:00');
+                $lstOrder = $lstOrder->where('shop_id', $shop->id)
+                    ->whereBetween('created_at', [$from, $to])
+                    ->paginate(20)
+                    ->appends($request->only('start'))
+                    ->appends($request->only('end'));
+                $totalOrderFinish = Order::where('shop_id', $shop->id)
+                    ->whereBetween('created_at', [$from, $to])
+                    ->where('od_status', 5)->count();
+                $totalRevenueOrderFinish = Order::where('shop_id', $shop->id)
+                    ->whereBetween('created_at', [$from, $to])
+                    ->where('od_status', 5)->sum('od_total_price');
+                $totalOrderCancel = Order::where('shop_id', $shop->id)
+                    ->whereBetween('created_at', [$from, $to])
+                    ->where('od_status', 6)->count();
+                $totalOrderProcess = Order::where('shop_id', $shop->id)
+                    ->whereBetween('created_at', [$from, $to])
+                    ->whereIn('od_status', [1,2,3,4])->count();
+                $dataOrder = array();
+                $dataOrder['totalOrderFinish'] = $totalOrderFinish;
+                $dataOrder['totalOrderCancel'] = $totalOrderCancel;
+                $dataOrder['totalOrderProcess'] = $totalOrderProcess;
+                $dataOrder['totalRevenueOrderFinish'] = $totalRevenueOrderFinish;
+                $data['dataOrder'] = $dataOrder;
+                $data['lstOrder'] = $lstOrder;
+                return view('frontend.shop.manager.list_order', compact('data'));
+            }
+            $data['lstOrder'] = $lstOrder->where('shop_id', $shop->id)
+                ->where('od_status', '!=', -1)
+                ->orderby('id', 'desc')
+                ->paginate(10)
+                ->appends($request->only('keyword'))
+                ->appends($request->only('od_status'));
+            return view('frontend.shop.manager.list_order', compact('data'));
         } catch (\Exception $ex) {
             return abort(404);
         }
@@ -625,7 +672,6 @@ class HomeController extends Controller
             $product->save();
             return redirect('/shop/products/list')->with(['success_message' => 'Tạo mới sản phẩm thành công']);
         } catch (\Exception $ex) {
-            dd($ex->getMessage());
             return redirect('/shop/products/list')->with(['success_message' => 'Tạo mới sản phẩm không thành công']);
         }
     }

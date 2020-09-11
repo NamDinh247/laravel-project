@@ -41,7 +41,7 @@
                             <div class="form-group col-md-12">
                                 <label>Ghi chú</label>
                                 <textarea type="text" name="note" class="form-control" id="noteCategory" value="{!! $category->note !!}"
-                                          placeholder="Nhập ghi chú" style="resize: vertical;"></textarea>
+                                          placeholder="Nhập ghi chú" style="resize: vertical;">{!! $category->note !!}</textarea>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
