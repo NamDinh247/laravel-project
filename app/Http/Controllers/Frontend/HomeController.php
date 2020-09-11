@@ -72,7 +72,7 @@ class HomeController extends Controller
 
     public function getLogin()
     {
-        if(Auth::check())
+        if (Auth::check())
             return redirect()->route('homePage');
         else
             return view('frontend.login');
@@ -111,7 +111,7 @@ class HomeController extends Controller
         } else {
             $userByKey = User::where('email', $request->username)
                 ->orWhere('phone', $request->username)
-                ->where('status', [1,2])
+                ->where('status', [1, 2])
                 ->first();
             if ($userByKey && $userByKey->id) {
                 // wrong pass
@@ -271,7 +271,7 @@ class HomeController extends Controller
                 foreach ($shoppingCart as $item) {
                     $total_quantity += $item['quantity'];
                     $total_price += $item['quantity'] * $item['productPrice'];
-                    $total_payment += $item['quantity'] * $item['productPrice'] - $item['productPrice'] * ($item['productSaleOff']/100);
+                    $total_payment += $item['quantity'] * $item['productPrice'] - $item['productPrice'] * ($item['productSaleOff'] / 100);
                     $shop_id = $item['shop_id'];
                 }
             }
@@ -328,7 +328,7 @@ class HomeController extends Controller
             }
             // đưa sản phẩm vào giỏ hàng với key chính là id của sản phẩm.
             $shoppingCart[$product->id] = $cartItem;
-            if($cartItem['quantity'] <= 0){
+            if ($cartItem['quantity'] <= 0) {
                 unset($shoppingCart[$product->id]);
             }
             Session::put('shoppingCart', $shoppingCart);
@@ -377,11 +377,11 @@ class HomeController extends Controller
             $order->od_status = 1;
 
             $orderDetails = array();
-            foreach ($shoppingCart as $key => $cartItem){
+            foreach ($shoppingCart as $key => $cartItem) {
                 $productId = $cartItem['productId'];
                 // check status
                 $product = Product::find($productId);
-                if($product == null){
+                if ($product == null) {
                     continue;
                 }
                 $quantity = $cartItem['quantity'];
@@ -392,11 +392,11 @@ class HomeController extends Controller
                 $orderDetail->prd_sale_off = $product->sale_off;
                 array_push($orderDetails, $orderDetail);
             }
-            DB::transaction(function() use ($order, $orderDetails) {
+            DB::transaction(function () use ($order, $orderDetails) {
                 $order->save(); // có id của order.
                 $order->od_code = $this->genOrderCode($order->id);
                 $order->save();
-                foreach ($orderDetails as $orderDetail){
+                foreach ($orderDetails as $orderDetail) {
                     $orderDetail->od_id = $order->id;
                     $orderDetail->save();
                 }
@@ -408,12 +408,22 @@ class HomeController extends Controller
         }
     }
 
-    public function genOrderCode($id) {
+    public function genOrderCode($id)
+    {
         $dateCreate = Carbon::now();
-        $numOrder = Order::whereMonth('created_at',Carbon::now()->month)
-            ->whereYear('created_at',Carbon::now()->year)
-            ->where('id','<=',$id)->count();
-        return 'DH'.$dateCreate->format('ymd').$numOrder;
+        $numOrder = Order::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('id', '<=', $id)->count();
+        return 'DH' . $dateCreate->format('ymd') . $numOrder;
+    }
+
+    public function genProductCode($id)
+    {
+        $dateCreate = Carbon::now();
+        $numProduct = Product::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('id', '<=', $id)->count();
+        return 'DH' . $dateCreate->format('ymd') . $numProduct;
     }
     # End shopping cart
 
@@ -440,7 +450,7 @@ class HomeController extends Controller
             $total_sale_off = 0;
             $order_detail = Order_detail::where('od_id', $order->id)->get();
             foreach ($order_detail as $item) {
-                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off/100);
+                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off / 100);
             }
 
             return view('frontend.shop.order_detail', compact('order', 'order_detail', 'total_sale_off'));
@@ -493,20 +503,67 @@ class HomeController extends Controller
         }
     }
 
-    public function getListOrder()
+    public function getListOrder(Request $request)
     {
         try {
             $user = Auth::user();
-            $shop = Shop::where('account_id', $user->id)->first();
+            $shop = Shop::where('account_id', $user->id)->where('status', '=', 1)->first();
             if ($shop == null) {
                 return view('errors.404');
             }
 
-            $lstOrder = Order::where('shop_id', $shop->id)
-                ->whereNotIn('od_status', [-1])
-                ->orderby('created_at', 'desc')
-                ->paginate(20);
-            return view('frontend.shop.manager.list_order', compact('lstOrder'));
+            $data = array();
+            $data['keyword'] = '';
+            $data['od_status'] = 0;
+            $lstOrderStats = Order_status::all();
+            $data['lstOrderStats'] = $lstOrderStats;
+            $lstOrder = Order::query();
+            if ($request->has('od_status') && $request->get('od_status') != 0) {
+                $data['od_status'] = $request->get('od_status');
+                $lstOrder = $lstOrder->where('od_status', '=', $request->get('od_status'));
+            }
+            if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+                $data['keyword'] = $request->get('keyword');
+                $lstOrder = $lstOrder->where('od_code', 'like', '%' . $request->get('keyword') . '%');
+            }
+            if ($request->has('start') && strlen($request->get('start')) > 0 && $request->has('end') && strlen($request->get('end')) > 0) {
+                $data['start'] = $request->get('start');
+                $data['end'] = $request->get('end');
+                $from = date($request->get('start') . ' 00:00:00');
+                $to = date($request->get('end') . ' 23:59:00');
+                $lstOrder = $lstOrder->where('shop_id', $shop->id)
+                    ->whereBetween('created_at', [$from, $to])
+                    ->paginate(20)
+                    ->appends($request->only('start'))
+                    ->appends($request->only('end'));
+                $totalOrderFinish = Order::where('shop_id', $shop->id)
+                    ->whereBetween('created_at', [$from, $to])
+                    ->where('od_status', 5)->count();
+                $totalRevenueOrderFinish = Order::where('shop_id', $shop->id)
+                    ->whereBetween('created_at', [$from, $to])
+                    ->where('od_status', 5)->sum('od_total_price');
+                $totalOrderCancel = Order::where('shop_id', $shop->id)
+                    ->whereBetween('created_at', [$from, $to])
+                    ->where('od_status', 6)->count();
+                $totalOrderProcess = Order::where('shop_id', $shop->id)
+                    ->whereBetween('created_at', [$from, $to])
+                    ->whereIn('od_status', [1,2,3,4])->count();
+                $dataOrder = array();
+                $dataOrder['totalOrderFinish'] = $totalOrderFinish;
+                $dataOrder['totalOrderCancel'] = $totalOrderCancel;
+                $dataOrder['totalOrderProcess'] = $totalOrderProcess;
+                $dataOrder['totalRevenueOrderFinish'] = $totalRevenueOrderFinish;
+                $data['dataOrder'] = $dataOrder;
+                $data['lstOrder'] = $lstOrder;
+                return view('frontend.shop.manager.list_order', compact('data'));
+            }
+            $data['lstOrder'] = $lstOrder->where('shop_id', $shop->id)
+                ->where('od_status', '!=', -1)
+                ->orderby('id', 'desc')
+                ->paginate(10)
+                ->appends($request->only('keyword'))
+                ->appends($request->only('od_status'));
+            return view('frontend.shop.manager.list_order', compact('data'));
         } catch (\Exception $ex) {
             return abort(404);
         }
@@ -526,7 +583,7 @@ class HomeController extends Controller
             $total_sale_off = 0;
             $order_detail = Order_detail::where('od_id', $order->id)->get();
             foreach ($order_detail as $item) {
-                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off/100);
+                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off / 100);
             }
 
             return view('frontend.shop.manager.order_detail',
@@ -600,7 +657,7 @@ class HomeController extends Controller
     public function getCreateProductShop()
     {
         $lstCate = Category::where('status', 1)->get();
-        return view('frontend.shop.manager.create_product', compact('lstCate')) ;
+        return view('frontend.shop.manager.create_product', compact('lstCate'));
     }
 
     public function postCreateProductShop(Request $request)
@@ -617,7 +674,10 @@ class HomeController extends Controller
             $product->name = $request->name;
             $product->price = $request->price;
             // upload image
-//        $product->thumbnail = $request->thumbnail;
+            $thumbnails = $request->get('thumbnails');
+            foreach ($thumbnails as $thumbnail) {
+                $product->thumbnail .= $thumbnail . ',';
+            }
             $product->description = $request->description;
             $product->type = 1;
             $product->sale_off = $request->sale_off;
@@ -625,7 +685,6 @@ class HomeController extends Controller
             $product->save();
             return redirect('/shop/products/list')->with(['success_message' => 'Tạo mới sản phẩm thành công']);
         } catch (\Exception $ex) {
-            dd($ex->getMessage());
             return redirect('/shop/products/list')->with(['error_message' => 'Tạo mới sản phẩm không thành công']);
         }
     }

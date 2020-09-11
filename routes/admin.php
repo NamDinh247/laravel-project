@@ -75,7 +75,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function() {
 
     Route::post('/product/new', 'Admin\AdminController@postNewProduct');
 
-    Route::get('/product/detail', 'Admin\AdminController@detailProduct');
+    Route::get('/product/detail/{id}', 'Admin\AdminController@detailProduct');
+
+    Route::post('/product/delete', 'Admin\AdminController@deleteProduct')
+        ->name('product.delete');
+
+    Route::post('/product/delete-all', 'Admin\AdminController@deleteAllProduct')
+        ->name('product.deleteAll');
 
 // orders
 //Route::get('/admin/orders', 'Admin\AdminController@listOrders');

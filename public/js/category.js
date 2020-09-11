@@ -94,8 +94,7 @@ $(document).ready(function () {
 });
 
 function showModalDeleteCategory(event) {
-    deleteIDone = event.data-id;
-    console.log(deleteIDone)
+    deleteIDone = $(event).attr('data-id');
     $('#modal-delete-category').modal('show');
 }
 

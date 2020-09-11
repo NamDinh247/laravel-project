@@ -83,8 +83,6 @@ Route::group(['middleware' => 'auth'], function() {
 
 // detail product
     Route::get('/shop/orders/detail/{id}','Frontend\HomeController@getShopDetailOrders');
-// sign in
-    Route::get('/sign-in','Frontend\HomeController@getSignIn');
 
 # Shop
     Route::get('/channel/shop', 'Frontend\HomeController@checkActiveShop')

@@ -113,42 +113,46 @@
                     </table>
                 </div>
                 <div class="row footer-table px-3">
+                    @if(isset($data['dataOrder']))
                     <div class="col-md-12 pl-2 mb-3" style="border-bottom: 1px solid #ddd;">
-                        <div class="clearfix py-2">
-                            <div class="float-left pr-4">
-                                Chiết khấu: <label class="pl-2"> 10%</label>
+                        <div class="clearfix py-2 row">
+                            <div class="float-left pr-4 col-6">
+                                Tổng số đơn hoàn thành:
+                                <label class="pl-2" style="color: green;">{!! $data['dataOrder']['totalOrderFinish'] !!} đơn hàng</label>
                             </div>
-                            <div class="float-left pr-4">
-                                Tổng số đơn hoàn thành: <label class="pl-2"> 15 đơn hàng</label>
+                            <div class="float-left pr-4 col-6">
+                                Tổng doanh thu đơn hàng:
+                                <label class="pl-2" style="color: green;">
+                                    {!! number_format($data['dataOrder']['totalRevenueOrderFinish'],0,',','.') !!} đ
+                                </label>
                             </div>
-                            <div class="float-left pr-4">
-                                Tổng số đơn chiết khấu: <label class="pl-2"> 13 đơn hàng</label>
+                            <div class="float-left pr-4 col-6">
+                                Tổng số đơn hủy:
+                                <label class="pl-2" style="color: green;">{!! $data['dataOrder']['totalOrderCancel'] !!} đơn hàng</label>
                             </div>
-                            <div class="float-left pr-4">
-                                Tổng tiền chiết khấu: <label class="pl-2"> 2.000.000 VND</label>
+                            <div class="float-left pr-4 col-6">
+                                Chiết khấu: <label class="pl-2" style="color: green;">10%</label>
+                            </div>
+                            <div class="float-left pr-4 col-6">
+                                Tổng số đang xử lí:
+                                <label class="pl-2" style="color: green;">{!! $data['dataOrder']['totalOrderProcess'] !!} đơn hàng</label>
+                            </div>
+                            <div class="float-left pr-4 col-6">
+                                Tổng tiền chiết khấu: <label class="pl-2" style="color: green;">
+                                    {!! number_format($data['dataOrder']['totalRevenueOrderFinish'] * 0.1,0,',','.') !!} đ
+                                </label>
                             </div>
                         </div>
                     </div>
+                    @endif
                     <div class="col-md-6">
-                        <div class="dataTables_info pt-2" id="example1_info" role="status" aria-live="polite">Hiển thị 1 đến
-                            10 trong số 57
-                        </div>
+{{--                        <div class="dataTables_info pt-2" id="example1_info" role="status" aria-live="polite">Hiển thị 1 đến--}}
+{{--                            10 trong số 57--}}
+{{--                        </div>--}}
                     </div>
                     <nav class="col-md-6 clearfix">
                         <ul class="pagination float-right">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#"><i class="fa fa-chevron-left"></i></a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active">
-                                <span class="page-link">2
-                                    <span class="sr-only">(current)</span>
-                                </span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#"><i class="fa fa-chevron-right"></i></a>
-                            </li>
+                            {!! $data['lstOrder']->links() !!}
                         </ul>
                     </nav>
                 </div>

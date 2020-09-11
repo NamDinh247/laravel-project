@@ -13,14 +13,15 @@
     <div class="row scroll_content pb-3 pt-1">
         <div class="col-md-12">
             <div class="content-table bg-white py-2 px-3" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
+                <form action="/admin/category" method="get">
                 <div class="card-header bg-white position-relative border-0 py-3 px-0">
                     <h4 class="card-title" style="margin-bottom: 0 !important;">Danh sách danh mục</h4>
                     <div class="breadcrumb mt-1">
-                        @csrf
                         <div class="input-group input-group-sm mr-1" style="width: 220px;">
-                            <input value="{{$keyword ?? ''}}" type="text" name="keyword" class="form-control"
+                            <input value="{{ $data['keyword'] }}" type="text" name="keyword" class="form-control"
                                    placeholder="Tìm kiếm danh mục"
                                    style="border-radius: 0 !important;">
+                            <input type="submit" name="" id="" hidden/>
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default"
                                         style="border: 1px solid #ced4da; border-radius: 0 !important;"><i
@@ -32,6 +33,7 @@
                                 class="fa fa-plus"></i>&nbsp; Thêm mới</a>
                     </div>
                 </div>
+                </form>
                 <div class="card-body table-responsive p-0">
                     <table id="example" class="table table-head-fixed text-nowrap table-hover">
                         <thead>
@@ -50,7 +52,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($categories as $cate)
+                        @foreach($data['categories'] as $cate)
                             <tr>
                                 <td class="text-xl-center ver-middle" style="width: 40px">
                                     <input type="checkbox" class="form-check-input category-checkbox"
@@ -75,13 +77,13 @@
                 <div class="row footer-table">
                     <div class="col-md-6">
                         <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
-                            Hiển thị {{ count($categories) > 0 ? $categories->currentPage() * $categories->perPage() - $categories->perPage() + 1 : 0 }} đến
-                            {{ ($categories->currentPage() * $categories->perPage()) > $categories->total() ? $categories->total() : $categories->currentPage() * $categories->perPage() }}
-                            trong số {!! $categories->total() !!}
+{{--                            Hiển thị {{ count($categories) > 0 ? $categories->currentPage() * $categories->perPage() - $categories->perPage() + 1 : 0 }} đến--}}
+{{--                            {{ ($categories->currentPage() * $categories->perPage()) > $categories->total() ? $categories->total() : $categories->currentPage() * $categories->perPage() }}--}}
+{{--                            trong số {!! $categories->total() !!}--}}
                         </div>
                     </div>
                     <nav class="col-md-6 clearfix">
-                        {{ $categories->links() }}
+                        {{ $data['categories']->links() }}
                     </nav>
                 </div>
             </div>
@@ -105,7 +107,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Huỷ</button>
                     <button id="delete_category" type="button" class="btn btn-sm btn-success"
-                            data-id="{{ count($categories) > 0 ? $cate->id : null }}" data-token="{{ csrf_token() }}"><i
+                            data-id="{{ count($data['categories']) > 0 ? $cate->id : null }}" data-token="{{ csrf_token() }}"><i
                             class="fa fa-check"></i>&nbsp; Đồng ý
                     </button>
                 </div>

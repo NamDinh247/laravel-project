@@ -12,6 +12,7 @@ use App\Product;
 
 use App\Shop;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +55,7 @@ class AdminController extends Controller
         } else {
             $userByKey = User::where('email', $request->username)
                 ->orWhere('phone', $request->username)
-                ->where('status', [1,2])
+                ->where('status', [1, 2])
                 ->first();
             if ($userByKey && $userByKey->id) {
                 // wrong pass
@@ -64,7 +65,8 @@ class AdminController extends Controller
         }
     }
 
-    public function getAdminLogout() {
+    public function getAdminLogout()
+    {
         Auth::logout();
         return redirect('/admin/login');
     }
@@ -77,19 +79,20 @@ class AdminController extends Controller
 
     public function getListCategory(Request $request)
     {
-        $categories = Category::where('status', '=', 1)
-            ->orderby('created_at', 'desc')
-            ->paginate(20);
-        return view('admin.category.listCategory', compact('categories'));
+        $data = array();
+        $data['keyword'] = '';
+        $categories = Category::query();
+        if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+            $data['keyword'] = $request->get('keyword');
+            $categories = $categories->where('name', 'like', '%' . $request->get('keyword') . '%')
+                ->orWhere('note', 'like', '%' . $request->get('keyword') . '%');
+        }
 
-//        $date ['keyword'] = '';
-//        $category_list = Category::query();
-//        if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
-//            $data['keyword'] = $request->get('keyword');
-//            $category_list = $category_list->where('name', 'like', '%' . $request->get('keyword') . '%');
-//        }
-//        $data['listCate'] = $category_list->get();
-//        return view('admin.category.listCategory')->with($data);
+        $data['categories'] = $categories->where('status', '=', 1)
+            ->orderby('created_at', 'desc')
+            ->paginate(20)
+            ->appends($request->only('keyword'));
+        return view('admin.category.listCategory', compact('data'));
     }
 
     public function getDetailCategory($id)
@@ -146,7 +149,6 @@ class AdminController extends Controller
 
     public function deleteAllCategory(Request $request)
     {
-        #Hàm sai, ko delete trực tiếp, delete bằng cách update stats = -1;
         try {
             $ids = $request->get('ids');
             foreach ($ids as $id) {
@@ -163,7 +165,7 @@ class AdminController extends Controller
     // list account admin
     public function accountManagement()
     {
-        $lstUserAdmin = User::whereIn('role', [1,2])
+        $lstUserAdmin = User::whereIn('role', [1, 2])
             ->where('status', '!=', -1)
             ->orderby('created_at', 'desc')
             ->paginate(15);
@@ -235,7 +237,7 @@ class AdminController extends Controller
     // list account user
     public function listAccountUser()
     {
-        $lstUser = User::whereIn('role', [3,4])
+        $lstUser = User::whereIn('role', [3, 4])
             ->where('status', '!=', -1)
             ->orderby('created_at', 'desc')
             ->paginate(20);
@@ -278,7 +280,7 @@ class AdminController extends Controller
             }
             $shop->status = $request->status;
             $user->role = 4;
-            DB::transaction(function() use ($user, $shop) {
+            DB::transaction(function () use ($user, $shop) {
                 $user->save();
                 $shop->save();
             });
@@ -300,7 +302,7 @@ class AdminController extends Controller
     {
         $shop = Shop::where('id', $id)->where('status', '!=', -1)->first();
         if ($shop == null) {
-            return  abort(404);
+            return abort(404);
         }
         return view('admin.account.detailShop', compact('shop'));
     }
@@ -326,49 +328,86 @@ class AdminController extends Controller
     // product
     public function listProduct(Request $request)
     {
-        $products = Product::where('status', '=', 1)
-            ->orderby('created_at', 'desc')
-            ->paginate(20);
+        $data = array();
+        $data['keyword'] = '';
+        $data['category_id'] = 0;
         $lstCate = Category::where('status', 1)->get();
-        return view('admin.products.listProduct', compact('products', 'lstCate'));
+        $products = Product::query();
+
+        if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+            $data['keyword'] = $request->get('keyword');
+            $products = $products->where('name', 'like', '%' . $request->get('keyword') . '%')
+                ->orWhere('prd_code', 'like', '%' . $request->get('keyword') . '%');
+        }
+
+        if ($request->has('category_id') && $request->get('category_id') != 0) {
+            $data['category_id'] = $request->get('category_id');
+            $products = $products->where('category_id', '=', $request->get('category_id'));
+        }
+
+        $data['products'] = $products->where('status', '=', 1)
+            ->orderby('created_at', 'desc')
+            ->paginate(20)
+            ->appends($request->only('keyword'))
+            ->appends($request->only('category_id'));
+        return view('admin.products.listProduct', compact('data', 'lstCate'));
     }
 
     public function newProduct()
     {
         $listCate = Category::where('status', '=', 1)->get();
-        return view('admin.products.newProduct')->with('listCate', $listCate);
+        $lstShop = Shop::where('status', '!=', -1)->get();
+        return view('admin.products.newProduct', compact('listCate', 'lstShop'));
     }
 
     public function postNewProduct(Request $request)
     {
-        $product = new Product();
-        $id = $request->get('id');
-        $name = $request->get('name');
-        $price = $request->get('price');
-        $category_id = $request->get('category_id');
-        $shop_id = $request->get('shop_id');
-        $sale_off = $request->get('sale_off');
-        $thumbnails = $request->get('thumbnails');
-        $description = $request->get('description');
+        try {
+            $product = new Product();
+//        $id = $request->get('id');
+//        $name = $request->get('name');
+//        $price = $request->get('price');
+//        $category_id = $request->get('category_id');
+//        $shop_id = $request->get('shop_id');
+//        $sale_off = $request->get('sale_off');
+            $thumbnails = $request->get('thumbnails');
+//        $description = $request->get('description');
 
-        $product->id = $id;
-        $product->name = $name;
-        $product->price = $price;
-        $product->category_id = $category_id;
-        $product->shop_id = $shop_id;
-        $product->sale_off = $sale_off;
-        $product->description = $description;
-        foreach ($thumbnails as $thumbnail) {
-            $product->thumbnail .= $thumbnail . ',';
+            $product->name = $request->name;
+            $product->price = $request->price;
+            $product->category_id = $request->category_id;
+            $product->shop_id = $request->shop_id;
+            $product->sale_off = $request->sale_off;
+            $product->description = $request->description;
+            foreach ($thumbnails as $thumbnail) {
+                $product->thumbnail .= $thumbnail . ',';
+            }
+            $product->save();
+            $product->prd_code = $this->genProductCode($product->id);
+            $product->save();
+
+            return redirect('/admin/product')->with(['success_message' => 'Tạo mới sản phẩm thành công!']);
+        } catch (Exception $ex) {
+            return abort(404);
         }
-        $product->save();
-
-        return redirect('/admin/category/listProduct');
     }
 
-    public function detailProduct()
+    public function genProductCode($id)
     {
-        return view('admin.products.detailProduct');
+        $dateCreate = Carbon::now();
+        $numProduct = Product::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('id', '<=', $id)->count();
+        return 'SP' . $dateCreate->format('ymd') . $numProduct;
+    }
+
+    public function detailProduct($id)
+    {
+        $product = Product::where('id', $id)
+            ->where('status', '=', 1)->first();
+        $lstCate = Category::where('status', '=', 1)->get();
+        $lstShop = Shop::where('status', '!=', -1)->get();
+        return view('admin.products.detailProduct', compact('product', 'lstCate', 'lstShop'));
     }
 
     public function getListProduct(Request $request)
@@ -399,6 +438,36 @@ class AdminController extends Controller
             ->with($data);
     }
 
+    #Delete Product
+    public function deleteProduct(Request $request)
+    {
+        try {
+            $product = Product::where('id', '=', $request->get('id'))
+                ->where('status', '=', 1)
+                ->first();
+            $product->status = -1;
+            $product->save();
+            return true;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
+    public function deleteAllProduct(Request $request)
+    {
+        try {
+            $ids = $request->get('ids');
+            foreach ($ids as $id) {
+                $product = Product::where('id', '=', $id)->where('status', '=', 1)->first();
+                $product->status = -1;
+                $product->save();
+            }
+            return true;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
     // orders
     public function getListOrder(Request $request)
     {
@@ -422,20 +491,31 @@ class AdminController extends Controller
                 $data['end'] = $request->get('end');
                 $from = date($request->get('start') . ' 00:00:00');
                 $to = date($request->get('end') . ' 23:59:00');
-                $lstOrder = $lstOrder->whereBetween('created_at', [$from, $to]);
+                $lstOrder = $lstOrder->whereBetween('created_at', [$from, $to])->paginate(20)
+                    ->appends($request->only('start'))
+                    ->appends($request->only('end'));
+                $totalOrderFinish = Order::whereBetween('created_at', [$from, $to])
+                    ->where('od_status', 5)->count();
+                $totalRevenueOrderFinish = Order::whereBetween('created_at', [$from, $to])
+                    ->where('od_status', 5)->sum('od_total_price');
+                $totalOrderCancel = Order::whereBetween('created_at', [$from, $to])
+                    ->where('od_status', 6)->count();
+                $totalOrderProcess = Order::whereBetween('created_at', [$from, $to])
+                    ->whereIn('od_status', [1,2,3,4])->count();
                 $dataOrder = array();
-                $dataOrder['totalOrder'] = count($lstOrder);
+                $dataOrder['totalOrderFinish'] = $totalOrderFinish;
+                $dataOrder['totalOrderCancel'] = $totalOrderCancel;
+                $dataOrder['totalOrderProcess'] = $totalOrderProcess;
+                $dataOrder['totalRevenueOrderFinish'] = $totalRevenueOrderFinish;
+                $data['dataOrder'] = $dataOrder;
+                $data['lstOrder'] = $lstOrder;
+                return view('admin.orders.listOrders', compact('data'));
             }
             $data['lstOrder'] = $lstOrder->where('od_status', '!=', -1)
                 ->orderby('id', 'desc')
-                ->paginate(15);
-
-
-//        $lstOrder = Order::whereNotIn('od_status', [-1])
-//            ->orderby('created_at', 'desc')
-//            ->paginate(15);
-
-//        return view('admin.orders.listOrders', compact('lstOrder', 'lstOrderStats'));
+                ->paginate(20)
+                ->appends($request->only('keyword'))
+                ->appends($request->only('od_status'));
             return view('admin.orders.listOrders', compact('data'));
         } catch (\Exception $ex) {
             return abort(404);
@@ -461,7 +541,7 @@ class AdminController extends Controller
             $total_sale_off = 0;
             $order_detail = Order_detail::where('od_id', $order->id)->get();
             foreach ($order_detail as $item) {
-                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off/100);
+                $total_sale_off += $item->od_quantity * $item->od_unit_price * ($item->prd_sale_off / 100);
             }
             return view('admin.orders.detailOrders',
                 compact('order', 'order_status', 'order_detail', 'total_sale_off'));
