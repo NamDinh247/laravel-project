@@ -69,7 +69,7 @@
                                                                         <div class="col-md-6 p-0 my-2">
                                                                             <div class="row ml-0">
                                                                                 <div class="col-md-9 pl-0">
-                                                                                    <input type="number" min="0" class="form-control float-left" value="{!! $cartItem['quantity'] !!}" readonly>
+                                                                                    <input type="number" min="0" class="form-control float-left" value="{!! $cartItem['quantity'] !!}" disabled>
                                                                                 </div>
                                                                                 <div class="col-md-2 p-0" style="margin-top: -4px;">
                                                                                     <span><a href="/shopping-cart/add?productId={{$cartItem['productId']}}&quantity=1"><i class="fa fa-plus text-success"></i></a></span>
@@ -103,28 +103,52 @@
                                 </div>
                             </div>
                             <div class="information_pay pt-3 pb-3">
+                                @if(isset($shoppingCart) && count($shoppingCart) > 0)
                                 <div class="content_information_pay p-3" style="border: 1px solid rgba(0,0,0,.125);border-radius: .25rem;">
                                     <form action="/shopping-cart/submit" method="post" id="createOrderForm" class="row">
                                         @csrf
                                         <input type="hidden" name="od_total_price" value="{!! $total_payment + 20000 !!}"/>
                                         <input type="hidden" name="ship_fee" value="20000" />
                                         <input type="hidden" name="shop_id" value="{!! $shop_id !!}" />
-                                        <div class="form-group col-md-6">
-                                            <label class="font-weight-bold" style="font-size: 14px;">Người nhận</label>
-                                            <input type="text" name="shipName" class="form-control" placeholder="Tên người nhận">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label class="font-weight-bold" style="font-size: 14px;">Địa chỉ</label>
-                                            <input type="text" name="shipAddress" class="form-control" placeholder="Nhập địa chỉ">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label class="font-weight-bold" style="font-size: 14px;">Số điện thoại</label>
-                                            <input type="text" name="shipPhone" class="form-control" placeholder="Nhập số điện thoại">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label class="font-weight-bold" style="font-size: 14px;">Email</label>
-                                            <input type="email" name="shipEmail" class="form-control" placeholder="you@gmail.com">
-                                        </div>
+                                        @if(\Illuminate\Support\Facades\Auth::check())
+                                            <div class="form-group col-md-6">
+                                                <label class="font-weight-bold" style="font-size: 14px;">Người nhận</label>
+                                                <input type="text" name="shipName" class="form-control" placeholder="Tên người nhận"
+                                                    value="{!! \Illuminate\Support\Facades\Auth::user()->full_name !!}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="font-weight-bold" style="font-size: 14px;">Địa chỉ</label>
+                                                <input type="text" name="shipAddress" class="form-control" placeholder="Nhập địa chỉ"
+                                                    value="{!! \Illuminate\Support\Facades\Auth::user()->address !!}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="font-weight-bold" style="font-size: 14px;">Số điện thoại</label>
+                                                <input type="text" name="shipPhone" class="form-control" placeholder="Nhập số điện thoại"
+                                                    value="{!! \Illuminate\Support\Facades\Auth::user()->phone !!}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="font-weight-bold" style="font-size: 14px;">Email</label>
+                                                <input type="email" name="shipEmail" class="form-control" placeholder="you@gmail.com"
+                                                    value="{!! \Illuminate\Support\Facades\Auth::user()->email !!}">
+                                            </div>
+                                        @else
+                                            <div class="form-group col-md-6">
+                                                <label class="font-weight-bold" style="font-size: 14px;">Người nhận</label>
+                                                <input type="text" name="shipName" class="form-control" placeholder="Tên người nhận">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="font-weight-bold" style="font-size: 14px;">Địa chỉ</label>
+                                                <input type="text" name="shipAddress" class="form-control" placeholder="Nhập địa chỉ">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="font-weight-bold" style="font-size: 14px;">Số điện thoại</label>
+                                                <input type="text" name="shipPhone" class="form-control" placeholder="Nhập số điện thoại">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="font-weight-bold" style="font-size: 14px;">Email</label>
+                                                <input type="email" name="shipEmail" class="form-control" placeholder="you@gmail.com">
+                                            </div>
+                                        @endif
                                         <div class="form-group col-md-12">
                                             <label class="font-weight-bold" style="font-size: 14px;">Lưu ý</label>
                                             <input type="text" name="note" class="form-control" placeholder="Nhập lưu ý">
@@ -134,6 +158,7 @@
                                         </div>
                                     </form>
                                 </div>
+                                @endif
                             </div>
                             <a class="label" style="color: #444;" href="/product/list"> <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 13px;"></i> Tiếp tục mua sắm </a>
                         </div>
@@ -278,6 +303,9 @@
                                 setTimeout(() => {
                                     window.location.reload();
                                 }, 1500);
+                                break;
+                            case 301:
+                                window.location = '/login';
                                 break;
                             case 500:
                                 iziToast.warning({

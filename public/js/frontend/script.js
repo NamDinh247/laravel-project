@@ -66,7 +66,7 @@ $(document).ready(function() {
                     position: 'topCenter',
                     timeout: 2500,
                     transitionIn: 'bounceInDown',
-                    message: 'Fail, try again!',
+                    message: 'Có lỗi xảy ra, vui lòng thử lại',
                 });
             }
         });
@@ -130,7 +130,7 @@ $(document).ready(function() {
                     position: 'topCenter',
                     timeout: 2500,
                     transitionIn: 'bounceInDown',
-                    message: 'Fail, try again!',
+                    message: 'Có lỗi xảy ra, vui lòng thử lại',
                 });
             }
         });
@@ -196,7 +196,7 @@ $(document).ready(function() {
                     position: 'topCenter',
                     timeout: 2500,
                     transitionIn: 'bounceInDown',
-                    message: 'Fail, try again!',
+                    message: 'Có lỗi xảy ra, vui lòng thử lại',
                 });
             }
         });
@@ -254,7 +254,7 @@ $(document).ready(function() {
                     position: 'topCenter',
                     timeout: 2500,
                     transitionIn: 'bounceInDown',
-                    message: 'Fail, try again!',
+                    message: 'Có lỗi xảy ra, vui lòng thử lại',
                 });
             }
         });

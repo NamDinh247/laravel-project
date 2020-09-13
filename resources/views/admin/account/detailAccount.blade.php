@@ -39,7 +39,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Loại tài khoản</label>
-                                <select id="type-account" class="form-control" readonly>
+                                <select id="type-account" class="form-control" disabled>
                                     <option value="1" @if($user->role == 1) selected @endif>Super Admin</option>
                                     <option value="2" @if($user->role == 2) selected @endif>Admin</option>
 {{--                                    <option value="user">Người dùng</option>--}}

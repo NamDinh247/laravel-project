@@ -9,19 +9,23 @@
                 <hr/>
             </div>
         </div>
-        <form class="row" action="#">
+        <form class="row" action="/profile/change-password" method="post">
+            @csrf
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Mật khẩu cũ</label>
-                    <input type="password" class="form-control" id="old_pass" placeholder="Nhập mật khẩu cũ">
+                    <input type="password" class="form-control" name="oldPass"
+                           placeholder="Nhập mật khẩu cũ" required minlength="6">
                 </div>
                 <div class="form-group">
                     <label>Mật khẩu mới</label>
-                    <input type="password" class="form-control" id="new_pass" placeholder="Nhập mật khẩu mới">
+                    <input type="password" class="form-control" name="new_password"
+                           placeholder="Nhập mật khẩu mới" required minlength="6">
                 </div>
                 <div class="form-group">
                     <label>Nhập lại mật khẩu mới</label>
-                    <input type="password" class="form-control" id="re_new_pass" placeholder="Nhập lại mật khẩu mới">
+                    <input type="password" class="form-control" name="confirm_password"
+                           placeholder="Nhập lại mật khẩu mới" required minlength="6">
                 </div>
                 <button class="btn btn-sm btn-outline-success" id="submit_change_pass">Đổi mật khẩu</button>
             </div>

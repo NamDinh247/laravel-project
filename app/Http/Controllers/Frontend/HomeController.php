@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -163,12 +164,21 @@ class HomeController extends Controller
     # End region login, register
 
     # Region user shop
-    public function getListShop()
+    public function getListShop(Request $request)
     {
-        $lstShop = Shop::where('status', '=', 1)
+        $data = array();
+        $data['keyword'] = '';
+        $lstShop = Shop::query();
+        if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+            $data['keyword'] = $request->keyword;
+            $lstShop = $lstShop->where('name', 'like', '%' . $request->keyword . '%');
+        }
+
+        $data['lstShop'] = $lstShop->where('status', '=', 1)
             ->orderby('created_at', 'desc')
-            ->paginate(10);
-        return view('frontend.shop.list', compact('lstShop'));
+            ->paginate(10)
+            ->appends($request->only('keyword'));
+        return view('frontend.shop.list', compact('data'));
     }
 
     public function getDetailShop($id)
@@ -197,8 +207,11 @@ class HomeController extends Controller
         $products = Product::where('status', '=', 1)
             ->orderby('created_at', 'desc')
             ->get();
-        $prd_today = Product::where('category_id', '=', 1)
+        $prd_today = Product::where('category_id', '=', 3)
             ->get();
+//        $prd_today = Product::where('created_at', '<=', Carbon::now())
+//            ->where('created_at', '>=', Carbon::now()->subDay(7))
+//            ->get();
         $categories = Category::where('status', '=', 1)->get();
         // no filter
         return view('frontend.product.list')
@@ -226,16 +239,30 @@ class HomeController extends Controller
         try {
             $data = array();
             $data['keyword'] = '';
+            $data['min_price'] = '';
+            $data['max_price'] = '';
             $lst_product = Product::query();
             if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
                 $data['keyword'] = $request->keyword;
                 $lst_product = $lst_product->where('name', 'like', '%' . $request->keyword . '%');
             }
 
+            if ($request->has('min_price') && strlen($request->get('min_price')) > 0
+                && $request->has('max_price') && strlen($request->get('max_price')) > 0) {
+                $data['min_price'] = $request->min_price;
+                $data['max_price'] = $request->max_price;
+                $lst_product = $lst_product->where('price', '<=', $request->max_price)
+                    ->where('price', '>=', $request->min_price);
+            }
+
             $data['lst_product'] = $lst_product->whereNotIn('status', [-1])
                 ->orderby('created_at', 'desc')
-                ->paginate(15);
-            return view('frontend.product.list_by_cate', compact('data'));
+                ->paginate(15)
+                ->appends($request->only('keyword'))
+                ->appends($request->only('min_price'))
+                ->appends($request->only('max_price'));
+            return view('frontend.product.list_by_cate',
+                compact('data'));
         } catch (\Exception $ex) {
             return view('errors.404');
         }
@@ -357,6 +384,9 @@ class HomeController extends Controller
     public function submit(Request $request)
     {
         try {
+            if (!Auth::check()) {
+                return 301;
+            }
             $user = Auth::user();
             // lấy thông tin giỏ hàng từ trong session.
             $shoppingCart = Session::get('shoppingCart');
@@ -424,7 +454,7 @@ class HomeController extends Controller
         $numProduct = Product::whereMonth('created_at', Carbon::now()->month)
             ->whereYear('created_at', Carbon::now()->year)
             ->where('id', '<=', $id)->count();
-        return 'DH' . $dateCreate->format('ymd') . $numProduct;
+        return 'SP' . $dateCreate->format('ymd') . $numProduct;
     }
     # End shopping cart
 
@@ -466,6 +496,21 @@ class HomeController extends Controller
         return view('frontend.shop.user', compact('user'));
     }
 
+    public function postProfileInfo(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            $user->full_name = $request->full_name;
+            $user->phone = $request->phone;
+            $user->email = $request->email;
+            $user->address = $request->address;
+            $user->save();
+            return redirect()->back()->with(['success_message' => 'Cập nhật hồ sơ thành công']);
+        } catch (\Exception $ex) {
+            return redirect()->back()->with(['error_message' => 'Cập nhật hồ sơ không thành công']);
+        }
+    }
+
     public function getUserChangePass()
     {
         return view('frontend.shop.password');
@@ -473,7 +518,23 @@ class HomeController extends Controller
 
     public function postUserChangePass(Request $request)
     {
-        return 'Change password';
+        try {
+            $user = Auth::user();
+            $old_password = Hash::check($request->oldPass, $user->password);
+            if ($old_password) {
+                if ($request->new_password == $request->confirm_password) {
+                    $user->password = bcrypt($request->new_password);
+                    $user->save();
+                    return redirect()->back()->with(['success_message' => 'Đổi mật khẩu thành công']);
+                } else {
+                    return redirect()->back()->with(['error_message' => 'Xác nhận mật khẩu không khớp']);
+                }
+            } else {
+                return redirect()->back()->with(['error_message' => 'Sai mật khẩu']);
+            }
+        } catch (\Exception $ex) {
+            return redirect()->back()->with(['error_message' => 'Có lỗi xảy ra vui lòng thử lại']);
+        }
     }
     # End region profile
 
@@ -612,20 +673,64 @@ class HomeController extends Controller
         }
     }
 
-    public function getListProductShop()
+    public function getListProductShop(Request $request)
     {
         try {
             $user = Auth::user();
             $shop = Shop::where('account_id', $user->id)
                 ->where('status', '!=', -1)
                 ->first();
-            $lstProduct = Product::where('shop_id', $shop->id)
-                ->where('status', '!=', -1)
-                ->orderby('created_at', 'desc')
-                ->paginate(20);
             $lstCate = Category::where('status', 1)->get();
-            return view('frontend.shop.manager.list_product', compact('lstProduct', 'lstCate'));
+
+            $data = array();
+            $data['keyword'] = '';
+            $data['category_id'] = 0;
+            $data['sale_off'] = '';
+            $data['min_price'] = '';
+            $data['max_price'] = '';
+            $lstProduct = Product::query();
+            if ($request->has('category_id') && $request->get('category_id') != 0) {
+                $data['category_id'] = $request->get('category_id');
+                $lstProduct = $lstProduct->where('category_id', '=', $request->get('category_id'));
+            }
+            if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+                $data['keyword'] = $request->get('keyword');
+                $lstProduct = $lstProduct->where('name', 'like', '%' . $request->get('keyword') . '%');
+            }
+            if ($request->has('sale_off') && strlen($request->get('sale_off')) > 0) {
+                $data['sale_off'] = $request->get('sale_off');
+                $lstProduct = $lstProduct->where('sale_off', '=', $request->get('sale_off'));
+            }
+            if ($request->has('start') && strlen($request->get('start')) > 0 && $request->has('end') && strlen($request->get('end')) > 0) {
+                $data['start'] = $request->get('start');
+                $data['end'] = $request->get('end');
+                $from = date($request->get('start') . ' 00:00:00');
+                $to = date($request->get('end') . ' 23:59:00');
+                $lstProduct = $lstProduct->whereBetween('created_at', [$from, $to]);
+            }
+
+            if ($request->has('min_price') && strlen($request->get('min_price')) > 0 && $request->has('max_price') && strlen($request->get('max_price')) > 0) {
+                $data['min_price'] = $request->get('min_price');
+                $data['max_price'] = $request->get('max_price');
+                $lstProduct = $lstProduct->whereBetween('price', [$request->get('min_price'), $request->get('max_price')]);
+            }
+            $data['lstProduct'] = $lstProduct->where('shop_id', $shop->id)
+                ->orderby('created_at', 'desc')
+                ->paginate(10)
+                ->appends($request->only('keyword'))
+                ->appends($request->only('sale_off'))
+                ->appends($request->only('category_id'))
+                ->appends($request->only('end'))
+                ->appends($request->only('start'));
+
+//            $lstProduct = Product::where('shop_id', $shop->id)
+//                ->where('status', '!=', -1)
+//                ->orderby('created_at', 'desc')
+//                ->paginate(10);
+
+            return view('frontend.shop.manager.list_product', compact('data', 'lstCate'));
         } catch (\Exception $ex) {
+            dd($ex);
             return abort(404);
         }
     }

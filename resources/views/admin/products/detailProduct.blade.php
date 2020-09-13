@@ -31,7 +31,7 @@
                                     <label>Mã sản phẩm</label>
                                     <input type="text" class="form-control" name="name"
                                            value="{!! $product->prd_code !!}"
-                                           placeholder="Mã sản phẩm" readonly>
+                                           placeholder="Mã sản phẩm" disabled>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Tên sản phẩm</label>

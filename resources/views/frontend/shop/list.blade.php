@@ -14,8 +14,12 @@
             <div class="aside_left pl-3">
                 <ul class="menu_left">
                     <li class="item_menu_left pl-2 py-2 search_left position-relative">
-                        <input type="text" class="form-control" style="border: none;padding-left: 30px;border-radius: 30px;height: 35px; line-height: 35px;" placeholder="Tìm kiếm cửa hàng">
-                        <i class="fa fa-search position-absolute" style="top: 14px;left: 13px;"></i>
+                        <form action="/shops/list" method="get">
+                            <input type="text" class="form-control" style="border: none;padding-left: 30px;border-radius: 30px;height: 35px; line-height: 35px;" placeholder="Tìm kiếm cửa hàng"
+                                name="keyword" value="{!! $data['keyword'] !!}">
+                            <i class="fa fa-search position-absolute" style="top: 14px;left: 13px;"></i>
+                            <input type="submit" name="" id="" hidden/>
+                        </form>
                     </li>
                     @if(\Illuminate\Support\Facades\Auth::check())
                         <li class="item_menu_left pl-2 py-2 clearfix">
@@ -33,7 +37,7 @@
                         <li class="item_menu_left pl-2 py-2">
                             <div class="title_filter py-1" style="font-weight: 500;">Tỉnh thành</div>
                             <select class="form-control" style="background-color: #f0f2f5 !important;">
-                                <option value="1" selected readonly>Hà Nội</option>
+                                <option value="1" selected disabled>Hà Nội</option>
                             </select>
                         </li>
                     </ul>
@@ -80,7 +84,7 @@
                         <div class="col-md-12">
                             <h5 class="py-2 pl-2">Danh sách cửa hàng</h5>
                         </div>
-                        @foreach($lstShop as $shop)
+                        @foreach($data['lstShop'] as $shop)
                         <div class="col-md-6">
                             <div class="card my-2 border-0">
                                 <div class="card-body row">
@@ -114,6 +118,11 @@
                             </div>
                         </div>
                         @endforeach
+                        <div class="col-12">
+                            <ul class="float-right">
+                                {!! $data['lstShop']->links() !!}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -55,7 +55,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/detail/notifi">
+                            <a href="#">
                                 <i class="fa fa-bell pr-1"></i>
                                 Thông báo
                             </a>
@@ -65,6 +65,19 @@
             </div>
         </div>
         <div class="col-sm-9 py-3 scroll_content" style="background-color: rgb(240, 242, 245);">
+            @if( \Illuminate\Support\Facades\Session::has('success_message'))
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-check"></i> Thông báo!</h5>
+                    {{ \Illuminate\Support\Facades\Session::get('success_message') }}
+                </div>
+            @elseif( \Illuminate\Support\Facades\Session::has('error_message'))
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-exclamation-triangle"></i> Thông báo!</h5>
+                    {{ \Illuminate\Support\Facades\Session::get('error_message') }}
+                </div>
+            @endif
             @yield('main-content-profile')
         </div>
     </div>

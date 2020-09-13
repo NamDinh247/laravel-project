@@ -49,6 +49,11 @@ Route::get('/shopping-cart/add', 'Frontend\HomeController@getAddShoppingCart')
 
 Route::get('/shopping-cart/remove', 'Frontend\HomeController@getRemoveShoppingCart')
     ->name('user.removeShoppingCart');
+
+Route::get('/shopping_cart/show', 'Frontend\HomeController@getShoppingCart')
+    ->name('user.shoppingCart');
+
+Route::post('/shopping-cart/submit', 'Frontend\HomeController@submit');
 #shop
 Route::get('/shops/list', 'Frontend\HomeController@getListShop')
     ->name('home.shop.list');
@@ -60,21 +65,11 @@ Route::get('/shops/detail/{id}', 'Frontend\HomeController@getDetailShop')
 Route::group(['middleware' => 'auth'], function() {
     Route::post('/shop/register', 'Frontend\HomeController@postShopRegister')
         ->name('customer.shop.postRegister');
-#End region login,register
-
-# User product
-
-# End user product
-
-# User shopping cart
-    Route::get('/shopping_cart/show', 'Frontend\HomeController@getShoppingCart')
-        ->name('user.shoppingCart');
-
-    Route::post('/shopping-cart/submit', 'Frontend\HomeController@submit');
-# End user shopping cart
 
 #Region profile
     Route::get('/profile/info', 'Frontend\HomeController@getProfileInfo');
+
+    Route::post('/profile/info', 'Frontend\HomeController@postProfileInfo');
 
     Route::get('/profile/order/list', 'Frontend\HomeController@getListOrderUser');
 

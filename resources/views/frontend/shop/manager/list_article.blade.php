@@ -68,6 +68,9 @@
                                         <div class="nameTime">
                                             <div class="name">{!! \Illuminate\Support\Facades\Auth::user()->shop->name !!}</div>
                                         </div>
+                                        <div style="font-size: 11px; color: green">
+                                            {!! date('d-m-Y', strtotime($article->created_at)) !!}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="content_header px-2 py-1">
@@ -102,6 +105,11 @@
                                 <div class="clearfix">
                                     <div class="like float-left">
                                         <i class="fa fa-thumbs-o-up" aria-hidden="true"><span class="ml-3">Thích</span></i>
+                                    </div>
+                                    <div class="detail_posts float-right">
+                                        <a href="/shop/products/detail/{!! $article->product_id !!}" style="font-weight: 500;">
+                                            Chi tiết <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

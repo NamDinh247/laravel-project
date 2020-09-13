@@ -37,21 +37,26 @@
                     <ul class="menu_left menu_filter">
                         <li class="item_menu_left pl-2 py-2">
                             <div class="title_filter py-1" style="font-weight: 500;">Tỉnh thành</div>
-                            <select class="form-control" style="background-color: #f0f2f5 !important;">
-                                <option value="1" selected readonly>Hà Nội</option>
+                            <select class="form-control" style="background-color: #f0f2f5 !important;" disabled>
+                                <option value="1" selected>Hà Nội</option>
                             </select>
                         </li>
                         <li class="item_menu_left pl-2 py-2">
                             <div class="title_filter py-1" style="font-weight: 500;">Giá</div>
+                            <form action="/product/list/research" method="get">
                             <div class="row px-0">
                                 <div class="col-md-5 pr-0">
-                                    <input type="number" min="0" max="9999999" class="form-control" placeholder="Thấp nhất" style="background-color: #f0f2f5;">
+                                    <input type="number" min="0" max="9999999" class="form-control" placeholder="Thấp nhất"
+                                           style="background-color: #f0f2f5;" name="min_price">
                                 </div>
                                 <div class="col-md-2 px-0 py-2 text-center">đến</div>
                                 <div class="col-md-5 pl-0">
-                                    <input type="number" min="0" class="form-control" placeholder="Cao nhất" style="background-color: #f0f2f5;">
+                                    <input type="number" min="0" class="form-control" placeholder="Cao nhất" style="background-color: #f0f2f5;"
+                                        name="max_price">
                                 </div>
+                                <input type="submit" name="" id="" hidden/>
                             </div>
+                            </form>
                         </li>
                     </ul>
                     <hr class="my-3"/>
