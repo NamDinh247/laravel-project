@@ -106,5 +106,5 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
-
+    'sendmail' => '/usr/sbin/sendmail -bs'
 ];

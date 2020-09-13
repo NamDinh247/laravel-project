@@ -280,19 +280,20 @@ class AdminController extends Controller
             }
             $shop->status = $request->status;
             $user->role = 4;
+            $data = array(
+                'username' => 'hiện',
+                'namegift' => 'hello',
+                'transaction' => 'as'
+            );
+            Mail::send('mail.send', $data, function ($messeage){
+                $messeage->to('hanoimatbao@gmail.com', 'Tutorials Point')->subject('Bạn vừa chuyển trạng thái đơn hàng thành công');
+                $messeage->from('greenshopt1908e@gmail.com', 'GreenShop');
+            });
             DB::transaction(function () use ($user, $shop) {
                 $user->save();
                 $shop->save();
             });
-//            $data = array(
-//                'username' => 'hiện',
-//                'namegift' => 'hello',
-//                'transaction' => 'as'
-//            );
-//            Mail::send('mail.send', $data, function ($messeage){
-//                $messeage->to('hanoimatbao@gmail.com', 'Tutorials Point')->subject('Bạn vừa chuyển trạng thái đơn hàng thành công');
-//                $messeage->from('greenshopt1908e@gmail.com', 'GreenShop');
-//            });
+
             return redirect('/admin/account/shop')
                 ->with(['success_message' => 'Kích hoạt tài khoản thành công']);
         } catch (\Exception $ex) {
@@ -386,10 +387,12 @@ class AdminController extends Controller
             $product->price = $request->price;
             $product->category_id = $request->category_id;
             $product->shop_id = $request->shop_id;
-            $product->sale_off = $request->sale_off;
+            $product->sale_off = $request->sale_off || '';
             $product->description = $request->description;
-            foreach ($thumbnails as $thumbnail) {
-                $product->thumbnail .= $thumbnail . ',';
+            if ($thumbnails && $thumbnails.count() > 0){
+                foreach ($thumbnails as $thumbnail) {
+                    $product->thumbnail .= $thumbnail . ',';
+                }
             }
             $product->save();
             $product->prd_code = $this->genProductCode($product->id);

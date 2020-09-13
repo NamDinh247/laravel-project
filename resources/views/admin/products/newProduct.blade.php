@@ -108,8 +108,10 @@
 @section('main-script')
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="/Admin/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-    <script src="/js/admin/product/product.js"></script>
+{{--    <script src="/js/admin/product/product.js"></script>--}}
     <script type="text/javascript">
+        $('#menu_filter .nav-link').removeClass('active');
+        $('.product_filter').addClass('active');
         var myWidget = cloudinary.createUploadWidget(
             {
                 cloudName: 'bigbignoobbb',
@@ -137,6 +139,18 @@
             var imgName = splittedImg[splittedImg.length - 1];
             imgName = imgName.replace('.jpg', '');
             $('input[data-cloudinary-public-id="' + imgName + '"]').remove();
+        });
+        var heightContent = $(window).height() - 70;
+        $('.scroll_content').parent().css({
+            'height': (heightContent + 20) + 'px',
+            'overflow-y': 'auto',
+            'overflow-x': 'hidden'
+        });
+        $('.scroll_content_form').css({'height': (heightContent) + 'px', 'overflow-y': 'auto'});
+        $('.scroll_content_form_detail').css({
+            'height': (heightContent) + 'px',
+            'overflow-y': 'auto',
+            'overflow-x': 'hidden'
         });
     </script>
 @endsection
