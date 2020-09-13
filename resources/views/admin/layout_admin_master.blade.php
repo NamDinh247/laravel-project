@@ -36,19 +36,19 @@
         <div class="content-wrapper px-2">
             <section class="content-header clearfix">
                 @yield('main-header')
-                @if( \Illuminate\Support\Facades\Session::has('success_message'))
+{{--                @if( \Illuminate\Support\Facades\Session::has('success_message'))--}}
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h5><i class="icon fas fa-check"></i> Thông báo!</h5>
                         {{ \Illuminate\Support\Facades\Session::get('success_message') }}
                     </div>
-                @elseif( \Illuminate\Support\Facades\Session::has('error_message'))
+{{--                @elseif( \Illuminate\Support\Facades\Session::has('error_message'))--}}
                     <div class="alert alert-warning alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h5><i class="icon fas fa-exclamation-triangle"></i> Thông báo</h5>
                         {{ \Illuminate\Support\Facades\Session::get('error_message') }}
                     </div>
-                @endif
+{{--                @endif--}}
             </section>
 
             <!-- Main content -->
@@ -72,6 +72,13 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/20.0.0/classic/ckeditor.js"></script>
     <script src="/js/admin/admin.js"></script>
     <script>
+        $(document).ready(function () {
+            if ($('.alert') && $('.alert').length > 0){
+                setTimeout(function () {
+                    $('.alert').addClass('d-none');
+                }, 2500);
+            }
+        });
         function activeFilterLeft(ele, el) {
             $(ele + ' .nav-link').removeClass('active');
             $(el).addClass('active');

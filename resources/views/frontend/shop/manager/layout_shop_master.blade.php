@@ -115,6 +115,11 @@
     {{--    <script src="/js/frontend/product/list.js"></script>--}}
     <script>
         $(document).ready(function() {
+            if ($('.alert') && $('.alert').length > 0){
+                setTimeout(function () {
+                    $('.alert').addClass('d-none');
+                }, 2500);
+            }
             $('.menu-header li').removeClass('active');
             $('.menu-header a[title="Cửa hàng"]').parent().addClass('active');
             var height = $(window).height() - 70;
