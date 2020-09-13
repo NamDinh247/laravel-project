@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -667,6 +668,15 @@ class HomeController extends Controller
             }
             $order->od_status = $request->get('order_status');
             $order->save();
+//            $data = array(
+//                'username' => 'hiện',
+//                'namegift' => 'hello',
+//                'transaction' => 'as'
+//            );
+//            Mail::send('mail.send', $data, function ($messeage){
+//                $messeage->to('hanoimatbao@gmail.com', 'Tutorials Point')->subject('Bạn vừa chuyển trạng thái đơn hàng thành công');
+//                $messeage->from('greenshopt1908e@gmail.com', 'GreenShop');
+//            });
             return redirect()->back()->with(['success_message' => 'Cập nhật đơn hàng thành công']);
         } catch (\Exception $ex) {
             return redirect()->back()->with(['error_message' => 'Cập nhật đơn hàng không thành công']);

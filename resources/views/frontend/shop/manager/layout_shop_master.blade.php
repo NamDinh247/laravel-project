@@ -3,16 +3,10 @@
 @section('title', 'Quản lý cửa hàng')
 
 @section('header-script')
-    <link rel="stylesheet" href="/Admin/plugins/swiper/swiper.min.css">
     <link rel="stylesheet" href="/css/frontend/product/listProduct.css">
     <link rel="stylesheet" href="/css/frontend/content_home.css">
     <link rel="stylesheet" href="/css/frontend/detail_shop.css">
     <link rel="stylesheet" href="/Admin/plugins/emoji/style.css">
-    <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
-    <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="/Admin/plugins/moment/moment.min.js"></script>
-    <script src="/Admin/plugins/moment/locale/vi.js"></script>
-    <link rel="stylesheet" href="/Admin/plugins/izitoast/iziToast.min.css">
 @endsection
 
 @section('content')
@@ -116,12 +110,7 @@
     </div>
 @stop
 @section('main-script')
-    <script src="/Admin/plugins/swiper/swiper.min.js"></script>
-    <script src="/Admin/plugins/chart.js/Chart.min.js"></script>
-    <script src="/Admin/plugins/emoji/jquery.emojiarea.js"></script>
     <script src="/Admin/plugins/jquery-knob/jquery.knob.min.js"></script>
-    <script src="/Admin/plugins/izitoast/iziToast.min.js"></script>
-    <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
 
     {{--    <script src="/js/frontend/product/list.js"></script>--}}
     <script>
