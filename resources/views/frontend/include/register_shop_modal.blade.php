@@ -36,12 +36,12 @@
                                 {{--                                        <textarea class="input100 py-2" name="introduce-shop" placeholder="Giới thiệu về cửa hàng" style="resize: vertical;"></textarea>--}}
                                 {{--                                        <span class="focus-input100"></span>--}}
                                 {{--                                    </div>--}}
-                                <div class="wrap-input100 m-b-25 position-relative" style="height: 50px;">
-                                    <label class="btn btn-outline-success position-absolute" style="top: 0; left: 0; display: inline-block;cursor: pointer;">
-                                        <input type="file" class="text-center center-block file-upload" style="margin-top: 20px;display: none;">
-                                        <i class="fa fa-upload"></i>&nbsp; Tải ảnh lên
-                                    </label>
-                                </div>
+{{--                                <div class="wrap-input100 m-b-25 position-relative" style="height: 50px;">--}}
+{{--                                    <label class="btn btn-outline-success position-absolute" style="top: 0; left: 0; display: inline-block;cursor: pointer;">--}}
+{{--                                        <input type="file" class="text-center center-block file-upload" style="margin-top: 20px;display: none;">--}}
+{{--                                        <i class="fa fa-upload"></i>&nbsp; Tải ảnh lên--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
 
                                 <div class="container-login100-form-btn">
                                     <button class="login100-form-btn btnRegisterShop">

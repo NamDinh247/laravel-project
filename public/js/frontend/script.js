@@ -177,6 +177,9 @@ $(document).ready(function() {
                                 'Thời gian xác minh từ 1-3 ngày. Nếu có thắc mắc vui lòng liên hệ, ' +
                                 'hotline: 0987654321.',
                         });
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3500);
                         break;
                     default:
                         iziToast.warning({

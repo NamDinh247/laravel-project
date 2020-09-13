@@ -124,6 +124,7 @@ class HomeController extends Controller
     public function getLogout()
     {
         Auth::logout();
+        Session::remove('shoppingCart');
         return redirect()->route('homePage');
     }
 
