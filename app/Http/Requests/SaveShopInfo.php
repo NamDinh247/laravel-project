@@ -24,10 +24,24 @@ class SaveShopInfo extends FormRequest
     public function rules()
     {
         return [
-            'full_name' => 'required',
+            'name' => 'required',
             'phone' => 'required',
             'email' => 'required|email',
             'address' => 'required',
+            'district' => 'required',
+            'city' => 'required',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Vui lòng nhập tên cửa hàng',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'email.required' => 'Vui lòng nhập địa chỉ email',
+            'email.email' => 'Vui lòng nhập đúng định dạng email',
+            'address.required' => 'Vui lòng nhập địa chỉ',
+            'district.required' => 'Vui lòng nhập quận huyện',
+            'city.required' => 'Vui lòng nhập thành phố',
         ];
     }
 }

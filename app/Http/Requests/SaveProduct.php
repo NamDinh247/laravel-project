@@ -24,12 +24,22 @@ class SaveProduct extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|max :8',
-            'category_id' => 'required',
-            'shop_id' => 'required|same:shop',
             'name' => 'required',
+            'category_id' => 'required',
+            'shop_id' => 'required',
             'price' => 'required|numeric',
             'thumbnails' => 'required',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Vui lòng nhập tên sản phẩm',
+            'category_id.required' => 'Vui lòng chọn loại sản phẩm',
+            'shop_id.required' => 'Vui lòng chọn tên shop',
+            'price.required' => 'Vui lòng nhập giá sản phẩm',
+            'price.numeric' => 'Vui lòng nhập giá sản phẩm phải là số nguyên',
+            'thumbnails.required' => 'Vui lòng thêm ảnh sản phẩm',
         ];
     }
 }

@@ -30,4 +30,14 @@ class SaveShopRegister extends FormRequest
             'address' => 'required',
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Vui lòng nhập tên cửa hàng',
+            'email.required' => 'Vui lòng nhập địa chỉ email',
+            'email.email' => 'Vui lòng nhập đúng định dạng email',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'address.required' => 'Vui lòng nhập địa chỉ',
+        ];
+    }
 }

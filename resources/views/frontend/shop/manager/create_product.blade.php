@@ -54,11 +54,20 @@
                                 </form>
                             </div>
                             <div class="col-md-4">
-                                <label for="">Ảnh sản phẩm</label>
-                                <div class="form-group">
-                                    <button type="button" id="upload_widget" class="btn btn-sm btn-primary">Tải ảnh
-                                    </button>
-                                    <div class="thumbnails"></div>
+                                <div class="col-md-12">
+                                    <label>Thêm ảnh sản phẩm</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="thumbnails">
+                                            <label type="button" class="btn btn-outline-success">
+                                                <input type="button" class="text-center center-block file-upload"
+                                                       id="upload_widget" accept="image/*" multiple=""
+                                                       style="margin-top: 20px;display: none;">
+                                                <i class="fa fa-upload"></i>&nbsp; Tải ảnh lên
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -68,5 +77,35 @@
         </div>
     </div>
 @endsection
-
-
+@section('main-script')
+    <script type="text/javascript">
+        var myWidget = cloudinary.createUploadWidget(
+            {
+                cloudName: 'bigbignoobbb',
+                uploadPreset: 'x0svi0az',
+                multiple: true,
+                form: '#product_form',
+                fieldName: 'thumbnails[]',
+                thumbnails: '.thumbnails'
+            }, function (error, result) {
+                if (!error && result && result.event === "success") {
+                    console.log('Done! Here is the image info: ', result.info.url);
+                    var arrayThumnailInputs = document.querySelectorAll('input[name="thumbnails[]"]');
+                    for (let i = 0; i < arrayThumnailInputs.length; i++) {
+                        arrayThumnailInputs[i].value = arrayThumnailInputs[i].getAttribute('data-cloudinary-public-id');
+                    }
+                }
+            }
+        );
+        $('#upload_widget').click(function () {
+            myWidget.open();
+        })
+        // xử lý js trên dynamic content.
+        $('body').on('click', '.cloudinary-delete', function () {
+            var splittedImg = $(this).parent().find('img').attr('src').split('/');
+            var imgName = splittedImg[splittedImg.length - 1];
+            imgName = imgName.replace('.jpg', '');
+            $('input[data-cloudinary-public-id="' + imgName + '"]').remove();
+        });
+    </script>
+@endsection

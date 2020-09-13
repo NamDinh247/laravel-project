@@ -1,5 +1,7 @@
 @extends('frontend.shop.manager.layout_shop_master')
 
+
+
 @section('main-content-shop')
     <div class="manage_content pt-3 manage_product_content">
         <div class="row">
@@ -10,7 +12,9 @@
                         <div class="input-group float-left" style="width: 200px;">
                             <input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm sản phẩm" style="border-radius: 0 !important;" value="{!! $data['keyword'] !!}">
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-default" style="border: 1px solid #ced4da; border-radius: 0 !important;"><i class="fas fa-search"></i></button>
+                                <button type="submit" class="btn btn-default"
+                                        style="border: 1px solid #ced4da; border-radius: 0 !important;"><i
+                                        class="fas fa-search"></i></button>
                             </div>
                         </div>
                         <div class="input-group mr-1 ml-1 float-left" style="width: 250px;">
@@ -37,7 +41,9 @@
                         </div>
                         <div class="input-group mr-1 ml-1 float-left" style="width: 100px;">
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="filter_sale" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;"
+                                        type="button" id="filter_sale" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
                                     Giá bán
                                 </button>
                                 <div class="dropdown-menu border-r-0" aria-labelledby="filter_sale">
@@ -54,14 +60,17 @@
             </div>
             <div class="col-md-12">
                 <div class="card content-table bg-white">
-{{--                    <div class="card-header bg-white border-0">--}}
-{{--                        <h5 class="card-title clearfix" style="margin-bottom: 0 !important;">Danh sách sản phẩm <a type="button" class="btn btn-sm btn-success float-right text-white"><i class="fa fa-plus"></i>&nbsp; Thêm mới</a></h5>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="card-header bg-white border-0">--}}
+                    {{--                        <h5 class="card-title clearfix" style="margin-bottom: 0 !important;">Danh sách sản phẩm <a type="button" class="btn btn-sm btn-success float-right text-white"><i class="fa fa-plus"></i>&nbsp; Thêm mới</a></h5>--}}
+                    {{--                    </div>--}}
                     <div class="card-body table-responsive p-0">
                         <table id="example" class="table table-head-fixed text-nowrap table-hover">
                             <thead>
                             <tr>
-                                <th class="text-xl-center ver-middle">#</th>
+                                <th class="text-xl-center ver-middle">
+                                    <input type="checkbox" class="form-check-input" id="check-th">
+                                    <label class="form-check-label" for="check-th"></label>
+                                </th>
                                 <th class="ver-middle">Mã sản phẩm</th>
                                 <th class="ver-middle">Hình ảnh</th>
                                 <th class="ver-middle">Tên sản phẩm</th>
@@ -70,21 +79,34 @@
                                 <th class="ver-middle">Giảm giá</th>
                                 <th class="ver-middle">Ngày tạo</th>
                                 <th class="ver-middle">Trạng thái</th>
-                                <th class="ver-middle text-xl-right">Thao tác</th>
+                                <th class="ver-middle text-xl-right">
+                                    <a id="select_delete" value="delete" onclick="showModalDeleteAllProduct(this)"
+                                       title="Xoá nhiều">
+                                        <i class="fa fa-trash" id="delete-all" style="font-size: 1em;"></i>
+                                    </a>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($data['lstProduct'] as $pro)
                                 <tr>
-                                    <td class="text-xl-center ver-middle">
-                                        {!! $loop->index + 1 !!}
+                                    {{--                                    <td class="text-xl-center ver-middle">--}}
+                                    {{--                                        --}}
+                                    {{--                                        {!! $loop->index + 1 !!}--}}
+                                    {{--                                    </td>--}}
+                                    <td class="text-xl-center ver-middle" style="width: 40px;">
+                                        <input type="checkbox" class="form-check-input product-checkbox"
+                                               id="check-{{$pro->id}}" value="{{$pro->id}}">
+                                        <label class="form-check-label" for="check-{{$pro->id}}"></label>
                                     </td>
                                     <td class="ver-middle">{{$pro->id}}</td>
                                     <td class="ver-middle">
                                         @if($pro->thumbnail == null || strlen($pro->thumbnail) == 0)
-                                            <img src="/img/donors1.jpg" class="img-circle" alt="product" title="admin" style="width: 3rem;height: 3rem;">
+                                            <img src="/img/donors1.jpg" class="img-circle" alt="product" title="admin"
+                                                 style="width: 3rem;height: 3rem;">
                                         @else
-                                            <img src="{!! $pro->small_photo !!}" class="img-circle" alt="product" title="admin" style="width: 3rem;height: 3rem;">
+                                            <img src="{!! $pro->small_photo !!}" class="img-circle" alt="product"
+                                                 title="admin" style="width: 3rem;height: 3rem;">
                                         @endif
                                     </td>
                                     <td class="ver-middle">{{$pro->name}}</td>
@@ -106,11 +128,12 @@
                                         @endif
                                     </td>
                                     <td class="text-xl-right ver-middle">
-                                        <a href="/shop/products/detail/{!! $pro->id !!}" type="button" class="btn btn-sm btn-warning"><i
-                                                class="fa fa-edit"></i>&nbsp; Chi tiết</a>
-                                        <button type="button" class="btn btn-sm btn-danger" value="1"
-                                                onclick="showModalDeleteProduct(this)"><i class="fa fa-trash"></i>&nbsp; Xoá
-                                        </button>
+                                        <a href="/admin/product/detail/{!! $pro->id !!}" class="pr-2" title="Sửa">
+                                            <i class="fa fa-edit text-warning" style="font-size: 1em;"></i>
+                                        </a>
+                                        <a data-id="{{$pro->id}}" onclick="showModalDeleteProduct(this)" title="Xoá">
+                                            <i class="fa fa-trash" style="font-size: 1em;"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -125,8 +148,61 @@
         </div>
     </div>
 @endsection
-
+@section('modal')
+    <!-- Modal -->
+    <div class="modal fade" id="modal-delete-product">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #20c997;color: #fff;">
+                    <h5 class="modal-title" id="exampleModalLabel">Xoá sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">Bạn có muốn xoá sản phẩm này?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Huỷ</button>
+                    <button id="delete_product" type="button" class="btn btn-sm btn-success"
+                            {{--                            data-id="{{ count($products) > 0 ? $pro->id : null }}" data-token="{{ csrf_token() }}"><i--}}
+                            class="fa fa-check"></i>&nbsp; Đồng ý
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-deleteAll-product">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #20c997;color: #fff;">
+                    <h5 class="modal-title" id="exampleModalLabel">Xoá danh mục</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">Bạn có muốn xoá tất cả sản phẩm này??</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Huỷ</button>
+                    <button id="deleteAll_product" type="button" class="btn btn-sm btn-success"><i
+                            class="fa fa-check"></i>&nbsp; Đồng ý
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+@stop
 @section('main-script')
+    <link rel="stylesheet" href="/Admin/plugins/sweetalert/sweetalert.min.css">
+    <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/Admin/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+    <script src="/Admin/plugins/moment/moment.min.js"></script>
+    <script src="/Admin/plugins/moment/locale/vi.js"></script>
+    <script src="/js/frontend/shop/list.js"></script>
     <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
     <script>
         $('input[name="dates"]').daterangepicker(
@@ -154,4 +230,3 @@
         });
     </script>
 @endsection
-
