@@ -111,6 +111,12 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::post('/shop/products/create', 'Frontend\HomeController@postCreateProductShop');
 
+    Route::post('/shop/product/delete', 'Admin\AdminController@deleteProduct')
+        ->name('product.delete');
+
+    Route::post('/shop/product/delete-all', 'Admin\AdminController@deleteAllProduct')
+        ->name('product.deleteAll');
+
     Route::get('/shop/profile', 'Frontend\HomeController@getProfileShop');
 
     Route::post('/shop/profile', 'Frontend\HomeController@postProfileShop');

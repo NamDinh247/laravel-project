@@ -29,4 +29,14 @@ class SaveLogin extends FormRequest
             'password' => 'required|min:6',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'email.required' => 'Vui lòng nhập địa chỉ email',
+            'email.email' => 'Vui lòng nhập đúng định dạng email',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'password.required' => 'Vui lòng nhập mật khẩu'
+        ];
+    }
 }

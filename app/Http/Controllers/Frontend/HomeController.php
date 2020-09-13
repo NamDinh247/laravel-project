@@ -671,7 +671,6 @@ class HomeController extends Controller
             $product = new Product();
             $product->category_id = $request->category_id;
             $product->shop_id = $shop->id;
-            $product->prd_code = (string)random_int(1, 999);
             $product->name = $request->name;
             $product->price = $request->price;
             // upload image
@@ -680,13 +679,44 @@ class HomeController extends Controller
                 $product->thumbnail .= $thumbnail . ',';
             }
             $product->description = $request->description;
-            $product->type = 1;
             $product->sale_off = $request->sale_off;
-            $product->status = 1;
+            $product->save();
+            $product->prd_code = $this->genProductCode($product->id);
             $product->save();
             return redirect('/shop/products/list')->with(['success_message' => 'Tạo mới sản phẩm thành công']);
         } catch (\Exception $ex) {
+            dd($ex);
             return redirect('/shop/products/list')->with(['error_message' => 'Tạo mới sản phẩm không thành công']);
+        }
+    }
+
+    #Delete Product
+    public function deleteProduct(Request $request)
+    {
+        try {
+            $product = Product::where('id', '=', $request->get('id'))
+                ->where('status', '=', 1)
+                ->first();
+            $product->status = -1;
+            $product->save();
+            return true;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
+    public function deleteAllProduct(Request $request)
+    {
+        try {
+            $ids = $request->get('ids');
+            foreach ($ids as $id) {
+                $product = Product::where('id', '=', $id)->where('status', '=', 1)->first();
+                $product->status = -1;
+                $product->save();
+            }
+            return true;
+        } catch (Exception $ex) {
+            return false;
         }
     }
 
