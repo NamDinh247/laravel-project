@@ -130,28 +130,45 @@
 @section('main-script')
     <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
     <script>
-        $('input[name="dates"]').daterangepicker(
-            {
-                locale: {
-                    format: 'DD/MM/YYYY'
-                },
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                }
+        //filter date
+        var localevn = {
+            "format": "DD/MM/YYYY",
+            "separator": " - ",
+            "applyLabel": "Áp dụng",
+            "cancelLabel": "Hủy",
+            "fromLabel": "Từ",
+            "toLabel": "Đến",
+            "customRangeLabel": "Tùy chỉnh",
+            "weekLabel": "W",
+            "daysOfWeek": ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+            "monthNames": ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+            "firstDay": 1
+        };
+        $('input[name="dates"]').daterangepicker({
+            format: 'DD/MM/YYYY',
+            opens: "left",
+            drops: 'down',
+            locale: localevn,
+            ranges: {
+                'Hôm nay': [moment(), moment()],
+                'Hôm qua': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                '7 ngày trước': [moment().subtract(6, 'days'), moment()],
+                '30 ngày trước': [moment().subtract(29, 'days'), moment()],
+                'Tháng này': [moment().startOf('month'), moment().endOf('month')],
+                'Tháng trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             }
-        );
-        $('#orderStatusSelect').change(function () {
-            $('#order_search').submit();
-        })
-        $('input[name="dates"]').on('apply.daterangepicker', function(ev, picker) {
+        }).on('apply.daterangepicker', function(ev, picker) {
             $('input[name="start"]').val(picker.startDate.format('YYYY-MM-DD'));
             $('input[name="end"]').val(picker.endDate.format('YYYY-MM-DD'));
             $('#order_search').submit();
         });
+        $('#orderStatusSelect').change(function () {
+            $('#order_search').submit();
+        });
+        $('.menu-header li').removeClass('active');
+        $('.menu-header a[title="Cửa hàng"]').parent().addClass('active');
+        var height = $(window).height() - 70;
+        $('.aside_left_detail_shop').css({'height': (height + 10)  + 'px', 'overflow-x': 'hidden'});
+        $('.content_detail_shop').css({'height': (height + 10)  + 'px', 'overflow-x': 'hidden'});
     </script>
 @endsection

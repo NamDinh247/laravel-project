@@ -284,6 +284,15 @@ class AdminController extends Controller
                 $user->save();
                 $shop->save();
             });
+//            $data = array(
+//                'username' => 'hiện',
+//                'namegift' => 'hello',
+//                'transaction' => 'as'
+//            );
+//            Mail::send('mail.send', $data, function ($messeage){
+//                $messeage->to('hanoimatbao@gmail.com', 'Tutorials Point')->subject('Bạn vừa chuyển trạng thái đơn hàng thành công');
+//                $messeage->from('greenshopt1908e@gmail.com', 'GreenShop');
+//            });
             return redirect('/admin/account/shop')
                 ->with(['success_message' => 'Kích hoạt tài khoản thành công']);
         } catch (\Exception $ex) {

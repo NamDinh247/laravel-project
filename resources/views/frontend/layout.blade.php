@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="/css/frontend/sign/util.css">
     <link rel="stylesheet" href="/Admin/plugins/izitoast/iziToast.min.css">
 
+    <link rel="stylesheet" href="/Admin/plugins/swiper/swiper.min.css">
+    <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
+
     <title>
         @yield('title')
     </title>
@@ -64,6 +67,15 @@
     <script src="/Admin/plugins/bootstrap/js/popper.min.js"></script>
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="/Admin/plugins/izitoast/iziToast.min.js"></script>
+
+    <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/Admin/plugins/moment/moment.min.js"></script>
+    <script src="/Admin/plugins/moment/locale/vi.js"></script>
+    <script src="/Admin/plugins/swiper/swiper.min.js"></script>
+    <script src="/Admin/plugins/chart.js/Chart.min.js"></script>
+    <script src="/Admin/plugins/emoji/jquery.emojiarea.js"></script>
+
+    <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
     <script src="/js/frontend/script.js"></script>
 
     <script>
