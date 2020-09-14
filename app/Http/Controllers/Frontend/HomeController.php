@@ -726,6 +726,7 @@ class HomeController extends Controller
             }
             $data['lstProduct'] = $lstProduct->where('shop_id', $shop->id)
                 ->orderby('created_at', 'desc')
+                ->where('status', '!=', -1)
                 ->paginate(10)
                 ->appends($request->only('keyword'))
                 ->appends($request->only('sale_off'))
@@ -800,7 +801,6 @@ class HomeController extends Controller
             $product->save();
             return redirect('/shop/products/list')->with(['success_message' => 'Tạo mới sản phẩm thành công']);
         } catch (\Exception $ex) {
-            dd($ex);
             return redirect('/shop/products/list')->with(['error_message' => 'Tạo mới sản phẩm không thành công']);
         }
     }

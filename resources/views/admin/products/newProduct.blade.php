@@ -24,79 +24,84 @@
                         </div>
                     </div>
                     <div class="row p-0 scroll_content_form">
-                        <div class="col-sm-8">
+                        <div class="col-sm-12">
                             <form class="form row" action="/admin/product/new" method="post" id="accountForm">
                                 @csrf
-                                <div class="form-group col-md-6">
-                                    <label>Tên sản phẩm</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Tên sản phẩm">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Loại sản phẩm</label>
-                                    <select id="type-product" class="form-control" name="category_id">
-                                        <option value="">Chọn loại sản phẩm</option>
-                                        @foreach($listCate as $cate)
-                                            <option value="{{ $cate->id }}" class="form-control">
-                                                {{ $cate->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Tên cửa hàng</label>
-                                    <select id="select_shop" name="shop_id" class="form-control">
-                                        @foreach($lstShop as $shop)
-                                            <option value="{!! $shop->id !!}">{!! $shop->name !!}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Tên sản phẩm</label>
+                                            <input type="text" class="form-control" name="name"
+                                                   placeholder="Tên sản phẩm">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Loại sản phẩm</label>
+                                            <select id="type-product" class="form-control" name="category_id">
+                                                <option value="">Chọn loại sản phẩm</option>
+                                                @foreach($listCate as $cate)
+                                                    <option value="{{ $cate->id }}" class="form-control">
+                                                        {{ $cate->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Tên cửa hàng</label>
+                                            <select id="select_shop" name="shop_id" class="form-control">
+                                                @foreach($lstShop as $shop)
+                                                    <option value="{!! $shop->id !!}">{!! $shop->name !!}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
 
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Giá bán (VND)</label>
+                                            <input type="number" class="form-control" min="0" name="price"
+                                                   placeholder="0">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Giá trị giảm giá (%)</label>
+                                            <input type="number" class="form-control" name="sale_off" min="0" max="100"
+                                                   placeholder="0">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Mô tả sản phẩm</label>
+                                            <textarea type="text" class="form-control" id="address" name="description"
+                                                      placeholder="Nhập mô tả" style="resize: vertical;"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Giá bán (VND)</label>
-                                    <input type="number" class="form-control" min="0" name="price" placeholder="0">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Giá trị giảm giá (%)</label>
-                                    <input type="number" class="form-control" name="sale_off" min="0" max="100"
-                                           placeholder="0">
+                                <div class="form-group col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label>Thêm ảnh sản phẩm</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" id="product_form">
+                                                <div class="thumbnails">
+                                                </div>
+                                                <label type="button" class="btn btn-outline-success">
+                                                    <input type="button" class="text-center center-block file-upload"
+                                                           id="upload_widget" accept="image/*" multiple=""
+                                                           style="margin-top: 20px;display: none;">
+                                                    <i class="fa fa-upload"></i>&nbsp; Tải ảnh lên
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label>Mô tả sản phẩm</label>
-                                    <textarea type="text" class="form-control" id="address" name="description"
-                                              placeholder="Nhập mô tả"
-                                              style="resize: vertical;"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <button class="btn btn-lg btn-success" type="submit"><i class="fa fa-save"></i>&nbsp;
-                                            Lưu
-                                        </button>
-                                        &emsp;
-                                        <button class="btn btn-lg btn-danger" type="reset"><i></i>
-                                            Làm lại
-                                        </button>
-                                    </div>
+                                    <button class="btn btn-lg btn-success" type="submit"><i class="fa fa-save"></i>&nbsp;
+                                        Lưu
+                                    </button>
+                                    &emsp;
+                                    <button class="btn btn-lg btn-danger" type="reset"><i></i>
+                                        Làm lại
+                                    </button>
                                 </div>
                             </form>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="col-md-12">
-                                <label>Thêm ảnh sản phẩm</label>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="thumbnails">
-                                        <label type="button" class="btn btn-outline-success">
-                                            <input type="button" class="text-center center-block file-upload"
-                                                   id="upload_widget" accept="image/*" multiple=""
-                                                   style="margin-top: 20px;display: none;">
-                                            <i class="fa fa-upload"></i>&nbsp; Tải ảnh lên
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

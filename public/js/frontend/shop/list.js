@@ -29,7 +29,6 @@ $(document).ready(function () {
 
     $('#deleteAll_product').click(function () {
         var deleteIds = [];
-        console.log(12)
         $('.product-checkbox').each(function () {
             if ($(this).prop('checked') == true) {
                 deleteIds.push(Number($(this).val()));

@@ -200,8 +200,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Huỷ</button>
                     <button id="delete_product" type="button" class="btn btn-sm btn-success"
-{{--                            data-id="{{ count($products) > 0 ? $pro->id : null }}" data-token="{{ csrf_token() }}"><i--}}
-                            class="fa fa-check"></i>&nbsp; Đồng ý
+                            data-id="{{ count($data['products']) > 0 ? $pro->id : null }}" data-token="{{ csrf_token() }}">
+                        <i class="fa fa-check"></i>&nbsp; Đồng ý
                     </button>
                 </div>
             </div>
@@ -231,6 +231,7 @@
     </div>
 @stop
 @section('main-script')
+
     <script src="/Admin/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="/Admin/plugins/sweetalert/sweetalert.min.js"></script>
     <script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>
