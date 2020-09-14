@@ -41,14 +41,18 @@ $(document).ready(function () {
             })
             return;
         }
+        var data = {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            'ids': deleteIds
+        }
         $.ajax({
             url: "/shop/product/delete-all",
             method: 'POST',
-            dataType: "JSON",
             data: {
-                'token': $('meta[name="csrf-token"]').attr('content'),
+                "_token": $('meta[name="csrf-token"]').attr('content'),
                 'ids': deleteIds
             },
+            dataType: "json",
             'success': function () {
                 Toast.fire({
                     type: 'success',

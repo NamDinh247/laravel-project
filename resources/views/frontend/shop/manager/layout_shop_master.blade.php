@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/frontend/content_home.css">
     <link rel="stylesheet" href="/css/frontend/detail_shop.css">
     <link rel="stylesheet" href="/Admin/plugins/emoji/style.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('content')
