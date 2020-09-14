@@ -29,7 +29,6 @@ $(document).ready(function () {
 
     $('#deleteAll_product').click(function () {
         var deleteIds = [];
-        console.log(12)
         $('.product-checkbox').each(function () {
             if ($(this).prop('checked') == true) {
                 deleteIds.push(Number($(this).val()));
@@ -42,18 +41,14 @@ $(document).ready(function () {
             })
             return;
         }
-        var data = {
-            "_token": $('meta[name="csrf-token"]').attr('content'),
-            'ids': deleteIds
-        }
         $.ajax({
             url: "/shop/product/delete-all",
             method: 'POST',
+            dataType: "JSON",
             data: {
-                "_token": $('meta[name="csrf-token"]').attr('content'),
+                'token': $('meta[name="csrf-token"]').attr('content'),
                 'ids': deleteIds
             },
-            dataType: "json",
             'success': function () {
                 Toast.fire({
                     type: 'success',
