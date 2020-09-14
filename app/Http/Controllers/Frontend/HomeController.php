@@ -452,6 +452,16 @@ class HomeController extends Controller
                     $orderDetail->save();
                 }
             });
+            $data = array(
+                'username'=> $order->ship_name,
+                'email'=> $order->ship_email,
+                'od_code' => $order->od_code,
+            );
+            Mail::send('mail.order', $data, function($message) use ($order) {
+                $message->to($order->ship_email, $order->ship_name)
+                    ->subject('Đặt hàng thành công thành công');
+                $message->from('noreply.greenshop@gmail.com', 'Support Green Shop');
+            });
             Session::remove('shoppingCart');
             return 200;
         } catch (\Exception $ex) {

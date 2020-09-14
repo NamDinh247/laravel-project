@@ -349,7 +349,6 @@
         <td class="container">
             <div class="content">
 
-                <!-- START CENTERED WHITE CONTAINER -->
                 <table class="main">
 
                     <!-- START MAIN CONTENT AREA -->
@@ -360,8 +359,9 @@
                                     <td>
                                         <p>Xin chào {!! $username !!},</p>
                                         <p>
-                                            Bạn đã đăng kí một tài khoản trên trang <a href="https://laravel-asm-t1908e.herokuapp.com/">https://laravel-asm-t1908e.herokuapp.com/</a> của chúng tôi. <br />
-                                            Email đăng kí của bạn: {!! $email !!}
+                                            Bạn đã đặt hàng thành công trên trang <a href="https://laravel-asm-t1908e.herokuapp.com/">https://laravel-asm-t1908e.herokuapp.com/</a> của chúng tôi. <br />
+                                            Mã đơn hàng của của bạn: {!! $od_code !!} <br />
+                                            Chi tiết xem tại: <a href="https://laravel-asm-t1908e.herokuapp.com/">https://laravel-asm-t1908e.herokuapp.com/</a>
                                         </p>
                                         <p class="apple-link">Cảm ơn đã sử dụng dịch vụ của chúng tôi</p>
                                     </td>
@@ -379,3 +379,4 @@
 </table>
 </body>
 </html>
+
