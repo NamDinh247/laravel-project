@@ -15,7 +15,7 @@
     <div class="row scroll_content pb-3 pt-1">
         <div class="col-md-12 mb-3">
             <div class="box-filter p-3 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
-                <form action="/admin/product" method="get">
+                <form action="/admin/product" method="get" id="product_search">
                 <div class="header_box_filter clearfix">
                     <button type="button" class="btn btn-sm btn-default mr-2 float-left" style="border: 1px solid #ddd;"
                             title="Tải lại"><i class="fa fa-refresh px-1"></i></button>
@@ -28,17 +28,19 @@
                         </div>
                     </div>
                     <div class="input-group mr-1 ml-1 float-left" style="width: 250px;">
-                        <input type="text" class="form-control" readonly="" id="dateTime"
+                        <input type="text" class="form-control" name="dates"
                                style="border-radius: 0 !important;"/>
+                        <input type="hidden" name="start">
+                        <input type="hidden" name="end">
                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                     </div>
                     <div class="input-group mr-1 ml-1 float-left" style="width: 130px;">
                         <div class="dropdown">
                             <div class="" aria-labelledby="actionTypeProduct">
-                                <select class="form-control" name="category_id">
+                                <select class="form-control" name="category_id" id="category_id">
                                     <option value="0">Loại sản phẩm</option>
                                     @foreach($lstCate as $cate)
-                                        <option value="{{ $cate->id }}" class="form-control">
+                                        <option value="{{ $cate->id }}" @if($cate->id == $data['category_id']) selected @endif class="form-control">
                                             {{ $cate->name }}
                                         </option>
                                     @endforeach
@@ -46,30 +48,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mr-1 ml-1 float-left" style="width: 100px;">
-                        <div class="dropdown">
-                            <div class="" aria-labelledby="action">
-                                <select class="form-control" name="status">
-                                    <option value="0">Trạng thái</option>
-                                    <option value="1" class="form-control">Hoạt động</option>
-                                    <option value="2" class="form-control">Khóa</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="input-group mr-1 ml-1 float-left" style="width: 100px;">--}}
+{{--                        <div class="dropdown">--}}
+{{--                            <div class="" aria-labelledby="action">--}}
+{{--                                <select class="form-control" name="status" id="product_status">--}}
+{{--                                    <option value="0">Trạng thái</option>--}}
+{{--                                    <option value="1" class="form-control">Hoạt động</option>--}}
+{{--                                    <option value="2" class="form-control">Khóa</option>--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <div class="input-group mr-1 ml-1 float-left" style="width: 95px;">
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;"
-                                    type="button" id="filter_type" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                Giảm giá
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="filter_type">
-                                <div class="p-3">
-                                    <input id="range_1" class="p-3" type="text" name="range_1" value="">
-                                </div>
-                            </div>
-                        </div>
+                        <input type="number" name="sale_off" class="form-control"
+                               placeholder="Giảm giá" style="border-radius: 0 !important;" value="{!! $data['sale_off'] !!}">
                     </div>
                     <div class="input-group mr-1 ml-1 float-left" style="width: 100px;">
                         <div class="dropdown">
@@ -80,14 +72,13 @@
                             </button>
                             <div class="dropdown-menu border-r-0" aria-labelledby="filter_sale">
                                 <div class="p-3">
-                                    <label>Từ: <input class="form-control" type="number" min="0"
-                                                      placeholder="0"></label>
-                                    <label class="pt-2 pb-2">Đến: <input class="form-control" type="number" min="0"
-                                                                         placeholder="0"></label>
+                                    <label>Từ:  <input class="form-control" type="number" min="0" placeholder="0" name="min_price" value="{!! $data['min_price'] !!}"></label>
+                                    <label class="pt-2 pb-2">Đến:  <input class="form-control" type="number" min="0" name="max_price" placeholder="0" value="{!! $data['max_price'] !!}"></label>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <input type="submit" name="" id="" hidden />
                 </div>
                 </form>
             </div>
@@ -248,4 +239,29 @@
     <script src="/Admin/plugins/moment/locale/vi.js"></script>
     <script src="/js/admin/product/product.js"></script>
 
+    <script>
+        $('input[name="dates"]').daterangepicker(
+            {
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }
+        );
+        $('#category_id').change(function () {
+            $('#product_search').submit();
+        })
+        $('input[name="dates"]').on('apply.daterangepicker', function(ev, picker) {
+            $('input[name="start"]').val(picker.startDate.format('YYYY-MM-DD'));
+            $('input[name="end"]').val(picker.endDate.format('YYYY-MM-DD'));
+            $('#product_search').submit();
+        });
+    </script>
 @endsection

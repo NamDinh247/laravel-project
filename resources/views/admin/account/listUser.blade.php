@@ -11,45 +11,45 @@
 @section('main-content')
     <div class="row scroll_content pb-3">
         <div class="col-md-12 mb-4">
+            <form action="/admin/account/user" method="get" id="user_search">
             <div class="box-filter p-3 bg-white" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
                 <div class="header_box_filter clearfix">
                     <button type="button" class="btn btn-sm btn-default mr-2 float-left" style="border: 1px solid #ddd;" title="Tải lại"><i class="fa fa-refresh px-1"></i></button>
                     <div class="input-group input-group-sm float-left" style="width: 200px;">
-                        <input type="text" name="table_search" class="form-control" placeholder="Tìm kiếm quản trị" style="border-radius: 0 !important;">
+                        <input type="text" name="keyword" value="{!!  $data['keyword'] !!}" class="form-control" placeholder="Tìm kiếm quản trị" style="border-radius: 0 !important;">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default" style="border: 1px solid #ced4da; border-radius: 0 !important;"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                     <div class="input-group mr-1 ml-1 float-left" style="width: 250px;">
-                        <input type="text" class="form-control" readonly="" id="dateTime" style="border-radius: 0 !important;"/>
+                        <input type="text" class="form-control" name="dates"
+                               style="border-radius: 0 !important;"/>
+                        <input type="hidden" name="start">
+                        <input type="hidden" name="end">
                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                     </div>
-                    <div class="input-group mr-1 ml-1 float-left" style="width: 100px;">
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Trạng thái
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="action">
-                                <a class="dropdown-item" data-val="" onclick="filterActive(this)">Tất cả</a>
-                                <a class="dropdown-item" data-val="1" onclick="filterActive(this)">Hoạt động</a>
-                                <a class="dropdown-item" data-val="0" onclick="filterActive(this)">Không hoạt động</a>
-                            </div>
-                        </div>
+                    <div class="input-group mr-1 ml-1 float-left" style="width: 120px;">
+                        <select class="form-control" id="user_status" name="user_status" style="border-radius: 0 !important;">
+                            <option value="0">Trạng thái</option>
+                            <option value="1" @if($data['user_status'] == 1) selected @endif>Họat động</option>
+                            <option value="3" @if($data['user_status'] == 3) selected @endif>Khóa</option>
+                        </select>
                     </div>
-                    <div class="input-group mr-1 ml-1 float-left" style="width: 155px;">
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="accuracy" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Kích hoạt tài khoản
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="accuracy">
-                                <a class="dropdown-item" data-val="" onclick="filterAccuracy(this)">Tất cả</a>
-                                <a class="dropdown-item" data-val="1" onclick="filterAccuracy(this)">Đã xác thực email</a>
-                                <a class="dropdown-item" data-val="0" onclick="filterAccuracy(this)">Chưa xác thực email</a>
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="input-group mr-1 ml-1 float-left" style="width: 155px;">--}}
+{{--                        <div class="dropdown">--}}
+{{--                            <button class="btn btn-default dropdown-toggle" style="border: 1px solid #ddd;" type="button" id="accuracy" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                                Kích hoạt tài khoản--}}
+{{--                            </button>--}}
+{{--                            <div class="dropdown-menu" aria-labelledby="accuracy">--}}
+{{--                                <a class="dropdown-item" data-val="" onclick="filterAccuracy(this)">Tất cả</a>--}}
+{{--                                <a class="dropdown-item" data-val="1" onclick="filterAccuracy(this)">Đã xác thực email</a>--}}
+{{--                                <a class="dropdown-item" data-val="0" onclick="filterAccuracy(this)">Chưa xác thực email</a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
             </div>
+            </form>
         </div>
         <div class="col-md-12">
             <div class="content-table bg-white py-2 px-3" style="box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);">
@@ -112,11 +112,13 @@
                     </table>
                 </div>
                 <div class="row footer-table">
-                    <div class="col-md-6">
-{{--                        <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Hiển thị 1 đến 10 trong số 57</div>--}}
-                    </div>
-                    <nav class="col-md-6 clearfix">
-                        {{$lstUser->links()}}
+                    {{--                    <div class="col-md-6">--}}
+                    {{--                        <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Hiển thị 1 đến 10 trong số 57</div>--}}
+                    {{--                    </div>--}}
+                    <nav class="col-md-12 clearfix">
+                        <ul class="pagination float-right">
+                            {!! $lstUser->links() !!}
+                        </ul>
                     </nav>
                 </div>
             </div>
@@ -151,5 +153,30 @@
     <script src="/Admin/plugins/moment/moment.min.js"></script>
     <script src="/Admin/plugins/moment/locale/vi.js"></script>
     <script src="/js/admin/account/listUser.js"></script>
+    <script>
+        $('input[name="dates"]').daterangepicker(
+            {
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }
+        );
+        $('#user_status').change(function () {
+            $('#user_search').submit();
+        })
+        $('input[name="dates"]').on('apply.daterangepicker', function(ev, picker) {
+            $('input[name="start"]').val(picker.startDate.format('YYYY-MM-DD'));
+            $('input[name="end"]').val(picker.endDate.format('YYYY-MM-DD'));
+            $('#user_search').submit();
+        });
+    </script>
 
 @endsection

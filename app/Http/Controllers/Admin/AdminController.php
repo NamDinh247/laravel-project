@@ -163,13 +163,37 @@ class AdminController extends Controller
     }
     // account
     // list account admin
-    public function accountManagement()
+    public function accountManagement(Request $request)
     {
-        $lstUserAdmin = User::whereIn('role', [1, 2])
+        $data = array();
+        $data['keyword'] = '';
+        $data['user_status'] = 0;
+        $lstUserAdmin = User::query();
+        if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+            $data['keyword'] = $request->get('keyword');
+            $lstUserAdmin = $lstUserAdmin->where('phone', 'like', '%' . $request->get('keyword') . '%');
+        }
+        if ($request->has('user_status') && $request->get('user_status') != 0) {
+            $data['user_status'] = $request->get('user_status');
+            $lstUserAdmin = $lstUserAdmin->where('status', '=', $request->get('user_status'));
+        }
+        if ($request->has('start') && strlen($request->get('start')) > 0 && $request->has('end') && strlen($request->get('end')) > 0) {
+            $data['start'] = $request->get('start');
+            $data['end'] = $request->get('end');
+            $from = date($request->get('start') . ' 00:00:00');
+            $to = date($request->get('end') . ' 23:59:00');
+            $lstUserAdmin = $lstUserAdmin->whereBetween('created_at', [$from, $to]);
+        }
+        $lstUserAdmin = $lstUserAdmin->whereIn('role', [1,2])
             ->where('status', '!=', -1)
             ->orderby('created_at', 'desc')
-            ->paginate(15);
-        return view('admin.account.account', compact('lstUserAdmin'));
+            ->paginate(15)
+            ->appends($request->only('keyword'))
+            ->appends($request->only('start'))
+            ->appends($request->only('end'))
+            ->appends($request->only('user_status'));
+
+        return view('admin.account.account', compact('lstUserAdmin', 'data'));
     }
 
     // detail account admin
@@ -235,13 +259,37 @@ class AdminController extends Controller
     }
 
     // list account user
-    public function listAccountUser()
+    public function listAccountUser(Request $request)
     {
-        $lstUser = User::whereIn('role', [3, 4])
+        $data = array();
+        $data['keyword'] = '';
+        $data['user_status'] = 0;
+        $lstUser = User::query();
+        if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+            $data['keyword'] = $request->get('keyword');
+            $lstUser = $lstUser->where('phone', 'like', '%' . $request->get('keyword') . '%');
+        }
+        if ($request->has('user_status') && $request->get('user_status') != 0) {
+            $data['user_status'] = $request->get('user_status');
+            $lstUser = $lstUser->where('status', '=', $request->get('user_status'));
+        }
+        if ($request->has('start') && strlen($request->get('start')) > 0 && $request->has('end') && strlen($request->get('end')) > 0) {
+            $data['start'] = $request->get('start');
+            $data['end'] = $request->get('end');
+            $from = date($request->get('start') . ' 00:00:00');
+            $to = date($request->get('end') . ' 23:59:00');
+            $lstUser = $lstUser->whereBetween('created_at', [$from, $to]);
+        }
+        $lstUser = $lstUser->whereIn('role', [3, 4])
             ->where('status', '!=', -1)
             ->orderby('created_at', 'desc')
-            ->paginate(20);
-        return view('admin.account.listUser', compact('lstUser'));
+            ->paginate(15)
+            ->appends($request->only('keyword'))
+            ->appends($request->only('start'))
+            ->appends($request->only('end'))
+            ->appends($request->only('user_status'));
+
+        return view('admin.account.listUser', compact('lstUser', 'data'));
     }
 
     // new account user
@@ -259,12 +307,42 @@ class AdminController extends Controller
     }
 
     // list account shop
-    public function listAccountShop()
+    public function listAccountShop(Request $request)
     {
-        $lstShop = Shop::whereNotIn('status', [-1])
+        $data = array();
+        $data['keyword'] = '';
+        $data['user_status'] = 0;
+        $lstShop = Shop::query();
+        if ($request->has('keyword') && strlen($request->get('keyword')) > 0) {
+            $data['keyword'] = $request->get('keyword');
+            $lstShop = $lstShop->where('name', 'like', '%' . $request->get('keyword') . '%')
+                ->orWhere('email', 'like', '%' . $request->get('keyword') . '%')
+                ->orWhere('phone', 'like', '%' . $request->get('keyword') . '%');
+        }
+        if ($request->has('user_status') && $request->get('user_status') != 0) {
+            $data['user_status'] = $request->get('user_status');
+            $lstShop = $lstShop->where('status', '=', $request->get('user_status'));
+        }
+        if ($request->has('start') && strlen($request->get('start')) > 0 && $request->has('end') && strlen($request->get('end')) > 0) {
+            $data['start'] = $request->get('start');
+            $data['end'] = $request->get('end');
+            $from = date($request->get('start') . ' 00:00:00');
+            $to = date($request->get('end') . ' 23:59:00');
+            $lstShop = $lstShop->whereBetween('created_at', [$from, $to]);
+        }
+        $lstShop = $lstShop->where('status', '!=', -1)
             ->orderby('created_at', 'desc')
-            ->paginate(20);
-        return view('admin.account.listShop', compact('lstShop'));
+            ->paginate(15)
+            ->appends($request->only('keyword'))
+            ->appends($request->only('start'))
+            ->appends($request->only('end'))
+            ->appends($request->only('user_status'));
+
+
+//        $lstShop = Shop::whereNotIn('status', [-1])
+//            ->orderby('created_at', 'desc')
+//            ->paginate(20);
+        return view('admin.account.listShop', compact('lstShop', 'data'));
     }
 
     public function getChangeStatusShop(Request $request)
@@ -340,6 +418,9 @@ class AdminController extends Controller
         $data = array();
         $data['keyword'] = '';
         $data['category_id'] = 0;
+        $data['sale_off'] = '';
+        $data['min_price'] = '';
+        $data['max_price'] = '';
         $lstCate = Category::where('status', 1)->get();
         $products = Product::query();
 
@@ -348,16 +429,36 @@ class AdminController extends Controller
             $products = $products->where('name', 'like', '%' . $request->get('keyword') . '%')
                 ->orWhere('prd_code', 'like', '%' . $request->get('keyword') . '%');
         }
+        if ($request->has('sale_off') && strlen($request->get('sale_off')) > 0) {
+            $data['sale_off'] = $request->get('sale_off');
+            $products = $products->where('sale_off', '=', $request->get('sale_off'));
+        }
 
         if ($request->has('category_id') && $request->get('category_id') != 0) {
             $data['category_id'] = $request->get('category_id');
             $products = $products->where('category_id', '=', $request->get('category_id'));
         }
 
+        if ($request->has('start') && strlen($request->get('start')) > 0 && $request->has('end') && strlen($request->get('end')) > 0) {
+            $data['start'] = $request->get('start');
+            $data['end'] = $request->get('end');
+            $from = date($request->get('start') . ' 00:00:00');
+            $to = date($request->get('end') . ' 23:59:00');
+            $products = $products->whereBetween('created_at', [$from, $to]);
+        }
+        if ($request->has('min_price') && strlen($request->get('min_price')) > 0 && $request->has('max_price') && strlen($request->get('max_price')) > 0) {
+            $data['min_price'] = $request->get('min_price');
+            $data['max_price'] = $request->get('max_price');
+            $products = $products->whereBetween('price', [$request->get('min_price'), $request->get('max_price')]);
+        }
+
         $data['products'] = $products->where('status', '=', 1)
             ->orderby('created_at', 'desc')
             ->paginate(20)
             ->appends($request->only('keyword'))
+            ->appends($request->only('start'))
+            ->appends($request->only('end'))
+            ->appends($request->only('product_status'))
             ->appends($request->only('category_id'));
         return view('admin.products.listProduct', compact('data', 'lstCate'));
     }
