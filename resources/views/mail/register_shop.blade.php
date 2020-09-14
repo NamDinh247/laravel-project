@@ -361,9 +361,9 @@
                                     <td>
                                         <p>Xin chào {!! $username !!},</p>
                                         <p>
-                                            Đơn hàng {!! $order_code !!} của bạn đã được chuyển sang trạng thái
-                                            {!! $order_status_name !!}.
-                                            Chi tiết xem tại <a href="https://laravel-asm-t1908e.herokuapp.com/">https://laravel-asm-t1908e.herokuapp.com/</a>
+                                            Bạn đã đăng kí trở thành shop bán hàng trên trang <a href="https://laravel-asm-t1908e.herokuapp.com/">https://laravel-asm-t1908e.herokuapp.com/</a> của chúng tôi. <br />
+                                            Email đăng kí shop của bạn: {!! $email !!} <br />
+                                            Shop của bạn đang được xác minh. Thời gian xác minh từ 1-3 ngày. Nếu có thắc mắc vui lòng liên hệ với chúng tôi qua hotline: 0987654321
                                         </p>
                                         <p class="apple-link">Cảm ơn đã sử dụng dịch vụ của chúng tôi</p>
                                     </td>
@@ -381,3 +381,4 @@
 </table>
 </body>
 </html>
+

@@ -63,10 +63,20 @@ class HomeController extends Controller
                 $user->status = 1;
                 $user->save();
                 // register success
+                $data = array(
+                    'username'=> $user->full_name,
+                    'email'=> $user->email,
+                );
+                Mail::send('mail.register', $data, function($message) use ($user) {
+                    $message->to($user->email, $user->full_name)
+                        ->subject('Đăng kí tài khoản thành công');
+                    $message->from('noreply.greenshop@gmail.com', 'Support Green Shop');
+                });
+
                 return 200;
             }
         } catch (\Exception $ex) {
-            dd($ex);
+            return $ex;
             return 500;
         }
 
@@ -156,6 +166,15 @@ class HomeController extends Controller
                 $shop->status = 2; // pending
                 $shop->save();
                 // register shop success
+                $data = array(
+                    'username'=> $shop->name,
+                    'email'=> $shop->email,
+                );
+                Mail::send('mail.register_shop', $data, function($message) use ($shop) {
+                    $message->to($shop->email, $shop->name)
+                        ->subject('Đăng kí shop thành công');
+                    $message->from('noreply.greenshop@gmail.com', 'Support Green Shop');
+                });
                 return 200;
             }
         } catch (\Exception $ex) {
@@ -668,15 +687,18 @@ class HomeController extends Controller
             }
             $order->od_status = $request->get('order_status');
             $order->save();
-//            $data = array(
-//                'username' => 'hiện',
-//                'namegift' => 'hello',
-//                'transaction' => 'as'
-//            );
-//            Mail::send('mail.send', $data, function ($messeage){
-//                $messeage->to('hanoimatbao@gmail.com', 'Tutorials Point')->subject('Bạn vừa chuyển trạng thái đơn hàng thành công');
-//                $messeage->from('greenshopt1908e@gmail.com', 'GreenShop');
-//            });
+
+            $data = array(
+                'username'=> $order->ship_name,
+                'order_code'=> $order->od_code,
+                'order_status_name'=> $order->orderStatus->stt_name,
+                'transaction' => 'as');
+            Mail::send('mail.send', $data, function($message) use ($order) {
+                $message->to($order->ship_email, $order->ship_name)
+                    ->subject('Cập nhật trạng thái đơn hàng');
+                $message->from('noreply.greenshop@gmail.com', 'Support Green Shop');
+            });
+
             return redirect()->back()->with(['success_message' => 'Cập nhật đơn hàng thành công']);
         } catch (\Exception $ex) {
             return redirect()->back()->with(['error_message' => 'Cập nhật đơn hàng không thành công']);
@@ -741,7 +763,6 @@ class HomeController extends Controller
 
             return view('frontend.shop.manager.list_product', compact('data', 'lstCate'));
         } catch (\Exception $ex) {
-            dd($ex);
             return abort(404);
         }
     }

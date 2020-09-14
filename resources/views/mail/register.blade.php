@@ -361,9 +361,8 @@
                                     <td>
                                         <p>Xin chào {!! $username !!},</p>
                                         <p>
-                                            Đơn hàng {!! $order_code !!} của bạn đã được chuyển sang trạng thái
-                                            {!! $order_status_name !!}.
-                                            Chi tiết xem tại <a href="https://laravel-asm-t1908e.herokuapp.com/">https://laravel-asm-t1908e.herokuapp.com/</a>
+                                            Bạn đã đăng kí một tài khoản trên trang <a href="https://laravel-asm-t1908e.herokuapp.com/">https://laravel-asm-t1908e.herokuapp.com/</a> của chúng tôi. <br />
+                                            Email đăng kí của bạn: {!! $email !!}
                                         </p>
                                         <p class="apple-link">Cảm ơn đã sử dụng dịch vụ của chúng tôi</p>
                                     </td>
