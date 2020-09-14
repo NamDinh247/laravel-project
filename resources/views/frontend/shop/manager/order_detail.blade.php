@@ -146,7 +146,7 @@
                         <div class="row my-3">
                             <div class="col-md-4">
                                 <select class="form-control" name="order_status"
-                                        @if($order->od_status == 5 || $order->od_status == 6) readonly @endif>
+                                        @if($order->od_status == 5 || $order->od_status == 6) disabled @endif>
                                     @foreach($order_status as $stt)
                                         @if($stt->stt_order >= $order->od_status)
                                             <option value="{!! $stt->stt_order !!}"
