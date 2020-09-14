@@ -93,7 +93,7 @@
                                         <label class="form-check-label" for="check-1"></label>
                                     </td>
                                     <td class="ver-middle">{{ $order->od_code }}</td>
-                                    <td class="ver-middle">{{ $order->user->full_name }}</td>
+                                    <td class="ver-middle">{{ $order->ship_name }}</td>
                                     <td class="ver-middle">{{ date('d/m/Y', strtotime($order->created_at)) }}</td>
                                     <td class="ver-middle">{{ number_format($order->od_total_price,0,',','.') }}</td>
                                     <td class="ver-middle">

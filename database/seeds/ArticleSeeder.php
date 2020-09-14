@@ -24,8 +24,8 @@ class ArticleSeeder extends Seeder
                 'detail' => 'Vành xe đạp tre trên trần nhà hoặc có thể gắn thêm cây trụ để biến nó thành móc treoi',
                 'type' => 1,
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-1)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-1)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 2,
@@ -35,8 +35,8 @@ class ArticleSeeder extends Seeder
                 'detail' => 'Giá để giày dép làm bằng gỗ pallet sẽ giúp bạn cất giữ được nhiều giáy dép hơn, đồng thời giúp giày dép luôn được thoáng khí.',
                 'type' => 1,
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-2)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-2)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 3,
@@ -47,8 +47,8 @@ class ArticleSeeder extends Seeder
                  khi muốn tạo những mảng sắc màu đáng yêu và bắt mắt cho tường nhà.',
                 'type' => 1,
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-1)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-1)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 4,
@@ -59,8 +59,8 @@ class ArticleSeeder extends Seeder
                 chiếc que để tạo ra những ngôi nhà thu nhỏ để làm trang trí trong phòng thật đặc biệt',
                 'type' => 1,
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-5)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(5)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 5,
@@ -71,8 +71,8 @@ class ArticleSeeder extends Seeder
                 Hoàn hỏa trang trí cho một căn phòng, đặc biết được làm từ 100% thủy tinh tái chế, mỗi mặt của đèn được làm bằng tay rất cầu kì.',
                 'type' => 1,
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-10)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-10)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 6,
@@ -82,8 +82,8 @@ class ArticleSeeder extends Seeder
                 'detail' => null,
                 'type' => 1,
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-2)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-2)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 7,

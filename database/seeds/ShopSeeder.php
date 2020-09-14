@@ -20,37 +20,37 @@ class ShopSeeder extends Seeder
                 'id' => 1,
                 'account_id' => 2,
                 'name' => 'Bán đồ tái chế',
-                'logo' => '',
+                'logo' => 'g6hnhg779tgwp0u36wht',
                 'address' => '223 Láng Hạ, Đống Đa, Hà Nội',
                 'email' => 'dotaiche1102@gmail.com',
                 'phone' => '0123128181',
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-3)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-3)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 2,
                 'account_id' => 3,
                 'name' => 'Đồ tái chế handmade',
-                'logo' => '',
+                'logo' => 'zdl4vr7d4nnxqpnvm6ot',
                 'address' => '123 Xuân Thụy, Cầu Giấy, Hà Nội',
                 'email' => 'dungvqdtc@gmail.com',
                 'phone' => '123128181',
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-2)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-2)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 3,
                 'account_id' => 4,
                 'name' => 'Green shop',
-                'logo' => '',
+                'logo' => 'evpysvnlhkvwtjuofhu1',
                 'address' => '231 Cầu Giấy, Hà Nội',
                 'email' => 'greenshop@gmail.com',
                 'phone' => '991723121',
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-2)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-2)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 4,
