@@ -605,17 +605,18 @@ class HomeController extends Controller
             if ($order == null) {
                 return view('errors.404');
             }
+            $data = array(
+               'username' => 'hiện',
+               'namegift' => 'hello',
+               'transaction' => 'as'
+           );
+           Mail::send('mail.send', $data, function ($messeage){
+               $messeage->to('hanoimatbao@gmail.com', 'Tutorials Point')->subject('Bạn vừa chuyển trạng thái đơn hàng thành công');
+               $messeage->from('greenshopt1908e@gmail.com', 'GreenShop');
+           });
             $order->od_status = $request->get('order_status');
             $order->save();
-//            $data = array(
-//                'username' => 'hiện',
-//                'namegift' => 'hello',
-//                'transaction' => 'as'
-//            );
-//            Mail::send('mail.send', $data, function ($messeage){
-//                $messeage->to('hanoimatbao@gmail.com', 'Tutorials Point')->subject('Bạn vừa chuyển trạng thái đơn hàng thành công');
-//                $messeage->from('greenshopt1908e@gmail.com', 'GreenShop');
-//            });
+           
             return redirect()->back()->with(['success_message' => 'Cập nhật đơn hàng thành công']);
         } catch (\Exception $ex) {
             return redirect()->back()->with(['error_message' => 'Cập nhật đơn hàng không thành công']);
