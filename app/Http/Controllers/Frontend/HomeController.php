@@ -244,6 +244,9 @@ class HomeController extends Controller
     {
         try {
             $data = array();
+            $data['keyword'] = '';
+            $data['min_price'] = '';
+            $data['max_price'] = '';
             $data['lst_product'] = Product::where('category_id', $id)
                 ->where('status', '!=', -1)
                 ->orderby('created_at', 'desc')
