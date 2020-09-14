@@ -12,7 +12,7 @@ class RoleUserSeeder extends Seeder
     public function run()
     {
         if (env('DB_CONNECTION') == 'mysql') {
-            \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+//            \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         }
 
         \Illuminate\Support\Facades\DB::table('role_user')->truncate();
@@ -36,7 +36,7 @@ class RoleUserSeeder extends Seeder
         ]);
 
         if (env('DB_CONNECTION') == 'mysql') {
-            \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+//            \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 1');
         }
     }
 }
