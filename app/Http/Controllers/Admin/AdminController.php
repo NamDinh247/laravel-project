@@ -338,10 +338,6 @@ class AdminController extends Controller
             ->appends($request->only('end'))
             ->appends($request->only('user_status'));
 
-
-//        $lstShop = Shop::whereNotIn('status', [-1])
-//            ->orderby('created_at', 'desc')
-//            ->paginate(20);
         return view('admin.account.listShop', compact('lstShop', 'data'));
     }
 
@@ -362,15 +358,6 @@ class AdminController extends Controller
                 $user->save();
                 $shop->save();
             });
-//            $data = array(
-//                'username' => 'hiện',
-//                'namegift' => 'hello',
-//                'transaction' => 'as'
-//            );
-//            Mail::send('mail.send', $data, function ($messeage){
-//                $messeage->to('hanoimatbao@gmail.com', 'Tutorials Point')->subject('Bạn vừa chuyển trạng thái đơn hàng thành công');
-//                $messeage->from('greenshopt1908e@gmail.com', 'GreenShop');
-//            });
             return redirect('/admin/account/shop')
                 ->with(['success_message' => 'Kích hoạt tài khoản thành công']);
         } catch (\Exception $ex) {
@@ -474,14 +461,7 @@ class AdminController extends Controller
     {
         try {
             $product = new Product();
-//        $id = $request->get('id');
-//        $name = $request->get('name');
-//        $price = $request->get('price');
-//        $category_id = $request->get('category_id');
-//        $shop_id = $request->get('shop_id');
-//        $sale_off = $request->get('sale_off');
             $thumbnails = $request->get('thumbnails');
-//        $description = $request->get('description');
 
             $product->name = $request->name;
             $product->price = $request->price;
@@ -626,7 +606,6 @@ class AdminController extends Controller
                 ->paginate(20)
                 ->appends($request->only('keyword'))
                 ->appends($request->only('od_status'));
-//            dd($data['lstOrder']);
             return view('admin.orders.listOrders', compact('data'));
         } catch (\Exception $ex) {
             return abort(404);

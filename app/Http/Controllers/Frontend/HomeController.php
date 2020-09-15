@@ -76,7 +76,6 @@ class HomeController extends Controller
                 return 200;
             }
         } catch (\Exception $ex) {
-            return $ex;
             return 500;
         }
 
