@@ -227,7 +227,7 @@ class HomeController extends Controller
         $products = Product::where('status', '=', 1)
             ->orderby('created_at', 'desc')
             ->get();
-        $prd_today = Product::where('category_id', '=', 3)
+        $prd_today = Product::where('category_id', '=', 4)
             ->get();
 //        $prd_today = Product::where('created_at', '<=', Carbon::now())
 //            ->where('created_at', '>=', Carbon::now()->subDay(7))

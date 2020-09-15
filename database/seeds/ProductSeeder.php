@@ -456,8 +456,8 @@ class ProductSeeder extends Seeder
                 'type' => 1,
                 'sale_off' => 1,
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-3)->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-3)->format('Y-m-d H:i:s'),
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-1)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-1)->format('Y-m-d H:i:s'),
             ],
             [
                 'id' => 30,
@@ -488,8 +488,8 @@ class ProductSeeder extends Seeder
                 'type' => 1,
                 'sale_off' => 1,
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-3)->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-3)->format('Y-m-d H:i:s'),
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-1)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-1)->format('Y-m-d H:i:s'),
             ],
             [
                 'id' => 32,
@@ -504,8 +504,8 @@ class ProductSeeder extends Seeder
                 'type' => 1,
                 'sale_off' => 1,
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-3)->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-3)->format('Y-m-d H:i:s'),
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-1)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-1)->format('Y-m-d H:i:s'),
             ],
             [
                 'id' => 33,

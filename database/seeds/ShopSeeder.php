@@ -25,8 +25,8 @@ class ShopSeeder extends Seeder
                 'email' => 'dotaiche1102@gmail.com',
                 'phone' => '0123128181',
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-3)->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-3)->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDays(-1)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-1)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 2,
@@ -61,8 +61,8 @@ class ShopSeeder extends Seeder
                 'email' => 'shopxanh@gmail.com',
                 'phone' => '0925329232',
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDay(-7)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDay(-7)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 5,
@@ -85,8 +85,8 @@ class ShopSeeder extends Seeder
                 'email' => 'shopabc@gmail.com',
                 'phone' => '0925239123',
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDay(-5)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDay(-5)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 7,
@@ -109,8 +109,8 @@ class ShopSeeder extends Seeder
                 'email' => 'shopdotaiche@gmail.com',
                 'phone' => '0912386123',
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDay(-6)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDay(-6)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 9,
@@ -121,8 +121,8 @@ class ShopSeeder extends Seeder
                 'email' => 'shopglass@gmail.com',
                 'phone' => '0971737112',
                 'status' => 1,
-                'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
+                'created_at' => \Illuminate\Support\Carbon::now()->addDay(-4)->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->addDay(-4)->format('Y-m-d H:i:s')
             ],
             [
                 'id' => 10,
