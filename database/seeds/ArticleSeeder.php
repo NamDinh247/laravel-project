@@ -65,8 +65,8 @@ class ArticleSeeder extends Seeder
             [
                 'id' => 5,
                 'shop_id' => 8,
-                'product_id' => 33,
-                'title' => 'Đèn chùm làm từ những mảnh thủy tỉnh',
+                'product_id' => 27,
+                'title' => 'Lọ Làm Bàng Nhựa Tái Chế',
                 'detail' => 'Màu sắc rực rỡ phong phú tuyệt đẹp làm cho sản phẩm trở nên rất đặc biệt.
                 Hoàn hỏa trang trí cho một căn phòng, đặc biết được làm từ 100% thủy tinh tái chế, mỗi mặt của đèn được làm bằng tay rất cầu kì.',
                 'type' => 1,
@@ -77,8 +77,8 @@ class ArticleSeeder extends Seeder
             [
                 'id' => 6,
                 'shop_id' => 9,
-                'product_id' => 38,
-                'title' => 'Đĩa làm từ thủy tinh tái chế',
+                'product_id' => 17,
+                'title' => 'Hộp Bút Làm Bằng Những Que Kem Tái Chế',
                 'detail' => null,
                 'type' => 1,
                 'status' => 1,
@@ -88,8 +88,8 @@ class ArticleSeeder extends Seeder
             [
                 'id' => 7,
                 'shop_id' => 9,
-                'product_id' => 39,
-                'title' => 'Chuông gió làm từ thủy tinh tái chế',
+                'product_id' => 14,
+                'title' => 'Bản Đồ Thế Giới Treo Tường Làm Bằng Gỗ',
                 'detail' => null,
                 'type' => 1,
                 'status' => 1,
@@ -99,8 +99,8 @@ class ArticleSeeder extends Seeder
             [
                 'id' => 8,
                 'shop_id' => 6,
-                'product_id' => 30,
-                'title' => 'Đĩa ăn làm từ nhựa tái chế',
+                'product_id' => 18,
+                'title' => 'Ghế Làm Từ Những Mảnh Gỗ Vụn',
                 'detail' => null,
                 'type' => 1,
                 'status' => 1,
@@ -110,8 +110,8 @@ class ArticleSeeder extends Seeder
             [
                 'id' => 9,
                 'shop_id' => 5,
-                'product_id' => 25,
-                'title' => 'Bàn cà phê làm bằng nhữ chiếc lốp ô tô cũ',
+                'product_id' => 11,
+                'title' => 'Kệ Giày Bằng Gỗ Pallet',
                 'detail' => null,
                 'type' => 1,
                 'status' => 1,
@@ -121,8 +121,8 @@ class ArticleSeeder extends Seeder
             [
                 'id' => 10,
                 'shop_id' => 5,
-                'product_id' => 24,
-                'title' => 'Túi sách bằng những túi ni lông',
+                'product_id' => 10,
+                'title' => 'Đĩa Làm Bằng Các Nắp Chai Bia',
                 'detail' => null,
                 'type' => 1,
                 'status' => 1,
